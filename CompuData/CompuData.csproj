@@ -257,6 +257,7 @@
     <Compile Include="Controllers\AddDonationController.cs" />
     <Compile Include="Controllers\AddDonationItemController.cs" />
     <Compile Include="Controllers\AddDonationTypeController.cs" />
+    <Compile Include="Controllers\AddEquipmentController.cs" />
     <Compile Include="Controllers\AddJobTitleController.cs" />
     <Compile Include="Controllers\AddProjectTypeController.cs" />
     <Compile Include="Controllers\AddRepairPersonController.cs" />
@@ -830,6 +831,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
+    <Folder Include="Views\AddEquipment\" />
     <Folder Include="Views\Global\" />
   </ItemGroup>
   <ItemGroup>
