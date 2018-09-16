@@ -1,0 +1,184 @@
+﻿
+@{
+    ViewBag.Title = "SelectEquipmentForRepairRequest";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
+    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+}
+
+<nav id="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Equipment</a></li>
+        <li class="breadcrumb-item"><a href="#">Equipment Repair Requests</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Select Equipment</li>
+    </ol>
+</nav>
+@Html.Partial("_ProfilePartial")
+<div id="table_background">
+    <p>Select Equipment for Repair Request</p>
+    <table id="equipmentTable" class="display">
+        <thead>
+            <tr>
+                <th>Equipment ID</th>
+                <th>Manufacturer Name</th>
+                <th>Model Number</th>
+                <th>Date Purchased</th>
+                <th>Service Interval Months</th>
+                <th>Status</th>
+                <th>User Name</th>
+                <th>Type Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>IBM</td>
+                <td>I32451</td>
+                <td>03/02/2018</td>
+                <td>24</td>
+                <td>New</td>
+                <td>Wayne</td>
+                <td>Laptop</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>IBM</td>
+                <td>I42685</td>
+                <td>08/02/2018</td>
+                <td>24</td>
+                <td>New</td>
+                <td>Vanessa</td>
+                <td>Laptop</td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="addButton">Add Equipment</div>
+    <div id="backButton">Back</div>
+</div>
+<style>
+    #table_background p {
+        font-size: 25px;
+        text-align: center;
+    }
+
+    #table_background {
+        position: absolute;
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    #equipmentTable {
+        background-color: #5a9ad6;
+    }
+
+    #addButton {
+        position: relative;
+        display: table;
+        margin-left: auto;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #addButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #backButton {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: 2vh;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #backButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #breadcrumb {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+    }
+
+    .breadcrumb-item {
+        font-size: 25px;
+    }
+
+    .breadcrumb {
+        top: 0;
+        background-color: #33363b !important;
+        padding-left: 60px !important;
+    }
+
+    #profile {
+        position: relative;
+        z-index: 7979;
+        margin-left: auto;
+        margin-bottom: auto;
+        height: 61px;
+        width: 20%;
+        background-color: #33363b;
+        transform: translateX(-3px);
+    }
+
+        #profile a {
+            display: table;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 200;
+            font-size: 25px;
+            text-decoration: none !important;
+            color: #5a9ad6;
+            line-height: 61px;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    .glyphicon {
+        margin-left: 6px;
+    }
+
+    .dropdown-menu {
+        background-color: #33363b;
+    }
+
+        .dropdown-menu li a {
+            color: #5a9ad6;
+        }
+</style>
+<script>
+    $(document).ready(function () {
+        $('#equipmentTable').DataTable();
+    });
+</script>

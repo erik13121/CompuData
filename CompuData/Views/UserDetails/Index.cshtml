@@ -1,0 +1,492 @@
+﻿
+@{
+    ViewBag.Title = "UserDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @model CompuData.Models.User
+    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
+    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+}
+
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+</head>
+<nav id="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
+        <li class="breadcrumb-item"><a href="../AccessLevel/Index">User Access Menu</a></li>
+        <li class="breadcrumb-item"><a href="../User/Index">Users</a></li>
+        <li class="breadcrumb-item active" aria-current="page">User Details</li>
+    </ol>
+</nav>
+@Html.Partial("_ProfilePartial")
+<div class="col-md-6" id="mytwoColumns">
+    <p id="myheading2">User Details</p>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#PCRDetails" id="tabitem">User Details</a></li>
+        <li><a data-toggle="tab" href="#LineItems" id="tabitem">Address Details</a></li>
+        <li><a data-toggle="tab" href="#LineItems2" id="tabitem">Postal Address Details</a></li>
+    </ul>
+        @Html.HiddenFor(model => model.UserID)
+        <div class="tab-content">
+            <div id="PCRDetails" class="tab-pane fade in active">
+                <div class="row-md-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body">
+                            <div>
+                                <p>First Name:</p>
+                                @Html.TextBoxFor(model => model.FirstName)
+                            </div>
+                            <div>
+                                <p>Middle Name:</p>
+                                @Html.TextBoxFor(model => model.MiddleName)
+                            </div>
+                            <div>
+                                <p>Last Name:</p>
+                                @Html.TextBoxFor(model => model.LastName)
+                            </div>
+                            <div>
+                                <p>Initials:</p>
+                                @Html.TextBoxFor(model => model.Initials)
+                            </div>
+                            <div>
+                                <p>Cellphone Number:</p>
+                                @Html.TextBoxFor(model => model.CellNum)
+                            </div>
+                            <div>
+                                <p>Telephone Number:</p>
+                                @Html.TextBoxFor(model => model.TelNum)
+                            </div>
+                            <div>
+                                <p>Work Number:</p>
+                                @Html.TextBoxFor(model => model.WorkNum)
+                            </div>
+                            <div>
+                                <p>Personal Email:</p>
+                                @Html.TextBoxFor(model => model.PersonalEmail)
+                            </div>
+                            <div>
+                                <p>Work Email:</p>
+                                @Html.TextBoxFor(model => model.WorkEmail)
+                            </div>
+                            <div>
+                                <p>Job Title:</p>
+                                @Html.TextBoxFor(model => model.JobTitleName)
+                            </div>
+                            <div>
+                                <p>Access Level:</p>
+                                @Html.TextBoxFor(model => model.AccessLevelName)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="LineItems" class="tab-pane fade">
+                <div class="row-md-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body" id="cardbody2">
+                            <div>
+                                <p>Street Address:</p>
+                                @Html.TextBoxFor(model => model.StreetAddress)
+                            </div>
+                            <div>
+                                <p>City:</p>
+                                @Html.TextBoxFor(model => model.City)
+                            </div>
+                            <div>
+                                <p>Area Code:</p>
+                                @Html.TextBoxFor(model => model.AreaCode)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="LineItems2" class="tab-pane fade">
+                <div class="row-md-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body" id="cardbody2">
+                            <div>
+                                <p>PO Box Address:</p>
+                                @Html.TextBoxFor(model => model.POAddress)
+                            </div>
+                            <div>
+                                <p>PO Box City:</p>
+                                @Html.TextBoxFor(model => model.POCity)
+                            </div>
+                            <div>
+                                <p>PO Box Area Code:</p>
+                                @Html.TextBoxFor(model => model.POAreaCode)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="multipleButtons">
+            <div id="addButton">Modify User</div>
+            <div id="removeButton">Remove</div>
+        </div>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "User")'">Back</div>
+<style>
+    .tab-content {
+        overflow-y: auto;
+    }
+
+    #Dropdown1 {
+        width: auto;
+        border-left: 50px;
+    }
+
+    #tabitem {
+        color: black;
+    }
+
+    #myheading1 {
+        font-size: 30px;
+    }
+
+    #myheading2 {
+        transform: translateX(0px) !important;
+        font-size: 30px;
+        text-align: center;
+    }
+
+    #table_background p {
+        font-size: 25px;
+        text-align: center;
+    }
+
+    #table_background {
+        height: auto;
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    #table_id {
+        background-color: #5a9ad6;
+    }
+
+    #Flexyman {
+        display: flex;
+        flex-direction: row;
+        line-height: 30px;
+    }
+
+    #mytwoColumns {
+        position: absolute;
+        height: auto;
+        width: auto;
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    .card-body p {
+        font-size: 25px;
+        text-align: left;
+        flex: 1;
+        text-align: center;
+        flex-basis: 100%;
+    }
+
+    #cardbody2 {
+        overflow: auto;
+        max-height: 350px;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        float: left;
+        position: relative;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+    }
+
+        .card-body div {
+            display: flex;
+            flex-direction: row;
+            line-height: 30px;
+            margin-top: 1px;
+            margin-bottom: 1px;
+        }
+
+        .card-body p {
+            text-align: left;
+            vertical-align: middle;
+            padding: 0;
+            margin: 0;
+            flex: 50%;
+        }
+
+        .card-body div input {
+            flex: 50%;
+        }
+
+        .card-body div select {
+            flex: 50%;
+        }
+
+    #multipleButtons {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #addButton {
+        position: relative;
+        z-index: 8000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #addButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    .btn-group {
+        display: flex !important;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+    }
+
+    #addVenueButton:hover {
+        background-color: rgba(0, 255, 255, 0.4);
+    }
+
+    #backButton {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 1000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: 2vh;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #backButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #breadcrumb {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+    }
+
+    .breadcrumb-item {
+        font-size: 25px;
+    }
+
+    .breadcrumb {
+        top: 0;
+        background-color: #33363b !important;
+        padding-left: 60px !important;
+    }
+
+    #profile {
+        position: relative;
+        z-index: 8000;
+        margin-left: auto;
+        margin-bottom: auto;
+        height: 61px;
+        width: 20%;
+        background-color: #33363b;
+        transform: translateX(-3px);
+    }
+
+        #profile a {
+            display: table;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 200;
+            font-size: 25px;
+            text-decoration: none !important;
+            color: #5a9ad6;
+            line-height: 61px;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    .glyphicon {
+        margin-left: 6px;
+    }
+
+    .dropdown-menu {
+        background-color: white;
+    }
+
+        .dropdown-menu li a {
+            color: #5a9ad6;
+        }
+
+    .vsc-initialized {
+        overflow: hidden;
+        height: 100%;
+    }
+
+    /* Customize the label (the container) */
+    .container {
+        display: block;
+        width: 25px;
+        position: relative;
+        margin-left: auto;
+        margin-top: 3px;
+        cursor: pointer;
+        font-size: 22px;
+        user-select: none;
+    }
+
+        /* Hide the browser's default checkbox */
+        .container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .container:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .container input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .container input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .container .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('tabitem1').on('click', function() {
+            var x = document.getElementById("tabitem1").getAttribute("aria-expanded");
+
+            if (x == "true") {
+                x = "false"
+            } else {
+                x = "true"
+            }
+            document.getElementById("tabitem1").setAttribute("aria-expanded", x);
+            document.getElementById("tabitem1").innerHTML = "aria-expanded = " + x;
+        })
+
+        $('.nav-tabs>li>a').on('click', function (e) {
+            console.log($(this).siblings());
+            $(this).siblings().removeClass('active');
+        })
+    })
+
+    $('#addButton').on('click', function () {
+        var userID = @Model.UserID;
+
+        $.ajax({
+            url: '@Url.Action("RedirectToModifyUserDetails", "UserModify")',
+            type: 'POST',
+            data: { userID: userID },
+            dataType: 'json',
+            success: function (data) {
+                window.location.href = data.Url;
+            }
+        });
+    });
+
+    $('#removeButton').on('click', function () {
+        var userID = @Model.UserID;
+
+        swal({
+            title: "Are you sure you want to delete this User?",
+            icon: "warning",
+            dangerMode: true,
+            buttons: [
+                true,
+                "Yes",
+            ],
+            closeOnClickOutside: false,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: '@Url.Action("Delete", "User")',
+                        type: 'POST',
+                        data: { userID: userID },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.Url != "Cascading error!") {
+                                swal("You have successfully deleted the User", {
+                                    icon: "success",
+                                });
+                            }
+                            else {
+                                swal("Cannot delete this due to it being used somewhere else in the system!", {
+                                    icon: "warning",
+                                });
+                            }
+                            window.location.href = data.Url;
+                        }
+                    });
+                }
+            });
+    });
+</script>
+

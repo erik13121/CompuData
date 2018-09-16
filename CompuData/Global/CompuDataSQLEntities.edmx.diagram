@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="26de4ac14f424fffadff4aab0b371413" Name="Diagram1">
+        <EntityTypeShape EntityType="CompuDataSQLModel.Access_Level" Width="1.5" PointX="0.5" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Active_Login" Width="1.5" PointX="5" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Audit_Log" Width="1.5" PointX="5" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Booking_Refreshment_Line" Width="1.5" PointX="8" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Building" Width="1.5" PointX="5.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Donation" Width="1.5" PointX="11" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Donation_Item" Width="1.5" PointX="13.25" PointY="31.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Donation_Line" Width="1.5" PointX="13.25" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Donation_Type" Width="1.5" PointX="11" PointY="31.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Donor_Org" Width="1.5" PointX="8.75" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Donor_Person" Width="1.5" PointX="8.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.EFT_Requisition" Width="1.5" PointX="8" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.EFT_Requisition_Line" Width="1.5" PointX="10.25" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Employee_Title" Width="1.5" PointX="0.5" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Equipment" Width="1.5" PointX="8" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Equipment_Booking" Width="1.5" PointX="2.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Equipment_Booking_Line" Width="1.5" PointX="5" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Equipment_Schedule_Line" Width="1.5" PointX="10.25" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Equipment_Type" Width="1.5" PointX="5.75" PointY="42.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Funder_Org" Width="1.5" PointX="16.25" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Funder_Person" Width="1.5" PointX="13.25" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Funder_Type" Width="1.5" PointX="11" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Petty_Cash_Requisition" Width="1.5" PointX="5" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Petty_Cash_Requisition_Line" Width="1.5" PointX="7.25" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Project" Width="1.5" PointX="11" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Project_Type" Width="1.5" PointX="8.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Quantity_Type" Width="1.5" PointX="8.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Refreshment" Width="1.5" PointX="5.75" PointY="31.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Refreshment_Booking" Width="1.5" PointX="5.75" PointY="34.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Repair_Request" Width="1.5" PointX="10.25" PointY="27.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.RepairPerson" Width="1.5" PointX="8" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Service" Width="1.5" PointX="11" PointY="39.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Software_Licenses" Width="1.5" PointX="11" PointY="37" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Software_Licenses_Line" Width="1.5" PointX="13.25" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Supplier" Width="1.5" PointX="5.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.User" Width="1.5" PointX="2.75" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Vehicle_Booking" Width="1.5" PointX="11" PointY="34.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Vehicle_Booking_Line" Width="1.5" PointX="13.25" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Vehicle_Schedule_Line" Width="1.5" PointX="11" PointY="43.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Vehicle_Type" Width="1.5" PointX="6.5" PointY="39.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Vehicle" Width="1.5" PointX="8.75" PointY="38.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Venue" Width="1.5" PointX="14" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Venue_Booking" Width="1.5" PointX="5.75" PointY="36.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Venue_Booking_Line" Width="1.5" PointX="16.25" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CompuDataSQLModel.Venue_Schedule_Line" Width="1.5" PointX="16.25" PointY="9.75" IsExpanded="true" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__User__AccessLeve__0E6E26BF" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Active_Lo__UserI__6477ECF3" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Audit_Log__UserI__656C112C" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Booking_R__Build__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Booking_R__Refre__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Booking_R__Refre__68487DD7" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Booking_R__UserI__693CA210" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Booking_R__Venue__6A30C649" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Booking_Refreshm__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Booking_Refreshm__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Venue__BuildingI__160F4887" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Venue_Boo__Build__17036CC0" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Donation___Donat__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Donation__DonorO__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Donation__DonorP__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Donation__Quatit__6EF57B66" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Donation___TypeI__6FE99F9F" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Donation___Proje__71D1E811" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Donation___TypeI__72C60C4A" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__EFT_Requi__Proje__73BA3083" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__EFT_Requi__Suppl__74AE54BC" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__EFT_Requi__UserI__75A278F5" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__EFT_Requisition___778AC167" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__EFT_Requi__Suppl__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__User__JobTitleID__0F624AF8" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Equipment__Equip__7D439ABD" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Equipment__TypeI__787EE5A0" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Equipment__UserI__797309D9" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Repair_Re__Equip__08B54D69" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Software___Equip__0C85DE4D" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Equipment__Equip__7A672E12" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Equipment__Proje__7B5B524B" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Equipment__UserI__7C4F7684" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Funder_Or__Proje__7E37BEF6" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Funder_Or__TypeI__7F2BE32F" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Funder_Pe__Proje__00200768" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Funder_Pe__TypeI__01142BA1" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Petty_Cas__Proje__02084FDA" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Petty_Cas__Suppl__02FC7413" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Petty_Cas__UserI__03F0984C" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Petty_Cash_Requi__05D8E0BE" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Petty_Cas__Suppl__04E4BC85" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Project__TypeID__06CD04F7" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Project__UserID__07C12930" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Vehicle_B__Proje__10566F31" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Venue_Boo__Proje__17F790F9" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Repair_Re__RepPe__09A971A2" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Repair_Re__Vehic__0A9D95DB" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Service__Vehicle__0B91BA14" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Vehicle_Booking___1332DBDC" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Software___Licen__0D7A0286" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Vehicle_B__UserI__114A936A" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Venue_Boo__UserI__18EBB532" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Vehicle_B__Vehic__123EB7A3" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Vehicle_S__Vehic__14270015" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Vehicles__TypeID__151B244E" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Venue_Booking_Li__1AD3FDA4" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Venue_Schedule_L__1BC821DD" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Venue_Boo__Venue__19DFD96B" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

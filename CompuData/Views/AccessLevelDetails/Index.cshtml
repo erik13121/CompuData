@@ -1,0 +1,262 @@
+﻿
+@{
+    ViewBag.Title = "AccessLevelDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @model CompuData.Models.AccessLevel
+    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
+    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<nav id="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
+        <li class="breadcrumb-item"><a href="../AccessLevel/Index">User Menu</a></li>
+        <li class="breadcrumb-item"><a href="../AccessLevels/Index">Access Levels</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Access Level Details</li>
+    </ol>
+</nav>
+@Html.Partial("_ProfilePartial")
+<div id="details_holder">
+    <p>Access Level Details</p>
+    @Html.HiddenFor(model => model.AccessLevelID)
+    <div id="donationitemDetails">
+        <p>Access Level Name:</p>
+        @Html.TextBoxFor(model => model.LevelName, new { @readonly = "readonly" })
+    </div>
+    <div id="donationitemDescDetails">
+        <p>Description:</p>
+        @Html.TextBoxFor(model => model.LevelDescription, new { @readonly = "readonly" })
+    </div>
+    <div id="multipleButtons">
+        <div id="modifyButton">Modify</div>
+        <div id="removeButton">Remove</div>
+    </div>
+</div>
+<div id="backButton" onclick="window.location = '@Request.UrlReferrer.ToString()'">Back</div>
+<style>
+    #details_holder {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+        #details_holder p {
+            font-size: 25px;
+            text-align: center;
+            flex: 1;
+        }
+
+        #details_holder div {
+            display: flex;
+            flex-direction: row;
+            line-height: 30px;
+        }
+
+            #details_holder div p {
+                font-size: 18px;
+                flex: 50%;
+                text-align: left;
+                vertical-align: middle;
+                padding: 0;
+                margin: 0;
+            }
+
+            #details_holder div input {
+                flex: 50%;
+            }
+
+    #multipleButtons {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #modifyButton {
+        position: relative;
+        display: inline-block !important;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #modifyButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #removeButton {
+        position: relative;
+        display: inline-block !important;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #removeButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #backButton {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: 2vh;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #backButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #breadcrumb {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        height: auto;
+        width: 80%;
+    }
+
+    .breadcrumb-item {
+        font-size: 20px;
+    }
+
+        .breadcrumb-item a {
+            text-decoration: none;
+            color: #5a9ad6 !important;
+        }
+
+    .breadcrumb {
+        top: 0;
+        background-color: #33363b !important;
+        padding-left: 60px !important;
+        margin-bottom: 0 !important;
+    }
+
+    #profile {
+        position: relative;
+        z-index: 7979;
+        margin-left: auto;
+        margin-bottom: auto;
+        height: 61px;
+        width: 20%;
+        background-color: #33363b;
+        transform: translateX(-3px);
+    }
+
+        #profile a {
+            display: table;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 200;
+            font-size: 20px;
+            text-decoration: none !important;
+            color: #5a9ad6;
+            line-height: 61px;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    .glyphicon {
+        margin-left: 6px;
+    }
+
+    .dropdown-menu {
+        background-color: #33363b;
+    }
+
+        .dropdown-menu li a {
+            color: #5a9ad6;
+        }
+</style>
+<script>
+    $('#modifyButton').on('click', function () {
+        var levelID = @Model.AccessLevelID;
+
+        $.ajax({
+            url: '@Url.Action("RedirectToModifyAccessLevelDetails", "AccessLevelModify")',
+            type: 'POST',
+            data: { levelID: levelID },
+            dataType: 'json',
+            success: function (data) {
+                window.location.href = data.Url;
+            }
+        });
+    });
+
+    $('#removeButton').on('click', function () {
+        var levelID = @Model.AccessLevelID;
+
+        swal({
+            title: "Are you sure you want to delete this Access Level?",
+            icon: "warning",
+            dangerMode: true,
+            buttons: [
+                true,
+                "Yes",
+            ],
+            closeOnClickOutside: false,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: '@Url.Action("Delete", "AccessLevels")',
+                        type: 'POST',
+                        data: { levelID: levelID },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.Url != "Cascading error!") {
+                                swal("You have successfully deleted the Access Level", {
+                                    icon: "success",
+                                });
+                            }
+                            else {
+                                swal("Cannot delete this due to it being used somewhere else in the system!", {
+                                    icon: "warning",
+                                });
+                            }
+                            window.location.href = data.Url;
+                        }
+                    });
+                }
+            });
+    });
+</script>

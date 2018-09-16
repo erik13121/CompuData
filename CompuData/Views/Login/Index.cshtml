@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    @model CompuData.Models.Login
+    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
+    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+}
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<img src="~/Content/CompuData(Transparent).png" class="img-circle">
+@using (Html.BeginForm("CheckLogin", "Login", FormMethod.Post, new { id = "myForm" }))
+{
+<div class="box">
+    <h1>Login</h1>
+    <div class="form">
+        <label>Email</label>
+        <!--<input type="text" placeholder="Enter your username">-->
+        @Html.EditorFor(model => model.Email)
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        <label id="password">Password</label>
+        <!--<input type="password" placeholder="Enter your password">-->
+        @Html.EditorFor(model => model.Password)
+        @Html.ValidationMessageFor(model => model.Password, "" , new { @class = "text-danger"})
+        <div style="color:red">
+            @if (@ViewBag.NotValidUser != null)
+            {
+                <label> @ViewBag.NotValidUser</label>
+            }
+            @if (@ViewBag.NotValidPassword != null)
+            {
+                <label> @ViewBag.NotValidPassword</label>
+            }
+        </div>
+        <a href="../ForgotPassword/Index">Forgot password?</a>
+        <button id="loginButton">Login</button>
+    </div>
+</div>
+}
+<script>
+    $('#loginButton').click(function () {
+        $('#myForm').submit()
+    });
+
+    window.onload = function () {
+        var boxWidth = $('.box').width() * .75;
+        var boxHeight = $('.box').height() * .75;
+        $('.img-circle').css("width", boxWidth + "px");
+        $('.img-circle').css("height", boxHeight + "px");
+    }
+
+    window.onresize = function () {
+        var boxWidth = $('.box').width() * .75;
+        var boxHeight = $('.box').height() * .75;
+        $('.img-circle').css("width", boxWidth + "px");
+        $('.img-circle').css("height", boxHeight + "px");
+    }
+
+    function forward() {
+        window.history.forward(1);
+    }
+
+    function reset() {
+        swal({
+            title: "Please check your email for the password reset link",
+            icon: "success",
+            closeOnClickOutside: false,
+        });
+    }
+</script>
+@if (Request.UrlReferrer != null)
+{
+    if (Request.UrlReferrer.ToString().Contains("Forgot") == false)
+    {
+        <script>forward();</script>
+    }
+}
+@if (TempData["js"] != null)
+{
+    <script>@TempData["js"];</script>
+    @TempData.Remove("js");
+}

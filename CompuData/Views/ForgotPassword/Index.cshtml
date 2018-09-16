@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Forgot Password";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    @model CompuData.Models.ForgotPasswordModel
+    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
+    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+}
+
+<img src="~/Content/CompuData(Transparent).png" class="img-circle">
+@using (Html.BeginForm("LostPassword", "ForgotPassword", new { id = "myForm"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    <div class="box">
+        <h1>Lost Password Form</h1>
+        <div class="form">
+            <label>Email</label>
+            <!--<input type="text" placeholder="Enter your username">-->
+            @Html.TextBoxFor(model => model.Email, new { type = "email", autocomplete = "off" })
+            @Html.ValidationMessageFor(model => model.Email)
+            <div class="form-group error">
+                @if (@ViewBag.NotValidUser != null)
+                {
+
+                    <label> @ViewBag.NotValidUser</label>
+                }
+            </div>
+            <button id="recoverButton">Recover Account</button>
+        </div>
+    </div>
+}
+<style>
+    input {
+        width: 100%;
+    }
+</style>
+<script>
+    window.onload = function () {
+        var boxWidth = $('.box').width() * .75;
+        var boxHeight = $('.box').height() * .75;
+        $('.img-circle').css("width", boxWidth + "px");
+        $('.img-circle').css("height", boxHeight + "px");
+    }
+
+    window.onresize = function () {
+        var boxWidth = $('.box').width() * .75;
+        var boxHeight = $('.box').height() * .75;
+        $('.img-circle').css("width", boxWidth + "px");
+        $('.img-circle').css("height", boxHeight + "px");
+    }
+</script>

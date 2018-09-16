@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "DonationItemMenu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
+    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+}
+
+<link href="@Url.Content("~/Content/MenuWithSubmenu.css")" rel="stylesheet" type="text/css" />
+<nav id="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Donation Menu</li>
+    </ol>
+</nav>
+@Html.Partial("_ProfilePartial")
+<div id="menuwithSub_wrapper">
+    <ul id="menuwithSub_left">
+        <!--<li class="menu_item">@Html.ActionLink("Home", "Index", "Home")</li>
+        <li class="menu_item">@Html.ActionLink("About", "About", "Home")</li>
+        <li class="menu_item">@Html.ActionLink("Contact", "Contact", "Home")</li>-->
+        <ul class="newmenu_item">
+            <p>Donation</p>
+            <li class="newsubMenu_item">
+                <p style="margin-left: 6vh !important">@Html.ActionLink("Donation Type", "Index", "DonationType")</p>
+            </li>
+            <li class="newsubMenu_item">
+                <p>Donation</p>
+            </li>
+            <li class="newsubMenu_item">
+                <p>Donation Item</p>
+            </li>
+        </ul>
+        <ul class="newmenu_item">
+            <p>Assign Donations</p>
+            <li class="newsubMenu_item"><p>Assign a Donation Item</p></li>
+        </ul>
+    </ul>
+    <div id="menuwithSub_right">
+        <img src="~/Content/CompuData(Transparent).png" />
+
+        <h1>CompuData</h1>
+    </div>
+</div>
+<h1></h1>
+    </div>
+</div>
+<div id="backButton">Back</div>
+<style>
+    #breadcrumb {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        height: auto;
+        width: 80%;
+        z-index: 9000;
+    }
+
+    .breadcrumb-item {
+        font-size: 20px;
+    }
+
+        .breadcrumb-item a {
+            text-decoration: none;
+            color: #5a9ad6 !important;
+        }
+
+    .breadcrumb {
+        top: 0;
+        background-color: #33363b !important;
+        padding-left: 60px !important;
+        margin-bottom: 0 !important;
+    }
+
+    #profile {
+        position: relative;
+        z-index: 7979;
+        margin-left: auto;
+        margin-bottom: auto;
+        height: 61px;
+        width: 20%;
+        background-color: #33363b;
+        transform: translateX(-3px);
+    }
+
+        #profile a {
+            display: table;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 200;
+            font-size: 25px;
+            text-decoration: none !important;
+            color: #5a9ad6;
+            line-height: 61px;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    .glyphicon {
+        margin-left: 6px;
+    }
+
+    .dropdown-menu {
+        background-color: #33363b;
+    }
+
+        .dropdown-menu li a {
+            color: #5a9ad6;
+        }
+</style>
+<script>
+
+</script>

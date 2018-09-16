@@ -1,0 +1,220 @@
+﻿
+@{
+    ViewBag.Title = "DonationItemDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
+    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+}
+
+<nav id="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Donation Menu</a></li>
+        <li class="breadcrumb-item"><a href="#">Donation Item</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Donation Item Details</li>
+    </ol>
+</nav>
+@Html.Partial("_ProfilePartial")
+<div id="details_holder">
+    <p>Donation Item Details</p>
+    <div id="donationitemDetails">
+        <p>Donation Type:</p><input type="text" id="donationitemText" />
+    </div>
+    <div id="donationitemDetails">
+        <p>Quantity:</p><input type="text" id="donationitemText" />
+    </div>
+    <div id="donationitemDescDetails">
+        <p>Description:</p><input type="text" id="donationitemText" />
+    </div>
+    <div id="multipleButtons">
+        <div id="modifyVenueButton">Modify</div>
+        <div id="removeVenueButton">Remove</div>
+    </div>
+</div>
+<div id="backButton">Back</div>
+<style>
+    #details_holder p {
+        font-size: 25px;
+        text-align: center;
+        flex: 1;
+    }
+
+    #details_holder {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    #donationitemDetails {
+        display: flex;
+        flex-direction: row;
+        line-height: 30px;
+    }
+
+        #donationitemDetails p {
+            flex: 50%;
+            text-align: left;
+            vertical-align: middle;
+            padding: 0;
+            margin: 0;
+        }
+
+    #donationitemDescDetails {
+        display: flex;
+        flex-direction: row;
+        line-height: 30px;
+    }
+
+        #donationitemDescDetails p {
+            flex: 50%;
+            text-align: left;
+            vertical-align: middle;
+            padding: 0;
+            margin: 0;
+            height: 100px;
+        }
+
+    #donationitemText {
+        flex: 50%;
+    }
+
+    #multipleButtons {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #modifyVenueButton {
+        position: relative;
+        align-self: flex-start;
+        z-index: 8000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: 2vh;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #modifyVenueButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #removeVenueButton {
+        position: relative;
+        margin-left: auto !important;
+        z-index: 8000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-right: 2vh;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #removeVenueButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #backButton {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: 2vh;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #backButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #breadcrumb {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 80%;
+    }
+
+    .breadcrumb-item {
+        font-size: 25px;
+    }
+
+        .breadcrumb-item a {
+            text-decoration: none;
+            color: #5a9ad6 !important;
+        }
+
+    .breadcrumb {
+        top: 0;
+        background-color: #33363b !important;
+        padding-left: 60px !important;
+    }
+
+    #profile {
+        position: relative;
+        z-index: 7979;
+        margin-left: auto;
+        margin-bottom: auto;
+        height: 61px;
+        width: 20%;
+        background-color: #33363b;
+        transform: translateX(-3px);
+    }
+
+        #profile a {
+            display: table;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 200;
+            font-size: 25px;
+            text-decoration: none !important;
+            color: #5a9ad6;
+            line-height: 61px;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    .glyphicon {
+        margin-left: 6px;
+    }
+
+    .dropdown-menu {
+        background-color: #33363b;
+    }
+
+        .dropdown-menu li a {
+            color: #5a9ad6;
+        }
+</style>

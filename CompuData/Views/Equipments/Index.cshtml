@@ -1,0 +1,381 @@
+﻿@{
+    ViewBag.Title = "Equipments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
+    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<nav id="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMainMenu/EquipmentManagementMainMenu">Equipment Menu</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Equipments</li>
+    </ol>
+</nav>
+@Html.Partial("_ProfilePartial")
+<div id="table_background">
+    <p>Vehicles</p>
+    <table id="vehiclesTable" class="display" width="100%"></table>
+    <div id="multipleButtons">
+        <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddEquipment")'">Add Vehicle</div>
+    </div>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "EquipmentManagementMainMenu")'">Back</div>
+</div>
+<style>
+    #table_background p {
+        font-size: 25px;
+        text-align: center;
+    }
+
+    #table_background {
+        position: absolute;
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    #vehiclesTable {
+        background-color: #5a9ad6;
+        font-size: 14px;
+    }
+
+    #multipleButtons {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #addButton {
+        position: relative;
+        display: inline-block;
+        margin-left: auto;
+        margin-right: auto;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #addButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #addBookingButton {
+        position: relative;
+        display: inline-block;
+        margin-left: auto;
+        margin-right: auto;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #addBookingButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #backButton {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: 2vh;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #backButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #breadcrumb {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+    }
+
+    .breadcrumb-item {
+        font-size: 25px;
+    }
+
+    .breadcrumb {
+        top: 0;
+        background-color: #33363b !important;
+        padding-left: 60px !important;
+    }
+
+    #profile {
+        position: relative;
+        z-index: 7979;
+        margin-left: auto;
+        margin-bottom: auto;
+        height: 61px;
+        width: 20%;
+        background-color: #33363b;
+        transform: translateX(-3px);
+    }
+
+        #profile a {
+            display: table;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 200;
+            font-size: 25px;
+            text-decoration: none !important;
+            color: #5a9ad6;
+            line-height: 61px;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    .glyphicon {
+        margin-left: 6px;
+    }
+
+    .dropdown-menu {
+        background-color: #33363b;
+    }
+
+        .dropdown-menu li a {
+            color: #5a9ad6;
+        }
+</style>
+<script>
+    var table;
+    $(document).ready(function () {
+        table = $('#vehiclesTable').DataTable({
+            serverSide: true,
+            ajax: "/Equipments/PageData",
+            autoWidth: true,
+            columns: [
+                {
+                    name: 'vehicleID',
+                    data: 'vehicleID',
+                    title: "ID",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'brand',
+                    data: "brand",
+                    title: "Brand",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'model',
+                    data: "model",
+                    title: "Model",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'numberPlate',
+                    data: "numberPlate",
+                    title: "Number Plate",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'dateofPurchase',
+                    data: "dateofPurchase",
+                    title: "Date of Purchase",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'dateofLastRepair',
+                    data: "dateofLastRepair",
+                    title: "Date of Last Repair",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'dateofLicencePurchase',
+                    data: "dateofLicencePurchase",
+                    title: "Date of Licence Purchase",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'licenseExpireDate',
+                    data: "licenseExpireDate",
+                    title: "Licence Expire Date",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'serviceIntervalInMonths',
+                    data: "serviceIntervalInMonths",
+                    title: "Service Interval in Months",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'serviceIntervalInKMs',
+                    data: "serviceIntervalInKMs",
+                    title: "Service Interval in KMs",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'typeID',
+                    data: "typeName",
+                    title: "Type",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": '<i class="glyphicon glyphicon-eye-open"></i>',
+                    sortable: false,
+                },
+                {
+                    "targets": -2,
+                    "data": null,
+                    "defaultContent": '<i class="glyphicon glyphicon-pencil"></i>',
+                    sortable: false,
+                },
+                {
+                    "targets": -3,
+                    "data": null,
+                    "defaultContent": '<i class="glyphicon glyphicon-trash"></i>',
+                    sortable: false,
+                }
+            ]
+        });
+    });
+
+    @Model.JavaScriptToRun
+    function mySuccess() {
+        swal("You have successfully added a Vehicle", {
+            icon: "success",
+        });
+        //window.location = "/Vehicles/Index";
+    }
+
+    @TempData["js"];
+    function myUpdateSuccess() {
+        swal("You have successfully updated the Vehicle", {
+            icon: "success",
+        });
+    }
+
+    $.ajax({
+        type: "POST",
+        url: '@Url.Action("SetTempData","Vehicles")',
+        success: function () {
+
+        }
+    });
+
+    $('#vehiclesTable').on('click', '.glyphicon-eye-open', function () {
+        var data = table.row($(this).parents('tr')).data();
+        var vehicleID = data["vehicleID"];
+
+        $.ajax({
+            url: '@Url.Action("RedirectToVehicleDetails", "VehicleDetails")',
+            type: 'POST',
+            data: { vehicleID: vehicleID },
+            dataType: 'json',
+            success: function (data) {
+                window.location.href = data.Url; // your action should return an object having [redirecturl] property
+            }
+        });
+    });
+
+    $('#vehiclesTable').on('click', '.glyphicon-pencil', function () {
+        var data = table.row($(this).parents('tr')).data();
+        var vehicleID = data["vehicleID"];
+
+        $.ajax({
+            url: '@Url.Action("RedirectToModifyVehicleDetails", "ModifyVehicleDetails")',
+            type: 'POST',
+            data: { vehicleID: vehicleID },
+            dataType: 'json',
+            success: function (data) {
+                window.location.href = data.Url;
+            }
+        });
+    });
+
+    $('#vehiclesTable').on('click', '.glyphicon-trash', function () {
+        var data = table.row($(this).parents('tr')).data();
+        var vehicleID = data["vehicleID"];
+
+        swal({
+            title: "Are you sure you want to delete this vehicle?",
+            icon: "warning",
+            dangerMode: true,
+            buttons: [
+                true,
+                "Yes",
+            ],
+            closeOnClickOutside: false,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: '@Url.Action("Delete", "Vehicles")',
+                        type: 'POST',
+                        data: { vehicleID: vehicleID },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.Url != "Cascading error!") {
+                                swal("You have successfully deleted the Vehicle", {
+                                    icon: "success",
+                                });
+                                window.location.href = data.Url;
+                            }
+                            else {
+                                swal("Cannot delete this due to it being used somewhere else in the system!", {
+                                    icon: "warning",
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+    });
+
+    //$('.swal-icon--warning').css("border", "4px solid red !important");
+
+    @*window.onload = function() {
+        window.location.href = '@Url.Action("Index", "VehicleServices")';
+    }*@
+</script>

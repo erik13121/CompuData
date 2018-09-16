@@ -1,0 +1,547 @@
+﻿
+@{
+    ViewBag.Title = "AddVehicleBooking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
+    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+}
+
+<nav id="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Vehicle Menu</a></li>
+        <li class="breadcrumb-item"><a href="#">Vehicle Bookings</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Vehicle Booking</li>
+    </ol>
+</nav>
+@Html.Partial("_ProfilePartial")
+<div id="details_holder">
+    <p>Vehicle Booking Details</p>
+    <div id="group">
+        <p>Day of Week:</p>
+        <input id="datepicker1" />
+    </div>
+    <div id="group">
+        <p>Booking Duration:</p>
+        <input id="rangeHolder" type="range" list="tickmarks">
+        <datalist id="tickmarks">
+            <option value="30">
+            <option value="60">
+            <option value="120">
+        </datalist>
+        <output for="rangeHolder" onforminput="value = rangeHolder.valueAsNumber;">90</output>
+    </div>
+    <div id="group">
+        <p>Booking Slot:</p>
+        <div class="input-group-prepend">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Choose Slot</button>
+            <!--<div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <div role="separator" class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Separated link</a>
+            </div>-->
+        </div>
+    </div>
+    <div id="group">
+        <p>Vehicle:</p>
+        <!-- Trigger/Open The Modal -->
+        <button id="myBtn">Choose Vehicle</button>
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div id="table_background">
+                <div id="pAndTable">
+                    <p id="tableP">Vehicles</p>
+                    <table id="vehiclesTable" class="display">
+                        <thead>
+                            <tr>
+                                <th>Vehicle ID</th>
+                                <th>Brand</th>
+                                <th>Model</th>
+                                <th>Number Plate</th>
+                                <th>Date of Purchase</th>
+                                <th>Date of Last Repair</th>
+                                <th>Date of License Purchase</th>
+                                <th>License Expire Date</th>
+                                <th>Service Interval in Months</th>
+                                <th>Service Interval in KMs</th>
+                                <th>Vehicle Type</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Volkswagen</td>
+                                <td>Trendline 2.0 TDI</td>
+                                <td>GW2132GP</td>
+                                <td>02/02/2017</td>
+                                <td>10/02/2017</td>
+                                <td>02/02/2017</td>
+                                <td>02/02/2018</td>
+                                <td>12</td>
+                                <td>20000</td>
+                                <td>Kombi</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Volkswagen</td>
+                                <td>Trendline 2.0 TDI</td>
+                                <td>QER197GP</td>
+                                <td>02/02/2017</td>
+                                <td></td>
+                                <td>02/02/2017</td>
+                                <td>02/02/2018</td>
+                                <td>12</td>
+                                <td>20000</td>
+                                <td>Kombi</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="group">
+        <p>Project:</p>
+        <!-- Trigger/Open The Modal -->
+        <button id="myBtn2">Choose Project</button>
+        <!-- The Modal -->
+        <div id="myModal2" class="modal">
+            <!-- Modal content -->
+            <div id="table_background2">
+                <div id="pAndTable">
+                    <p id="tableP">Projects</p>
+                    <table id="projectsTable" class="display">
+                        <thead>
+                            <tr>
+                                <th>Project ID</th>
+                                <th>Project Name</th>
+                                <th>Start Date</th>
+                                <th>Expected Finish Date</th>
+                                <th>Finished</th>
+                                <th>Project Description</th>
+                                <th>Project Manager</th>
+                                <th>Type ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Inkululeko Community Centre</td>
+                                <td>01/02/2000</td>
+                                <td>01/12/2020</td>
+                                <td>False</td>
+                                <td>Aiding early childhood development</td>
+                                <td>Joel</td>
+                                <td>Children empowerment</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>The Potter's House</td>
+                                <td>01/02/1993</td>
+                                <td>01/12/2043</td>
+                                <td>False</td>
+                                <td>Aiding female development</td>
+                                <td>Letty</td>
+                                <td>Female empowerment</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="group">
+        <p>Service Interval (if applicable):</p>
+        <!-- Trigger/Open The Modal -->
+        <button id="myBtn3">Choose Interval</button>
+        <!-- The Modal -->
+        <div id="myModal3" class="modal">
+            <!-- Modal content -->
+            <div id="table_background3">
+                <div id="pAndTable">
+                    <p id="tableP">Service Intervals</p>
+                    <table id="servicesTable" class="display">
+                        <thead>
+                            <tr>
+                                <th>Interval ID</th>
+                                <th>Service Date</th>
+                                <th>Completed</th>
+                                <th>Vehicle Number Plate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>09/05/2018</td>
+                                <td>True</td>
+                                <td>GW2132GP</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>09/05/2018</td>
+                                <td>True</td>
+                                <td>QER197GP</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="group">
+        <p>Purpose of booking:</p>
+        <input type="text" />
+    </div>
+    <div id="addButton">Add Vehicle Booking</div>
+</div>
+<div id="backButton">Back</div>
+<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
+<link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<style>
+    #details_holder {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+        #details_holder p {
+            font-size: 25px;
+            text-align: center;
+            flex: 1;
+        }
+
+        #details_holder div p {
+            font-size: 20px;
+            flex: 50%;
+            text-align: left;
+            vertical-align: middle;
+            padding: 0;
+            margin: 0;
+        }
+
+        #details_holder div input {
+            flex: 50%;
+        }
+
+        #details_holder div button {
+            background-color: white;
+            flex: 50%;
+        }
+
+    .input-group-prepend {
+        flex: 50%;
+        margin-bottom: 1px;
+    }
+
+        .input-group-prepend button {
+            color: black;
+        }
+
+    #rangeHolder {
+        flex: 25% !important;
+    }
+
+    output {
+        flex: 25%;
+        text-align: center;
+    }
+
+    #group {
+        display: flex;
+        flex-direction: row;
+        line-height: 32px;
+        height: 38px;
+    }
+
+    #myBtn {
+        border-radius: 25px;
+    }
+
+    #myBtn2 {
+        border-radius: 25px;
+    }
+
+    #myBtn3 {
+        border-radius: 25px;
+    }
+
+    .gj-datepicker {
+        flex: 50%;
+        margin-bottom: 4px;
+    }
+
+    #addButton {
+        position: relative;
+        display: inline-block;
+        align-self: flex-end;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: 2vh;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #addButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #backButton {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: 2vh;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #backButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #breadcrumb {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+    }
+
+    .breadcrumb-item {
+        font-size: 25px;
+    }
+
+    .breadcrumb {
+        top: 0;
+        background-color: #33363b !important;
+        padding-left: 60px !important;
+    }
+
+    #profile {
+        position: relative;
+        z-index: 7979;
+        margin-left: auto;
+        margin-bottom: auto;
+        height: 61px;
+        width: 20%;
+        background-color: #33363b;
+        transform: translateX(-3px);
+    }
+
+        #profile a {
+            display: table;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 200;
+            font-size: 25px;
+            text-decoration: none !important;
+            color: #5a9ad6;
+            line-height: 61px;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    .glyphicon {
+        margin-left: 6px;
+    }
+
+    .dropdown-menu {
+        background-color: #33363b;
+    }
+
+        .dropdown-menu li a {
+            color: #5a9ad6;
+        }
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 99999; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+    }
+
+    #table_background {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+        #table_background p {
+            font-size: 25px;
+            text-align: center;
+        }
+
+    #table_background2 {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+        #table_background2 p {
+            font-size: 25px;
+            text-align: center;
+        }
+
+    #table_background3 {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+        #table_background3 p {
+            font-size: 25px;
+            text-align: center;
+        }
+
+    #vehiclesTable {
+        background-color: #5a9ad6;
+    }
+
+    #projectsTable {
+        background-color: #5a9ad6;
+    }
+
+    #servicesTable {
+        background-color: #5a9ad6;
+    }
+
+    #tableP {
+        font-size: 25px !important;
+        text-align: center !important;
+        flex: 1 !important;
+    }
+
+    #pAndTable {
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+</style>
+<script type="text/javascript">
+    $('#datepicker1').datepicker({
+        uiLibrary: 'bootstrap4'
+    });
+
+    $(document).ready(function () {
+        $('#vehiclesTable').DataTable();
+    });
+
+    $(document).ready(function () {
+        $('#projectsTable').DataTable();
+    });
+
+    $(document).ready(function () {
+        $('#servicesTable').DataTable();
+    });
+
+    // Get the modal
+    var modal = document.getElementById('myModal');
+
+    var modal2 = document.getElementById('myModal2');
+
+    var modal3 = document.getElementById('myModal3');
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    var btn2 = document.getElementById("myBtn2");
+
+    var btn3 = document.getElementById("myBtn3");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "table";
+    }
+
+    btn2.onclick = function () {
+        modal2.style.display = "table";
+    }
+
+    btn3.onclick = function () {
+        modal3.style.display = "table";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    /*span.onclick = function () {
+        modal.style.display = "none";
+    }*/
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (!event) {
+            event = window.event;
+        }
+        if (event.target == table_background) {
+            modal.style.display = "none";
+        }
+        if (event.target == table_background2) {
+            modal2.style.display = "none";
+        }
+        if (event.target == table_background3) {
+            modal3.style.display = "none";
+        }
+    }
+</script>

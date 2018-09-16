@@ -1,0 +1,171 @@
+﻿
+@{
+    ViewBag.Title = "ModifyLoginDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
+    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+}
+
+<nav id="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Account</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Modify Login details</li>
+    </ol>
+</nav>
+@Html.Partial("_ProfilePartial")
+<div id="details_holder">
+    <p>Change login Details</p>
+    <div id="adddonationitem">
+        <p>Old Username:</p><input type="text" id="addDonationitemText" />
+    </div>
+    <div id="adddonationitem">
+        <p>Old Password:</p><input type="text" id="addDonationitemText" />
+    </div>
+    <div id="adddonationitem">
+        <p>New Username:</p><input type="text" id="addDonationitemText" />
+    </div>
+    <div id="adddonationitem">
+        <p>New Password:</p><input type="text" id="addDonationitemText" />
+    </div>
+    <div id="addVenueButton">Save</div>
+</div>
+<div id="backButton">Back</div>
+<style>
+    #details_holder p {
+        font-size: 25px;
+        text-align: center;
+        flex: 1;
+    }
+
+    #details_holder {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    #adddonationitem {
+        display: flex;
+        flex-direction: row;
+        line-height: 30px;
+    }
+
+        #adddonationitem p {
+            flex: 50%;
+            text-align: left;
+            vertical-align: middle;
+            padding: 0;
+            margin: 0;
+        }
+
+    #addDonationitemText {
+        flex: 50%;
+    }
+
+    #addVenueButton {
+        position: relative;
+        display: inline-block;
+        align-self: flex-end;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: 2vh;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #addVenueButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #backButton {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: 2vh;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #backButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #breadcrumb {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+    }
+
+    .breadcrumb-item {
+        font-size: 25px;
+    }
+
+    .breadcrumb {
+        top: 0;
+        background-color: #33363b !important;
+        padding-left: 60px !important;
+    }
+
+    #profile {
+        position: relative;
+        z-index: 7979;
+        margin-left: auto;
+        margin-bottom: auto;
+        height: 61px;
+        width: 20%;
+        background-color: #33363b;
+        transform: translateX(-3px);
+    }
+
+        #profile a {
+            display: table;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 200;
+            font-size: 25px;
+            text-decoration: none !important;
+            color: #5a9ad6;
+            line-height: 61px;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    .glyphicon {
+        margin-left: 6px;
+    }
+
+    .dropdown-menu {
+        background-color: #33363b;
+    }
+
+        .dropdown-menu li a {
+            color: #5a9ad6;
+        }
+</style>

@@ -1,0 +1,100 @@
+﻿@{ 
+    ViewBag.Title = "Main Menu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
+    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+}
+
+<link href="@Url.Content("~/Content/MenuWithSubmenu.css")" rel="stylesheet" type="text/css" />
+<style>
+    .vsc-initialized {
+        overflow: hidden;
+        height: 100%;
+    }
+
+    #breadcrumb {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        height: auto;
+        width: 80%;
+        z-index: 9000;
+    }
+
+    .breadcrumb-item {
+        font-size: 20px;
+    }
+
+        .breadcrumb-item a {
+            text-decoration: none;
+            color: #5a9ad6 !important;
+        }
+
+    .breadcrumb {
+        top: 0;
+        background-color: #33363b !important;
+        padding-left: 60px !important;
+        margin-bottom: 0 !important;
+    }
+
+    #profile {
+        position: relative;
+        z-index: 7979;
+        margin-left: auto;
+        margin-bottom: auto;
+        height: 61px;
+        width: 20%;
+        background-color: #33363b;
+        transform: translateX(-3px);
+    }
+
+        #profile a {
+            display: table;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 200;
+            font-size: 20px;
+            text-decoration: none !important;
+            color: #5a9ad6;
+            line-height: 61px;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    .glyphicon {
+        margin-left: 6px;
+    }
+
+    .dropdown-menu {
+        background-color: #33363b;
+    }
+
+        .dropdown-menu li a {
+            color: #5a9ad6;
+        }
+
+    #landing {
+        z-index: 1;
+    }
+
+    #menu_left {
+        margin: 0;
+        padding: 0;
+        -webkit-padding-start: 0;
+    }
+</style>
+<script>
+    menuToggle = $('#menu_toggle__wrapper');
+    menu = $('#menu_wrapper');
+    header = $('.header');
+
+    menu.toggleClass('active');
+    menuToggle.remove();
+    header.remove();
+
+    $('#landing').css('margin-top', 0);
+
+    window.onload = function() {
+        $('footer').remove();
+    }
+</script>
