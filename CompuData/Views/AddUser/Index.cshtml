@@ -17,7 +17,9 @@
         <li class="breadcrumb-item active" aria-current="page">Add User</li>
     </ol>
 </nav>
+
 @Html.Partial("_ProfilePartial")
+
 <div class="col-md-6" id="mytwoColumns">
         <p id="myheading2">User Details</p>
         <ul class="nav nav-tabs">
@@ -25,6 +27,7 @@
             <li><a data-toggle="tab" href="#LineItems" id="tabitem">Address Details</a></li>
             <li><a data-toggle="tab" href="#LineItems2" id="tabitem">Postal Address Details</a></li>
         </ul>
+
 @using (@Html.BeginForm("Create", "AddUser", FormMethod.Post, new { id = "myForm" }))
 {
         @Html.HiddenFor(model => model.UserID)

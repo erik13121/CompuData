@@ -25,7 +25,7 @@ namespace CompuData.CodeFirst
         [MaxLength(50)]
         public string Name { get; set; }
 
-        public int VATNumber { get; set; }
+        public string VATNumber { get; set; }
 
         [MaxLength(50)]
         public string POAddress { get; set; }
@@ -46,9 +46,9 @@ namespace CompuData.CodeFirst
         [MaxLength(50)]
         public string Bank { get; set; }
 
-        public int AccountNumber { get; set; }
+        public int? AccountNumber { get; set; }
 
-        public int BranchCode { get; set; }
+        public int? BranchCode { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EFT_Requisition> EFT_Requisition { get; set; }
