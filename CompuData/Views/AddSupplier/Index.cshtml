@@ -1,5 +1,7 @@
 ﻿@{
     ViewBag.Title = "Index";
+    @model CompuData.Models.Supplier
+
 }
 
 <nav id="breadcrumb">
@@ -18,58 +20,82 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 </head>
 
-<div id="profile">
-    <a href="#" class="dropdown-toggle " data-toggle="dropdown" aria-expanded="true">User<span class="caret"></span><span class="glyphicon glyphicon-user"></span></a>
-    <ul class="dropdown-menu" role="menu">
-        <li class=""><a href="https://bootsnipp.com/builder" class="">Account<span class="glyphicon glyphicon-file"></span></a></li>
-        <li class=""><a href="https://bootsnipp.com/forms" class="">Logout<span class="glyphicon glyphicon-off"></span></a></li>
-    </ul>
-</div>
+@Html.Partial("_ProfilePartial")
 
 <div id="details_holder">
+
+@using (@Html.BeginForm("Create", "AddSupplier", FormMethod.Post, new { id = "myForm" }))
+{ 
     <p>Add Supplier</p>
+    @Html.HiddenFor(model => model.SupplierID)
     <div>
         <p>Name:</p>
-        <input type="text" />
+        @Html.EditorFor(model => model.Name)
     </div>
+    @Html.ValidationMessageFor(model => model.Name)
     <div>
         <p>Contact Number:</p>
-        <input type="tel" />
+        @Html.EditorFor(model => model.ContactNumber)
     </div>
+    @Html.ValidationMessageFor(model => model.ContactNumber)
     <div>
         <p>Email Address:</p>
-        <input type="email" />
+        @Html.EditorFor(model => model.EmailAddress)
     </div>
+    @Html.ValidationMessageFor(model => model.EmailAddress)
     <div>
         <p>Bank:</p>
-        <input type="text" />
+        @Html.EditorFor(model => model.Bank)
     </div>
+    @Html.ValidationMessageFor(model => model.Bank)
     <div>
         <p>Account Number:</p>
-        <input type="text" />
+        @Html.EditorFor(model => model.AccountNumber)
     </div>
+    @Html.ValidationMessageFor(model => model.AccountNumber)
     <div>
         <p>Branch Code:</p>
-        <input type="text" />
+        @Html.EditorFor(model => model.BranchCode)
     </div>
+    @Html.ValidationMessageFor(model => model.BranchCode)
     <div>
         <p>VAT Number:</p>
-        <input type="text" />
+        @Html.EditorFor(model => model.VATNumber, new { htmlAttributes = new { @type = "number", @min = "0" } })
     </div>
+    @Html.ValidationMessageFor(model => model.VATNumber)
     <div>
-        <p>Postal Address:</p>
-        <textarea name="textarea" type="text" style="width:285px; height:150px;"></textarea>
+        <p>Postal Address:</p>  
+        @Html.EditorFor(model => model.POAddress)    
     </div>
-    <div id="addVenueButton">Save and Add Supplier</div>
-</div>
+    @Html.ValidationMessageFor(model => model.POAddress)
+    <div>
+        <p>Postal City:</p>
+        @Html.EditorFor(model => model.POCity)
+    </div>
+    @Html.ValidationMessageFor(model => model.POCity)
+    <div>
+        <p>Postal Code:</p>
+        @Html.EditorFor(model => model.POAreaCode)
+    </div>
+    @Html.ValidationMessageFor(model => model.POAreaCode)
+    <div id="multipleButtons">
+        <div id="addButton">Save and Add Supplier</div>
+    </div>
+}
+    </div>
+
 <div id="backButton">Back</div>
 
 <style>
-    #details_holder p {
-        font-size: 25px;
-        text-align: left;
-        flex: 1;
-        text-align: center;
+    form {
+        top: 0;
+        left: 0;
+    }
+
+    .field-validation-error {
+        display: block;
+        word-wrap: break-word;
+        margin-left: 50%;
     }
 
     #details_holder {
@@ -86,6 +112,12 @@
         border-radius: 50px 50px 50px 50px;
     }
 
+        #details_holder p {
+            font-size: 25px;
+            text-align: center;
+            flex: 1;
+        }
+
         #details_holder div {
             display: flex;
             flex-direction: row;
@@ -93,6 +125,7 @@
         }
 
             #details_holder div p {
+                font-size: 20px;
                 flex: 50%;
                 text-align: left;
                 vertical-align: middle;
@@ -104,27 +137,51 @@
                 flex: 50%;
             }
 
-    #addVenueButton {
+            #details_holder div select {
+                flex: 50%;
+            }
+
+            #details_holder div button {
+                background-color: white;
+                flex: 50%;
+            }
+
+    .gj-datepicker {
+        flex: 50%;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        opacity: 1;
+    }
+
+    #typeDropDown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        display: none;
+    }
+
+    #addButton {
         position: relative;
-        display: inline-block;
-        align-self: flex-end;
-        z-index: 1000;
+        display: inline-block !important;
         text-decoration: none;
         color: white;
         cursor: pointer;
         letter-spacing: 0.15em;
         text-transform: uppercase;
-        margin-left: 2vh;
         box-sizing: border-box;
         border: solid white;
         border-width: 2px;
         border-radius: 50px 50px 50px 50px;
         margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
         padding: 10px;
         transition: background-color linear 0.5s;
     }
 
-        #addVenueButton:hover {
+        #addButton:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
@@ -132,7 +189,7 @@
         position: fixed;
         left: 0;
         bottom: 0;
-        z-index: 1000;
+        z-index: 10000;
         text-decoration: none;
         color: white;
         cursor: pointer;
@@ -169,7 +226,7 @@
 
     #profile {
         position: relative;
-        z-index: 8000;
+        z-index: 7979;
         margin-left: auto;
         margin-bottom: auto;
         height: 61px;
@@ -204,4 +261,23 @@
         }
 </style>
 
+<script>
+    $("#addButton").click(function (event) {
+        swal({
+            title: "Are you sure?",
+            icon: "info",
+            buttons: [
+                true,
+                "Yes",
+            ],
+            closeOnClickOutside: false,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                $('#myForm').submit();
+            }
+        });
+    });
 
+    $("#addButton").css({ 'flex-basis': '' });
+</script>
