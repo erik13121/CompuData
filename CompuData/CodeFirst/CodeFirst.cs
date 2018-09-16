@@ -549,7 +549,15 @@ namespace CompuData.CodeFirst
                 .IsUnicode(false);
 
             modelBuilder.Entity<Supplier>()
-                .Property(e => e.PostalAddress)
+                .Property(e => e.POAddress)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Supplier>()
+                .Property(e => e.POCity)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Supplier>()
+                .Property(e => e.POAreaCode)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Supplier>()
