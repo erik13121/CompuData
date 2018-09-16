@@ -71,17 +71,17 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(string vehicleID)
+        public ActionResult Delete(string equipmentID)
         {
             try
             {
                 var db = new CodeFirst.CodeFirst();
-                var intVehicleID = int.Parse(vehicleID);
-                var vehicle = db.Vehicles.Where(v => v.VehicleID == intVehicleID).FirstOrDefault();
-                db.Vehicles.Remove(vehicle);
+                var intEquipmentID = int.Parse(equipmentID);
+                var equipment = db.Equipments.Where(v => v.EquipmentID == intEquipmentID).FirstOrDefault();
+                db.Equipments.Remove(equipment);
                 db.SaveChanges();
 
-                var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "Vehicles");
+                var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "Equipments");
                 return Json(new { Url = redirectUrl });
             }
             catch
