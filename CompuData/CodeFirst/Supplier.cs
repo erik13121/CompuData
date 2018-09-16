@@ -28,7 +28,13 @@ namespace CompuData.CodeFirst
         public int VATNumber { get; set; }
 
         [MaxLength(50)]
-        public string PostalAddress { get; set; }
+        public string POAddress { get; set; }
+
+        [MaxLength(50)]
+        public string POCity { get; set; }
+
+        [MaxLength(50)]
+        public string POAreaCode { get; set; }
 
         [MaxLength(50)]
         public string EmailAddress { get; set; }

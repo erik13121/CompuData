@@ -257,6 +257,7 @@
     <Compile Include="Controllers\AddDonationController.cs" />
     <Compile Include="Controllers\AddDonationItemController.cs" />
     <Compile Include="Controllers\AddDonationTypeController.cs" />
+    <Compile Include="Controllers\AddEquipmentController.cs" />
     <Compile Include="Controllers\AddJobTitleController.cs" />
     <Compile Include="Controllers\AddProjectTypeController.cs" />
     <Compile Include="Controllers\AddRepairPersonController.cs" />
@@ -281,6 +282,7 @@
     <Compile Include="Controllers\DonationTypeDetailsController.cs" />
     <Compile Include="Controllers\DonationTypeModifyController.cs" />
     <Compile Include="Controllers\EquipmentRepairRequestDetailsController.cs" />
+    <Compile Include="Controllers\EquipmentsController.cs" />
     <Compile Include="Controllers\ForgotPasswordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobTitleController.cs" />
@@ -301,6 +303,7 @@
     <Compile Include="Controllers\ProjectTypeModifyController.cs" />
     <Compile Include="Controllers\RepairRequestsController.cs" />
     <Compile Include="Controllers\Reports\ReportsMainController.cs" />
+    <Compile Include="Controllers\SelectEquipmentController.cs" />
     <Compile Include="Controllers\SelectEquipmentForProofController.cs" />
     <Compile Include="Controllers\SelectEquipmentForRepairRequestController.cs" />
     <Compile Include="Controllers\SelectRepairPersonforEquipmentRepairRequestController.cs" />
@@ -400,6 +403,7 @@
     <Compile Include="Global\Equipment_Type.cs">
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Equipment.cs" />
     <Compile Include="Models\ForgotPasswordModel.cs" />
     <Compile Include="Global\Funder_Org.cs">
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
@@ -821,10 +825,13 @@
     <Content Include="Views\ProjectTypeModify\Index.cshtml" />
     <Content Include="Views\ReportsMain\ReportsMain.cshtml" />
     <Content Include="Views\AddSupplier\Index.cshtml" />
+    <Content Include="Views\Equipments\Index.cshtml" />
+    <Content Include="Views\SelectEquipment\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
+    <Folder Include="Views\AddEquipment\" />
     <Folder Include="Views\Global\" />
   </ItemGroup>
   <ItemGroup>
