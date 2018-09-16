@@ -1,0 +1,207 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<nav id="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Procurement</a></li>
+        <li class="breadcrumb-item"><a href="#">Suppliers</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Supplier</li>
+    </ol>
+</nav>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
+
+<div id="profile">
+    <a href="#" class="dropdown-toggle " data-toggle="dropdown" aria-expanded="true">User<span class="caret"></span><span class="glyphicon glyphicon-user"></span></a>
+    <ul class="dropdown-menu" role="menu">
+        <li class=""><a href="https://bootsnipp.com/builder" class="">Account<span class="glyphicon glyphicon-file"></span></a></li>
+        <li class=""><a href="https://bootsnipp.com/forms" class="">Logout<span class="glyphicon glyphicon-off"></span></a></li>
+    </ul>
+</div>
+
+<div id="details_holder">
+    <p>Add Supplier</p>
+    <div>
+        <p>Name:</p>
+        <input type="text" />
+    </div>
+    <div>
+        <p>Contact Number:</p>
+        <input type="tel" />
+    </div>
+    <div>
+        <p>Email Address:</p>
+        <input type="email" />
+    </div>
+    <div>
+        <p>Bank:</p>
+        <input type="text" />
+    </div>
+    <div>
+        <p>Account Number:</p>
+        <input type="text" />
+    </div>
+    <div>
+        <p>Branch Code:</p>
+        <input type="text" />
+    </div>
+    <div>
+        <p>VAT Number:</p>
+        <input type="text" />
+    </div>
+    <div>
+        <p>Postal Address:</p>
+        <textarea name="textarea" type="text" style="width:285px; height:150px;"></textarea>
+    </div>
+    <div id="addVenueButton">Save and Add Supplier</div>
+</div>
+<div id="backButton">Back</div>
+
+<style>
+    #details_holder p {
+        font-size: 25px;
+        text-align: left;
+        flex: 1;
+        text-align: center;
+    }
+
+    #details_holder {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+        #details_holder div {
+            display: flex;
+            flex-direction: row;
+            line-height: 30px;
+        }
+
+            #details_holder div p {
+                flex: 50%;
+                text-align: left;
+                vertical-align: middle;
+                padding: 0;
+                margin: 0;
+            }
+
+            #details_holder div input {
+                flex: 50%;
+            }
+
+    #addVenueButton {
+        position: relative;
+        display: inline-block;
+        align-self: flex-end;
+        z-index: 1000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: 2vh;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #addVenueButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #backButton {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 1000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: 2vh;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #backButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #breadcrumb {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+    }
+
+    .breadcrumb-item {
+        font-size: 25px;
+    }
+
+    .breadcrumb {
+        top: 0;
+        background-color: #33363b !important;
+        padding-left: 60px !important;
+    }
+
+    #profile {
+        position: relative;
+        z-index: 8000;
+        margin-left: auto;
+        margin-bottom: auto;
+        height: 61px;
+        width: 20%;
+        background-color: #33363b;
+        transform: translateX(-3px);
+    }
+
+        #profile a {
+            display: table;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 200;
+            font-size: 25px;
+            text-decoration: none !important;
+            color: #5a9ad6;
+            line-height: 61px;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    .glyphicon {
+        margin-left: 6px;
+    }
+
+    .dropdown-menu {
+        background-color: #33363b;
+    }
+
+        .dropdown-menu li a {
+            color: #5a9ad6;
+        }
+</style>
+
+
