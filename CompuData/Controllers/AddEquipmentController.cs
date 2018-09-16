@@ -18,44 +18,38 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create([Bind(Prefix = "")]Models.Vehicle model)
+        public ActionResult Create([Bind(Prefix = "")]Models.Equipment model)
         {
             var db = new CodeFirst.CodeFirst();
             if (ModelState.IsValid)
             {
-                if (db.Vehicles.Count() > 0)
+                if (db.Equipments.Count() > 0)
                 {
-                    var item = db.Vehicles.OrderByDescending(a => a.VehicleID).FirstOrDefault();
+                    var item = db.Equipments.OrderByDescending(a => a.EquipmentID).FirstOrDefault();
 
-                    db.Vehicles.Add(new Vehicle
+                    db.Equipments.Add(new CodeFirst.Equipment
                     {
-                        VehicleID = item.VehicleID + 1,
-                        Brand = model.Brand,
-                        Model = model.Model,
-                        NumberPlate = model.NumberPlate,
-                        DateOfPurchase = model.DateofPurchase,
-                        DateofLastRepair = model.DateofLastRepair,
-                        DateofLicencePurchase = model.DateofLicencePurchase,
-                        LicenseExpireDate = model.LicenseExpireDate,
-                        ServiceIntervalInMonths = model.ServiceIntervalInMonths,
-                        ServiceIntervalInKMs = model.ServiceIntervalInKMs,
+                        EquipmentID = item.EquipmentID + 1,
+                        ManufacturerName = model.ManufacturerName,
+                        ModelNumber = model.ModelNumber,
+                        DatePurchased = model.DatePurchased,
+                        ServiceIntervalMonths = model.ServiceIntervalMonths,
+                        Status = model.Status,
+                        UserID = model.UserID,
                         TypeID = model.TypeID
                     });
                 }
                 else
                 {
-                    db.Vehicles.Add(new Vehicle
+                    db.Equipments.Add(new CodeFirst.Equipment
                     {
-                        VehicleID = 1,
-                        Brand = model.Brand,
-                        Model = model.Model,
-                        NumberPlate = model.NumberPlate,
-                        DateOfPurchase = model.DateofPurchase,
-                        DateofLastRepair = model.DateofLastRepair,
-                        DateofLicencePurchase = model.DateofLicencePurchase,
-                        LicenseExpireDate = model.LicenseExpireDate,
-                        ServiceIntervalInMonths = model.ServiceIntervalInMonths,
-                        ServiceIntervalInKMs = model.ServiceIntervalInKMs,
+                        EquipmentID = 1,
+                        ManufacturerName = model.ManufacturerName,
+                        ModelNumber = model.ModelNumber,
+                        DatePurchased = model.DatePurchased,
+                        ServiceIntervalMonths = model.ServiceIntervalMonths,
+                        Status = model.Status,
+                        UserID = model.UserID,
                         TypeID = model.TypeID
                     });
                 }
@@ -63,10 +57,10 @@ namespace CompuData.Controllers
                 db.SaveChanges();
                 model.JavaScriptToRun = "mySuccess()";
                 TempData["model"] = model;
-                return RedirectToAction("Index", "Vehicles");
+                return RedirectToAction("Index", "Equipments");
             }
 
-            model.VehicleTypes = db.Vehicle_Type.ToList();
+            model.EquipmentTypes = db.Equipment_Type.ToList();
             return View("Index", model);
         }
     }

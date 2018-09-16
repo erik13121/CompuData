@@ -463,6 +463,7 @@
     <Compile Include="Global\Vehicle.cs">
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Supplier.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Models\VehicleBooking.cs" />
@@ -827,11 +828,11 @@
     <Content Include="Views\AddSupplier\Index.cshtml" />
     <Content Include="Views\Equipments\Index.cshtml" />
     <Content Include="Views\SelectEquipment\Index.cshtml" />
+    <Content Include="Views\AddEquipment\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
-    <Folder Include="Views\AddEquipment\" />
     <Folder Include="Views\Global\" />
   </ItemGroup>
   <ItemGroup>
