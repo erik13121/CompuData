@@ -43,7 +43,6 @@ namespace CompuData.CodeFirst
         [MaxLength(50)]
         public string ContactNumber { get; set; }
 
-        [Required]
         [MaxLength(50)]
         public string Bank { get; set; }
 
