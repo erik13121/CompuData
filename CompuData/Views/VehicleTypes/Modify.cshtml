@@ -31,13 +31,14 @@
         <div>
             <p>Brand:</p>
             @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
         </div>
+        @Html.ValidationMessageFor(model => model.Name)
         <div>
             <p>Model:</p>
             @Html.EditorFor(model => model.Description)
-            @Html.ValidationMessageFor(model => model.Description)
         </div>
+
+        @Html.ValidationMessageFor(model => model.Description)
         <div id="multipleButtons">
             <div id="saveButton">Save</div>
         </div>
@@ -47,6 +48,12 @@
 <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
 <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 <style>
+    .field-validation-error {
+        display: block;
+        word-wrap: break-word;
+        margin-left: 50%;
+    }
+
     #details_holder {
         position: absolute;
         display: flex;

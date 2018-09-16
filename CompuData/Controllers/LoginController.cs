@@ -39,6 +39,7 @@ namespace CompuData.Controllers
 
                 if (item != null)
                 {
+                    item.Password = item.Password.Replace("\r\n", string.Empty);
                     if (item.Password.ToUpper() == Crypto.Hash(model.Password, "MD5"))
                     {
                         string ipAddress;

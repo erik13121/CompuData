@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "AddRepairRequest";
+    ViewBag.Title = "SelectEquipmentForProof";
     Layout = "~/Views/Shared/_Layout.cshtml";
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
@@ -9,28 +9,59 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Equipment Menu</a></li>
-        <li class="breadcrumb-item"><a href="#">Equipment Repair Requests</a></li>
-        <li class="breadcrumb-item"><a href="#">Select Equipment</a></li>
-        <li class="breadcrumb-item"><a href="#">Select Repair Person</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Reason for Request</li>
+        <li class="breadcrumb-item"><a href="#">Equipment</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Select Equipment for Proof</li>
     </ol>
 </nav>
 @Html.Partial("_ProfilePartial")
-<div id="details_holder">
-    <p>Repair Request</p>
-    <div>
-        <p>Reason for Repair:</p>
-        <input type="text" id="addVenueNameText" />
-    </div>
-    <div id="addButton">Add Repair Request</div>
+<div id="table_background">
+    <p>Select Equipment for which to Generate Proof of Removable Allocated Equipment for</p>
+    <table id="equipmentTable" class="display">
+        <thead>
+            <tr>
+                <th>Equipment ID</th>
+                <th>Manufacturer Name</th>
+                <th>Model Number</th>
+                <th>Date Purchased</th>
+                <th>Service Interval Months</th>
+                <th>Status</th>
+                <th>User Name</th>
+                <th>Type Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>IBM</td>
+                <td>I32451</td>
+                <td>03/02/2018</td>
+                <td>24</td>
+                <td>New</td>
+                <td>Wayne</td>
+                <td>Laptop</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>IBM</td>
+                <td>I42685</td>
+                <td>08/02/2018</td>
+                <td>24</td>
+                <td>New</td>
+                <td>Vanessa</td>
+                <td>Laptop</td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="backButton">Back</div>
 </div>
-<div id="backButton">Back</div>
 <style>
-    #details_holder {
+    #table_background p {
+        font-size: 25px;
+        text-align: center;
+    }
+
+    #table_background {
         position: absolute;
-        display: flex;
-        flex-direction: column;
         padding: 15px;
         padding-top: 20px;
         padding-bottom: 20px;
@@ -41,41 +72,21 @@
         border-radius: 50px 50px 50px 50px;
     }
 
-        #details_holder p {
-            font-size: 25px;
-            text-align: left;
-            flex: 1;
-        }
-
-        #details_holder div {
-            display: flex;
-            flex-direction: row;
-            line-height: 30px;
-        }
-
-            #details_holder div p {
-                flex: 50%;
-                text-align: center;
-                vertical-align: middle;
-                padding: 0;
-                margin: 0;
-            }
-
-            #details_holder div input {
-                flex: 50%;
-            }
+    #equipmentTable {
+        background-color: #5a9ad6;
+    }
 
     #addButton {
         position: relative;
-        display: inline-block;
-        align-self: flex-end;
+        display: table;
+        margin-left: auto;
+        bottom: 0;
         z-index: 10000;
         text-decoration: none;
         color: white;
         cursor: pointer;
         letter-spacing: 0.15em;
         text-transform: uppercase;
-        margin-left: 2vh;
         box-sizing: border-box;
         border: solid white;
         border-width: 2px;
@@ -119,7 +130,7 @@
     }
 
     .breadcrumb-item {
-        font-size: 20px;
+        font-size: 25px;
     }
 
     .breadcrumb {
@@ -164,3 +175,8 @@
             color: #5a9ad6;
         }
 </style>
+<script>
+    $(document).ready(function () {
+        $('#equipmentTable').DataTable();
+    });
+</script>

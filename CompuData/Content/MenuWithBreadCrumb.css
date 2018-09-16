@@ -4,7 +4,25 @@
 }
 
 html, body {
-    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+html {
+    min-height: 100vh;
+    overflow: auto;
+}
+
+body {
+    height: 100vh !important;
+    position: fixed;
+}
+
+footer>p {
+    padding: 0px !important;
 }
 
 #site_wrapper {
@@ -21,7 +39,7 @@ html, body {
 #landing {
     height: 100%;
     width: 100%;
-    position: relative;
+    position: fixed;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -56,7 +74,7 @@ html, body {
     z-index: 10000;
     text-align: center;
     padding-left: 10px;
-    height: auto;
+    height: 2em;
     width: 100%;
     position: absolute;
     bottom: 0;
@@ -67,8 +85,8 @@ html, body {
 }
 
 .logo {
-    height: 60px;
-    width: 60px;
+    height: 45px;
+    width: 45px;
     flex-direction: column;
 }
 
@@ -80,9 +98,9 @@ html, body {
 }
 
 #menu_toggle__wrapper {
-    position: absolute;
+    position: fixed;
     z-index: 9990;
-    top: 0.75em;
+    top: 0.5em;
     left: 1em;
     height: 2em;
     width: 2em;
@@ -207,7 +225,7 @@ html, body {
         text-decoration: none;
         color: white;
         cursor: pointer;
-        font-size: calc(1vw + 1em);
+        font-size: 1.5em;
         letter-spacing: 0.15em;
         text-transform: uppercase;
         margin: 2vh;
@@ -254,6 +272,15 @@ html, body {
     z-index : 9000 !important;
 }
 
+#profile>a>span  {
+    overflow: hidden;
+}
+
+#profile a {
+    font-size: 20px !important;
+    line-height: 45px !important;
+}
+
 #addButton {
     z-index : 0 !important;
 }
@@ -271,6 +298,55 @@ html, body {
     z-index: 1000;
 }
 
+.card-body {
+    line-height: 1.1em;
+}
+
 .card-body>span {
     margin-left: 50%;
+}
+
+.card-body p {
+    font-size: 20px !important;
+}
+
+.breadcrumb-item {
+    font-size: 20px !important;
+}
+
+.field-validation-error {
+    overflow: hidden;
+}
+
+#mytwoColumns {
+    margin-bottom: 2em;
+}
+
+.tab-content {
+    overflow-y: auto;
+    max-height: 350px;
+}
+
+p {
+    overflow: hidden;
+}
+
+.swal-icon {
+    overflow: hidden;
+}
+
+i {
+    overflow: hidden;
+}
+
+.dropdown-toggle {
+    position: absolute;
+}
+
+.dropdown-menu {
+    background-color: #33363b;
+}
+
+#Box1>div>a {
+    font-size: 12px;
 }

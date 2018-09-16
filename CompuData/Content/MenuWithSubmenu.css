@@ -165,3 +165,7 @@ a:hover {
     #backButton:hover {
         background-color: rgba(0, 255, 255, 0.4);
     }
+
+.dropdown-menu {
+    background-color: #33363b;
+}

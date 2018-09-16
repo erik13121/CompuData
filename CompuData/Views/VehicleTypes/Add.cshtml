@@ -22,15 +22,15 @@
         <p>Vehicle Details</p>
         @Html.HiddenFor(model => model.TypeID)
         <div>
-            <p>Brand:</p>
+            <p>Name:</p>
             @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
         </div>
+        @Html.ValidationMessageFor(model => model.Name)
         <div>
-            <p>Model:</p>
+            <p>Description:</p>
             @Html.EditorFor(model => model.Description)
-            @Html.ValidationMessageFor(model => model.Description)
         </div>
+        @Html.ValidationMessageFor(model => model.Description)
         <div id="multipleButtons">
             <div id="addButton">Add Vehicle Type</div>
         </div>
@@ -44,6 +44,12 @@
     form {
         top: 0;
         left: 0;
+    }
+
+    .field-validation-error {
+        display: block;
+        word-wrap: break-word;
+        margin-left: 50%;
     }
 
     #details_holder {

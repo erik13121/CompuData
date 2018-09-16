@@ -49,7 +49,7 @@ namespace CompuData.Controllers
                 return RedirectToAction("Index", "VehicleTypes");
             }
 
-            return View(model);
+            return View("Add", model);
         }
 
         // GET: VehicleDetails
@@ -86,6 +86,8 @@ namespace CompuData.Controllers
             
             return View(myModel);
         }
+
+
 
         [HttpPost]
         public ActionResult Update([Bind(Prefix = "")]Models.VehicleType model)

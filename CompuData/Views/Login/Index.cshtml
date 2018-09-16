@@ -6,6 +6,13 @@
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
 
+<head>
+    <script type="text/javascript">
+   function preventBack(){window.history.forward();}
+    setTimeout("preventBack()", 0);
+    window.onunload=function(){null};
+    </script>
+</head>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <img src="~/Content/CompuData(Transparent).png" class="img-circle">
 @using (Html.BeginForm("CheckLogin", "Login", FormMethod.Post, new { id = "myForm" }))

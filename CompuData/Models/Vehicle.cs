@@ -17,13 +17,13 @@ namespace CompuData.Models
         [Required(ErrorMessage = "The Brand is required")]
         [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]
         [DataType(DataType.Text)]
-        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Brand Name")]
+        [MaxLength(50)]
         public string Brand { get; set; }
 
         [Required(ErrorMessage = "The Model is required")]
         [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "No special characters are allowed!")]
         [DataType(DataType.Text)]
-        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Model")]
+        [MaxLength(50)]
         public string Model { get; set; }
 
         [Required(ErrorMessage = "The Number Plate is required")]

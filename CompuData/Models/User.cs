@@ -13,7 +13,7 @@ namespace CompuData.Models
         [MaxLength(50)]
         [RegularExpression("\\d{4,6}", ErrorMessage = "The Area Code has to consist of between 4 and 6 numbers")]
         public string AreaCode { get; set; }
-        [MaxLength(10)]
+        [MaxLength(10, ErrorMessage = "The Cellphone Number must consist of 10 numbers in the format (xxxxxxxxxx)")]
         [RegularExpression("\\d{10}", ErrorMessage = "The Cellphone Number must consist of 10 numbers in the format (xxxxxxxxxx)")]
         public string CellNum { get; set; }
         [Required(ErrorMessage = "The City is required")]
@@ -53,7 +53,7 @@ namespace CompuData.Models
         [MaxLength(50)]
         public string StreetAddress { get; set; }
         [Required(ErrorMessage = "The Telephone Number is required")]
-        [MaxLength(10)]
+        [MaxLength(10, ErrorMessage = "The Telephone Number must consist of 10 numbers in the format (xxxxxxxxxx)")]
         [RegularExpression("\\d{10}", ErrorMessage = "The Telephone Number must consist of 10 numbers in the format (xxxxxxxxxx)")]
         public string TelNum { get; set; }
         [Key]
@@ -66,7 +66,7 @@ namespace CompuData.Models
         [MaxLength(50)]
         public string WorkEmail { get; set; }
         [Required(ErrorMessage = "The Work Number is required")]
-        [MaxLength(10)]
+        [MaxLength(10, ErrorMessage = "The Work Number must consist of 10 numbers in the format (xxxxxxxxxx)")]
         [RegularExpression("\\d{10}", ErrorMessage = "The Work Number must consist of 10 numbers in the format (xxxxxxxxxx)")]
         public string WorkNum { get; set; }
         public string JobTitleName { get; set; }

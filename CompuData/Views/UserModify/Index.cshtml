@@ -18,7 +18,7 @@
         {
             if (Request.UrlReferrer.ToString().Contains("Details"))
             {
-                <li class="breadcrumb-item"><a href="../UserDetails/Index"></a></li>
+                <li class="breadcrumb-item"><a href="../UserDetails/Index">User Details</a></li>
             }
         }
         <li class="breadcrumb-item active" aria-current="page">Modify User Details</li>
@@ -35,6 +35,7 @@
     @using (@Html.BeginForm("Modify", "UserModify", FormMethod.Post, new { id = "myForm" }))
     {
         @Html.HiddenFor(model => model.UserID)
+        @Html.HiddenFor(model => model.Password)
         <div class="tab-content">
             <div id="PCRDetails" class="tab-pane fade in active">
                 <div class="row-md-6">
@@ -61,10 +62,10 @@
                             </div>
                             @Html.ValidationMessageFor(model => model.Initials)
                             <div>
-                                <p>Password:</p>
-                                @Html.EditorFor(model => model.Password)
+                                <p>National ID:</p>
+                                @Html.EditorFor(model => model.NationalID)
                             </div>
-                            @Html.ValidationMessageFor(model => model.Password)
+                            @Html.ValidationMessageFor(model => model.NationalID)
                             <div>
                                 <p>Cellphone Number:</p>
                                 @Html.EditorFor(model => model.CellNum)

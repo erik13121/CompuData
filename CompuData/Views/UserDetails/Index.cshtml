@@ -34,47 +34,51 @@
                         <div class="card-body">
                             <div>
                                 <p>First Name:</p>
-                                @Html.TextBoxFor(model => model.FirstName)
+                                @Html.TextBoxFor(model => model.FirstName, new { @readonly = "readonly" })
                             </div>
                             <div>
                                 <p>Middle Name:</p>
-                                @Html.TextBoxFor(model => model.MiddleName)
+                                @Html.TextBoxFor(model => model.MiddleName, new { @readonly = "readonly" })
                             </div>
                             <div>
                                 <p>Last Name:</p>
-                                @Html.TextBoxFor(model => model.LastName)
+                                @Html.TextBoxFor(model => model.LastName, new { @readonly = "readonly" })
                             </div>
                             <div>
                                 <p>Initials:</p>
-                                @Html.TextBoxFor(model => model.Initials)
+                                @Html.TextBoxFor(model => model.Initials, new { @readonly = "readonly" })
+                            </div>
+                            <div>
+                                <p>National ID:</p>
+                                @Html.TextBoxFor(model => model.NationalID, new { @readonly = "readonly" })
                             </div>
                             <div>
                                 <p>Cellphone Number:</p>
-                                @Html.TextBoxFor(model => model.CellNum)
+                                @Html.TextBoxFor(model => model.CellNum, new { @readonly = "readonly" })
                             </div>
                             <div>
                                 <p>Telephone Number:</p>
-                                @Html.TextBoxFor(model => model.TelNum)
+                                @Html.TextBoxFor(model => model.TelNum, new { @readonly = "readonly" })
                             </div>
                             <div>
                                 <p>Work Number:</p>
-                                @Html.TextBoxFor(model => model.WorkNum)
+                                @Html.TextBoxFor(model => model.WorkNum, new { @readonly = "readonly" })
                             </div>
                             <div>
                                 <p>Personal Email:</p>
-                                @Html.TextBoxFor(model => model.PersonalEmail)
+                                @Html.TextBoxFor(model => model.PersonalEmail, new { @readonly = "readonly" })
                             </div>
                             <div>
                                 <p>Work Email:</p>
-                                @Html.TextBoxFor(model => model.WorkEmail)
+                                @Html.TextBoxFor(model => model.WorkEmail, new { @readonly = "readonly" })
                             </div>
                             <div>
                                 <p>Job Title:</p>
-                                @Html.TextBoxFor(model => model.JobTitleName)
+                                @Html.TextBoxFor(model => model.JobTitleName, new { @readonly = "readonly" })
                             </div>
                             <div>
                                 <p>Access Level:</p>
-                                @Html.TextBoxFor(model => model.AccessLevelName)
+                                @Html.TextBoxFor(model => model.AccessLevelName, new { @readonly = "readonly" })
                             </div>
                         </div>
                     </div>
@@ -86,15 +90,15 @@
                         <div class="card-body" id="cardbody2">
                             <div>
                                 <p>Street Address:</p>
-                                @Html.TextBoxFor(model => model.StreetAddress)
+                                @Html.TextBoxFor(model => model.StreetAddress, new { @readonly = "readonly" })
                             </div>
                             <div>
                                 <p>City:</p>
-                                @Html.TextBoxFor(model => model.City)
+                                @Html.TextBoxFor(model => model.City, new { @readonly = "readonly" })
                             </div>
                             <div>
                                 <p>Area Code:</p>
-                                @Html.TextBoxFor(model => model.AreaCode)
+                                @Html.TextBoxFor(model => model.AreaCode, new { @readonly = "readonly" })
                             </div>
                         </div>
                     </div>
@@ -106,15 +110,15 @@
                         <div class="card-body" id="cardbody2">
                             <div>
                                 <p>PO Box Address:</p>
-                                @Html.TextBoxFor(model => model.POAddress)
+                                @Html.TextBoxFor(model => model.POAddress, new { @readonly = "readonly" })
                             </div>
                             <div>
                                 <p>PO Box City:</p>
-                                @Html.TextBoxFor(model => model.POCity)
+                                @Html.TextBoxFor(model => model.POCity, new { @readonly = "readonly" })
                             </div>
                             <div>
                                 <p>PO Box Area Code:</p>
-                                @Html.TextBoxFor(model => model.POAreaCode)
+                                @Html.TextBoxFor(model => model.POAreaCode, new { @readonly = "readonly" })
                             </div>
                         </div>
                     </div>
@@ -123,7 +127,7 @@
         </div>
         <div id="multipleButtons">
             <div id="addButton">Modify User</div>
-            <div id="removeButton">Remove</div>
+            <div id="addButton">Remove</div>
         </div>
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

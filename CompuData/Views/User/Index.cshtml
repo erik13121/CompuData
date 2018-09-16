@@ -17,7 +17,9 @@
 <div id="table_background">
     <p>Users</p>
     <table id="table_id" class="display" cellspacing="0" width="100%"></table>
-    <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddUser")'">Add User</div>
+    <div id="multipleButtons">
+        <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddUser")'">Add User</div>
+    </div>
     <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "AccessLevel")'">Back</div>
 </div>
 <style>

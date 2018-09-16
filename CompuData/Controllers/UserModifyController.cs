@@ -135,7 +135,7 @@ namespace CompuData.Controllers
                 }
 
                 TempData["js"] = "myUpdateSuccess()";
-                return RedirectToAction("Index", "Users");
+                return RedirectToAction("Index", "User");
             }
 
             model.AccessLevels = db.Access_Level.ToList();

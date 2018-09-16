@@ -10,7 +10,7 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">User Access Menu</a></li>
+        <li class="breadcrumb-item"><a href="../AccessLevel/Index">User Access Menu</a></li>
         <li class="breadcrumb-item active" aria-current="page">Access Level</li>
     </ol>
 </nav>
@@ -19,7 +19,7 @@
     <p>Access Levels</p>
     <table id="table_id" class="display" width="100%"></table>
     <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddAccessLevel")'">Add Access Level</div>
-    <div id="backButton" onclick="window.location = '@Request.UrlReferrer.ToString()'">Back</div>
+    <div id="backButton" onclick="window.location = '@Url.Action("Index", "AccessLevel")'">Back</div>
 </div>
 <style>
     #table_background p {
