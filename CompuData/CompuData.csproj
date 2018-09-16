@@ -261,6 +261,7 @@
     <Compile Include="Controllers\AddProjectTypeController.cs" />
     <Compile Include="Controllers\AddRepairPersonController.cs" />
     <Compile Include="Controllers\AddRepairRequestController.cs" />
+    <Compile Include="Controllers\AddSupplierController.cs" />
     <Compile Include="Controllers\AddUserController.cs" />
     <Compile Include="Controllers\AddVehicleBookingController.cs" />
     <Compile Include="Controllers\AddVehicleController.cs" />
@@ -819,6 +820,7 @@
     <Content Include="Views\AddAccessLevel\Index.cshtml" />
     <Content Include="Views\ProjectTypeModify\Index.cshtml" />
     <Content Include="Views\ReportsMain\ReportsMain.cshtml" />
+    <Content Include="Views\AddSupplier\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
