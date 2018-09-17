@@ -11,13 +11,16 @@
         <li class="breadcrumb-item active" aria-current="page">Suppliers</li>
     </ol>
 </nav>
+
 <head>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 </head>
+
 @Html.Partial("_ProfilePartial")
+
 <div id="table_background">
     <p>Suppliers</p>
     <table id="SupplierTable" class="display" width="100%"></table>
@@ -216,6 +219,55 @@
                     searchable: true
                 },
                 {
+                    name: 'vatNumber',
+                    data: "vatNumber",
+                    title: "VAT Number",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'bank',
+                    data: "bank",
+                    title: "Bank",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'accountNumber',
+                    data: "accountNumber",
+                    title: "Account Number",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'branchCode',
+                    data: "branchCode",
+                    title: "Branch Code",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'poAddress',
+                    data: "poAddress",
+                    title: "Postal Address",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'poCity',
+                    data: "poCity",
+                    title: "Postal City",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'poAreaCode',
+                    data: "poAreaCode",
+                    title: "Postal Area Code",
+                    sortable: true,
+                    searchable: true
+                },
+                {
                     "targets": -1,
                     "data": null,
                     "defaultContent": '<i class="glyphicon glyphicon-eye-open"></i>',
@@ -275,7 +327,7 @@
         });
     });
 
-    $('#supplierTable').on('click', '.glyphicon-pencil', function () {
+    $('#SupplierTable').on('click', '.glyphicon-pencil', function () {
         var data = table.row($(this).parents('tr')).data();
         var supplierID = data["supplierID"];
 
@@ -290,7 +342,7 @@
         });
     });
 
-    $('#supplierTable').on('click', '.glyphicon-trash', function () {
+    $('#SupplierTable').on('click', '.glyphicon-trash', function () {
         var data = table.row($(this).parents('tr')).data();
         var supplierID = data["supplierID"];
 

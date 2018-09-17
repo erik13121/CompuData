@@ -22,7 +22,9 @@
         <li class="breadcrumb-item active" aria-current="page">Modify Vehicle Details</li>
     </ol>
 </nav>
+
 @Html.Partial("_ProfilePartial")
+
 <div id="details_holder">
 @using (@Html.BeginForm("Modify", "ModifyVehicleDetails", FormMethod.Post, new { id = "myForm" }))
 {
