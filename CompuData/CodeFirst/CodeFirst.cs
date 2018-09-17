@@ -545,7 +545,6 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Supplier>()
                 .Property(e => e.Name)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Supplier>()
@@ -566,12 +565,10 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Supplier>()
                 .Property(e => e.ContactNumber)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Supplier>()
                 .Property(e => e.Bank)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Supplier>()

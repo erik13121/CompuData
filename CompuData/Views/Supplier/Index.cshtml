@@ -365,10 +365,11 @@
                         dataType: 'json',
                         success: function (data) {
                             if (data.Url != "Cascading error!") {
-                                swal("You have successfully deleted the supplier", {
+                                swal("You have successfully deleted the Supplier", {
                                     icon: "success",
+                                }).then(() => {
+                                    window.location.href = data.Url;
                                 });
-                                window.location.href = data.Url;
                             }
                             else {
                                 swal("Cannot delete this due to it being used somewhere else in the system!", {
