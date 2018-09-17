@@ -308,7 +308,6 @@
     <Compile Include="Controllers\SelectEquipmentForRepairRequestController.cs" />
     <Compile Include="Controllers\SelectRepairPersonforEquipmentRepairRequestController.cs" />
     <Compile Include="Controllers\SelectVehicleforVehicleServiceController.cs" />
-    <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserDetailsController.cs" />
     <Compile Include="Controllers\UserModifyController.cs" />
@@ -829,12 +828,11 @@
     <Content Include="Views\AddSupplier\Index.cshtml" />
     <Content Include="Views\Equipments\Index.cshtml" />
     <Content Include="Views\SelectEquipment\Index.cshtml" />
-    <Content Include="Views\Supplier\Index.cshtml" />
+    <Content Include="Views\AddEquipment\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
-    <Folder Include="Views\AddEquipment\" />
     <Folder Include="Views\Global\" />
   </ItemGroup>
   <ItemGroup>

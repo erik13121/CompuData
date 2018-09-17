@@ -36,6 +36,7 @@ namespace CompuData.CodeFirst
         [MaxLength(50)]
         public string POAreaCode { get; set; }
 
+        [Required]
         [MaxLength(50)]
         public string EmailAddress { get; set; }
 
