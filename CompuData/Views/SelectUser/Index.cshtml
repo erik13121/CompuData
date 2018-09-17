@@ -1,0 +1,375 @@
+﻿@{
+    ViewBag.Title = "SelectUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
+    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<nav id="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMainMenu/EquipmentManagementMainMenu">Equipment Menu</a></li>
+        <li class="breadcrumb-item"><a href="../Equipments/Index">Equipments</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Select User</li>
+    </ol>
+</nav>
+@Html.Partial("_ProfilePartial")
+<div id="table_background">
+    <p>Select the User that the Equipment will be linked too</p>
+    <table id="table_id" class="display" cellspacing="0" width="100%"></table>
+    <div id="multipleButtons">
+        <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddEquipment")'">No User linked to Equipment</div>
+    </div>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Equipments")'">Back</div>
+</div>
+<style>
+    th, td {
+        white-space: nowrap;
+    }
+
+    div.dataTables_wrapper {
+        width: 1000px;
+        margin: 0 auto;
+    }
+
+    #table_background p {
+        font-size: 25px;
+        text-align: center;
+    }
+
+    #table_background {
+        position: absolute;
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    .dataTable {
+        background-color: #5a9ad6;
+        font-size: 14px;
+    }
+
+    #multipleButtons {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #addButton {
+        position: relative;
+        display: inline-block;
+        margin-left: auto;
+        margin-right: auto;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #addButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #addBookingButton {
+        position: relative;
+        display: inline-block;
+        margin-left: auto;
+        margin-right: auto;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #addBookingButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #backButton {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: 2vh;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #backButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #breadcrumb {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+    }
+
+    .breadcrumb-item {
+        font-size: 25px;
+    }
+
+    .breadcrumb {
+        top: 0;
+        background-color: #33363b !important;
+        padding-left: 60px !important;
+    }
+
+    #profile {
+        position: relative;
+        z-index: 7979;
+        margin-left: auto;
+        margin-bottom: auto;
+        height: 61px;
+        width: 20%;
+        background-color: #33363b;
+        transform: translateX(-3px);
+    }
+
+        #profile a {
+            display: table;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 200;
+            font-size: 25px;
+            text-decoration: none !important;
+            color: #5a9ad6;
+            line-height: 61px;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    .glyphicon {
+        margin-left: 6px;
+    }
+
+    .dropdown-menu {
+        background-color: #33363b;
+    }
+
+        .dropdown-menu li a {
+            color: #5a9ad6;
+        }
+</style>
+<script>
+    var table;
+    $(document).ready(function () {
+        table = $('#table_id').DataTable({
+            serverSide: true,
+            ajax: "/User/PageData",
+            autoWidth: true,
+            scrollX: true,
+            columns: [
+                {
+                    name: 'userID',
+                    data: 'userID',
+                    title: "ID",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'firstName',
+                    data: "firstName",
+                    title: "First Name",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'middleName',
+                    data: "middleName",
+                    title: "Middle Name",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'lastName',
+                    data: "lastName",
+                    title: "Last Name",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'initials',
+                    data: "initials",
+                    title: "Initials",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'nationalID',
+                    data: "nationalID",
+                    title: "National ID",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'cellNum',
+                    data: "cellNum",
+                    title: "Cell Num",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'telNum',
+                    data: "telNum",
+                    title: "Tel Num",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'workNum',
+                    data: "workNum",
+                    title: "Work Num",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'personalEmail',
+                    data: "personalEmail",
+                    title: "Personal Email",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'workEmail',
+                    data: "workEmail",
+                    title: "Work Email",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'streetAddress',
+                    data: "streetAddress",
+                    title: "Street Address",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'city',
+                    data: "city",
+                    title: "City",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'areaCode',
+                    data: "areaCode",
+                    title: "Area Code",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'poAddress',
+                    data: "poAddress",
+                    title: "PO Address",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'poCity',
+                    data: "poCity",
+                    title: "PO City",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'poAreaCode',
+                    data: "poAreaCode",
+                    title: "PO Area Code",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'validLicense',
+                    data: "validLicense",
+                    title: "Valid License",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'jobTitleName',
+                    data: "jobTitleName",
+                    title: "Job Title",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'accessLevelName',
+                    data: "accessLevelName",
+                    title: "Access Level",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": '<i class="glyphicon glyphicon-eye-open"></i>',
+                    sortable: false,
+                },
+                {
+                    "targets": -2,
+                    "data": null,
+                    "defaultContent": '<i class="glyphicon glyphicon-pencil"></i>',
+                    sortable: false,
+                },
+                {
+                    "targets": -3,
+                    "data": null,
+                    "defaultContent": '<i class="glyphicon glyphicon-trash"></i>',
+                    sortable: false,
+                }
+            ]
+        });
+    });
+
+    $(document).ready( function()
+    {
+        $('#table_id tbody').on('click', 'tr', function () {
+            var data = table.row(this).data();
+            var userID = data["userID"];
+
+            $.ajax({
+                url: '@Url.Action("RedirectToAddEquipmentDetails", "AddEquipment")',
+                type: 'POST',
+                data: { userID: userID },
+                dataType: 'json',
+                success: function (data) {
+                    window.location.href = data.Url; // your action should return an object having [redirecturl] property
+                }
+            });
+        });
+    })
+</script>
