@@ -11,8 +11,7 @@
     <link href="@Url.Content("~/Content/MenuWithBreadCrumb.css")" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
     <link href="@Url.Content("~/bootstrap4-glyphicons-master/bootstrap4-glyphicons/css/bootstrap-glyphicons.min.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Contents/bootstrap-datepicker.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Contents/bootstrap-datepicker.min.css")" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" charset="utf8" src="~/Scripts/jquery-ui-1.12.1.js"></script>
     @RenderSection("Styles", false)
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 </head>
@@ -55,16 +54,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
     <script type="text/javascript" charset="utf8" src="~/Scripts/jquery-ui-1.12.1.js"></script>
-    <script type="text/javascript" charset="utf8" src="~/Scripts/bootstrap-datepicker.js"></script>
-    <script type="text/javascript" charset="utf8" src="~/Scripts/bootstrap-datepicker.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>
 <footer class="footer">
     <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
 </footer>
-
+<style>
+    .ui-datepicker {
+        background-color: white;        
+    }
+</style>
 <script>
     menuToggle = $('#menu_toggle__wrapper');
     menu = $('#menu_wrapper');

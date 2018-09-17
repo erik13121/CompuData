@@ -351,3 +351,7 @@ i {
 #Box1>div>a {
     font-size: 12px;
 }
+
+.ui-datepicker-header {
+    background-color: #5a9ad6 !important;
+}
