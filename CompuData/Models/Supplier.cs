@@ -26,6 +26,7 @@ namespace CompuData.Models
         [MaxLength(50, ErrorMessage = "You have entered too many characters!")]
         public string POAreaCode { get; set; }
 
+        [Required(ErrorMessage = "A Supplier Email Address is required")]
         [EmailAddress(ErrorMessage = "Invalid email format")]
         [MaxLength(50)]
         public string EmailAddress { get; set; }
