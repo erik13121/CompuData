@@ -62,7 +62,7 @@ namespace CompuData.Controllers
                 db.SaveChanges();
                 model.JavaScriptToRun = "mySuccess()";
                 TempData["model"] = model;
-                return RedirectToAction("Index", "Suppliers");
+                return RedirectToAction("Index", "Supplier");
             }
 
             return View("Index", model);

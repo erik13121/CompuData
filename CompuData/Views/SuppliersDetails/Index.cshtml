@@ -1,71 +1,77 @@
 ﻿
 @{
-    ViewBag.Title = "VehicleDetails";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    @model CompuData.Models.Vehicle
-    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
-    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+    ViewBag.Title = "Index";
+    @model CompuData.Models.Supplier
 }
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../VehicleMenu/Index">Vehicle Menu</a></li>
-        <li class="breadcrumb-item"><a href="../Vehicles/Index">Vehicles</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Vehicle Details</li>
+        <li class="breadcrumb-item"><a href="../ProcurementMenu/Index">Procurement</a></li>
+        <li class="breadcrumb-item"><a href="../Supplier/Index">Suppliers</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Supplier Details</li>
     </ol>
 </nav>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
+
 @Html.Partial("_ProfilePartial")
-<div id="details_holder">
-    <p>Vehicle Details</p>
-    @Html.HiddenFor(model => model.VehicleID)
-    <div>
-        <p>Brand:</p>
-        @Html.TextBoxFor(model => model.Brand, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Model:</p>
-        @Html.TextBoxFor(model => model.Model, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Number Plate:</p>
-        @Html.TextBoxFor(model => model.NumberPlate, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Date of Purchase:</p>
-        @Html.TextBoxFor(model => model.DateofPurchase, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Date of Last Repair:</p>
-        @Html.TextBoxFor(model => model.DateofLastRepair, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Date of License Purchase:</p>
-        @Html.TextBoxFor(model => model.DateofLicencePurchase, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Licence Expire Date:</p>
-        @Html.TextBoxFor(model => model.LicenseExpireDate, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Service Interval in Months:</p>
-        @Html.TextBoxFor(model => model.ServiceIntervalInMonths, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Service Interval in Kilometres:</p>
-        @Html.TextBoxFor(model => model.ServiceIntervalInKMs, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Vehicle Type:</p>
-        @Html.TextBoxFor(model => model.TypeName, new { @readonly = "readonly" })
-    </div>
+
+<div id="details_holder"> 
+        <p>Supplier Details</p>
+        @Html.HiddenFor(model => model.SupplierID)
+        <div>
+            <p>Name:</p>
+            @Html.TextBoxFor(model => model.Name, new { @readonly = "readonly" })
+        </div>
+        <div>
+            <p>Contact Number:</p>
+            @Html.TextBoxFor(model => model.ContactNumber, new { @readonly = "readonly" })
+        </div>
+        <div>
+            <p>Email Address:</p>
+            @Html.TextBoxFor(model => model.EmailAddress, new { @readonly = "readonly" })
+        </div>
+        <div>
+            <p>Bank:</p>
+            @Html.TextBoxFor(model => model.Bank, new { @readonly = "readonly" })
+        </div>
+        <div>
+            <p>Account Number:</p>
+            @Html.TextBoxFor(model => model.AccountNumber, new { @readonly = "readonly" })
+        </div>
+        <div>
+            <p>Branch Code:</p>
+            @Html.TextBoxFor(model => model.BranchCode, new { @readonly = "readonly" })
+        </div>
+        <div>
+            <p>VAT Number:</p>
+            @Html.TextBoxFor(model => model.VATNumber, new { @readonly = "readonly" })
+        </div>
+        <div>
+            <p>Postal Address:</p>
+            @Html.TextBoxFor(model => model.POAddress, new { @readonly = "readonly" })
+        </div>
+        <div>
+            <p>Postal City:</p>
+            @Html.TextBoxFor(model => model.POCity, new { @readonly = "readonly" })
+        </div>
+        <div>
+            <p>Postal Code:</p>
+            @Html.TextBoxFor(model => model.POAreaCode, new { @readonly = "readonly" })
+        </div>
     <div id="multipleButtons">
-        <div id="modifyButton">Modify</div>
-        <div id="removeButton">Remove</div>
+        <a id="modifyButton" class="btn btn-dafault">Maintain</a>
+        <a id="removeButton" class="btn btn-default">Remove</a>
     </div>
 </div>
-<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Vehicles")'">Back</div>
-
+}
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Supplier")'">Back</div>
 
 <style>
     #details_holder {
@@ -152,6 +158,7 @@
         margin-right: auto;
         padding: 10px;
         transition: background-color linear 0.5s;
+        background-color: transparent;
     }
 
         #removeButton:hover {
@@ -242,15 +249,14 @@
         }
 </style>
 
-
 <script>
     $('#modifyButton').on('click', function () {
-        var vehicleID = @Model.VehicleID;
+        var SupplierID = @Model.SupplierID;
 
         $.ajax({
-            url: '@Url.Action("RedirectToModifyVehicleDetails", "ModifyVehicleDetails")',
+            url: '@Url.Action("RedirectToModifySupplierDetails", "ModifySupplier")',
             type: 'POST',
-            data: { vehicleID: vehicleID },
+            data: { SupplierID: SupplierID },
             dataType: 'json',
             success: function (data) {
                 window.location.href = data.Url;
@@ -259,10 +265,10 @@
     });
 
     $('#removeButton').on('click', function () {
-        var vehicleID = @Model.VehicleID;
+        var SupplierID = @Model.SupplierID;
 
         swal({
-            title: "Are you sure you want to delete this Vehicle?",
+            title: "Are you sure you want to delete this Supplier?",
             icon: "warning",
             dangerMode: true,
             buttons: [
@@ -274,13 +280,13 @@
             .then((willDelete) => {
                 if (willDelete) {
                     $.ajax({
-                        url: '@Url.Action("Delete", "Vehicles")',
+                        url: '@Url.Action("Delete", "Supplier")',
                         type: 'POST',
-                        data: { vehicleID: vehicleID },
+                        data: { SupplierID: SupplierID },
                         dataType: 'json',
                         success: function (data) {
                             if (data.Url != "Cascading error!") {
-                                swal("You have successfully deleted the Vehicle", {
+                                swal("You have successfully deleted the Supplier", {
                                     icon: "success",
                                 });
                             }

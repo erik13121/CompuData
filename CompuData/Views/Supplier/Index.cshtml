@@ -1,13 +1,12 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     @model CompuData.Models.Supplier
 }
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Procurement</a></li>
+        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
+        <li class="breadcrumb-item"><a href="../ProcurementMenu/Index">Procurement</a></li>
         <li class="breadcrumb-item active" aria-current="page">Suppliers</li>
     </ol>
 </nav>
@@ -25,7 +24,8 @@
     <p>Suppliers</p>
     <table id="SupplierTable" class="display" width="100%"></table>
     <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddSupplier")'">Add Supplier</div>
-    <div id="backButton">Back</div>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "ProcurementMenu")'">Back</div>
+
 </div>
 
 <style>
@@ -314,10 +314,10 @@
 
     $('#SupplierTable').on('click', '.glyphicon-eye-open', function () {
         var data = table.row($(this).parents('tr')).data();
-        var vehicleID = data["supplierID"];
+        var supplierID = data["supplierID"];
 
         $.ajax({
-            url: '@Url.Action("RedirectToSupplierDetails", "SupplierDetails")',
+            url: '@Url.Action("RedirectToSupplierDetails", "SuppliersDetails")',
             type: 'POST',
             data: { supplierID: supplierID },
             dataType: 'json',
@@ -332,7 +332,7 @@
         var supplierID = data["supplierID"];
 
         $.ajax({
-            url: '@Url.Action("RedirectToModifySupplierDetails", "ModifySupplierDetails")',
+            url: '@Url.Action("RedirectToModifySupplierDetails", "ModifySupplier")',
             type: 'POST',
             data: { supplierID: supplierID },
             dataType: 'json',
@@ -365,10 +365,11 @@
                         dataType: 'json',
                         success: function (data) {
                             if (data.Url != "Cascading error!") {
-                                swal("You have successfully deleted the supplier", {
+                                swal("You have successfully deleted the Supplier", {
                                     icon: "success",
+                                }).then(() => {
+                                    window.location.href = data.Url;
                                 });
-                                window.location.href = data.Url;
                             }
                             else {
                                 swal("Cannot delete this due to it being used somewhere else in the system!", {

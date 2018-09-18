@@ -292,12 +292,14 @@
     <Compile Include="Controllers\MainMenuController.cs" />
     <Compile Include="Controllers\ModifyEquipmentRepairRequestController.cs" />
     <Compile Include="Controllers\ModifyLoginDetailsController.cs" />
+    <Compile Include="Controllers\ModifySupplierController.cs" />
     <Compile Include="Controllers\ModifyVehicleBookingController.cs" />
     <Compile Include="Controllers\ModifyVehicleDetailsController.cs" />
     <Compile Include="Controllers\ModifyVehicleScheduleController.cs" />
     <Compile Include="Controllers\ModifyVehicleServiceDetailsController.cs" />
     <Compile Include="Controllers\ModifyVenueController.cs" />
     <Compile Include="Controllers\NewPasswordController.cs" />
+    <Compile Include="Controllers\ProcurementMenuController.cs" />
     <Compile Include="Controllers\ProjectTypeController.cs" />
     <Compile Include="Controllers\ProjectTypeDetailsController.cs" />
     <Compile Include="Controllers\ProjectTypeModifyController.cs" />
@@ -310,6 +312,7 @@
     <Compile Include="Controllers\SelectUserController.cs" />
     <Compile Include="Controllers\SelectVehicleforVehicleServiceController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
+    <Compile Include="Controllers\SuppliersDetailsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserDetailsController.cs" />
     <Compile Include="Controllers\UserModifyController.cs" />
@@ -832,6 +835,9 @@
     <Content Include="Views\SelectEquipment\Index.cshtml" />
     <Content Include="Views\AddEquipment\Index.cshtml" />
     <Content Include="Views\Supplier\Index.cshtml" />
+    <Content Include="Views\ModifySupplier\Index.cshtml" />
+    <Content Include="Views\SuppliersDetails\Index.cshtml" />
+    <Content Include="Views\ProcurementMenu\Index.cshtml" />
     <Content Include="Views\SelectUser\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

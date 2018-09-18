@@ -1,16 +1,17 @@
 ﻿
 @{
-    ViewBag.Title = "VehicleMenu";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
 
 <link href="@Url.Content("~/Content/MenuWithSubmenu.css")" rel="stylesheet" type="text/css" />
+
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Vehicle Menu</li>
+        <li class="breadcrumb-item active" aria-current="page">Procurement Menu</li>
     </ol>
 </nav>
 
@@ -18,35 +19,31 @@
 
 <div id="menuwithSub_wrapper">
     <ul id="menuwithSub_left">
-        <!--<li class="menu_item">@Html.ActionLink("Home", "Index", "Home")</li>
-        <li class="menu_item">@Html.ActionLink("About", "About", "Home")</li>
-        <li class="menu_item">@Html.ActionLink("Contact", "Contact", "Home")</li>-->
         <ul class="newmenu_item">
-            <p>@Html.ActionLink("Vehicles", "Index", "Vehicles")</p>
+            <p>@Html.ActionLink("Procurement", "Index", "ProcurementMenu")</p>
             <li class="newsubMenu_item">
-                <p style="margin-left: 6vh !important">@Html.ActionLink("Vehicle Services", "Index", "VehicleServices")</p>
+                <p style="margin-left: 6vh !important">@Html.ActionLink("Suppliers", "Index", "Supplier")</p>
             </li>
             <li class="newsubMenu_item">
-                <p style="margin-left: 6vh !important">@Html.ActionLink("Vehicle Bookings", "Index", "VehicleBookings")</p>
-            </li>
-            @*<li class="newsubMenu_item">
-                <p>View Available Booking Slots</p>
-            </li>*@
-            <li>
-                <p style="margin-left: 6vh !important">@Html.ActionLink("Vehicle Schedules", "Index", "VehicleSchedules")</p>
+                <p style="margin-left: 6vh !important">@Html.ActionLink("Petty Cash Requisition", "Index", "")</p>
             </li>
             <li>
-                <p style="margin-left: 6vh !important">@Html.ActionLink("Vehicle Types", "Index", "VehicleTypes")</p>
+                <p style="margin-left: 6vh !important">@Html.ActionLink("EFT Requisition", "Index", "")</p>
+            </li>
+            <li>
+                <p style="margin-left: 6vh !important">@Html.ActionLink("View Purchase history", "Index", "")</p>
             </li>
         </ul>
     </ul>
     <div id="menuwithSub_right">
         <img src="~/Content/CompuData(Transparent).png" />
-
         <h1>CompuData</h1>
     </div>
 </div>
-<div id="backButton">Back</div>
+
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "")'">Back</div>
+
+
 <style>
     /*ul {
         list-style: none;
