@@ -307,6 +307,7 @@
     <Compile Include="Controllers\SelectEquipmentForProofController.cs" />
     <Compile Include="Controllers\SelectEquipmentForRepairRequestController.cs" />
     <Compile Include="Controllers\SelectRepairPersonforEquipmentRepairRequestController.cs" />
+    <Compile Include="Controllers\SelectUserController.cs" />
     <Compile Include="Controllers\SelectVehicleforVehicleServiceController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -831,6 +832,7 @@
     <Content Include="Views\SelectEquipment\Index.cshtml" />
     <Content Include="Views\AddEquipment\Index.cshtml" />
     <Content Include="Views\Supplier\Index.cshtml" />
+    <Content Include="Views\SelectUser\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

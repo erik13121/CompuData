@@ -35,7 +35,7 @@ namespace CompuData.Controllers
                         ModelNumber = model.ModelNumber,
                         DatePurchased = model.DatePurchased,
                         ServiceIntervalMonths = model.ServiceIntervalMonths,
-                        Status = model.Status,
+                        Status = "Active",
                         UserID = model.UserID,
                         TypeID = model.TypeID
                     });
@@ -49,7 +49,7 @@ namespace CompuData.Controllers
                         ModelNumber = model.ModelNumber,
                         DatePurchased = model.DatePurchased,
                         ServiceIntervalMonths = model.ServiceIntervalMonths,
-                        Status = model.Status,
+                        Status = "Active",
                         UserID = model.UserID,
                         TypeID = model.TypeID
                     });
