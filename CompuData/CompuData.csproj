@@ -299,6 +299,7 @@
     <Compile Include="Controllers\ModifyVehicleServiceDetailsController.cs" />
     <Compile Include="Controllers\ModifyVenueController.cs" />
     <Compile Include="Controllers\NewPasswordController.cs" />
+    <Compile Include="Controllers\PCRMenuController.cs" />
     <Compile Include="Controllers\ProcurementMenuController.cs" />
     <Compile Include="Controllers\ProjectTypeController.cs" />
     <Compile Include="Controllers\ProjectTypeDetailsController.cs" />
@@ -429,6 +430,7 @@
     <Compile Include="Global\Project.cs">
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PCR.cs" />
     <Compile Include="Models\ProjectType.cs" />
     <Compile Include="Global\Project_Type.cs">
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
@@ -837,6 +839,7 @@
     <Content Include="Views\ModifySupplier\Index.cshtml" />
     <Content Include="Views\SuppliersDetails\Index.cshtml" />
     <Content Include="Views\ProcurementMenu\Index.cshtml" />
+    <Content Include="Views\PCRMenu\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
