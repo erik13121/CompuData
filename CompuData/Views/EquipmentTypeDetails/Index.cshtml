@@ -226,7 +226,7 @@
         var typeID = @Model.TypeID;
 
         $.ajax({
-            url: '@Url.Action("RedirectToModifyEquipTypeDetails", "ModifySupplier")',
+            url: '@Url.Action("RedirectToModifyEquipTypeDetails", "ModifyEquipmentType")',
             type: 'POST',
             data: { typeID: typeID },
             dataType: 'json',
