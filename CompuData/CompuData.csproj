@@ -286,6 +286,7 @@
     <Compile Include="Controllers\EquipmentRepairRequestDetailsController.cs" />
     <Compile Include="Controllers\EquipmentsController.cs" />
     <Compile Include="Controllers\EquipmentTypeController.cs" />
+    <Compile Include="Controllers\EquipmentTypeDetailsController.cs" />
     <Compile Include="Controllers\ForgotPasswordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobTitleController.cs" />
@@ -294,6 +295,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MainMenuController.cs" />
     <Compile Include="Controllers\ModifyEquipmentRepairRequestController.cs" />
+    <Compile Include="Controllers\ModifyEquipmentTypeController.cs" />
     <Compile Include="Controllers\ModifyLoginDetailsController.cs" />
     <Compile Include="Controllers\ModifySupplierController.cs" />
     <Compile Include="Controllers\ModifyVehicleBookingController.cs" />
@@ -846,6 +848,8 @@
     <Content Include="Views\EquipmentType\Index.cshtml" />
     <Content Include="Views\EquipmentManagementMenu\Index.cshtml" />
     <Content Include="Views\AddEquipmentType\Index.cshtml" />
+    <Content Include="Views\EquipmentTypeDetails\Index.cshtml" />
+    <Content Include="Views\ModifyEquipmentType\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
