@@ -263,6 +263,7 @@
     <Compile Include="Controllers\AddProjectTypeController.cs" />
     <Compile Include="Controllers\AddRepairPersonController.cs" />
     <Compile Include="Controllers\AddRepairRequestController.cs" />
+    <Compile Include="Controllers\AddSoftwareLicensesController.cs" />
     <Compile Include="Controllers\AddSupplierController.cs" />
     <Compile Include="Controllers\AddUserController.cs" />
     <Compile Include="Controllers\AddVehicleBookingController.cs" />
@@ -297,6 +298,7 @@
     <Compile Include="Controllers\ModifyEquipmentRepairRequestController.cs" />
     <Compile Include="Controllers\ModifyEquipmentTypeController.cs" />
     <Compile Include="Controllers\ModifyLoginDetailsController.cs" />
+    <Compile Include="Controllers\ModifySoftwareLicensesController.cs" />
     <Compile Include="Controllers\ModifySupplierController.cs" />
     <Compile Include="Controllers\ModifyVehicleBookingController.cs" />
     <Compile Include="Controllers\ModifyVehicleDetailsController.cs" />
@@ -317,6 +319,7 @@
     <Compile Include="Controllers\SelectUserController.cs" />
     <Compile Include="Controllers\SelectVehicleforVehicleServiceController.cs" />
     <Compile Include="Controllers\SoftwareLicensesController.cs" />
+    <Compile Include="Controllers\SoftwareLicensesDetailsController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Controllers\SuppliersDetailsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -854,6 +857,9 @@
     <Content Include="Views\EquipmentTypeDetails\Index.cshtml" />
     <Content Include="Views\ModifyEquipmentType\Index.cshtml" />
     <Content Include="Views\SoftwareLicenses\Index.cshtml" />
+    <Content Include="Views\SoftwareLicensesDetails\Index.cshtml" />
+    <Content Include="Views\AddSoftwareLicenses\Index.cshtml" />
+    <Content Include="Views\ModifySoftwareLicenses\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

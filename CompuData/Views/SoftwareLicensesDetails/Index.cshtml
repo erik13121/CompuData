@@ -8,7 +8,8 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
         <li class="breadcrumb-item"><a href="../EquipmentManagementMenu/Index">Equipment Management</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Software Licenses</li>
+        <li class="breadcrumb-item"><a href="../SoftwareLicenses/Index">Software Licences</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Software Licences Details</li>
     </ol>
 </nav>
 
@@ -21,21 +22,30 @@
 
 @Html.Partial("_ProfilePartial")
 
-<div id="table_background">
-    <p>Software Licences</p>
-    <table id="SoftwareLicenceTable" class="display" width="100%"></table>
-    <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddSoftwareLicenses")'">Add Software Licences</div>
-    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "EquipmentManagementMenu")'">Back</div>
+<div id="details_holder">
+    <p>Software Licence Details</p>
+    @Html.HiddenFor(model => model.LicenceID)
+    <div>
+        <p>Name:</p>
+        @Html.TextBoxFor(model => model.SoftwareName, new { @readonly = "readonly" })
+    </div>
+    <div>
+        <p>Contact Number:</p>
+        @Html.TextBoxFor(model => model.ActivationPeriodInMonths, new { @readonly = "readonly" })
+    </div>
+    <div id="multipleButtons">
+        <a id="modifyButton" class="btn btn-dafault">Maintain</a>
+        <a id="removeButton" class="btn btn-default">Remove</a>
+    </div>
 </div>
+}
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "SoftwareLicenses")'">Back</div>
 
 <style>
-    #table_background p {
-        font-size: 25px;
-        text-align: center;
-    }
-
-    #table_background {
+    #details_holder {
         position: absolute;
+        display: flex;
+        flex-direction: column;
         padding: 15px;
         padding-top: 20px;
         padding-bottom: 20px;
@@ -46,23 +56,39 @@
         border-radius: 50px 50px 50px 50px;
     }
 
-    #SupplierTable {
-        background-color: #5a9ad6;
-        font-size: 14px;
-    }
+        #details_holder p {
+            font-size: 25px;
+            text-align: center;
+            flex: 1;
+        }
+
+        #details_holder div {
+            display: flex;
+            flex-direction: row;
+            line-height: 30px;
+        }
+
+            #details_holder div p {
+                font-size: 18px;
+                flex: 50%;
+                text-align: left;
+                vertical-align: middle;
+                padding: 0;
+                margin: 0;
+            }
+
+            #details_holder div input {
+                flex: 50%;
+            }
 
     #multipleButtons {
         display: flex;
         flex-direction: row;
     }
 
-    #addButton {
+    #modifyButton {
         position: relative;
-        display: inline-block;
-        margin-left: auto;
-        margin-right: auto;
-        bottom: 0;
-        z-index: 10000;
+        display: inline-block !important;
         text-decoration: none;
         color: white;
         cursor: pointer;
@@ -73,21 +99,19 @@
         border-width: 2px;
         border-radius: 50px 50px 50px 50px;
         margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
         padding: 10px;
         transition: background-color linear 0.5s;
     }
 
-        #addButton:hover {
+        #modifyButton:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
-    #addBookingButton {
+    #removeButton {
         position: relative;
-        display: inline-block;
-        margin-left: auto;
-        margin-right: auto;
-        bottom: 0;
-        z-index: 10000;
+        display: inline-block !important;
         text-decoration: none;
         color: white;
         cursor: pointer;
@@ -98,11 +122,14 @@
         border-width: 2px;
         border-radius: 50px 50px 50px 50px;
         margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
         padding: 10px;
         transition: background-color linear 0.5s;
+        background-color: transparent;
     }
 
-        #addBookingButton:hover {
+        #removeButton:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
@@ -131,18 +158,26 @@
 
     #breadcrumb {
         position: absolute;
+        left: 0px;
         top: 0px;
-        width: 100%;
+        height: auto;
+        width: 80%;
     }
 
     .breadcrumb-item {
-        font-size: 25px;
+        font-size: 20px;
     }
+
+        .breadcrumb-item a {
+            text-decoration: none;
+            color: #5a9ad6 !important;
+        }
 
     .breadcrumb {
         top: 0;
         background-color: #33363b !important;
         padding-left: 60px !important;
+        margin-bottom: 0 !important;
     }
 
     #profile {
@@ -160,7 +195,7 @@
             display: table;
             font-family: 'Raleway', sans-serif;
             font-weight: 200;
-            font-size: 25px;
+            font-size: 20px;
             text-decoration: none !important;
             color: #5a9ad6;
             line-height: 61px;
@@ -183,100 +218,11 @@
 </style>
 
 <script>
-    var table;
-    $(document).ready(function () {
-        table = $('#SoftwareLicenceTable').DataTable({
-            serverSide: true,
-            ajax: "/SoftwareLicense/PageData",
-            autoWidth: true,
-            columns: [
-                {
-                    name: 'icenseID',
-                    data: 'licenseID',
-                    title: "ID",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'softwarename',
-                    data: "softwarename",
-                    title: "Software Name",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'activationPeriodInMonths',
-                    data: "activationPeriodInMonths",
-                    title: "Activation Period",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    "targets": -1,
-                    "data": null,
-                    "defaultContent": '<i class="glyphicon glyphicon-eye-open"></i>',
-                    sortable: false,
-                },
-                {
-                    "targets": -2,
-                    "data": null,
-                    "defaultContent": '<i class="glyphicon glyphicon-pencil"></i>',
-                    sortable: false,
-                },
-                {
-                    "targets": -3,
-                    "data": null,
-                    "defaultContent": '<i class="glyphicon glyphicon-trash"></i>',
-                    sortable: false,
-                }
-            ]
-        });
-    });
-
-     @Model.JavaScriptToRun
-    function mySuccess() {
-        swal("You have successfully added the Software Licence", {
-            icon: "success",
-        });
-        //window.location = "/Vehicles/Index";
-    }
-
-    @TempData["js"];
-    function myUpdateSuccess() {
-        swal("You have successfully updated the Software Licence", {
-            icon: "success",
-        });
-    }
-
-    $.ajax({
-        type: "POST",
-        url: '@Url.Action("SetTempData","SoftwareLicenses")',
-        success: function () {
-
-        }
-    });
-
-    $('#SoftwareLicenceTable').on('click', '.glyphicon-eye-open', function () {
-        var data = table.row($(this).parents('tr')).data();
-        var LicenceID = data["licenceID"];
+    $('#modifyButton').on('click', function () {
+        var LicenceID = @Model.LicenceID;
 
         $.ajax({
-            url: '@Url.Action("RedirectToSoftwareLicenseDetails", "SoftwareLicensesDetails")',
-            type: 'POST',
-            data: { LicenceID: LicenceID },
-            dataType: 'json',
-            success: function (data) {
-                window.location.href = data.Url; // your action should return an object having [redirecturl] property
-            }
-        });
-    });
-
-    $('#SoftwareLicenceTable').on('click', '.glyphicon-pencil', function () {
-        var data = table.row($(this).parents('tr')).data();
-        var LicenceID = data["licenceID"];
-
-        $.ajax({
-            url: '@Url.Action("RedirectToModifySoftwareLicenceDetails", "ModifySoftwareLicenses")',
+            url: '@Url.Action("RedirectToModifySoftwareLicensesDetails", "ModifySoftwareLicenses")',
             type: 'POST',
             data: { LicenceID: LicenceID },
             dataType: 'json',
@@ -286,12 +232,11 @@
         });
     });
 
-    $('#SoftwareLicenceTable').on('click', '.glyphicon-trash', function () {
-        var data = table.row($(this).parents('tr')).data();
-        var LicenceID = data["licenceID"];
+    $('#removeButton').on('click', function () {
+        var LicenceID = @Model.LicenceID;
 
         swal({
-            title: "Are you sure you want to delete this Software Licence?",
+            title: "Are you sure you want to delete this Equipment Type?",
             icon: "warning",
             dangerMode: true,
             buttons: [
@@ -303,7 +248,7 @@
             .then((willDelete) => {
                 if (willDelete) {
                     $.ajax({
-                        url: '@Url.Action("Delete", "EquipmentType")',
+                        url: '@Url.Action("Delete", "SoftwareLicenses")',
                         type: 'POST',
                         data: { LicenceID: LicenceID },
                         dataType: 'json',
@@ -311,8 +256,6 @@
                             if (data.Url != "Cascading error!") {
                                 swal("You have successfully deleted the Software Licence", {
                                     icon: "success",
-                                }).then(() => {
-                                    window.location.href = data.Url;
                                 });
                             }
                             else {
@@ -320,13 +263,10 @@
                                     icon: "warning",
                                 });
                             }
+                            window.location.href = data.Url;
                         }
                     });
                 }
             });
     });
 </script>
-
-
-
-
