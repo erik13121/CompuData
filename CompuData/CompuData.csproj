@@ -316,6 +316,7 @@
     <Compile Include="Controllers\SelectRepairPersonforEquipmentRepairRequestController.cs" />
     <Compile Include="Controllers\SelectUserController.cs" />
     <Compile Include="Controllers\SelectVehicleforVehicleServiceController.cs" />
+    <Compile Include="Controllers\SoftwareLicensesController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Controllers\SuppliersDetailsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -474,6 +475,8 @@
     <Compile Include="Global\Vehicle.cs">
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SoftwareLicenses.cs" />
+    <Compile Include="Models\SoftwareLicensesLine.cs" />
     <Compile Include="Models\Supplier.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Vehicle.cs" />
@@ -850,6 +853,7 @@
     <Content Include="Views\AddEquipmentType\Index.cshtml" />
     <Content Include="Views\EquipmentTypeDetails\Index.cshtml" />
     <Content Include="Views\ModifyEquipmentType\Index.cshtml" />
+    <Content Include="Views\SoftwareLicenses\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
