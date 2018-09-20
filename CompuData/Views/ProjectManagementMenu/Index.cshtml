@@ -1,5 +1,6 @@
-﻿@{ 
-    ViewBag.Title = "Main Menu";
+﻿
+@{
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
@@ -7,11 +8,39 @@
 
 <link href="@Url.Content("~/Content/MenuWithSubmenu.css")" rel="stylesheet" type="text/css" />
 
+<nav id="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Project Management Menu</li>
+    </ol>
+</nav>
+
+@Html.Partial("_ProfilePartial")
+
+<div id="menuwithSub_wrapper">
+    <ul id="menuwithSub_left">
+        <ul class="newmenu_item">
+            <p>@Html.ActionLink("Procurement", "Index", "ProcurementMenu")</p>
+            <li class="newsubMenu_item">
+                <p style="margin-left: 6vh !important">@Html.ActionLink("Project Type", "Index", "ProjectType")</p>
+            </li>
+            <li class="newsubMenu_item">
+                <p style="margin-left: 6vh !important">@Html.ActionLink("Project", "Index", "Project")</p>
+            </li>
+        </ul>
+    </ul>
+    <div id="menuwithSub_right">
+        <img src="~/Content/CompuData(Transparent).png" />
+        <h1>CompuData</h1>
+    </div>
+</div>
+
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "")'">Back</div>
+
 <style>
-    .vsc-initialized {
-        overflow: hidden;
-        height: 100%;
-    }
+    /*ul {
+        list-style: none;
+    }*/
 
     #breadcrumb {
         position: absolute;
@@ -73,30 +102,8 @@
         .dropdown-menu li a {
             color: #5a9ad6;
         }
-
-    #landing {
-        z-index: 1;
-    }
-
-    #menu_left {
-        margin: 0;
-        padding: 0;
-        -webkit-padding-start: 0;
-    }
 </style>
 
 <script>
-    menuToggle = $('#menu_toggle__wrapper');
-    menu = $('#menu_wrapper');
-    header = $('.header');
 
-    menu.toggleClass('active');
-    menuToggle.remove();
-    header.remove();
-
-    $('#landing').css('margin-top', 0);
-
-    window.onload = function() {
-        $('footer').remove();
-    }
 </script>

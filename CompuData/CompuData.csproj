@@ -312,6 +312,7 @@
     <Compile Include="Controllers\ModifyVenueController.cs" />
     <Compile Include="Controllers\NewPasswordController.cs" />
     <Compile Include="Controllers\ProcurementMenuController.cs" />
+    <Compile Include="Controllers\ProjectManagementMenuController.cs" />
     <Compile Include="Controllers\ProjectTypeController.cs" />
     <Compile Include="Controllers\ProjectTypeDetailsController.cs" />
     <Compile Include="Controllers\ProjectTypeModifyController.cs" />
@@ -871,6 +872,7 @@
     <Content Include="Views\AddFunderType\Index.cshtml" />
     <Content Include="Views\ModifyFunderType\Index.cshtml" />
     <Content Include="Views\FundersMenu\Index.cshtml" />
+    <Content Include="Views\ProjectManagementMenu\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
