@@ -261,6 +261,7 @@
     <Compile Include="Controllers\AddEquipmentTypeController.cs" />
     <Compile Include="Controllers\AddFunderTypeController.cs" />
     <Compile Include="Controllers\AddJobTitleController.cs" />
+    <Compile Include="Controllers\AddProjectController.cs" />
     <Compile Include="Controllers\AddProjectTypeController.cs" />
     <Compile Include="Controllers\AddRepairPersonController.cs" />
     <Compile Include="Controllers\AddRepairRequestController.cs" />
@@ -303,6 +304,7 @@
     <Compile Include="Controllers\ModifyEquipmentTypeController.cs" />
     <Compile Include="Controllers\ModifyFunderTypeController.cs" />
     <Compile Include="Controllers\ModifyLoginDetailsController.cs" />
+    <Compile Include="Controllers\ModifyProjectController.cs" />
     <Compile Include="Controllers\ModifySoftwareLicensesController.cs" />
     <Compile Include="Controllers\ModifySupplierController.cs" />
     <Compile Include="Controllers\ModifyVehicleBookingController.cs" />
@@ -312,6 +314,8 @@
     <Compile Include="Controllers\ModifyVenueController.cs" />
     <Compile Include="Controllers\NewPasswordController.cs" />
     <Compile Include="Controllers\ProcurementMenuController.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\ProjectDetailsController.cs" />
     <Compile Include="Controllers\ProjectManagementMenuController.cs" />
     <Compile Include="Controllers\ProjectTypeController.cs" />
     <Compile Include="Controllers\ProjectTypeDetailsController.cs" />
@@ -447,6 +451,7 @@
     <Compile Include="Global\Project.cs">
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Project.cs" />
     <Compile Include="Models\ProjectType.cs" />
     <Compile Include="Global\Project_Type.cs">
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
@@ -873,6 +878,10 @@
     <Content Include="Views\ModifyFunderType\Index.cshtml" />
     <Content Include="Views\FundersMenu\Index.cshtml" />
     <Content Include="Views\ProjectManagementMenu\Index.cshtml" />
+    <Content Include="Views\Project\Index.cshtml" />
+    <Content Include="Views\ProjectDetails\Index.cshtml" />
+    <Content Include="Views\AddProject\Index.cshtml" />
+    <Content Include="Views\ModifyProject\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

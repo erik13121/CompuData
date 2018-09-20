@@ -1,6 +1,6 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     @model CompuData.Models.Project
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
@@ -9,30 +9,23 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../ProjectManagementMenu/Index">Project Management Menu</a></li>
-        <li class="breadcrumb-item"><a href="../Project/Index">Projects</a></li>
-        @if (Request.UrlReferrer != null)
-        {
-            if (Request.UrlReferrer.ToString().Contains("Details"))
-            {
-                <li class="breadcrumb-item"><a href="../ProjectDetails/Index">Project Details</a></li>
-            }
-        }
-        <li class="breadcrumb-item active" aria-current="page">Maintain Project</li>
+        <li class="breadcrumb-item"><a href="../AccessLevel/Index">Project Management Menu</a></li>
+        <li class="breadcrumb-item"><a href="../Project/Index">Project</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Project</li>
     </ol>
 </nav>
 
 @Html.Partial("_ProfilePartial")
 
 <div id="details_holder">
-@using (@Html.BeginForm("Modify", "ModifyProject", FormMethod.Post, new { id = "myForm" }))
-{
-    <p>Modify Project</p>
-    @Html.HiddenFor(model => model.ProjectID)
-    <div>
-        <p>Project Name:</p>
-        @Html.EditorFor(model => model.ProjectName)
-    </div>
+    @using (@Html.BeginForm("Create", "AddProject", FormMethod.Post, new { id = "myForm" }))
+    {
+        <p>Add Project</p>
+        @Html.HiddenFor(model => model.ProjectID)
+        <div>
+            <p>Project Name:</p>
+            @Html.EditorFor(model => model.ProjectName)
+        </div>
         @Html.ValidationMessageFor(model => model.ProjectName)
         <div>
             <p>Project Description:</p>
@@ -68,19 +61,26 @@
             <p>User Last Name:</p>
             @Html.EditorFor(model => model.LastName)
         </div>
-        @Html.ValidationMessageFor(model => model.LastName)
-    <div id="multipleButtons">
-        <div id="saveButton">Save and Add Project</div>
-</div>
-}
+        @Html.ValidationMessageFor(model => model.LastName)       
+
+        <div id="multipleButtons">
+            <div id="addButton">Save and Add Project</div>
+        </div>
+    }
 </div>
 
-<div id="backButton" onclick="window.location = '@Request.UrlReferrer.ToString()'">Back</div>
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Project")'">Back</div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
 <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
-
 <style>
+    form {
+        top: 0;
+        left: 0;
+    }
+
     .field-validation-error {
         display: block;
         word-wrap: break-word;
@@ -151,7 +151,7 @@
         display: none;
     }
 
-    #saveButton {
+    #addButton {
         position: relative;
         display: inline-block !important;
         text-decoration: none;
@@ -170,7 +170,7 @@
         transition: background-color linear 0.5s;
     }
 
-        #saveButton:hover {
+        #addButton:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
@@ -204,7 +204,7 @@
     }
 
     .breadcrumb-item {
-        font-size: 20px;
+        font-size: 25px;
     }
 
     .breadcrumb {
@@ -228,7 +228,7 @@
             display: table;
             font-family: 'Raleway', sans-serif;
             font-weight: 200;
-            font-size: 20px;
+            font-size: 25px;
             text-decoration: none !important;
             color: #5a9ad6;
             line-height: 61px;
@@ -250,23 +250,26 @@
         }
 </style>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#saveButton').on('click', function () {
-            swal({
-                title: "Are you sure?",
-                icon: "info",
-                buttons: [
-                    true,
-                    "Yes",
-                ],
-                closeOnClickOutside: false,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    $('#myForm').submit();
-                }
-            });
+
+
+<script>
+    $("#addButton").click(function (event) {
+        swal({
+            title: "Are you sure?",
+            icon: "info",
+            buttons: [
+                true,
+                "Yes",
+            ],
+            closeOnClickOutside: false,
         })
+        .then((willDelete) => {
+            if (willDelete) {
+                $('#myForm').submit();
+            }
+        });
     });
+
+    $("#addButton").css({ 'flex-basis': '' });
 </script>
+
