@@ -8,15 +8,15 @@ using System.Web.Mvc;
 
 namespace CompuData.Controllers
 {
-    public class EquipmentTypeController : Controller
+    public class FunderTypeController : Controller
     {
-        // GET: EquipmentType
+        // GET: FunderType
         public ActionResult Index()
         {
-            Models.EquipmentType myModel = new Models.EquipmentType();
+            Models.FunderType myModel = new Models.FunderType();
             if (TempData["model"] != null)
             {
-                myModel = (Models.EquipmentType)TempData["model"];
+                myModel = (Models.FunderType)TempData["model"];
                 TempData.Remove("model");
             }
             return View(myModel);
@@ -25,16 +25,15 @@ namespace CompuData.Controllers
         public ActionResult PageData(IDataTablesRequest request)
         {
             // Nothing important here. Just creates some mock data.
-            var data = Models.EquipmentType.GetData();
+            var data = Models.FunderType.GetData();
 
             // Global filtering.
             // Filter is being manually applied due to in-memmory (IEnumerable) data.
             // If you want something rather easier, check IEnumerableExtensions Sample.
             var filteredData = data.Where(_item =>
             _item.TypeID.ToString().Contains(request.Search.Value) ||
-            _item.TypeName.ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.TypeDescription.ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.Removable.ToString().ToUpper().Contains(request.Search.Value)
+            _item.Name.ToUpper().Contains(request.Search.Value.ToUpper()) ||
+            _item.Description.ToUpper().Contains(request.Search.Value.ToUpper()) 
             );
 
             // Paging filtered data.
@@ -57,11 +56,11 @@ namespace CompuData.Controllers
             {
                 var db = new CodeFirst.CodeFirst();
                 var intTypeID = int.Parse(TypeID);
-                var EquipType = db.Equipment_Type.Where(v => v.TypeID == intTypeID).FirstOrDefault();
-                db.Equipment_Type.Remove(EquipType);
+                var FunderType = db.Funder_Type.Where(v => v.TypeID == intTypeID).FirstOrDefault();
+                db.Funder_Type.Remove(FunderType);
                 db.SaveChanges();
 
-                var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "EquipmentType");
+                var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "FunderType");
                 return Json(new { Url = redirectUrl });
             }
             catch

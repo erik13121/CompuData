@@ -259,6 +259,7 @@
     <Compile Include="Controllers\AddDonationTypeController.cs" />
     <Compile Include="Controllers\AddEquipmentController.cs" />
     <Compile Include="Controllers\AddEquipmentTypeController.cs" />
+    <Compile Include="Controllers\AddFunderTypeController.cs" />
     <Compile Include="Controllers\AddJobTitleController.cs" />
     <Compile Include="Controllers\AddProjectTypeController.cs" />
     <Compile Include="Controllers\AddRepairPersonController.cs" />
@@ -289,6 +290,9 @@
     <Compile Include="Controllers\EquipmentTypeController.cs" />
     <Compile Include="Controllers\EquipmentTypeDetailsController.cs" />
     <Compile Include="Controllers\ForgotPasswordController.cs" />
+    <Compile Include="Controllers\FundersMenuController.cs" />
+    <Compile Include="Controllers\FunderTypeController.cs" />
+    <Compile Include="Controllers\FunderTypeDetailsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobTitleController.cs" />
     <Compile Include="Controllers\JobTitleDetailsController.cs" />
@@ -297,6 +301,7 @@
     <Compile Include="Controllers\MainMenuController.cs" />
     <Compile Include="Controllers\ModifyEquipmentRepairRequestController.cs" />
     <Compile Include="Controllers\ModifyEquipmentTypeController.cs" />
+    <Compile Include="Controllers\ModifyFunderTypeController.cs" />
     <Compile Include="Controllers\ModifyLoginDetailsController.cs" />
     <Compile Include="Controllers\ModifySoftwareLicensesController.cs" />
     <Compile Include="Controllers\ModifySupplierController.cs" />
@@ -429,6 +434,7 @@
     <Compile Include="Global\Funder_Type.cs">
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FunderType.cs" />
     <Compile Include="Models\JobTitle.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Global\Petty_Cash_Requisition.cs">
@@ -860,6 +866,11 @@
     <Content Include="Views\SoftwareLicensesDetails\Index.cshtml" />
     <Content Include="Views\AddSoftwareLicenses\Index.cshtml" />
     <Content Include="Views\ModifySoftwareLicenses\Index.cshtml" />
+    <Content Include="Views\FunderType\Index.cshtml" />
+    <Content Include="Views\FunderTypeDetails\Index.cshtml" />
+    <Content Include="Views\AddFunderType\Index.cshtml" />
+    <Content Include="Views\ModifyFunderType\Index.cshtml" />
+    <Content Include="Views\FundersMenu\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,14 +1,14 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    @model CompuData.Models.EquipmentType
+    @model CompuData.Models.FunderType
 }
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu/Index">Equipment Management</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Equipment Type</li>
+        <li class="breadcrumb-item"><a href="../FundersMenu/Index">Funders</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Funder Type</li>
     </ol>
 </nav>
 
@@ -22,10 +22,10 @@
 @Html.Partial("_ProfilePartial")
 
 <div id="table_background">
-    <p>Equipment Type</p>
-    <table id="EquipmentTypeTable" class="display" width="100%"></table>
-    <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddEquipmentType")'">Add Equipment Type</div>
-    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "EquipmentManagementMenu")'">Back</div>
+    <p>Funder Type</p>
+    <table id="FunderTypeTable" class="display" width="100%"></table>
+    <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddFunderType")'">Add Funder Type</div>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "FundersMenu")'">Back</div>
 </div>
 
 <style>
@@ -44,7 +44,6 @@
         min-width: 600px;
         border-width: 2px;
         border-radius: 50px 50px 50px 50px;
-        
     }
 
     #SupplierTable {
@@ -186,9 +185,9 @@
 <script>
     var table;
     $(document).ready(function () {
-        table = $('#EquipmentTypeTable').DataTable({
+        table = $('#FunderTypeTable').DataTable({
             serverSide: true,
-            ajax: "/EquipmentType/PageData",
+            ajax: "/FunderType/PageData",
             autoWidth: true,
             columns: [
                 {
@@ -199,23 +198,16 @@
                     searchable: true
                 },
                 {
-                    name: 'typeName',
-                    data: "typeName",
-                    title: "Type Name",
+                    name: 'name',
+                    data: "name",
+                    title: "Name",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'typeDescription',
-                    data: "typeDescription",
+                    name: 'description',
+                    data: "description",
                     title: "Description",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'removable',
-                    data: "removable",
-                    title: "Removalability",
                     sortable: true,
                     searchable: true
                 },
@@ -243,7 +235,7 @@
 
      @Model.JavaScriptToRun
     function mySuccess() {
-        swal("You have successfully added an Equipment Type", {
+        swal("You have successfully added an Funder Type", {
             icon: "success",
         });
         //window.location = "/Vehicles/Index";
@@ -251,25 +243,25 @@
 
     @TempData["js"];
     function myUpdateSuccess() {
-        swal("You have successfully updated the Equipment Type", {
+        swal("You have successfully updated the Funder Type", {
             icon: "success",
         });
     }
 
     $.ajax({
         type: "POST",
-        url: '@Url.Action("SetTempData","EquipmentType")',
+        url: '@Url.Action("SetTempData","FunderType")',
         success: function () {
 
         }
     });
 
-    $('#EquipmentTypeTable').on('click', '.glyphicon-eye-open', function () {
+    $('#FunderTypeTable').on('click', '.glyphicon-eye-open', function () {
         var data = table.row($(this).parents('tr')).data();
         var typeID = data["typeID"];
 
         $.ajax({
-            url: '@Url.Action("RedirectToEquipTypeDetails", "EquipmentTypeDetails")',
+            url: '@Url.Action("RedirectToFunderTypeDetails", "FunderTypeDetails")',
             type: 'POST',
             data: { typeID: typeID },
             dataType: 'json',
@@ -279,12 +271,12 @@
         });
     });
 
-    $('#EquipmentTypeTable').on('click', '.glyphicon-pencil', function () {
+    $('#FunderTypeTable').on('click', '.glyphicon-pencil', function () {
         var data = table.row($(this).parents('tr')).data();
         var typeID = data["typeID"];
 
         $.ajax({
-            url: '@Url.Action("RedirectToModifyEquipTypeDetails", "ModifyEquipmentType")',
+            url: '@Url.Action("RedirectToModifyFunderTypeDetails", "ModifyFunderType")',
             type: 'POST',
             data: { typeID: typeID },
             dataType: 'json',
@@ -294,12 +286,12 @@
         });
     });
 
-    $('#EquipmentTypeTable').on('click', '.glyphicon-trash', function () {
+    $('#FunderTypeTable').on('click', '.glyphicon-trash', function () {
         var data = table.row($(this).parents('tr')).data();
         var typeID = data["typeID"];
 
         swal({
-            title: "Are you sure you want to delete this Equipment Type?",
+            title: "Are you sure you want to delete this Funder Type?",
             icon: "warning",
             dangerMode: true,
             buttons: [
@@ -311,13 +303,13 @@
             .then((willDelete) => {
                 if (willDelete) {
                     $.ajax({
-                        url: '@Url.Action("Delete", "EquipmentType")',
+                        url: '@Url.Action("Delete", "FunderType")',
                         type: 'POST',
                         data: { typeID: typeID },
                         dataType: 'json',
                         success: function (data) {
                             if (data.Url != "Cascading error!") {
-                                swal("You have successfully deleted the Equipment Type", {
+                                swal("You have successfully deleted the Funder Type", {
                                     icon: "success",
                                 }).then(() => {
                                     window.location.href = data.Url;
