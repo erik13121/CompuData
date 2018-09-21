@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
+
 namespace CompuData.Models
 {
     public class Project
@@ -29,7 +31,6 @@ namespace CompuData.Models
         public string ProjectDescription { get; set; }
 
         public int TypeID { get; set; }
-
         public string TypeName { get; set; }
 
         public int UserID { get; set; }
@@ -37,7 +38,9 @@ namespace CompuData.Models
         public string LastName { get; set; }
 
         public string JavaScriptToRun { get; set; }
-        public List<CodeFirst.Project> Projects { get; set; }
+        public List<CodeFirst.Project_Type> ProjectTypes { get; set; }
+
+        public IEnumerable<SelectListItem> Users { get; set; }
         public Project() { }
         public Project(int id, string name, DateTime mStartDate, DateTime ExpFinishDate, bool mFinished, string ProDesc, int userID, int typeID)
         {

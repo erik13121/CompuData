@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+    @model CompuData.Models.Project
 }
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <nav id="breadcrumb">
@@ -246,15 +247,15 @@
                     searchable: true
                 },
                 {
-                    name: 'initials',
-                    data: "initials",
+                    name: 'userInitials',
+                    data: "userInitials",
                     title: "User Initials",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'lastName',
-                    data: "lastName",
+                    name: 'userLastName',
+                    data: "userLastName",
                     title: "User Last Name",
                     sortable: true,
                     searchable: true
@@ -286,7 +287,6 @@
         swal("You have successfully added a Project", {
             icon: "success",
         });
-        //window.location = "/Vehicles/Index";
     }
 
     @TempData["js"];

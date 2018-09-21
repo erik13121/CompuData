@@ -13,6 +13,11 @@ namespace CompuData.Controllers
         {
             var db = new CodeFirst.CodeFirst();
             var Project = new Models.Project();
+            Project.ProjectTypes = db.Project_Type.ToList();
+            Project.Users = db.Users.AsEnumerable().Select(u => new SelectListItem{
+                Value = u.UserID.ToString(),
+                Text = u.Initials + " " + u.LastName
+            }).ToList();
             return View(Project);
         }
 
@@ -32,7 +37,7 @@ namespace CompuData.Controllers
                         ProjectName = model.ProjectName,
                         StartDate = model.StartDate,
                         ExpectedFinishDate = model.ExpectedFinishDate,
-                        Finished = model.Finished,                        
+                        Finished = false,                        
                         ProjectDescription = model.ProjectDescription,                       
                         TypeID = model.TypeID,
                         UserID = model.UserID,
@@ -46,7 +51,7 @@ namespace CompuData.Controllers
                         ProjectName = model.ProjectName,
                         StartDate = model.StartDate,
                         ExpectedFinishDate = model.ExpectedFinishDate,
-                        Finished = model.Finished,
+                        Finished = false,
                         ProjectDescription = model.ProjectDescription,
                         TypeID = model.TypeID,
                         UserID = model.UserID,
@@ -57,8 +62,15 @@ namespace CompuData.Controllers
                 model.JavaScriptToRun = "mySuccess()";
                 TempData["model"] = model;
                 return RedirectToAction("Index", "Project");
+
             }
 
+            model.ProjectTypes = db.Project_Type.ToList();
+            model.Users = db.Users.AsEnumerable().Select(u => new SelectListItem
+            {
+                Value = u.UserID.ToString(),
+                Text = u.Initials + " " + u.LastName
+            }).ToList();
             return View("Index", model);
         }
     }

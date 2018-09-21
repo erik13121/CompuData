@@ -11,13 +11,15 @@ namespace CompuData.Controllers
 {
     public class ProjectController : Controller
     {
+
         // GET: Project
         public ActionResult Index()
         {
-            Project myModel = new Project();
+            
+            Models.Project myModel = new Models.Project();
             if (TempData["model"] != null)
             {
-                myModel = (Project)TempData["model"];
+                myModel = (Models.Project)TempData["model"];
                 TempData.Remove("model");
             }
             return View(myModel);
