@@ -19,6 +19,7 @@
 <div id="table_background">
     <p>Projects</p>
     <table id="table_id" class="display" cellspacing="0" width="100%"></table>
+    @Html.HiddenFor(model => model.JavaScriptToRun)
     <div id="multipleButtons">
         <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddProject")'">Add Project</div>
     </div>
@@ -287,6 +288,7 @@
         swal("You have successfully added a Project", {
             icon: "success",
         });
+        $("#JavaScriptToRun").val("");
     }
 
     @TempData["js"];
@@ -300,7 +302,7 @@
         type: "POST",
         url: '@Url.Action("SetTempData","Project")',
         success: function () {
-
+            
         }
     });
 

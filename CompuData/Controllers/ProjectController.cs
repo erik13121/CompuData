@@ -48,7 +48,7 @@ namespace CompuData.Controllers
                                UserInitials = e.Initials,
                                UserLastName = e.LastName,
                            }).ToList();
-
+            
             // Global filtering.
             // Filter is being manually applied due to in-memmory (IEnumerable) data.
             // If you want something rather easier, check IEnumerableExtensions Sample.

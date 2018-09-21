@@ -9,7 +9,7 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../AccessLevel/Index">Project Management Menu</a></li>
+        <li class="breadcrumb-item"><a href="../ProjectManagementMenu/Index">Project Management Menu</a></li>
         <li class="breadcrumb-item"><a href="../Project/Index">Project</a></li>
         <li class="breadcrumb-item active" aria-current="page">Add Project</li>
     </ol>
@@ -48,7 +48,7 @@
         </div>
         @Html.ValidationMessageFor(model => model.TypeID)
         <div>
-            <p>User Initials:</p>
+            <p>User Responsible:</p>
             @Html.DropDownListFor(model => model.UserID, Model.Users)
         </div>
         @Html.ValidationMessageFor(model => model.UserID)       

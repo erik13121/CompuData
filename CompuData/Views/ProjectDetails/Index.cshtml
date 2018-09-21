@@ -7,18 +7,23 @@
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
 
-<head>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-</head>
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
         <li class="breadcrumb-item"><a href="../ProjectManagementMenu/Index">Project Management Menu</a></li>
-        <li class="breadcrumb-item"><a href="../Projects/Index">Projects</a></li>
+        <li class="breadcrumb-item"><a href="../Project/Index">Projects</a></li>
         <li class="breadcrumb-item active" aria-current="page">Project Details</li>
     </ol>
 </nav>
+
 @Html.Partial("_ProfilePartial")
+
+<head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
 
 <div id="details_holder">
     <p>Project Details</p>
@@ -63,157 +68,105 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Projects")'">Back</div>
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Project")'">Back</div>
 
 <style>
-    .tab-content {
-        overflow-y: auto;
-    }
-
-    #Dropdown1 {
-        width: auto;
-        border-left: 50px;
-    }
-
-    #tabitem {
-        color: black;
-    }
-
-    #myheading1 {
-        font-size: 30px;
-    }
-
-    #myheading2 {
-        transform: translateX(0px) !important;
-        font-size: 30px;
-        text-align: center;
-    }
-
-    #table_background p {
-        font-size: 25px;
-        text-align: center;
-    }
-
-    #table_background {
-        height: auto;
-        min-width: 600px;
-        border-width: 2px;
-        border-radius: 50px 50px 50px 50px;
-    }
-
-    #table_id {
-        background-color: #5a9ad6;
-    }
-
-    #Flexyman {
-        display: flex;
-        flex-direction: row;
-        line-height: 30px;
-    }
-
-    #mytwoColumns {
+    #details_holder {
         position: absolute;
-        height: auto;
-        width: auto;
+        display: flex;
+        flex-direction: column;
         padding: 15px;
         padding-top: 20px;
         padding-bottom: 20px;
         background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
         min-width: 600px;
         border-width: 2px;
         border-radius: 50px 50px 50px 50px;
     }
 
-    .card-body p {
-        font-size: 25px;
-        text-align: left;
-        flex: 1;
-        text-align: center;
-        flex-basis: 100%;
-    }
+        #details_holder p {
+            font-size: 25px;
+            text-align: center;
+            flex: 1;
+        }
 
-    #cardbody2 {
-        overflow: auto;
-        max-height: 350px;
-    }
-
-    .card-body {
-        display: flex;
-        flex-direction: column;
-        float: left;
-        position: relative;
-        background-color: rgba(128, 128, 128, 0.95);
-        height: auto;
-    }
-
-        .card-body div {
+        #details_holder div {
             display: flex;
             flex-direction: row;
             line-height: 30px;
-            margin-top: 1px;
-            margin-bottom: 1px;
         }
 
-        .card-body p {
-            text-align: left;
-            vertical-align: middle;
-            padding: 0;
-            margin: 0;
-            flex: 50%;
-        }
+            #details_holder div p {
+                font-size: 18px;
+                flex: 50%;
+                text-align: left;
+                vertical-align: middle;
+                padding: 0;
+                margin: 0;
+            }
 
-        .card-body div input {
-            flex: 50%;
-        }
-
-        .card-body div select {
-            flex: 50%;
-        }
+            #details_holder div input {
+                flex: 50%;
+            }
 
     #multipleButtons {
         display: flex;
         flex-direction: row;
     }
 
-    #addButton {
+    #modifyButton {
         position: relative;
-        z-index: 8000;
+        display: inline-block !important;
         text-decoration: none;
         color: white;
         cursor: pointer;
         letter-spacing: 0.15em;
         text-transform: uppercase;
-        margin-left: auto;
-        margin-right: auto;
         box-sizing: border-box;
         border: solid white;
         border-width: 2px;
         border-radius: 50px 50px 50px 50px;
         margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
         padding: 10px;
         transition: background-color linear 0.5s;
     }
 
-        #addButton:hover {
+        #modifyButton:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
-    .btn-group {
-        display: flex !important;
-        flex-direction: row;
-        justify-content: space-around;
-        width: 100%;
+    #removeButton {
+        position: relative;
+        display: inline-block !important;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+        background-color: transparent;
     }
 
-    #addVenueButton:hover {
-        background-color: rgba(0, 255, 255, 0.4);
-    }
+        #removeButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
 
     #backButton {
         position: fixed;
         left: 0;
         bottom: 0;
-        z-index: 1000;
+        z-index: 10000;
         text-decoration: none;
         color: white;
         cursor: pointer;
@@ -234,23 +187,31 @@
 
     #breadcrumb {
         position: absolute;
+        left: 0px;
         top: 0px;
-        width: 100%;
+        height: auto;
+        width: 80%;
     }
 
     .breadcrumb-item {
-        font-size: 25px;
+        font-size: 20px;
     }
+
+        .breadcrumb-item a {
+            text-decoration: none;
+            color: #5a9ad6 !important;
+        }
 
     .breadcrumb {
         top: 0;
         background-color: #33363b !important;
         padding-left: 60px !important;
+        margin-bottom: 0 !important;
     }
 
     #profile {
         position: relative;
-        z-index: 8000;
+        z-index: 7979;
         margin-left: auto;
         margin-bottom: auto;
         height: 61px;
@@ -263,7 +224,7 @@
             display: table;
             font-family: 'Raleway', sans-serif;
             font-weight: 200;
-            font-size: 25px;
+            font-size: 20px;
             text-decoration: none !important;
             color: #5a9ad6;
             line-height: 61px;
@@ -277,81 +238,12 @@
     }
 
     .dropdown-menu {
-        background-color: white;
+        background-color: #33363b;
     }
 
         .dropdown-menu li a {
             color: #5a9ad6;
         }
-
-    .vsc-initialized {
-        overflow: hidden;
-        height: 100%;
-    }
-
-    /* Customize the label (the container) */
-    .container {
-        display: block;
-        width: 25px;
-        position: relative;
-        margin-left: auto;
-        margin-top: 3px;
-        cursor: pointer;
-        font-size: 22px;
-        user-select: none;
-    }
-
-        /* Hide the browser's default checkbox */
-        .container input {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-    /* Create a custom checkbox */
-    .checkmark {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 25px;
-        width: 25px;
-        background-color: #eee;
-    }
-
-    /* On mouse-over, add a grey background color */
-    .container:hover input ~ .checkmark {
-        background-color: #ccc;
-    }
-
-    /* When the checkbox is checked, add a blue background */
-    .container input:checked ~ .checkmark {
-        background-color: #2196F3;
-    }
-
-    /* Create the checkmark/indicator (hidden when not checked) */
-    .checkmark:after {
-        content: "";
-        position: absolute;
-        display: none;
-    }
-
-    /* Show the checkmark when checked */
-    .container input:checked ~ .checkmark:after {
-        display: block;
-    }
-
-    /* Style the checkmark/indicator */
-    .container .checkmark:after {
-        left: 9px;
-        top: 5px;
-        width: 5px;
-        height: 10px;
-        border: solid white;
-        border-width: 0 3px 3px 0;
-        -webkit-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-        transform: rotate(45deg);
-    }
 </style>
 
 <script>

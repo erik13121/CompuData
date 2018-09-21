@@ -33,10 +33,10 @@ namespace CompuData.Controllers
 
                     db.Projects.Add(new CodeFirst.Project
                     {
-                        ProjectID = model.ProjectID + 1,
+                        ProjectID = item.ProjectID + 1,
                         ProjectName = model.ProjectName,
-                        StartDate = model.StartDate,
-                        ExpectedFinishDate = model.ExpectedFinishDate,
+                        StartDate = DateTime.Parse(model.StartDate.ToString("yyyy-MM-dd")),
+                        ExpectedFinishDate = DateTime.Parse(model.ExpectedFinishDate.ToString("yyyy-MM-dd")),
                         Finished = false,                        
                         ProjectDescription = model.ProjectDescription,                       
                         TypeID = model.TypeID,
@@ -49,8 +49,8 @@ namespace CompuData.Controllers
                     {
                         ProjectID = 1,
                         ProjectName = model.ProjectName,
-                        StartDate = model.StartDate,
-                        ExpectedFinishDate = model.ExpectedFinishDate,
+                        StartDate = DateTime.Parse(model.StartDate.ToString("yyyy-MM-dd")),
+                        ExpectedFinishDate = DateTime.Parse(model.ExpectedFinishDate.ToString("yyyy-MM-dd")),
                         Finished = false,
                         ProjectDescription = model.ProjectDescription,
                         TypeID = model.TypeID,
