@@ -355,3 +355,9 @@ i {
 .ui-datepicker-header {
     background-color: #5a9ad6 !important;
 }
+
+th, td { white-space: nowrap; }
+.dataTables_wrapper {
+    max-width: 80vw !important;
+    margin: 0 auto !important;
+}

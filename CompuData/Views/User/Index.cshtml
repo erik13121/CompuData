@@ -17,7 +17,7 @@
 
 <div id="table_background">
     <p>Users</p>
-    <table id="table_id" class="display" cellspacing="0" width="100%"></table>
+    <table id="table_id" class="display" cellspacing="0"></table>
     <div id="multipleButtons">
         <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddUser")'">Add User</div>
     </div>
@@ -25,12 +25,6 @@
 </div>
 
 <style>
-    th, td { white-space: nowrap; }
-    div.dataTables_wrapper {
-        width: 1000px;
-        margin: 0 auto;
-    }
-
     #table_background p {
         font-size: 25px;
         text-align: center;
