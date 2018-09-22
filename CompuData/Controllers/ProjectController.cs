@@ -11,13 +11,15 @@ namespace CompuData.Controllers
 {
     public class ProjectController : Controller
     {
+
         // GET: Project
         public ActionResult Index()
         {
-            Project myModel = new Project();
+            
+            Models.Project myModel = new Models.Project();
             if (TempData["model"] != null)
             {
-                myModel = (Project)TempData["model"];
+                myModel = (Models.Project)TempData["model"];
                 TempData.Remove("model");
             }
             return View(myModel);
@@ -46,7 +48,7 @@ namespace CompuData.Controllers
                                UserInitials = e.Initials,
                                UserLastName = e.LastName,
                            }).ToList();
-
+            
             // Global filtering.
             // Filter is being manually applied due to in-memmory (IEnumerable) data.
             // If you want something rather easier, check IEnumerableExtensions Sample.
