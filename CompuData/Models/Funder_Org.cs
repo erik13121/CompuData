@@ -13,29 +13,29 @@ namespace CompuData.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int FunderOrgID { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Organization Name")]
         public string OrgName { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Contact Number")]
         public string ContactNumber { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Email Address")]
         public string EmailAddress { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Bank Name")]
         public string Bank { get; set; }
 
         public int AccountNumber { get; set; }
 
         public int BranchCode { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Street Address")]
         public string StreetAddress { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the City")]
         public string City { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Area Code")]
         public string AreaCode { get; set; }
 
         [Column(TypeName = "bit")]
