@@ -280,18 +280,18 @@
     });
 
     $('#datepicker1').datepicker();
-    $('#datepicker1').datepicker("setDate", @Model.DateofPurchase);
+    $('#datepicker1').datepicker("setDate", '@Model.DateofPurchase');
     $("#datepicker1").datepicker("option", "maxDate", new Date());
 
     $('#datepicker2').datepicker();
-    $('#datepicker2').datepicker("setDate", @Model.DateofLastRepair);
+    $('#datepicker2').datepicker("setDate", '@Model.DateofLastRepair');
     $("#datepicker2").datepicker("option", "maxDate", new Date());
 
     $('#datepicker3').datepicker();
-    $('#datepicker3').datepicker("setDate", @Model.DateofLicencePurchase);
+    $('#datepicker3').datepicker("setDate", '@Model.DateofLicencePurchase');
     $("#datepicker3").datepicker("option", "maxDate", new Date());
 
     $('#datepicker4').datepicker();
-    $('#datepicker4').datepicker("setDate", @Model.LicenseExpireDate);
+    $('#datepicker4').datepicker("setDate", '@Model.LicenseExpireDate');
     $("#datepicker4").datepicker("option", "minDate", @Model.DateofLicencePurchase);
 </script>

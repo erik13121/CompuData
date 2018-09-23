@@ -233,8 +233,6 @@
         })
     });
 
-    $('#datepicker1').datepicker({
-        uiLibrary: 'bootstrap4',
-        value: "@Model.ServiceDate"
-    });
+    $('#datepicker1').datepicker();
+    $('#datepicker1').datepicker("setDate", '@Model.ServiceDate');
 </script>
