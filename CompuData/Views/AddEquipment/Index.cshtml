@@ -47,8 +47,10 @@
             @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.EquipmentTypes, "TypeID", "TypeName"))
         </div>
         @Html.ValidationMessageFor(model => model.TypeID)
+        @Html.HiddenFor(model => model.Status, new { @Value = "Active"})
+        @Html.HiddenFor(model => model.UserID)
         <div id="multipleButtons">
-            <div id="addButton">Add Equipment Type</div>
+            <div id="addTypeButton">Add Equipment Type</div>
             <div id="addButton">Add Equipment</div>
         </div>
     }
@@ -137,7 +139,7 @@
         display: none;
     }
 
-    #addButton {
+    #addButton, #addTypeButton {
         position: relative;
         display: inline-block !important;
         text-decoration: none;
@@ -157,7 +159,7 @@
         line-height: 50%;
     }
 
-        #addButton:hover {
+        #addButton:hover, #addTypeButton:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
@@ -239,6 +241,7 @@
 <script type="text/javascript">
     $('#DatePurchased').datepicker();
     $('#DatePurchased').datepicker("setDate", new Date());
+    $("#DatePurchased").datepicker("option", "maxDate", new Date());
 
     $("#addButton").click(function (event) {
         swal({
@@ -258,5 +261,17 @@
     });
 
     $("#addButton").css({ 'flex-basis': ''});
+
+    $("#addTypeButton").click(function (event) {
+        window.location.href = '@Url.Action("FromAddEquipmentScreen", "AddEquipmentType")'
+    });
+
+    //FromAddEquipmentScreen
+    @*$("#addTypeButton").click(function (event) {
+        window.location.href = '@Url.Action("FromAddEquipmentScreen", "AddEquipmentType", Model)'
+    });*@
+
+    $("#addButton").css({ 'flex-basis': ''});
+
 </script>
 

@@ -8,12 +8,22 @@ namespace CompuData.Controllers
 {
     public class AddEquipmentTypeController : Controller
     {
+        //Models.Equipment equipmentModelToPassBack;
         // GET: AddEquipmentType
         public ActionResult Index()
         {
             var db = new CodeFirst.CodeFirst();
             var EquipType = new Models.EquipmentType();
             return View(EquipType);
+        }
+
+        public ActionResult FromAddEquipmentScreen()
+        {
+            //equipmentModelToPassBack = equipmentModel;
+            var db = new CodeFirst.CodeFirst();
+            var type = new Models.EquipmentType();
+            ViewBag.Referrer = "AddEquipment";
+            return View("Index", type);
         }
 
         [HttpPost]
@@ -46,9 +56,18 @@ namespace CompuData.Controllers
                 }
 
                 db.SaveChanges();
-                model.JavaScriptToRun = "mySuccess()";
-                TempData["model"] = model;
-                return RedirectToAction("Index", "EquipmentType");
+                
+                if (Request.Form["Referrer"] == "AddEquipment")
+                {
+                    //TempData["EquipmentModel"] = equipmentModelToPassBack;
+                    return RedirectToAction("Index", "AddEquipment");
+                }
+                else
+                {
+                    model.JavaScriptToRun = "mySuccess()";
+                    TempData["model"] = model;
+                    return RedirectToAction("Index", "EquipmentType");
+                }
             }
 
             return View("Index", model);

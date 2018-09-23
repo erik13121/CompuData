@@ -361,3 +361,14 @@ th, td { white-space: nowrap; }
     max-width: 80vw !important;
     margin: 0 auto !important;
 }
+
+input[type=checkbox] {
+    height: 2vh !important;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.dataTable {
+    background-color: #5a9ad6;
+    font-size: 14px;
+}

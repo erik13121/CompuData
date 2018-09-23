@@ -13,9 +13,32 @@ namespace CompuData.Controllers
         public ActionResult Index()
         {
             var db = new CodeFirst.CodeFirst();
+
             var equipments = new Models.Equipment();
             equipments.EquipmentTypes = db.Equipment_Type.ToList();
             return View(equipments);
+            /*var equipmentFromType = (Models.Equipment)TempData["EquipmentModel"];
+            if (equipmentFromType != null)
+            {
+                equipmentFromType.EquipmentTypes = db.Equipment_Type.ToList();
+                return View(equipmentFromType);
+            }
+            else
+            {
+                var equipments = new Models.Equipment();
+                equipments.EquipmentTypes = db.Equipment_Type.ToList();
+                return View(equipments);
+            }*/
+        }
+
+        public ActionResult FromEquipmentsIndex(string userID)
+        {
+            var db = new CodeFirst.CodeFirst();
+
+            var equipments = new Models.Equipment();
+            equipments.UserID = Convert.ToInt32(userID);
+            equipments.EquipmentTypes = db.Equipment_Type.ToList();
+            return View("Index", equipments);
         }
 
         [HttpPost]
@@ -33,9 +56,9 @@ namespace CompuData.Controllers
                         EquipmentID = item.EquipmentID + 1,
                         ManufacturerName = model.ManufacturerName,
                         ModelNumber = model.ModelNumber,
-                        DatePurchased = model.DatePurchased,
+                        DatePurchased = DateTime.ParseExact(model.DatePurchased.ToString("dd-MM-yyyy"), "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture),
                         ServiceIntervalMonths = model.ServiceIntervalMonths,
-                        Status = "Active",
+                        Status = model.Status,
                         UserID = model.UserID,
                         TypeID = model.TypeID
                     });
@@ -47,9 +70,9 @@ namespace CompuData.Controllers
                         EquipmentID = 1,
                         ManufacturerName = model.ManufacturerName,
                         ModelNumber = model.ModelNumber,
-                        DatePurchased = model.DatePurchased,
+                        DatePurchased = DateTime.ParseExact(model.DatePurchased.ToString("dd-MM-yyyy"), "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture),
                         ServiceIntervalMonths = model.ServiceIntervalMonths,
-                        Status = "Active",
+                        Status = model.Status,
                         UserID = model.UserID,
                         TypeID = model.TypeID
                     });
@@ -63,6 +86,13 @@ namespace CompuData.Controllers
 
             model.EquipmentTypes = db.Equipment_Type.ToList();
             return View("Index", model);
+        }
+
+        [HttpPost]
+        public ActionResult RedirectToAddEquipmentDetails(string userID)
+        {
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("FromEquipmentsIndex", "AddEquipment", new { userID = userID });
+            return Json(new { Url = redirectUrl });
         }
     }
 }
