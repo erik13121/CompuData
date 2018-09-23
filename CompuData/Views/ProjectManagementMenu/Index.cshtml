@@ -18,7 +18,7 @@
 @Html.Partial("_ProfilePartial")
 
 <div id="menuwithSub_wrapper">
-    <ul id="menuwithSub_left">
+    <div id="menuwithSub_left">
         <ul class="newmenu_item">
             <p>@Html.ActionLink("Procurement", "Index", "ProcurementMenu")</p>
             <li class="newsubMenu_item">
@@ -28,7 +28,7 @@
                 <p style="margin-left: 6vh !important">@Html.ActionLink("Project", "Index", "Project")</p>
             </li>
         </ul>
-    </ul>
+    </div>
     <div id="menuwithSub_right">
         <img src="~/Content/CompuData(Transparent).png" />
         <h1>CompuData</h1>

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace CompuData.Models
 {
@@ -32,12 +33,15 @@ namespace CompuData.Models
 
         public int? UserID { get; set; }
 
+        public string UserName { get; set; }
+
         [Required(ErrorMessage = "The Type is required")]
         public int TypeID { get; set; }
 
         public string TypeName { get; set; }
 
         public string JavaScriptToRun { get; set; }
+        public List<SelectListItem> Users { get; set; }
         public List<CodeFirst.Equipment_Type> EquipmentTypes { get; set; }
         public Equipment() { }
         public Equipment(int id, string name, string model, DateTime purchase, int monthInterval, string status, int? userID, int typeID)

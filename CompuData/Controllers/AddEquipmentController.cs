@@ -15,7 +15,17 @@ namespace CompuData.Controllers
             var db = new CodeFirst.CodeFirst();
 
             var equipments = new Models.Equipment();
+            var users = db.Users
+                .AsEnumerable()
+                .Select(u => new SelectListItem
+                {
+                    Value = u.UserID.ToString(),
+                    Text = u.FirstName + " " + u.LastName
+                }).ToList();
+
+            equipments.Users = users;
             equipments.EquipmentTypes = db.Equipment_Type.ToList();
+
             return View(equipments);
             /*var equipmentFromType = (Models.Equipment)TempData["EquipmentModel"];
             if (equipmentFromType != null)
@@ -31,7 +41,7 @@ namespace CompuData.Controllers
             }*/
         }
 
-        public ActionResult FromEquipmentsIndex(string userID)
+        /*public ActionResult FromEquipmentsIndex(string userID)
         {
             var db = new CodeFirst.CodeFirst();
 
@@ -39,7 +49,7 @@ namespace CompuData.Controllers
             equipments.UserID = Convert.ToInt32(userID);
             equipments.EquipmentTypes = db.Equipment_Type.ToList();
             return View("Index", equipments);
-        }
+        }*/
 
         [HttpPost]
         public ActionResult Create([Bind(Prefix = "")]Models.Equipment model)

@@ -8,7 +8,7 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../EquipmentManagementMainMenu/EquipmentManagementMainMenu">Equipment Menu</a></li>
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu/Index">Equipment Menu</a></li>
         <li class="breadcrumb-item active" aria-current="page">Equipments</li>
     </ol>
 </nav>
@@ -17,9 +17,9 @@
     <p>Equipments</p>
     <table id="vehiclesTable" class="display"></table>
     <div id="multipleButtons">
-        <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "SelectUser")'">Add Equipment</div>
+        <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddEquipment")'">Add Equipment</div>
     </div>
-    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "EquipmentManagementMainMenu")'">Back</div>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "EquipmentManagementMenu")'">Back</div>
 </div>
 <style>
     #table_background p {
