@@ -16,6 +16,7 @@ namespace CompuData.Controllers
             {
                 Models.Project myModel = new Models.Project();
 
+
                 var intProID = Int32.Parse(projectID);
                 var myProject = db.Projects.Where(i => i.ProjectID == intProID).FirstOrDefault();
 

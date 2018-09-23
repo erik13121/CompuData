@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     @model CompuData.Models.EquipmentType
 }
@@ -23,7 +22,7 @@
 
 <div id="table_background">
     <p>Equipment Type</p>
-    <table id="EquipmentTypeTable" class="display" width="100%"></table>
+    <table id="EquipmentTypeTable" class="display"></table>
     <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddEquipmentType")'">Add Equipment Type</div>
     <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "EquipmentManagementMenu")'">Back</div>
 </div>
@@ -44,10 +43,9 @@
         min-width: 600px;
         border-width: 2px;
         border-radius: 50px 50px 50px 50px;
-        
     }
 
-    #SupplierTable {
+    #EquipmentTypeTable {
         background-color: #5a9ad6;
         font-size: 14px;
     }

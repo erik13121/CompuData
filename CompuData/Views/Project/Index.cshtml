@@ -361,9 +361,11 @@
                             if (data.Url != "Cascading error!") {
                                 swal("You have successfully deleted the Project", {
                                     icon: "success",
+                                }).then(() => {
+                                    window.location.href = data.Url;
                                 });
-                                window.location.href = data.Url;
                             }
+
                             else {
                                 swal("Cannot delete this due to it being used somewhere else in the system!", {
                                     icon: "warning",

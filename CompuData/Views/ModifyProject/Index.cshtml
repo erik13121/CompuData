@@ -1,8 +1,7 @@
-﻿
-@{
-    ViewBag.Title = "UserModify";
+﻿@{
+    ViewBag.Title = "ModifyProject";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    @model CompuData.Models.User
+    @model CompuData.Models.Project
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
@@ -12,152 +11,155 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../AccessLevel/Index">User Access Menu</a></li>
-        <li class="breadcrumb-item"><a href="../User/Index">Users</a></li>
+        <li class="breadcrumb-item"><a href="../ProjectManagementMenu/Index">Project Management Menu</a></li>
+        <li class="breadcrumb-item"><a href="../Project/Index">Projects</a></li>
         @if (Request.UrlReferrer != null)
         {
             if (Request.UrlReferrer.ToString().Contains("Details"))
             {
-                <li class="breadcrumb-item"><a href="../UserDetails/Index">User Details</a></li>
+                <li class="breadcrumb-item"><a href="../ProjectDetails/Index">Project Details</a></li>
             }
         }
-        <li class="breadcrumb-item active" aria-current="page">Modify User Details</li>
+        <li class="breadcrumb-item active" aria-current="page">Modify Project Details</li>
     </ol>
 </nav>
 
 @Html.Partial("_ProfilePartial")
 
+<div id="details_holder">
+    @using (@Html.BeginForm("Modify", "ModifyProject", FormMethod.Post, new { id = "myForm" }))
+    {
+        <p>Modify Project</p>
+        @Html.HiddenFor(model => model.ProjectID)
+        <div>
+            <p>Project Name:</p>
+            @Html.EditorFor(model => model.ProjectName)
+        </div>
+        @Html.ValidationMessageFor(model => model.ProjectName)
+        <div>
+            <p>Project Description:</p>
+            @Html.EditorFor(model => model.ProjectDescription)
+        </div>
+        @Html.ValidationMessageFor(model => model.ProjectDescription)
+        <div>
+            <p>Start Date:</p>
+            @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control", @id = "datepicker1", placeholder = "Please Enter Date" })
+        </div>
+        @Html.ValidationMessageFor(model => model.StartDate)
+        <div>
+            <p>Expected Complete Date:</p>
+            @Html.TextBoxFor(model => model.ExpectedFinishDate, new { @class = "form-control", @id = "datepicker2", placeholder = "Please Enter Date" })
+        </div>
+        @Html.ValidationMessageFor(model => model.ExpectedFinishDate)
+        <div>
+            <p>Project Type:</p>
+            @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.ProjectTypes, "TypeID", "TypeName"))
+        </div>
+        @Html.ValidationMessageFor(model => model.TypeID)
+        <div>
+            <p>User Responsible:</p>
+            @Html.DropDownListFor(model => model.UserID, Model.Users)
+        </div>
+        @Html.ValidationMessageFor(model => model.UserID)
+        <div id="multipleButtons">
+            <div id="addButton">Save and Add Supplier</div>
+        </div>
+    }
+</div>
 
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <div id="backButton" onclick="window.location.href = '@Request.UrlReferrer.ToString()'">Back</div>
 
 <style>
-    .tab-content {
-        overflow-y: auto;
+    form {
+        top: 0;
+        left: 0;
     }
 
-    #Dropdown1 {
-        width: auto;
-        border-left: 50px;
+    .field-validation-error {
+        display: block;
+        word-wrap: break-word;
+        margin-left: 50%;
     }
 
-    #tabitem {
-        color: black;
-    }
-
-    #myheading1 {
-        font-size: 30px;
-    }
-
-    #myheading2 {
-        transform: translateX(0px) !important;
-        font-size: 30px;
-        text-align: center;
-    }
-
-    #table_background p {
-        font-size: 25px;
-        text-align: center;
-    }
-
-    #table_background {
-        height: auto;
-        min-width: 600px;
-        border-width: 2px;
-        border-radius: 50px 50px 50px 50px;
-    }
-
-    #table_id {
-        background-color: #5a9ad6;
-    }
-
-    #Flexyman {
-        display: flex;
-        flex-direction: row;
-        line-height: 30px;
-    }
-
-    #mytwoColumns {
+    #details_holder {
         position: absolute;
-        height: auto;
-        width: auto;
+        display: flex;
+        flex-direction: column;
         padding: 15px;
         padding-top: 20px;
         padding-bottom: 20px;
         background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
         min-width: 600px;
         border-width: 2px;
         border-radius: 50px 50px 50px 50px;
     }
 
-    .card-body p {
-        font-size: 25px;
-        text-align: left;
-        flex: 1;
-        text-align: center;
-        flex-basis: 100%;
-    }
+        #details_holder p {
+            font-size: 25px;
+            text-align: center;
+            flex: 1;
+        }
 
-    #cardbody2 {
-        overflow: auto;
-        max-height: 350px;
-    }
-
-    .card-body {
-        display: flex;
-        flex-direction: column;
-        float: left;
-        position: relative;
-        background-color: rgba(128, 128, 128, 0.95);
-        height: auto;
-    }
-
-        .card-body div {
+        #details_holder div {
             display: flex;
             flex-direction: row;
             line-height: 30px;
-            margin-top: 1px;
-            margin-bottom: 1px;
         }
 
-        .card-body p {
-            text-align: left;
-            vertical-align: middle;
-            padding: 0;
-            margin: 0;
-            flex: 50%;
-        }
+            #details_holder div p {
+                font-size: 20px;
+                flex: 50%;
+                text-align: left;
+                vertical-align: middle;
+                padding: 0;
+                margin: 0;
+            }
 
-        .card-body div input {
-            flex: 50%;
-        }
+            #details_holder div input {
+                flex: 50%;
+            }
 
-        .card-body div select {
-            flex: 50%;
-        }
+            #details_holder div select {
+                flex: 50%;
+            }
 
-    #multipleButtons {
-        display: flex;
-        flex-direction: row;
+            #details_holder div button {
+                background-color: white;
+                flex: 50%;
+            }
+
+    .gj-datepicker {
+        flex: 50%;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        opacity: 1;
+    }
+
+    #typeDropDown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        display: none;
     }
 
     #addButton {
         position: relative;
-        z-index: 8000;
+        display: inline-block !important;
         text-decoration: none;
         color: white;
         cursor: pointer;
         letter-spacing: 0.15em;
         text-transform: uppercase;
-        margin-left: auto;
-        margin-right: auto;
         box-sizing: border-box;
         border: solid white;
         border-width: 2px;
         border-radius: 50px 50px 50px 50px;
         margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
         padding: 10px;
         transition: background-color linear 0.5s;
     }
@@ -166,22 +168,11 @@
             background-color: rgba(0, 255, 255, 0.4);
         }
 
-    .btn-group {
-        display: flex !important;
-        flex-direction: row;
-        justify-content: space-around;
-        width: 100%;
-    }
-
-    #addVenueButton:hover {
-        background-color: rgba(0, 255, 255, 0.4);
-    }
-
     #backButton {
         position: fixed;
         left: 0;
         bottom: 0;
-        z-index: 1000;
+        z-index: 10000;
         text-decoration: none;
         color: white;
         cursor: pointer;
@@ -218,7 +209,7 @@
 
     #profile {
         position: relative;
-        z-index: 8000;
+        z-index: 7979;
         margin-left: auto;
         margin-bottom: auto;
         height: 61px;
@@ -245,102 +236,20 @@
     }
 
     .dropdown-menu {
-        background-color: white;
+        background-color: #33363b;
     }
 
         .dropdown-menu li a {
             color: #5a9ad6;
         }
-
-    .vsc-initialized {
-        overflow: hidden;
-        height: 100%;
-    }
-
-    /* Customize the label (the container) */
-    .container {
-        display: block;
-        width: 25px;
-        position: relative;
-        margin-left: auto;
-        margin-top: 3px;
-        cursor: pointer;
-        font-size: 22px;
-        user-select: none;
-    }
-
-        /* Hide the browser's default checkbox */
-        .container input {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-    /* Create a custom checkbox */
-    .checkmark {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 25px;
-        width: 25px;
-        background-color: #eee;
-    }
-
-    /* On mouse-over, add a grey background color */
-    .container:hover input ~ .checkmark {
-        background-color: #ccc;
-    }
-
-    /* When the checkbox is checked, add a blue background */
-    .container input:checked ~ .checkmark {
-        background-color: #2196F3;
-    }
-
-    /* Create the checkmark/indicator (hidden when not checked) */
-    .checkmark:after {
-        content: "";
-        position: absolute;
-        display: none;
-    }
-
-    /* Show the checkmark when checked */
-    .container input:checked ~ .checkmark:after {
-        display: block;
-    }
-
-    /* Style the checkmark/indicator */
-    .container .checkmark:after {
-        left: 9px;
-        top: 5px;
-        width: 5px;
-        height: 10px;
-        border: solid white;
-        border-width: 0 3px 3px 0;
-        -webkit-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-        transform: rotate(45deg);
-    }
 </style>
 
 <script>
-    $(document).ready(function () {
-        $('tabitem1').on('click', function() {
-            var x = document.getElementById("tabitem1").getAttribute("aria-expanded");
+    $('#datepicker1').datepicker();
+    $('#datepicker1').datepicker("setDate", new Date());
 
-            if (x == "true") {
-                x = "false"
-            } else {
-                x = "true"
-            }
-            document.getElementById("tabitem1").setAttribute("aria-expanded", x);
-            document.getElementById("tabitem1").innerHTML = "aria-expanded = " + x;
-        })
-
-        $('.nav-tabs>li>a').on('click', function (e) {
-            console.log($(this).siblings());
-            $(this).siblings().removeClass('active');
-        })
-    })
+    $('#datepicker2').datepicker();
+    $('#datepicker2').datepicker("setDate", new Date());
 
     $("#addButton").click(function (event) {
         swal({
