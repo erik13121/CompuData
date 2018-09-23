@@ -23,7 +23,7 @@ namespace CompuData.CodeFirst
         public string TypeName { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(250)]
         public string TypeDescription { get; set; }
 
         [Column(TypeName = "bit")]

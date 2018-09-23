@@ -19,7 +19,7 @@ namespace CompuData.CodeFirst
         public int QuatityTypeID { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(250)]
         public string Description { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

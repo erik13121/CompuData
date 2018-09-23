@@ -19,7 +19,7 @@ namespace CompuData.CodeFirst
         public int TypeID { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(250)]
         public string TypeName { get; set; }
 
         public virtual Donation_Item Donation_Item { get; set; }
