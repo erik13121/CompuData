@@ -37,7 +37,13 @@ namespace CompuData.CodeFirst
         public string PersonalEmail { get; set; }
 
         [MaxLength(50)]
-        public string PostalAddress { get; set; }
+        public string StreetAdress { get; set; }
+
+        [MaxLength(50)]
+        public string City { get; set; }
+
+        [MaxLength(50)]
+        public string AreaCode { get; set; }
 
         [Column(TypeName = "bit")]
         public bool? Thanked { get; set; }

@@ -30,6 +30,15 @@ namespace CompuData.CodeFirst
         [Column(TypeName = "bit")]
         public bool? Thanked { get; set; }
 
+        [MaxLength(50)]
+        public string StreetAddress { get; set; }
+
+        [MaxLength(50)]
+        public string City { get; set; }
+
+        [MaxLength(50)]
+        public string AreaCode { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Donation> Donations { get; set; }
     }

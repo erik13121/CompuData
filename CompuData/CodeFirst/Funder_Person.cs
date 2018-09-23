@@ -30,10 +30,20 @@ namespace CompuData.CodeFirst
         public string PersonalEmail { get; set; }
 
         [MaxLength(50)]
-        public string PostalAddress { get; set; }
+        public string Bank { get; set; }
+
+        public int AccountNumber { get; set; }
+
+        public int BranchCode { get; set; }
 
         [MaxLength(50)]
-        public string BankingDetails { get; set; }
+        public string StreetAddress { get; set; }
+
+        [MaxLength(50)]
+        public string City { get; set; }
+
+        [MaxLength(50)]
+        public string AreaCode { get; set; }
 
         [Column(TypeName = "bit")]
         public bool? Thanked { get; set; }
