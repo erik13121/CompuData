@@ -885,6 +885,7 @@
     <Content Include="Views\AddProject\Index.cshtml" />
     <Content Include="Views\ModifyProject\Index.cshtml" />
     <Content Include="Views\EquipmentDetails\Index.cshtml" />
+    <Content Include="Views\ModifyEquipmentDetails\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
