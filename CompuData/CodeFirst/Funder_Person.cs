@@ -24,7 +24,8 @@ namespace CompuData.CodeFirst
         [MaxLength(50)]
         public string Initials { get; set; }
 
-        public int? CellNum { get; set; }
+        [MaxLength(10)]
+        public string CellNum { get; set; }
 
         [MaxLength(50)]
         public string PersonalEmail { get; set; }

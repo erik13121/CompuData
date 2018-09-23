@@ -1,6 +1,5 @@
-﻿
-@{
-    ViewBag.Title = "AddEquipment";
+﻿@{
+    ViewBag.Title = "ModifyEquipmentDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
     @model CompuData.Models.Equipment
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
@@ -12,34 +11,42 @@
         <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
         <li class="breadcrumb-item"><a href="../EquipmentManagementMenu/Index">Equipment Menu</a></li>
         <li class="breadcrumb-item"><a href="../Equipments/Index">Equipments</a></li>
-        @*<li class="breadcrumb-item"><a href="../SelectUser/Index">Select User</a></li>*@
-        <li class="breadcrumb-item active" aria-current="page">Add Equipment</li>
+        @if (Request.UrlReferrer != null)
+        {
+            if (Request.UrlReferrer.ToString().Contains("Details"))
+            {
+                <li class="breadcrumb-item"><a href="../EquipmentDetails/Index">Equipment Details</a></li>
+            }
+        }
+        <li class="breadcrumb-item active" aria-current="page">Modify Equipment Details</li>
     </ol>
 </nav>
+
 @Html.Partial("_ProfilePartial")
+
 <div id="details_holder">
-    @using (@Html.BeginForm("Create", "AddEquipment", FormMethod.Post, new { id = "myForm" }))
+    @using (@Html.BeginForm("Modify", "ModifyEquipmentDetails", FormMethod.Post, new { id = "myForm" }))
     {
-        <p>Equipment Details</p>
+        <p>Vehicle Details</p>
         @Html.HiddenFor(model => model.EquipmentID)
         <div>
             <p>Manufacturer Name:</p>
-            @Html.EditorFor(model => model.ManufacturerName)
+            @Html.TextBoxFor(model => model.ManufacturerName)
         </div>
         @Html.ValidationMessageFor(model => model.ManufacturerName)
         <div>
             <p>Model Number:</p>
-            @Html.EditorFor(model => model.ModelNumber)
+            @Html.TextBoxFor(model => model.ModelNumber)
         </div>
         @Html.ValidationMessageFor(model => model.ModelNumber)
         <div>
             <p>Date Purchased:</p>
-            @Html.EditorFor(model => model.DatePurchased, new { @class = "form-control", @id = "datepicker1", placeholder = "Please Enter Date" })
+            @Html.TextBoxFor(model => model.DatePurchased, new { @id = "datepicker1" })
         </div>
         @Html.ValidationMessageFor(model => model.DatePurchased)
         <div>
-            <p>Service Interval in Months:</p>
-            @Html.EditorFor(model => model.ServiceIntervalMonths, new { htmlAttributes = new { @type = "number", @min = "0" } })
+            <p>Service Interval In Months:</p>
+            @Html.TextBoxFor(model => model.ServiceIntervalMonths, new { htmlAttributes = new { @type = "number", @min = "0" } })
         </div>
         @Html.ValidationMessageFor(model => model.ServiceIntervalMonths)
         <div>
@@ -52,23 +59,16 @@
             @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.EquipmentTypes, "TypeID", "TypeName"))
         </div>
         @Html.ValidationMessageFor(model => model.TypeID)
-        @Html.HiddenFor(model => model.Status, new { @Value = "Active"})
+        @Html.HiddenFor(model => model.Status, new { @Value = "Active" })
         <div id="multipleButtons">
-            <div id="addTypeButton">Add Equipment Type</div>
-            <div id="addButton">Add Equipment</div>
+            <div id="saveButton">Save</div>
         </div>
     }
-</div>
-<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "SelectUser")'">Back</div>
-<style>
-    .datepicker {
-        background-color: white;
-    }
-    form {
-        top: 0;
-        left: 0;
-    }
 
+</div>
+
+<div id="backButton" onclick="window.location = '@Request.UrlReferrer.ToString()'">Back</div>
+<style>
     .field-validation-error {
         display: block;
         word-wrap: break-word;
@@ -98,7 +98,7 @@
         #details_holder div {
             display: flex;
             flex-direction: row;
-            height: 2.25em;
+            line-height: 30px;
         }
 
             #details_holder div p {
@@ -127,10 +127,6 @@
         flex: 50%;
     }
 
-    .gj-datepicker-md [role=right-icon] {
-        top: 0.25em;
-    }
-
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button {
         opacity: 1;
@@ -143,7 +139,7 @@
         display: none;
     }
 
-    #addButton, #addTypeButton {
+    #saveButton {
         position: relative;
         display: inline-block !important;
         text-decoration: none;
@@ -160,10 +156,9 @@
         margin-right: auto;
         padding: 10px;
         transition: background-color linear 0.5s;
-        line-height: 50%;
     }
 
-        #addButton:hover, #addTypeButton:hover {
+        #saveButton:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
@@ -197,7 +192,7 @@
     }
 
     .breadcrumb-item {
-        font-size: 25px;
+        font-size: 20px;
     }
 
     .breadcrumb {
@@ -221,7 +216,7 @@
             display: table;
             font-family: 'Raleway', sans-serif;
             font-weight: 200;
-            font-size: 25px;
+            font-size: 20px;
             text-decoration: none !important;
             color: #5a9ad6;
             line-height: 61px;
@@ -242,40 +237,28 @@
             color: #5a9ad6;
         }
 </style>
+
 <script type="text/javascript">
-    $('#DatePurchased').datepicker();
-    $('#DatePurchased').datepicker("setDate", new Date());
-    $("#DatePurchased").datepicker("option", "maxDate", new Date());
-
-    $("#addButton").click(function (event) {
-        swal({
-            title: "Are you sure?",
-            icon: "info",
-            buttons: [
-                true,
-                "Yes",
-            ],
-            closeOnClickOutside : false,
+    $(document).ready(function () {
+        $('#saveButton').on('click', function () {
+            swal({
+                title: "Are you sure?",
+                icon: "info",
+                buttons: [
+                    true,
+                    "Yes",
+                ],
+                closeOnClickOutside: false,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $('#myForm').submit();
+                }
+            });
         })
-        .then((willDelete) => {
-            if (willDelete) {
-                $('#myForm').submit();
-            }
-        });
     });
 
-    $("#addButton").css({ 'flex-basis': ''});
-
-    $("#addTypeButton").click(function (event) {
-        window.location.href = '@Url.Action("FromAddEquipmentScreen", "AddEquipmentType")'
-    });
-
-    //FromAddEquipmentScreen
-    @*$("#addTypeButton").click(function (event) {
-        window.location.href = '@Url.Action("FromAddEquipmentScreen", "AddEquipmentType", Model)'
-    });*@
-
-    $("#addButton").css({ 'flex-basis': ''});
-
+    $('#datepicker1').datepicker();
+    $('#datepicker1').datepicker("setDate", @Model.DatePurchased);
+    $("#datepicker1").datepicker("option", "maxDate", new Date());
 </script>
-

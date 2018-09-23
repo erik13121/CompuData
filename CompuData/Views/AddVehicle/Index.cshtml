@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "AddVehicle";
     Layout = "~/Views/Shared/_Layout.cshtml";
     @model CompuData.Models.Vehicle
@@ -258,11 +257,24 @@
     $('#datepicker2').datepicker();
     $('#datepicker2').datepicker("setDate", new Date());
 
-    $('#datepicker3').datepicker();
-    $('#datepicker3').datepicker("setDate", new Date());
+    $("#datepicker3").datepicker("setDate", "+0d");
+    $("#datepicker4").datepicker("setDate", "+0d");
 
-    $('#datepicker4').datepicker();
-    $('#datepicker4').datepicker("setDate", new Date());
+    $("#datepicker3").datepicker({
+        onSelect: function (selectdate) {
+            var dt = new Date(selectdate);
+            dt.setDate(dt.getDate() + 1)
+            $("#datepicker4").datepicker("option", "minDate", dt);
+        }
+    });
+
+    $("#datepicker4").datepicker({
+        onSelect: function (selectdate) {
+            var dt = new Date(selectdate);
+            dt.setDate(dt.getDate() - 1)
+            $("#datepicker3").datepicker("option", "maxDate", dt);
+        }
+    });
 
     $("#addButton").click(function (event) {
         swal({
