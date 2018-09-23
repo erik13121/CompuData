@@ -7,8 +7,26 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
         <li class="breadcrumb-item"><a href="../EquipmentManagementMenu/Index">Equipment Management</a></li>
-        <li class="breadcrumb-item"><a href="../EquipmentType/Index">Equipment Type</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Add Equipment Type</li>
+        @if (ViewBag.Referrer != null)
+        {
+            if (ViewBag.Referrer == "AddEquipment")
+            {
+                <li class="breadcrumb-item"><a href="../Equipments/Index">Equipments</a></li>
+                <li class="breadcrumb-item"><a href="../SelectUser/Index">Select User</a></li>
+                <li class="breadcrumb-item"><a href="../AddEquipment/Index">Add Equipment</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Add Equipment Type</li>
+            }
+            else
+            {
+                <li class="breadcrumb-item"><a href="../EquipmentType/Index">Equipment Types</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Add Equipment Type</li>
+            }
+        }
+        else
+        {
+            <li class="breadcrumb-item"><a href="../EquipmentType/Index">Equipment Types</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Add Equipment Type</li>
+        }
     </ol>
 </nav>
 
@@ -41,14 +59,30 @@
             <p>Removable:</p>
             @Html.EditorFor(model => model.Removable)
         </div>
-        @Html.ValidationMessageFor(model => model.Removable)     
+        @Html.ValidationMessageFor(model => model.Removable)
+        <input type="hidden" name="Referrer" value="@ViewBag.Referrer" />
         <div id="multipleButtons">
-            <div id="addButton">Save and Add Supplier</div>
+            <div id="addButton">Add Equipment Type</div>
         </div>
     }
 </div>
 
-<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "EquipmentType")'">Back</div>
+@if (ViewBag.Referrer != null)
+{
+    if (ViewBag.Referrer == "AddEquipment")
+    {
+        <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "AddEquipment")'">Back</div>
+    }
+    else
+    {
+        <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "EquipmentType")'">Back</div>
+    }
+}
+else
+{
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "EquipmentType")'">Back</div>
+}
+
 
 <style>
     form {

@@ -17,7 +17,7 @@
     <p>Equipments</p>
     <table id="vehiclesTable" class="display"></table>
     <div id="multipleButtons">
-        <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddEquipment")'">Add Equipment</div>
+        <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "SelectUser")'">Add Equipment</div>
     </div>
     <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "EquipmentManagementMainMenu")'">Back</div>
 </div>
@@ -181,6 +181,7 @@
             serverSide: true,
             ajax: "/Equipments/PageData",
             autoWidth: true,
+            scrollX: true,
             columns: [
                 {
                     name: 'equipmentID',

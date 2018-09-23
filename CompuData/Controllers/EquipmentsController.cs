@@ -27,9 +27,12 @@ namespace CompuData.Controllers
             // Nothing important here. Just creates some mock data.
             var data = Models.Equipment.GetData();
 
+            
             var db = new CodeFirst.CodeFirst();
             var newData = (from e in data
                            join u in db.Users.ToList() on e.UserID equals u.UserID
+                           into users
+                           from mU in users.DefaultIfEmpty()
                            join t in db.Equipment_Type.ToList() on e.TypeID equals t.TypeID
                            select new
                            {
@@ -39,10 +42,10 @@ namespace CompuData.Controllers
                                DatePurchased = e.DatePurchased.ToString("dd-MM-yyyy"),
                                ServiceIntervalMonths = e.ServiceIntervalMonths,
                                Status = e.Status,
-                               UserName = u.FirstName + " " + u.LastName,
+                               UserName = mU != null ? mU.FirstName + " " + mU.LastName : "Not linked",
                                TypeName = t.TypeName
-                           }).ToList();
-
+                           }).ToList(); 
+            
             // Global filtering.
             // Filter is being manually applied due to in-memmory (IEnumerable) data.
             // If you want something rather easier, check IEnumerableExtensions Sample.
