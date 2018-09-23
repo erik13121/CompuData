@@ -442,6 +442,8 @@
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FunderType.cs" />
+    <Compile Include="Models\Funder_Org.cs" />
+    <Compile Include="Models\Funder_Person.cs" />
     <Compile Include="Models\JobTitle.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Global\Petty_Cash_Requisition.cs">
