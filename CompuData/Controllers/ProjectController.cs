@@ -40,8 +40,8 @@ namespace CompuData.Controllers
                            {
                                ProjectID = d.ProjectID,
                                ProjectName = d.ProjectName,
-                               StartDate = d.StartDate,
-                               ExpectedFinishDate = d.ExpectedFinishDate,
+                               StartDate = d.StartDate.ToString("dd-MM-yyyy"),
+                               ExpectedFinishDate = d.ExpectedFinishDate.ToString("dd-MM-yyyy"),
                                Finished = d.Finished,
                                ProjectDescription = d.ProjectDescription,
                                TypeName = a.TypeName,

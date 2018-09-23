@@ -29,6 +29,12 @@ namespace CompuData.Controllers
                 myModel.TypeID = myProject.TypeID;
                 myModel.UserID = myProject.UserID;
 
+                myModel.ProjectTypes = db.Project_Type.ToList();
+                myModel.Users = db.Users.AsEnumerable().Select(u => new SelectListItem
+                {
+                    Value = u.UserID.ToString(),
+                    Text = u.Initials + " " + u.LastName
+                }).ToList();
                 return View(myModel);
             }
 
