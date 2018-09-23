@@ -17,7 +17,8 @@ namespace CompuData.Controllers
             {
                 var intEquipmentID = Int32.Parse(equipmentID);
                 var myEquipment = db.Equipments.Where(i => i.EquipmentID == intEquipmentID).FirstOrDefault();
-                var myTypeID = db.Equipment_Type.Where(i => i.TypeID == myEquipment.TypeID).FirstOrDefault();
+                var myUser = db.Users.Where(u => u.UserID == myEquipment.UserID).FirstOrDefault();
+                var myType = db.Equipment_Type.Where(t => t.TypeID == myEquipment.TypeID).FirstOrDefault();
 
                 myModel.EquipmentID = myEquipment.EquipmentID;
                 myModel.ManufacturerName = myEquipment.ManufacturerName;
@@ -26,11 +27,11 @@ namespace CompuData.Controllers
                 myModel.ServiceIntervalMonths = myEquipment.ServiceIntervalMonths;
                 myModel.Status = myEquipment.Status;
                 myModel.UserID = myEquipment.UserID;
+                myModel.UserName = myUser != null ? myUser.FirstName + " " + myUser.LastName : "Not Assigned to User";
                 myModel.TypeID = myEquipment.TypeID;
-                myModel.TypeName = db.Equipment_Type.Where(i => i.TypeID == myEquipment.TypeID).FirstOrDefault().TypeName;
+                myModel.TypeName = myType.TypeName;
             }
-
-            myModel.EquipmentTypes = db.Equipment_Type.ToList();
+            
             return View(myModel);
         }
 

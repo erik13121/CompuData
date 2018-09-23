@@ -58,6 +58,10 @@ a:hover {
     opacity: 1;
 }
 
+    #menuwithSub_wrapper #menuwithSub_left .newmenu_item {
+        margin: 0;
+    }
+
     #menuwithSub_wrapper #menuwithSub_left .newmenu_item p {
         display: inline-block;
         text-decoration: none;

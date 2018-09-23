@@ -285,6 +285,7 @@
     <Compile Include="Controllers\DonationTypeController.cs" />
     <Compile Include="Controllers\DonationTypeDetailsController.cs" />
     <Compile Include="Controllers\DonationTypeModifyController.cs" />
+    <Compile Include="Controllers\EquipmentDetailsController.cs" />
     <Compile Include="Controllers\EquipmentManagementMenuController.cs" />
     <Compile Include="Controllers\EquipmentRepairRequestDetailsController.cs" />
     <Compile Include="Controllers\EquipmentsController.cs" />
@@ -300,6 +301,7 @@
     <Compile Include="Controllers\JobTitleModifyController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MainMenuController.cs" />
+    <Compile Include="Controllers\ModifyEquipmentDetails.cs" />
     <Compile Include="Controllers\ModifyEquipmentRepairRequestController.cs" />
     <Compile Include="Controllers\ModifyEquipmentTypeController.cs" />
     <Compile Include="Controllers\ModifyFunderTypeController.cs" />
@@ -882,6 +884,7 @@
     <Content Include="Views\ProjectDetails\Index.cshtml" />
     <Content Include="Views\AddProject\Index.cshtml" />
     <Content Include="Views\ModifyProject\Index.cshtml" />
+    <Content Include="Views\EquipmentDetails\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
