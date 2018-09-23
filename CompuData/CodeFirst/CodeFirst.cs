@@ -207,10 +207,6 @@ namespace CompuData.CodeFirst
                 .IsUnicode(false);
 
             modelBuilder.Entity<Donor_Person>()
-                .Property(e => e.PostalAddress)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Donor_Person>()
                 .Property(e => e.Thanked);
             //.HasPrecision(1, 0);
 
@@ -313,10 +309,6 @@ namespace CompuData.CodeFirst
                 .IsUnicode(false);
 
             modelBuilder.Entity<Funder_Org>()
-                .Property(e => e.BankingDetails)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Funder_Org>()
                 .Property(e => e.Thanked);
                 //.HasPrecision(1, 0);
 
@@ -341,14 +333,6 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Funder_Person>()
                 .Property(e => e.PersonalEmail)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Funder_Person>()
-                .Property(e => e.PostalAddress)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Funder_Person>()
-                .Property(e => e.BankingDetails)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Funder_Person>()
