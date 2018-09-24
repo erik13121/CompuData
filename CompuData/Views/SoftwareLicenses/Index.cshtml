@@ -6,8 +6,8 @@
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu/Index">Equipment Management</a></li>
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment Management</a></li>
         <li class="breadcrumb-item active" aria-current="page">Software Licenses</li>
     </ol>
 </nav>
@@ -181,17 +181,16 @@
             color: #5a9ad6;
         }
 </style>
-
 <script>
     var table;
     $(document).ready(function () {
         table = $('#SoftwareLicenceTable').DataTable({
             serverSide: true,
-            ajax: "/SoftwareLicense/PageData",
+            ajax: "/SoftwareLicenses/PageData",
             autoWidth: true,
             columns: [
                 {
-                    name: 'icenseID',
+                    name: 'licenseID',
                     data: 'licenseID',
                     title: "ID",
                     sortable: true,
@@ -233,7 +232,7 @@
         });
     });
 
-     @Model.JavaScriptToRun
+    @Model.JavaScriptToRun
     function mySuccess() {
         swal("You have successfully added the Software Licence", {
             icon: "success",
@@ -274,6 +273,7 @@
     $('#SoftwareLicenceTable').on('click', '.glyphicon-pencil', function () {
         var data = table.row($(this).parents('tr')).data();
         var LicenceID = data["licenceID"];
+        @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
 
         $.ajax({
             url: '@Url.Action("RedirectToModifySoftwareLicenceDetails", "ModifySoftwareLicenses")',

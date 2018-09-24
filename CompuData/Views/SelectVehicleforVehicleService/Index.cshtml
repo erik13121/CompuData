@@ -9,18 +9,15 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../VehicleMenu/Index">Vehicle Menu</a></li>
-        @if (Request.UrlReferrer != null)
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../VehicleMenu">Vehicle Menu</a></li>
+        @if (Session["Referrer"] as string == "VehicleServices")
         {
-            if (Request.UrlReferrer.ToString().Contains("Services"))
-            {
-                <li class="breadcrumb-item"><a href="../VehicleServices/Index">Vehicle Services</a></li>
-            }
-            else if (Request.UrlReferrer.ToString().Contains("Schedules"))
-            {
-                <li class="breadcrumb-item"><a href="../VehicleSchedules/Index">Vehicle Schedules</a></li>
-            }
+            <li class="breadcrumb-item"><a href="../VehicleServices">Vehicle Services</a></li>
+        }
+        else if (Session["Referrer"] as string == "VehicleSchedules")
+        {
+            <li class="breadcrumb-item"><a href="../VehicleSchedules">Vehicle Schedules</a></li>
         }
         <li class="breadcrumb-item active" aria-current="page">Select Vehicle</li>
     </ol>
@@ -29,7 +26,7 @@
 <div id="table_background">
     <p>Select Vehicle</p>
     <table id="vehiclesTable" class="display"></table>
-    <div id="backButton" onclick="window.location.href = '@Request.UrlReferrer'">Back</div>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
 </div>
 <style>
     #table_background p {
@@ -263,11 +260,9 @@
         });
     });
 </script>
-@if (Request.UrlReferrer != null)
+@if (Session["Referrer"] as string == "VehicleServices")
 {
-    if (Request.UrlReferrer.ToString().Contains("Services"))
-    {
-        <script>
+    <script>
             $(document).ready( function()
             {
                 $('#vehiclesTable tbody').on('click', 'tr', function () {
@@ -285,11 +280,11 @@
                     });
                 });
             })
-        </script>
-    }
-    else if (Request.UrlReferrer.ToString().Contains("Schedules"))
-    {
-        <script>
+    </script>
+}
+else if (Session["Referrer"] as string == "VehicleSchedules")
+{
+    <script>
             $(document).ready(function () {
                 $('#vehiclesTable tbody').on('click', 'tr', function () {
                     var data = table.row(this).data();
@@ -306,6 +301,6 @@
                     });
                 });
             })
-        </script>
-    }
+    </script>
 }
+

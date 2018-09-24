@@ -9,15 +9,12 @@
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../VehicleMenu/Index">Vehicle Menu</a></li>
-        <li class="breadcrumb-item"><a href="../VehicleTypes/Index">Vehicle Types</a></li>
-        @if (Request.UrlReferrer != null)
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../VehicleMenu">Vehicle Menu</a></li>
+        <li class="breadcrumb-item"><a href="../VehicleTypes">Vehicle Types</a></li>
+        @if (Session["Referrer"] as string == "Details")
         {
-            if (Request.UrlReferrer.ToString().Contains("Details"))
-            {
-                <li class="breadcrumb-item"><a href="../VehicleTypes/Details">Vehicle Type Details</a></li>
-            }
+            <li class="breadcrumb-item"><a href="../VehicleTypes/Details">Vehicle Type Details</a></li>
         }
         <li class="breadcrumb-item active" aria-current="page">Modify Vehicle Type Details</li>
     </ol>
@@ -44,9 +41,14 @@
         </div>
     }
 </div>
-<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "VehicleTypes")'">Back</div>
-<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
-<link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+@if (Session["Referrer"] as string == "Details")
+{
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Details", "VehicleTypes")'">Back</div>
+}
+else
+{
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "VehicleTypes")'">Back</div>
+}
 <style>
     .field-validation-error {
         display: block;

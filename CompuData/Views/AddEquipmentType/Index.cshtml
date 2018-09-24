@@ -5,26 +5,26 @@
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu/Index">Equipment Management</a></li>
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment Management</a></li>
         @if (ViewBag.Referrer != null)
         {
             if (ViewBag.Referrer == "AddEquipment")
             {
-                <li class="breadcrumb-item"><a href="../Equipments/Index">Equipments</a></li>
-                <li class="breadcrumb-item"><a href="../SelectUser/Index">Select User</a></li>
-                <li class="breadcrumb-item"><a href="../AddEquipment/Index">Add Equipment</a></li>
+                <li class="breadcrumb-item"><a href="../Equipments">Equipments</a></li>
+                <li class="breadcrumb-item"><a href="../SelectUser">Select User</a></li>
+                <li class="breadcrumb-item"><a href="../AddEquipment">Add Equipment</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Add Equipment Type</li>
             }
             else
             {
-                <li class="breadcrumb-item"><a href="../EquipmentType/Index">Equipment Types</a></li>
+                <li class="breadcrumb-item"><a href="../EquipmentType">Equipment Types</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Add Equipment Type</li>
             }
         }
         else
         {
-            <li class="breadcrumb-item"><a href="../EquipmentType/Index">Equipment Types</a></li>
+            <li class="breadcrumb-item"><a href="../EquipmentType">Equipment Types</a></li>
             <li class="breadcrumb-item active" aria-current="page">Add Equipment Type</li>
         }
     </ol>

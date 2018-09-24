@@ -6,9 +6,9 @@
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu/Index">Equipment Management</a></li>
-        <li class="breadcrumb-item"><a href="../SoftwareLicenses/Index">Software Licences</a></li>
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment Management</a></li>
+        <li class="breadcrumb-item"><a href="../SoftwareLicenses">Software Licences</a></li>
         <li class="breadcrumb-item active" aria-current="page">Software Licences Details</li>
     </ol>
 </nav>
@@ -216,10 +216,10 @@
             color: #5a9ad6;
         }
 </style>
-
 <script>
     $('#modifyButton').on('click', function () {
         var LicenceID = @Model.LicenceID;
+        @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
 
         $.ajax({
             url: '@Url.Action("RedirectToModifySoftwareLicensesDetails", "ModifySoftwareLicenses")',

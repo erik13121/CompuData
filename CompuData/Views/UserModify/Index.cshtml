@@ -11,15 +11,12 @@
 </head>
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../AccessLevel/Index">User Access Menu</a></li>
-        <li class="breadcrumb-item"><a href="../User/Index">Users</a></li>
-        @if (Request.UrlReferrer != null)
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../AccessLevel">User Access Menu</a></li>
+        <li class="breadcrumb-item"><a href="../User">Users</a></li>
+        @if (Session["Referrer"] as string == "UserDetails")
         {
-            if (Request.UrlReferrer.ToString().Contains("Details"))
-            {
-                <li class="breadcrumb-item"><a href="../UserDetails/Index">User Details</a></li>
-            }
+            <li class="breadcrumb-item"><a href="../UserDetails">User Details</a></li>
         }
         <li class="breadcrumb-item active" aria-current="page">Modify User Details</li>
     </ol>
@@ -159,7 +156,7 @@
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<div id="backButton" onclick="window.location.href = '@Request.UrlReferrer.ToString()'">Back</div>
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
 <style>
     .tab-content {
         overflow-y: auto;

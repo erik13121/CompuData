@@ -9,15 +9,12 @@
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../VehicleMenu/Index">Vehicle Menu</a></li>
-        <li class="breadcrumb-item"><a href="../Vehicles/Index">Vehicles</a></li>
-        @if (Request.UrlReferrer != null)
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../VehicleMenu">Vehicle Menu</a></li>
+        <li class="breadcrumb-item"><a href="../Vehicles">Vehicles</a></li>
+        @if (Session["Referrer"] as string == "VehicleDetails")
         {
-            if (Request.UrlReferrer.ToString().Contains("Details"))
-            {
-                <li class="breadcrumb-item"><a href="../VehicleDetails/Index">Vehicle Details</a></li>
-            }
+            <li class="breadcrumb-item"><a href="../VehicleDetails">Vehicle Details</a></li>
         }
         <li class="breadcrumb-item active" aria-current="page">Modify Vehicle Details</li>
     </ol>
@@ -84,10 +81,8 @@
         <div id="saveButton">Save</div>
     </div>
 }
-
 </div>
-
-<div id="backButton" onclick="window.location = '@Request.UrlReferrer.ToString()'">Back</div>
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
 
 <style>
     .field-validation-error {
@@ -258,7 +253,6 @@
             color: #5a9ad6;
         }
 </style>
-
 <script type="text/javascript">
     $(document).ready(function () {
         $('#saveButton').on('click', function () {

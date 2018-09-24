@@ -372,3 +372,11 @@ input[type=checkbox] {
     background-color: #5a9ad6 !important;
     font-size: 14px !important;
 }
+
+#multipleButtons>div {
+    font-size: 1.2vw;
+}
+
+#table_background>p {
+    font-size: 2vw !important;
+}

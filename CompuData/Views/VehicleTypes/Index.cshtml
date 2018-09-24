@@ -7,15 +7,15 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../VehicleMenu/Index">Vehicle Menu</a></li>
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../VehicleMenu">Vehicle Menu</a></li>
         <li class="breadcrumb-item active" aria-current="page">Vehicle Types</li>
     </ol>
 </nav>
 @Html.Partial("_ProfilePartial")
 <div id="table_background">
     <p>Vehicle Types</p>
-    <table id="vehiclesTable" class="display" width="100%"></table>
+    <table id="vehiclesTable" class="display"></table>
     <div id="multipleButtons">
         <div id="addButton" onclick="window.location.href = '@Url.Action("Add", "VehicleTypes")'">Add Vehicle Type</div>
     </div>
@@ -265,6 +265,7 @@
     $('#vehiclesTable').on('click', '.glyphicon-pencil', function () {
         var data = table.row($(this).parents('tr')).data();
         var typeID = data["typeID"];
+        @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
 
         $.ajax({
             url: '@Url.Action("RedirectToModifyVehicleTypeDetails", "VehicleTypes")',

@@ -6,9 +6,9 @@
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu/Index">Equipment Management</a></li>
-        <li class="breadcrumb-item"><a href="../EquipmentType/Index">Equipment Type</a></li>
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment Management</a></li>
+        <li class="breadcrumb-item"><a href="../EquipmentType">Equipment Type</a></li>
         <li class="breadcrumb-item active" aria-current="page">Equipment Type Details</li>
     </ol>
 </nav>
@@ -43,7 +43,7 @@
     </div>
 </div>
 }
-<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Supplier")'">Back</div>
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "EquipmentType")'">Back</div>
 
 <style>
     #details_holder {
@@ -220,10 +220,10 @@
             color: #5a9ad6;
         }
 </style>
-
 <script>
     $('#modifyButton').on('click', function () {
         var typeID = @Model.TypeID;
+        @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
 
         $.ajax({
             url: '@Url.Action("RedirectToModifyEquipTypeDetails", "ModifyEquipmentType")',

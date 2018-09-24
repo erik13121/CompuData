@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "SelectEquipment";
     Layout = "~/Views/Shared/_Layout.cshtml";
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
@@ -8,16 +7,27 @@
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Equipment</a></li>
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment</a></li>
+        @if (Session["Referrer"] as string == "Equipments")
+        {
+            <li class="breadcrumb-item"><a href="../Equipments">Equipments</a></li>
+        }
         <li class="breadcrumb-item active" aria-current="page">Select Equipment</li>
     </ol>
 </nav>
 @Html.Partial("_ProfilePartial")
 <div id="table_background">
-    <p>Select Equipment for which to Generate Proof of Removable Allocated Equipment for</p>
-    <table id="equipmentTable" class="display" width="100%"></table>
-    <div id="backButton">Back</div>
+    @if (Session["Referrer"] as string == "Equipments")
+    {
+        <p>Select Equipment you wish to assign to a User</p>
+    }
+    else
+    {
+        <p>Select Equipment you wish to Generate Proof of Removable Allocated Equipment for</p>
+    }
+    <table id="equipmentTable" class="display"></table>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
 </div>
 <style>
     #table_background p {
@@ -147,84 +157,64 @@
             serverSide: true,
             ajax: "/Equipments/PageData",
             autoWidth: true,
+            scrollX: true,
             select: {
                 style: 'single'
             },
             columns: [
                 {
-                    name: 'vehicleID',
-                    data: 'vehicleID',
+                    name: 'equipmentID',
+                    data: 'equipmentID',
                     title: "ID",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'brand',
-                    data: "brand",
-                    title: "Brand",
+                    name: 'manufacturerName',
+                    data: "manufacturerName",
+                    title: "Manufacturer Name",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'model',
-                    data: "model",
-                    title: "Model",
+                    name: 'modelNumber',
+                    data: "modelNumber",
+                    title: "Model Number",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'numberPlate',
-                    data: "numberPlate",
-                    title: "Number Plate",
+                    name: 'datePurchased',
+                    data: "datePurchased",
+                    title: "Date Purchased",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'dateofPurchase',
-                    data: "dateofPurchase",
-                    title: "Date of Purchase",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'dateofLastRepair',
-                    data: "dateofLastRepair",
-                    title: "Date of Last Repair",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'dateofLicencePurchase',
-                    data: "dateofLicencePurchase",
-                    title: "Date of Licence Purchase",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'licenseExpireDate',
-                    data: "licenseExpireDate",
-                    title: "Licence Expire Date",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'serviceIntervalInMonths',
-                    data: "serviceIntervalInMonths",
+                    name: 'serviceIntervalMonths',
+                    data: "serviceIntervalMonths",
                     title: "Service Interval in Months",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'serviceIntervalInKMs',
-                    data: "serviceIntervalInKMs",
-                    title: "Service Interval in KMs",
+                    name: 'status',
+                    data: "status",
+                    title: "Status",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'typeID',
+                    name: 'userName',
+                    data: "userName",
+                    title: "User Full Name",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'typeName',
                     data: "typeName",
-                    title: "Type",
+                    title: "Type Name",
                     sortable: true,
                     searchable: true
                 },
@@ -249,4 +239,22 @@
             ]
         });
     });
+
+    $(document).ready( function()
+    {
+        $('#equipmentTable tbody').on('click', 'tr', function () {
+            var data = table.row(this).data();
+            var equipmentID = data["equipmentID"];
+
+            $.ajax({
+                url: '@Url.Action("RedirectToSelectUser", "SelectUser")',
+                type: 'POST',
+                data: { equipmentID: equipmentID },
+                dataType: 'json',
+                success: function (data) {
+                    window.location.href = data.Url; // your action should return an object having [redirecturl] property
+                }
+            });
+        });
+    })
 </script>

@@ -8,15 +8,12 @@
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu/Index">Equipment Management</a></li>
-        <li class="breadcrumb-item"><a href="../SoftwareLicenses/Index">Software Licences</a></li>
-        @if (Request.UrlReferrer != null)
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment Management</a></li>
+        <li class="breadcrumb-item"><a href="../SoftwareLicenses">Software Licences</a></li>
+        @if (Session["Referrer"] as string == "SoftwareLicensesDetails")
         {
-            if (Request.UrlReferrer.ToString().Contains("Details"))
-            {
-                <li class="breadcrumb-item"><a href="../SoftwareLicensesDetails/Index">Software Licences Details</a></li>
-            }
+            <li class="breadcrumb-item"><a href="../SoftwareLicensesDetails">Software Licences Details</a></li>
         }
         <li class="breadcrumb-item active" aria-current="page">Modify Software Licences</li>
     </ol>
@@ -45,10 +42,7 @@
         </div>
     }
 </div>
-<div id="backButton" onclick="window.location = '@Request.UrlReferrer.ToString()'">Back</div>
-<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
-<link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
 
 <style>
     .field-validation-error {
@@ -219,7 +213,6 @@
             color: #5a9ad6;
         }
 </style>
-
 <script type="text/javascript">
     $(document).ready(function () {
         $('#saveButton').on('click', function () {

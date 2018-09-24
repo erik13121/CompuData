@@ -10,15 +10,12 @@
 </head>
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../ProjectManagementMenu/Index">Project Management Menu</a></li>
-        <li class="breadcrumb-item"><a href="../Project/Index">Projects</a></li>
-        @if (Request.UrlReferrer != null)
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../ProjectManagementMenu">Project Management Menu</a></li>
+        <li class="breadcrumb-item"><a href="../Project">Projects</a></li>
+        @if (Session["Referrer"] as string == "ProjectDetails")
         {
-            if (Request.UrlReferrer.ToString().Contains("Details"))
-            {
-                <li class="breadcrumb-item"><a href="../ProjectDetails/Index">Project Details</a></li>
-            }
+            <li class="breadcrumb-item"><a href="../ProjectDetails">Project Details</a></li>
         }
         <li class="breadcrumb-item active" aria-current="page">Modify Project Details</li>
     </ol>
@@ -67,7 +64,7 @@
     }
 </div>
 
-<div id="backButton" onclick="window.location.href = '@Request.UrlReferrer.ToString()'">Back</div>
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
 
 <style>
     form {
