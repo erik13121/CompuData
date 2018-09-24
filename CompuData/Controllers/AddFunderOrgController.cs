@@ -13,8 +13,8 @@ namespace CompuData.Controllers
         {
             var db = new CodeFirst.CodeFirst();
             var FunderOrg = new Models.Funder_Org();
-            FunderOrg.TypeID = db.Funder_Type.ToList();
-            FunderOrg.ProjectName = db.Projects.ToList();
+            FunderOrg.FunderTypes = db.Funder_Type.ToList();
+            FunderOrg.Project = db.Projects.ToList();
             return View(FunderOrg);
         }
 
@@ -40,18 +40,19 @@ namespace CompuData.Controllers
                         StreetAddress = model.StreetAddress,
                         City = model.City,
                         AreaCode = model.AreaCode,
-                        Thanked = model.Thanked,
+                        Thanked = false,
                         TypeID = model.TypeID,
                         ProjectID = model.ProjectID,
-                    //ProjectID = item.ProjectID + 1,
-                    //ProjectName = model.ProjectName,
-                    //StartDate = DateTime.Parse(model.StartDate.ToString("yyyy-MM-dd")),
-                    //ExpectedFinishDate = DateTime.Parse(model.ExpectedFinishDate.ToString("yyyy-MM-dd")),
-                    //Finished = false,
-                    //ProjectDescription = model.ProjectDescription,
-                    //TypeID = model.TypeID,
-                    //UserID = model.UserID,
-                });
+
+                        //ProjectID = item.ProjectID + 1,
+                        //ProjectName = model.ProjectName,
+                        //StartDate = DateTime.Parse(model.StartDate.ToString("yyyy-MM-dd")),
+                        //ExpectedFinishDate = DateTime.Parse(model.ExpectedFinishDate.ToString("yyyy-MM-dd")),
+                        //Finished = false,
+                        //ProjectDescription = model.ProjectDescription,
+                        //TypeID = model.TypeID,
+                        //UserID = model.UserID,
+                    });
                 }
                 else
                 {
@@ -67,7 +68,7 @@ namespace CompuData.Controllers
                         StreetAddress = model.StreetAddress,
                         City = model.City,
                         AreaCode = model.AreaCode,
-                        Thanked = model.Thanked,
+                        Thanked = false,
                         TypeID = model.TypeID,
                         ProjectID = model.ProjectID,
                     });
@@ -80,8 +81,8 @@ namespace CompuData.Controllers
 
             }
 
-            model.TypeID = db.Funder_Type.ToList();
-            model.ProjectName = db.Projects.ToList();
+            model.FunderTypes = db.Funder_Type.ToList();
+            model.Project = db.Projects.ToList();
             return View("Index", model);
         }
     }

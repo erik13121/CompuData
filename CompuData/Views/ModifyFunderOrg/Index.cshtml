@@ -83,17 +83,16 @@
         @Html.ValidationMessageFor(model => model.Thanked)
         <div>
             <p>Funder Type:</p>
-            @Html.EditorFor(model => model.Name)
+            @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.FunderTypes, "TypeID", "Name"))
         </div>
         @Html.ValidationMessageFor(model => model.Name)
         <div>
             <p>Project:</p>
-            @Html.EditorFor(model => model.ProjectName)
+            @Html.DropDownListFor(model => model.ProjectID, new SelectList(Model.Project, "TypeID", "ProjectName"))
         </div>
         @Html.ValidationMessageFor(model => model.ProjectName)
-
         <div id="multipleButtons">
-            <div id="addButton">Save and Add Supplier</div>
+            <div id="addButton">Save and Add Organization Funder</div>
         </div>
     }
 </div>

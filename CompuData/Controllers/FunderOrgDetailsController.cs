@@ -42,7 +42,7 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public ActionResult RedirectToProjectDetails(string funderOrgID)
+        public ActionResult RedirectToFunderOrgDetails(string funderOrgID)
         {
             var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "FunderOrgDetails", new { funderOrgID = funderOrgID });
             return Json(new { Url = redirectUrl });

@@ -50,9 +50,8 @@ namespace CompuData.Models
         public string Name { get; set; }
 
         public string JavaScriptToRun { get; set; }
-        public List<CodeFirst.Funder_Org> FunderOrg { get; set; }
-
-        public IEnumerable<SelectListItem> FunderOrga { get; set; }
+        public List<CodeFirst.Funder_Type> FunderTypes { get; set; }
+        public List<CodeFirst.Project> Project { get; set; }
         public Funder_Org() { }
         public Funder_Org(int id, string name, string ContactNum, string Email, string Bankname, int AccNum, int Branch, string Streetnum, string cityName, string Area, bool ThankedStatus,int projectID, int typeID)
         {

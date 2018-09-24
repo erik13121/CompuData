@@ -33,8 +33,8 @@ namespace CompuData.Controllers
                 myModel.TypeID = myFunderOrg.TypeID;
                 myModel.ProjectID = myFunderOrg.ProjectID;
 
-                //myModel.FunderOrga = db.Funder_Type.ToList();
-                //myModel.Project = db.Projects.ToList();
+                myModel.FunderTypes = db.Funder_Type.ToList();
+                myModel.Project = db.Projects.ToList();
                 return View(myModel);
             }
 
@@ -72,7 +72,7 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public ActionResult RedirectToModifyProjectDetails(string funderOrgID)
+        public ActionResult RedirectToModifyFunderOrgDetails(string funderOrgID)
         {
             var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "ModifyFunderOrg", new { funderOrgID = funderOrgID });
             return Json(new { Url = redirectUrl });
