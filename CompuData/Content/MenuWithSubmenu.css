@@ -62,7 +62,7 @@ a:hover {
         margin: 0;
     }
 
-    #menuwithSub_wrapper #menuwithSub_left .newmenu_item p {
+    #menuwithSub_wrapper #menuwithSub_left .newmenu_item>p {
         display: inline-block;
         text-decoration: none;
         color: white;
@@ -71,9 +71,6 @@ a:hover {
         text-transform: uppercase;
         margin: 0.5vh;
         box-sizing: border-box;
-        border: solid white;
-        border-width: 2px;
-        border-radius: 50px 50px 50px 50px;
         padding: 10px;
         transition: background-color linear 0.5s;
     }
@@ -82,7 +79,9 @@ a:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
-    #menuwithSub_wrapper #menuwithSub_left .newsubMenu_item p {
+    #menuwithSub_wrapper #menuwithSub_left .newsubMenu_item>p {
+        display: inline-flex;
+        font-size: 1.2vw;
         text-decoration: none;
         color: white;
         cursor: pointer;

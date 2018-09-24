@@ -9,9 +9,9 @@
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../VehicleMenu/Index">Vehicle Menu</a></li>
-        <li class="breadcrumb-item"><a href="../VehicleTypes/Index">Vehicle Types</a></li>
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../VehicleMenu">Vehicle Menu</a></li>
+        <li class="breadcrumb-item"><a href="../VehicleTypes">Vehicle Types</a></li>
         <li class="breadcrumb-item active" aria-current="page">Vehicle Type Details</li>
     </ol>
 </nav>
@@ -210,6 +210,7 @@
 <script>
     $('#modifyButton').on('click', function () {
         var typeID = @Model.TypeID;
+        @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
 
         $.ajax({
             url: '@Url.Action("RedirectToModifyVehicleTypeDetails", "VehicleTypes")',

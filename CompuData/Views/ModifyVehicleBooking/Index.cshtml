@@ -8,7 +8,7 @@
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
         <li class="breadcrumb-item"><a href="#">Vehicle Menu</a></li>
         <li class="breadcrumb-item"><a href="#">Vehicle Bookings</a></li>
         <li class="breadcrumb-item"><a href="#">Vehicle Booking Details</a></li>
@@ -485,9 +485,7 @@
         }
 </style>
 <script type="text/javascript">
-    $('#datepicker1').datepicker({
-        uiLibrary: 'bootstrap4'
-    });
+    $('#datepicker1').datepicker();
 
     $(document).ready(function () {
         $('#vehiclesTable').DataTable();

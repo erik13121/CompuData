@@ -12,9 +12,9 @@
 </head>
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../AccessLevel/Index">User Access Menu</a></li>
-        <li class="breadcrumb-item"><a href="../User/Index">Users</a></li>
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../AccessLevel">User Access Menu</a></li>
+        <li class="breadcrumb-item"><a href="../User">Users</a></li>
         <li class="breadcrumb-item active" aria-current="page">User Details</li>
     </ol>
 </nav>
@@ -443,6 +443,7 @@
 
     $('#addButton').on('click', function () {
         var userID = @Model.UserID;
+        @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
 
         $.ajax({
             url: '@Url.Action("RedirectToModifyUserDetails", "UserModify")',

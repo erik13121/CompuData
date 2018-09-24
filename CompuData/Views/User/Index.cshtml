@@ -7,8 +7,8 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../AccessLevel/Index">User Menu</a></li>
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../AccessLevel">User Menu</a></li>
         <li class="breadcrumb-item active" aria-current="page">Users</li>
     </ol>
 </nav>
@@ -177,7 +177,6 @@
             color: #5a9ad6;
         }
 </style>
-
 <script>
     var table;
     $(document).ready(function () {
@@ -390,6 +389,7 @@
     $('#table_id').on('click', '.glyphicon-pencil', function () {
         var data = table.row($(this).parents('tr')).data();
         var userID = data["userID"];
+        @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
 
         $.ajax({
             url: '@Url.Action("RedirectToModifyUserDetails", "UserModify")',

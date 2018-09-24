@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace CompuData.Controllers
 {
-    public class ModifyEquipmentDetails : Controller
+    public class ModifyEquipmentDetailsController : Controller
     {
         // GET: ModifyEquipmentDetails
         public ActionResult Index(string equipmentID)

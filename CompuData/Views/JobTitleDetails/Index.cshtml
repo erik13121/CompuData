@@ -9,9 +9,9 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../AccessLevel/Index">User Access Menu</a></li>
-        <li class="breadcrumb-item"><a href="../JobTitle/Index">Empoyee Titles</a></li>
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../AccessLevel">User Access Menu</a></li>
+        <li class="breadcrumb-item"><a href="../JobTitle">Empoyee Titles</a></li>
         <li class="breadcrumb-item active" aria-current="page">Empoyee Title Details</li>
     </ol>
 </nav>
@@ -206,6 +206,7 @@
 <script>
     $('#modifyButton').on('click', function () {
         var titleID = @Model.JobTitleID;
+        @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
 
         $.ajax({
             url: '@Url.Action("RedirectToModifyJobTitleDetails", "JobTitleModify")',

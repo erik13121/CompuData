@@ -9,15 +9,12 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../AccessLevel/Index">User Menu</a></li>
-        <li class="breadcrumb-item"><a href="../AccessLevels/Index">Access Levels</a></li>
-        @if (Request.UrlReferrer != null)
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../AccessLevel">User Menu</a></li>
+        <li class="breadcrumb-item"><a href="../AccessLevels">Access Levels</a></li>
+        @if (Session["Referrer"] as string == "AccessLevelDetails")
         {
-            if (Request.UrlReferrer.ToString().Contains("Details"))
-            {
-                <li class="breadcrumb-item"><a href="../AccessLevelDetails/Index">Access Level Details</a></li>
-            }
+            <li class="breadcrumb-item"><a href="../AccessLevelDetails">Access Level Details</a></li>
         }
         <li class="breadcrumb-item active" aria-current="page">Modify Access Level</li>
     </ol>
@@ -43,7 +40,7 @@
         </div>
     }
 </div>
-<div id="backButton" onclick="window.location = '@Request.UrlReferrer.ToString()'">Back</div>
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
 <style>
     .field-validation-error {
         display: block;

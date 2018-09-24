@@ -9,9 +9,9 @@
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu/Index">Equipment Menu</a></li>
-        <li class="breadcrumb-item"><a href="../Equipments/Index">Equipments</a></li>
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment Menu</a></li>
+        <li class="breadcrumb-item"><a href="../Equipments">Equipments</a></li>
         @*<li class="breadcrumb-item"><a href="../SelectUser/Index">Select User</a></li>*@
         <li class="breadcrumb-item active" aria-current="page">Add Equipment</li>
     </ol>
@@ -44,7 +44,7 @@
         @Html.ValidationMessageFor(model => model.ServiceIntervalMonths)
         <div>
             <p>Responsible User:</p>
-            @Html.DropDownListFor(model => model.UserID, Model.Users)
+            @Html.DropDownListFor(model => model.UserID, Model.Users, "None")
         </div>
         @Html.ValidationMessageFor(model => model.UserID)
         <div>

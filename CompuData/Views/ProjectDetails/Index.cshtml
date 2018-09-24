@@ -9,9 +9,9 @@
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../ProjectManagementMenu/Index">Project Management Menu</a></li>
-        <li class="breadcrumb-item"><a href="../Project/Index">Projects</a></li>
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../ProjectManagementMenu">Project Management Menu</a></li>
+        <li class="breadcrumb-item"><a href="../Project">Projects</a></li>
         <li class="breadcrumb-item active" aria-current="page">Project Details</li>
     </ol>
 </nav>
@@ -245,11 +245,10 @@
             color: #5a9ad6;
         }
 </style>
-
 <script>
-
     $('#modifyButton').on('click', function () {
         var projectID = @Model.ProjectID;
+        @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
 
         $.ajax({
             url: '@Url.Action("RedirectToModifyProjectDetails", "ModifyProject")',

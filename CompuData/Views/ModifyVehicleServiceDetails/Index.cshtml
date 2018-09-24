@@ -9,15 +9,12 @@
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../VehicleMenu/Index">Vehicle Menu</a></li>
-        <li class="breadcrumb-item"><a href="../VehicleServices/Index">Vehicle Services</a></li>
-        @if (Request.UrlReferrer != null)
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../VehicleMenu">Vehicle Menu</a></li>
+        <li class="breadcrumb-item"><a href="../VehicleServices">Vehicle Services</a></li>
+        @if (Session["Referrer"] as string == "VehicleServiceDetails")
         {
-            if (Request.UrlReferrer.ToString().Contains("Details"))
-            {
-                <li class="breadcrumb-item"><a href="../VehicleServiceDetails/Index">Vehicle Service Details</a></li>
-            }
+            <li class="breadcrumb-item"><a href="../VehicleServiceDetails">Vehicle Service Details</a></li>
         }
         <li class="breadcrumb-item active" aria-current="page">Modify Vehicle Service Details</li>
     </ol>
@@ -45,9 +42,8 @@
 }
 <div id="modifyButton">Save</div>
 </div>
-<div id="backButton" onclick="window.location = '@Request.UrlReferrer.ToString()'">Back</div>
-<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
-<link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
+
 <style>
     .field-validation-error {
         display: block;
@@ -233,8 +229,6 @@
         })
     });
 
-    $('#datepicker1').datepicker({
-        uiLibrary: 'bootstrap4',
-        value: "@Model.ServiceDate"
-    });
+    $('#datepicker1').datepicker();
+    $('#datepicker1').datepicker("setDate", '@Model.ServiceDate');
 </script>

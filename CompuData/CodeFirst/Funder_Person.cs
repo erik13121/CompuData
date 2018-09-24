@@ -12,6 +12,7 @@ namespace CompuData.CodeFirst
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int FunderPersonID { get; set; }
 
+        [Required]
         [MaxLength(50)]
         public string FirstName { get; set; }
 
@@ -27,6 +28,7 @@ namespace CompuData.CodeFirst
         [MaxLength(10)]
         public string CellNum { get; set; }
 
+        [Required]
         [MaxLength(50)]
         public string PersonalEmail { get; set; }
 

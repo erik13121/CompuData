@@ -8,15 +8,12 @@
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu/Index">Equipment Menu</a></li>
-        <li class="breadcrumb-item"><a href="../Equipments/Index">Equipments</a></li>
-        @if (Request.UrlReferrer != null)
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment Menu</a></li>
+        <li class="breadcrumb-item"><a href="../Equipments">Equipments</a></li>
+        @if (Session["Referrer"] as string == "EquipmentDetails")
         {
-            if (Request.UrlReferrer.ToString().Contains("Details"))
-            {
-                <li class="breadcrumb-item"><a href="../EquipmentDetails/Index">Equipment Details</a></li>
-            }
+            <li class="breadcrumb-item"><a href="../EquipmentDetails">Equipment Details</a></li>
         }
         <li class="breadcrumb-item active" aria-current="page">Modify Equipment Details</li>
     </ol>
@@ -51,7 +48,7 @@
         @Html.ValidationMessageFor(model => model.ServiceIntervalMonths)
         <div>
             <p>Responsible User:</p>
-            @Html.DropDownListFor(model => model.UserID, Model.Users)
+            @Html.DropDownListFor(model => model.UserID, Model.Users, "None")
         </div>
         @Html.ValidationMessageFor(model => model.UserID)
         <div>
@@ -67,7 +64,7 @@
 
 </div>
 
-<div id="backButton" onclick="window.location = '@Request.UrlReferrer.ToString()'">Back</div>
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
 <style>
     .field-validation-error {
         display: block;
@@ -259,6 +256,6 @@
     });
 
     $('#datepicker1').datepicker();
-    $('#datepicker1').datepicker("setDate", @Model.DatePurchased);
+    $('#datepicker1').datepicker("setDate", '@Model.DatePurchased');
     $("#datepicker1").datepicker("option", "maxDate", new Date());
 </script>

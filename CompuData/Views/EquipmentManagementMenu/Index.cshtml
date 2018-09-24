@@ -9,8 +9,8 @@
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Procurement Menu</li>
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Equipment Menu</li>
     </ol>
 </nav>
 
@@ -19,18 +19,21 @@
 <div id="menuwithSub_wrapper">
     <ul id="menuwithSub_left">
         <ul class="newmenu_item">
-            <p>@Html.ActionLink("Equipment Management", "Index", "EquipmentManagementMenu")</p>
+            <p>Equipment Management</p>
             <li class="newsubMenu_item">
                 <p style="margin-left: 6vh !important">@Html.ActionLink("Equipment Type", "Index", "EquipmentType")</p>
             </li>
             <li class="newsubMenu_item">
                 <p style="margin-left: 6vh !important">@Html.ActionLink("Equipment", "Index", "Equipments")</p>
             </li>
-            <li>
+            <li class="newsubMenu_item">
                 <p style="margin-left: 6vh !important">@Html.ActionLink("Equipment Software Licenses", "Index", "SoftwareLicenses")</p>
             </li>
-            <li>
+            <li class="newsubMenu_item">
                 <p style="margin-left: 6vh !important">@Html.ActionLink("Equipment Repair Requests", "Index", "RepairRequests")</p>
+            </li>
+            <li class="newsubMenu_item">
+                <p style="margin-left: 6vh !important" onclick="@{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}">@Html.ActionLink("Generate Proof of Allocated Removable Equipment", "Index", "SelectEquipment")</p>
             </li>
         </ul>
     </ul>
