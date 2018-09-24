@@ -51,7 +51,7 @@
         @Html.ValidationMessageFor(model => model.ServiceIntervalMonths)
         <div>
             <p>Responsible User:</p>
-            @Html.DropDownListFor(model => model.UserID, Model.Users)
+            @Html.DropDownListFor(model => model.UserID, Model.Users, "None")
         </div>
         @Html.ValidationMessageFor(model => model.UserID)
         <div>

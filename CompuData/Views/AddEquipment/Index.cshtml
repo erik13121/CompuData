@@ -44,7 +44,7 @@
         @Html.ValidationMessageFor(model => model.ServiceIntervalMonths)
         <div>
             <p>Responsible User:</p>
-            @Html.DropDownListFor(model => model.UserID, Model.Users)
+            @Html.DropDownListFor(model => model.UserID, Model.Users, "None")
         </div>
         @Html.ValidationMessageFor(model => model.UserID)
         <div>
@@ -243,9 +243,9 @@
         }
 </style>
 <script type="text/javascript">
-    $('#datepicker1').datepicker();
-    $('#datepicker1').datepicker("setDate", new Date());
-    $("#datepicker1").datepicker("option", "maxDate", new Date());
+    $('#DatePurchased').datepicker();
+    $('#DatePurchased').datepicker("setDate", new Date());
+    $("#DatePurchased").datepicker("option", "maxDate", new Date());
 
     $("#addButton").click(function (event) {
         swal({
