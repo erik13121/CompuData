@@ -1,0 +1,318 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @model CompuData.Models.Funder_Org
+    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
+    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+}
+
+<nav id="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
+        <li class="breadcrumb-item"><a href="../FundersMenu/Index">Funders Menu</a></li>
+        <li class="breadcrumb-item"><a href="../FunderOrg/Index">Organization Funders</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Organization Funders Details</li>
+    </ol>
+</nav>
+
+@Html.Partial("_ProfilePartial")
+
+<head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
+
+<div id="details_holder">
+    <p>Organization Funders Details</p>
+    @Html.HiddenFor(model => model.FunderOrgID)
+    <div>
+        <p>Name:</p>
+        @Html.TextBoxFor(model => model.OrgName, new { @readonly = "readonly" })
+    </div>
+    <div>
+        <p>Contact Number:</p>
+        @Html.TextBoxFor(model => model.ContactNumber, new { @readonly = "readonly" })
+    </div>
+    <div>
+        <p>Email Address:</p>
+        @Html.TextBoxFor(model => model.EmailAddress, new { @readonly = "readonly" })
+    </div>
+    <div>
+        <p>Bank:</p>
+        @Html.TextBoxFor(model => model.Bank, new { @readonly = "readonly" })
+    </div>
+    <div>
+        <p>Account Number:</p>
+        @Html.TextBoxFor(model => model.AccountNumber, new { @readonly = "readonly" })
+    </div>
+    <div>
+        <p>Branch Code:</p>
+        @Html.TextBoxFor(model => model.BranchCode, new { @readonly = "readonly" })
+    </div>
+    <div>
+        <p>Street Address:</p>
+        @Html.TextBoxFor(model => model.StreetAddress, new { @readonly = "readonly" })
+    </div>
+    <div>
+        <p>City:</p>
+        @Html.TextBoxFor(model => model.City, new { @readonly = "readonly" })
+    </div>
+    <div>
+        <p>Area Code:</p>
+        @Html.TextBoxFor(model => model.AreaCode, new { @readonly = "readonly" })
+    </div>
+    <div>
+        <p>Thanked:</p>
+        @Html.TextBoxFor(model => model.Thanked, new { @readonly = "readonly" })
+    </div>
+    <div>
+        <p>Funder Type:</p>
+        @Html.TextBoxFor(model => model.Name, new { @readonly = "readonly" })
+    </div>
+    <div>
+        <p>Project Name:</p>
+        @Html.TextBoxFor(model => model.ProjectName, new { @readonly = "readonly" })
+    </div>
+    <div id="multipleButtons">
+        <a id="modifyButton" class="btn btn-dafault">Maintain</a>
+        <a id="removeButton" class="btn btn-default">Remove</a>
+    </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "FunderOrg")'">Back</div>
+
+<style>
+    #details_holder {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+        #details_holder p {
+            font-size: 25px;
+            text-align: center;
+            flex: 1;
+        }
+
+        #details_holder div {
+            display: flex;
+            flex-direction: row;
+            line-height: 30px;
+        }
+
+            #details_holder div p {
+                font-size: 18px;
+                flex: 50%;
+                text-align: left;
+                vertical-align: middle;
+                padding: 0;
+                margin: 0;
+            }
+
+            #details_holder div input {
+                flex: 50%;
+            }
+
+    #multipleButtons {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #modifyButton {
+        position: relative;
+        display: inline-block !important;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #modifyButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #removeButton {
+        position: relative;
+        display: inline-block !important;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+        background-color: transparent;
+    }
+
+        #removeButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #backButton {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: 2vh;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #backButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #breadcrumb {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        height: auto;
+        width: 80%;
+    }
+
+    .breadcrumb-item {
+        font-size: 20px;
+    }
+
+        .breadcrumb-item a {
+            text-decoration: none;
+            color: #5a9ad6 !important;
+        }
+
+    .breadcrumb {
+        top: 0;
+        background-color: #33363b !important;
+        padding-left: 60px !important;
+        margin-bottom: 0 !important;
+    }
+
+    #profile {
+        position: relative;
+        z-index: 7979;
+        margin-left: auto;
+        margin-bottom: auto;
+        height: 61px;
+        width: 20%;
+        background-color: #33363b;
+        transform: translateX(-3px);
+    }
+
+        #profile a {
+            display: table;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 200;
+            font-size: 20px;
+            text-decoration: none !important;
+            color: #5a9ad6;
+            line-height: 61px;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    .glyphicon {
+        margin-left: 6px;
+    }
+
+    .dropdown-menu {
+        background-color: #33363b;
+    }
+
+        .dropdown-menu li a {
+            color: #5a9ad6;
+        }
+</style>
+
+<script>
+
+    $('#modifyButton').on('click', function () {
+        var funderOrgID = @Model.FunderOrgID;
+
+        $.ajax({
+            url: '@Url.Action("RedirectToModifyFunderOrgDetails", "ModifyFunderOrg")',
+            type: 'POST',
+            data: { funderOrgID: funderOrgID },
+            dataType: 'json',
+            success: function (data) {
+                window.location.href = data.Url;
+            }
+        });
+    });
+
+    $('#removeButton').on('click', function () {
+        var funderOrgID = @Model.FunderOrgID;
+
+        swal({
+            title: "Are you sure you want to delete this Organization Funder?",
+            icon: "warning",
+            dangerMode: true,
+            buttons: [
+                true,
+                "Yes",
+            ],
+            closeOnClickOutside: false,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: '@Url.Action("Delete", "FunderOrg")',
+                        type: 'POST',
+                        data: { funderOrgID: funderOrgID },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.Url != "Cascading error!") {
+                                swal("You have successfully deleted the Organization Funder", {
+                                    icon: "success",
+                                });
+                            }
+                            else {
+                                swal("Cannot delete this due to it being used somewhere else in the system!", {
+                                    icon: "warning",
+                                });
+                            }
+                            window.location.href = data.Url;
+                        }
+                    });
+                }
+            });
+    });
+</script>
+

@@ -259,6 +259,7 @@
     <Compile Include="Controllers\AddDonationTypeController.cs" />
     <Compile Include="Controllers\AddEquipmentController.cs" />
     <Compile Include="Controllers\AddEquipmentTypeController.cs" />
+    <Compile Include="Controllers\AddFunderOrgController.cs" />
     <Compile Include="Controllers\AddFunderTypeController.cs" />
     <Compile Include="Controllers\AddJobTitleController.cs" />
     <Compile Include="Controllers\AddProjectController.cs" />
@@ -292,6 +293,8 @@
     <Compile Include="Controllers\EquipmentTypeController.cs" />
     <Compile Include="Controllers\EquipmentTypeDetailsController.cs" />
     <Compile Include="Controllers\ForgotPasswordController.cs" />
+    <Compile Include="Controllers\FunderOrgController.cs" />
+    <Compile Include="Controllers\FunderOrgDetailsController.cs" />
     <Compile Include="Controllers\FundersMenuController.cs" />
     <Compile Include="Controllers\FunderTypeController.cs" />
     <Compile Include="Controllers\FunderTypeDetailsController.cs" />
@@ -304,6 +307,7 @@
     <Compile Include="Controllers\ModifyEquipmentDetails.cs" />
     <Compile Include="Controllers\ModifyEquipmentRepairRequestController.cs" />
     <Compile Include="Controllers\ModifyEquipmentTypeController.cs" />
+    <Compile Include="Controllers\ModifyFunderOrgController.cs" />
     <Compile Include="Controllers\ModifyFunderTypeController.cs" />
     <Compile Include="Controllers\ModifyLoginDetailsController.cs" />
     <Compile Include="Controllers\ModifyProjectController.cs" />
@@ -888,6 +892,10 @@
     <Content Include="Views\ModifyProject\Index.cshtml" />
     <Content Include="Views\EquipmentDetails\Index.cshtml" />
     <Content Include="Views\ModifyEquipmentDetails\Index.cshtml" />
+    <Content Include="Views\FunderOrg\Index.cshtml" />
+    <Content Include="Views\FunderOrgDetails\Index.cshtml" />
+    <Content Include="Views\ModifyFunderOrg\Index.cshtml" />
+    <Content Include="Views\AddFunderOrg\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
