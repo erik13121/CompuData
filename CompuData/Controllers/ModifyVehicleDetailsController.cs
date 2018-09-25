@@ -40,38 +40,6 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(Models.Vehicle model)
-        {
-            CodeFirst.CodeFirst db = new CodeFirst.CodeFirst();
-            
-            if (ModelState.IsValid)
-            {
-                Models.Vehicle myModel = new Models.Vehicle();
-                
-                var myVehicle = db.Vehicles.Where(i => i.VehicleID == model.VehicleID).FirstOrDefault();
-                var myTypeID = db.Vehicle_Type.Where(i => i.TypeID == myVehicle.TypeID).FirstOrDefault();
-
-                myModel.VehicleID = myVehicle.VehicleID;
-                myModel.Brand = myVehicle.Brand;
-                myModel.Model = myVehicle.Model;
-                myModel.NumberPlate = myVehicle.NumberPlate;
-                myModel.DateofPurchase = myVehicle.DateOfPurchase;
-                myModel.DateofLastRepair = myVehicle.DateofLastRepair;
-                myModel.DateofLicencePurchase = myVehicle.DateofLicencePurchase;
-                myModel.LicenseExpireDate = myVehicle.LicenseExpireDate;
-                myModel.ServiceIntervalInMonths = myVehicle.ServiceIntervalInMonths;
-                myModel.ServiceIntervalInKMs = myVehicle.ServiceIntervalInKMs;
-                myModel.TypeID = myTypeID.TypeID;
-
-                myModel.VehicleTypes = db.Vehicle_Type.ToList();
-                return View(myModel);
-            }
-
-            model.VehicleTypes = db.Vehicle_Type.ToList();
-            return View(model);
-        }
-
-        [HttpPost]
         public ActionResult RedirectToModifyVehicleDetails(string vehicleID)
         {
             var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "ModifyVehicleDetails", new { vehicleID = vehicleID });
