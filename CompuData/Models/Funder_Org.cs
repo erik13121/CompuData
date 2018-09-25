@@ -21,6 +21,7 @@ namespace CompuData.Models
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Contact Number")]
         public string ContactNumber { get; set; }
 
+        [EmailAddress(ErrorMessage = "Please enter a valid Email Address")]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Email Address")]
         public string EmailAddress { get; set; }
 

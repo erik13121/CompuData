@@ -10,27 +10,24 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Funders Menu</li>
+        <li class="breadcrumb-item active" aria-current="page">Donors Menu</li>
     </ol>
 </nav>
 
 @Html.Partial("_ProfilePartial")
 
 <div id="menuwithSub_wrapper">
-    <div id="menuwithSub_left">
+    <ul id="menuwithSub_left">
         <ul class="newmenu_item">
-            <p>@Html.ActionLink("Funders", "Index", "FundersMenu")</p>
+            <p>@Html.ActionLink("Donors Menu", "Index", "DonorsMenu")</p>
             <li class="newsubMenu_item">
-                <p style="margin-left: 6vh !important">@Html.ActionLink("Funder Type", "Index", "FunderType")</p>
+                <p style="margin-left: 6vh !important">@Html.ActionLink("Donor - Organization", "Index", "DonorOrg")</p>
             </li>
             <li class="newsubMenu_item">
-                <p style="margin-left: 6vh !important">@Html.ActionLink("Funder - Organization", "Index", "FunderOrg")</p>
-            </li>
-            <li class="newsubMenu_item">
-                <p style="margin-left: 6vh !important">@Html.ActionLink("Funder - Person", "Index", "FunderPerson")</p>
-            </li>
+                <p style="margin-left: 6vh !important">@Html.ActionLink("Donor - Person", "Index", "DonorPerson")</p>
+            </li>           
         </ul>
-    </div>
+    </ul>
     <div id="menuwithSub_right">
         <img src="~/Content/CompuData(Transparent).png" />
         <h1>CompuData</h1>
@@ -38,6 +35,7 @@
 </div>
 
 <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "MainMenu")'">Back</div>
+
 <style>
     /*ul {
         list-style: none;

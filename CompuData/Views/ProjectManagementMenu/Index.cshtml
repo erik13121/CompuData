@@ -20,7 +20,7 @@
 <div id="menuwithSub_wrapper">
     <div id="menuwithSub_left">
         <ul class="newmenu_item">
-            <p>@Html.ActionLink("Procurement", "Index", "ProcurementMenu")</p>
+            <p>@Html.ActionLink("Project Management", "Index", "ProjectManagementMenu")</p>
             <li class="newsubMenu_item">
                 <p style="margin-left: 6vh !important">@Html.ActionLink("Project Type", "Index", "ProjectType")</p>
             </li>
@@ -35,7 +35,7 @@
     </div>
 </div>
 
-<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "")'">Back</div>
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "MainMenu")'">Back</div>
 
 <style>
     /*ul {
