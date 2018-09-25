@@ -62,8 +62,9 @@ a:hover {
         margin: 0;
     }
 
-    #menuwithSub_wrapper #menuwithSub_left .newmenu_item>p {
+    #menuwithSub_wrapper>#menuwithSub_left>.newmenu_item>p {
         display: inline-block;
+        font-size: 1.2vw;
         text-decoration: none;
         color: white;
         cursor: pointer;
@@ -75,11 +76,11 @@ a:hover {
         transition: background-color linear 0.5s;
     }
 
-        #menuwithSub_wrapper #menuwithSub_left .newmenu_item p:hover {
+        #menuwithSub_wrapper>#menuwithSub_left>.newmenu_item p:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
-    #menuwithSub_wrapper #menuwithSub_left .newsubMenu_item>p {
+    .newsubMenu_item>p {
         display: inline-flex;
         font-size: 1.2vw;
         text-decoration: none;
@@ -97,7 +98,7 @@ a:hover {
         transition: background-color linear 0.5s;
     }
 
-        #menuwithSub_wrapper #menuwithSub_left .newsubMenu_item p:hover {
+        .newsubMenu_item p:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
