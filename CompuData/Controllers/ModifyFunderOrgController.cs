@@ -43,35 +43,6 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(Models.Funder_Org model)
-        {
-            CodeFirst.CodeFirst db = new CodeFirst.CodeFirst();
-            if (ModelState.IsValid)
-            {
-                Models.Funder_Org myModel = new Models.Funder_Org();
-                var myFunderOrg = db.Funder_Org.Where(i => i.FunderOrgID == model.FunderOrgID).FirstOrDefault();
-
-                myModel.FunderOrgID = myFunderOrg.FunderOrgID;
-                myModel.OrgName = myFunderOrg.OrgName;
-                myModel.ContactNumber = myFunderOrg.ContactNumber;
-                myModel.EmailAddress = myFunderOrg.EmailAddress;
-                myModel.Bank = myFunderOrg.Bank;
-                myModel.AccountNumber = myFunderOrg.AccountNumber;
-                myModel.BranchCode = myFunderOrg.BranchCode;
-                myModel.StreetAddress = myFunderOrg.StreetAddress;
-                myModel.City = myFunderOrg.City;
-                myModel.AreaCode = myFunderOrg.AreaCode;
-                myModel.Thanked = myFunderOrg.Thanked;
-                myModel.TypeID = myFunderOrg.TypeID;
-                myModel.ProjectID = myFunderOrg.ProjectID;
-
-                return View(myModel);
-            }
-
-            return View(model);
-        }
-
-        [HttpPost]
         public ActionResult RedirectToModifyFunderOrgDetails(string funderOrgID)
         {
             var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "ModifyFunderOrg", new { funderOrgID = funderOrgID });
@@ -84,7 +55,8 @@ namespace CompuData.Controllers
             var db = new CodeFirst.CodeFirst();
             if (ModelState.IsValid)
             {
-                var myFunderOrg = db.Funder_Org.Where(v => v.FunderOrgID == model.ProjectID).SingleOrDefault();
+                
+                var myFunderOrg = db.Funder_Org.Where(v => v.FunderOrgID == model.FunderOrgID).SingleOrDefault();
 
                 if (myFunderOrg != null)
                 {
