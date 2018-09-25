@@ -43,30 +43,6 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(Models.Project model)
-        {
-            CodeFirst.CodeFirst db = new CodeFirst.CodeFirst();
-            if (ModelState.IsValid)
-            {
-                Models.Project myModel = new Models.Project();
-                var myProject = db.Projects.Where(i => i.ProjectID == model.ProjectID).FirstOrDefault();
-
-                myModel.ProjectID = myProject.ProjectID;
-                myModel.ProjectName = myProject.ProjectName;
-                myModel.StartDate = myProject.StartDate;
-                myModel.Finished = myProject.Finished;
-                myModel.ExpectedFinishDate = myProject.ExpectedFinishDate;
-                myModel.ProjectDescription = myProject.ProjectDescription;
-                myModel.TypeID = myProject.TypeID;
-                myModel.UserID = myProject.UserID;
-
-                return View(myModel);
-            }
-
-            return View(model);
-        }
-
-        [HttpPost]
         public ActionResult RedirectToModifyProjectDetails(string projectID)
         {
             var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "ModifyProject", new { projectID = projectID });

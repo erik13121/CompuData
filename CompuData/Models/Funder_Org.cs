@@ -13,9 +13,11 @@ namespace CompuData.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int FunderOrgID { get; set; }
 
+        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Organization Name")]
         public string OrgName { get; set; }
 
+        [RegularExpression("\\d{10}", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Contact Number")]
         public string ContactNumber { get; set; }
 

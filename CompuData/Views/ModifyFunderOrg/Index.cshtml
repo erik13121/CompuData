@@ -88,7 +88,7 @@
         @Html.ValidationMessageFor(model => model.Name)
         <div>
             <p>Project:</p>
-            @Html.DropDownListFor(model => model.ProjectID, new SelectList(Model.Project, "TypeID", "ProjectName"))
+            @Html.DropDownListFor(model => model.ProjectID, new SelectList(Model.Project, "ProjectID", "ProjectName"))
         </div>
         @Html.ValidationMessageFor(model => model.ProjectName)
         <div id="multipleButtons">

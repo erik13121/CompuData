@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Index";
-    @model CompuData.Models.Supplier
+    @model CompuData.Models.Donor_Org
 }
 
 <nav id="breadcrumb">
@@ -194,6 +194,13 @@
                     name: 'donorOrgID',
                     data: 'donorOrgID',
                     title: "ID",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'orgName',
+                    data: "orgName",
+                    title: "Organization Name",
                     sortable: true,
                     searchable: true
                 },
