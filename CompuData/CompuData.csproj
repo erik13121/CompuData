@@ -286,6 +286,7 @@
     <Compile Include="Controllers\DonationTypeController.cs" />
     <Compile Include="Controllers\DonationTypeDetailsController.cs" />
     <Compile Include="Controllers\DonationTypeModifyController.cs" />
+    <Compile Include="Controllers\DonorOrgController.cs" />
     <Compile Include="Controllers\EquipmentDetailsController.cs" />
     <Compile Include="Controllers\EquipmentManagementMenuController.cs" />
     <Compile Include="Controllers\EquipmentRepairRequestDetailsController.cs" />
@@ -433,6 +434,7 @@
     <Compile Include="Global\Equipment_Type.cs">
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Donor_Org.cs" />
     <Compile Include="Models\Equipment.cs" />
     <Compile Include="Models\EquipmentType.cs" />
     <Compile Include="Models\ForgotPasswordModel.cs" />
@@ -896,6 +898,7 @@
     <Content Include="Views\FunderOrgDetails\Index.cshtml" />
     <Content Include="Views\ModifyFunderOrg\Index.cshtml" />
     <Content Include="Views\AddFunderOrg\Index.cshtml" />
+    <Content Include="Views\DonorOrg\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
