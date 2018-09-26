@@ -37,7 +37,7 @@ namespace CompuData.CodeFirst
         public string PersonalEmail { get; set; }
 
         [MaxLength(50)]
-        public string StreetAdress { get; set; }
+        public string StreetAddress { get; set; }
 
         [MaxLength(50)]
         public string City { get; set; }
