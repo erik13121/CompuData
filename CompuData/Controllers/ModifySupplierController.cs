@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -34,36 +34,7 @@ namespace CompuData.Controllers
             }
 
             return View(myModel);
-        }
-
-        [HttpPost]
-        public ActionResult Index(Models.Supplier model)
-        {
-            CodeFirst.CodeFirst db = new CodeFirst.CodeFirst();
-
-            if (ModelState.IsValid)
-            {
-                Models.Supplier myModel = new Models.Supplier();
-
-                var mySupplier = db.Suppliers.Where(i => i.SupplierID == model.SupplierID).FirstOrDefault();
-
-                myModel.SupplierID = mySupplier.SupplierID;
-                myModel.Name = mySupplier.Name;
-                myModel.VATNumber = mySupplier.VATNumber;
-                myModel.EmailAddress = mySupplier.EmailAddress;
-                myModel.ContactNumber = mySupplier.ContactNumber;
-                myModel.Bank = mySupplier.Bank;
-                myModel.AccountNumber = mySupplier.AccountNumber;
-                myModel.BranchCode = mySupplier.BranchCode;
-                myModel.POAddress = mySupplier.POAddress;
-                myModel.POCity = mySupplier.POCity;
-                myModel.POAreaCode = mySupplier.POAreaCode;
-
-                return View(myModel);
-            }
-
-            return View(model);
-        }
+        }     
 
         [HttpPost]
         public ActionResult RedirectToModifySupplierDetails(string supplierID)

@@ -51,8 +51,11 @@ namespace CompuData.Models
 
         public int? ProjectID { get; set; }
 
+        public string ProjectName { get; set; }
+
         [Required(ErrorMessage = "Please Add a Funder Type first")]
         public int TypeID { get; set; }
+        public string Name { get; set; }
 
         public string JavaScriptToRun { get; set; }
         public List<CodeFirst.Funder_Type> FunderTypes { get; set; }
