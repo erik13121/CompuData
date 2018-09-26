@@ -312,6 +312,7 @@
     <Compile Include="Controllers\ModifyEquipmentRepairRequestController.cs" />
     <Compile Include="Controllers\ModifyEquipmentTypeController.cs" />
     <Compile Include="Controllers\ModifyFunderOrgController.cs" />
+    <Compile Include="Controllers\ModifyFunderPersonController.cs" />
     <Compile Include="Controllers\ModifyFunderTypeController.cs" />
     <Compile Include="Controllers\ModifyLoginDetailsController.cs" />
     <Compile Include="Controllers\ModifyProjectController.cs" />
@@ -905,6 +906,7 @@
     <Content Include="Views\AddDonorOrg\Index.cshtml" />
     <Content Include="Views\DonorsMenu\Index.cshtml" />
     <Content Include="Views\AddFunderPerson\Index.cshtml" />
+    <Content Include="Views\ModifyFunderPerson\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
