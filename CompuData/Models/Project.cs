@@ -30,6 +30,7 @@ namespace CompuData.Models
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Project Description")]
         public string ProjectDescription { get; set; }
 
+        [Required(ErrorMessage = "Please Add a Project Type first")]
         public int TypeID { get; set; }
         public string TypeName { get; set; }
 

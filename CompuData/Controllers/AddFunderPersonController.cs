@@ -82,4 +82,5 @@ namespace CompuData.Controllers
             model.Project = db.Projects.ToList();
             return View("Index", model);
         }
+    }
 }

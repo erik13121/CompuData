@@ -84,12 +84,12 @@
         @Html.ValidationMessageFor(model => model.AreaCode)
         <div>
             <p>Funder Type:</p>
-            @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.FunderTypes, "TypeID", "Name"))
+            @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.FunderTypes, "TypeID", "Name"), Model.FunderTypes.Count == 0 ? "Please add Type" : null)
         </div>
         @Html.ValidationMessageFor(model => model.TypeID)
         <div>
             <p>Project:</p>
-            @Html.DropDownListFor(model => model.ProjectID, new SelectList(Model.Project, "ProjectID", "ProjectName"))
+            @Html.DropDownListFor(model => model.ProjectID, new SelectList(Model.Project, "ProjectID", "ProjectName"), "None")
         </div>
         @Html.ValidationMessageFor(model => model.ProjectID)
 

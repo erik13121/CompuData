@@ -21,15 +21,15 @@ namespace CompuData.Models
         public string Brand { get; set; }
 
         [Required(ErrorMessage = "The Model is required")]
-        [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "No special characters are allowed!")]
+        [RegularExpression("^[a-zA-Z0-9 ]*$", ErrorMessage = "No special characters are allowed!")]
         [DataType(DataType.Text)]
         [MaxLength(50)]
         public string Model { get; set; }
 
         [Required(ErrorMessage = "The Number Plate is required")]
-        [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "No special characters are allowed!")]
+        [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "No special characters or spaces are allowed!")]
         [DataType(DataType.Text)]
-        [MaxLength(6, ErrorMessage = "You are only allowed up to 6 characters on a License Plate")]
+        [MaxLength(8, ErrorMessage = "You are only allowed up to 6 characters on a License Plate")]
         public string NumberPlate { get; set; }
 
         [Column(TypeName = "date")]
@@ -54,6 +54,7 @@ namespace CompuData.Models
         [RegularExpression("\\d{4,6}", ErrorMessage = "The KMs Service Interval has to consist of between 4 and 6-digit numbers")]
         public int? ServiceIntervalInKMs { get; set; }
 
+        [Required(ErrorMessage = "Please Add a Vehicle Type first")]
         public int TypeID { get; set; }
         public string TypeName { get; set; }
         public string JavaScriptToRun { get; set; }

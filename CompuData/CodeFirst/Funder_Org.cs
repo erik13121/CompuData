@@ -24,9 +24,9 @@ namespace CompuData.CodeFirst
         [MaxLength(50)]
         public string Bank { get; set; }
 
-        public int AccountNumber { get; set; }
+        public string AccountNumber { get; set; }
 
-        public int BranchCode { get; set; }
+        public string BranchCode { get; set; }
 
         [MaxLength(50)]
         public string StreetAddress { get; set; }

@@ -8,6 +8,7 @@ namespace CompuData.Models
 {
     public class User
     {
+        [Required(ErrorMessage = "Please Add an Access Level first")]
         public int AccessLevelID { get; set; }
         [Required(ErrorMessage = "The Area Code is required")]
         [MaxLength(50)]
@@ -26,6 +27,7 @@ namespace CompuData.Models
         public string FirstName { get; set; }
         [MaxLength(50)]
         public string Initials { get; set; }
+        [Required(ErrorMessage = "Please Add a Job Title first")]
         public int JobTitleID { get; set; }
         [Required(ErrorMessage = "The Last Name is required")]
         [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]

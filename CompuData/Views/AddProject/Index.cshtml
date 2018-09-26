@@ -44,7 +44,7 @@
         @Html.ValidationMessageFor(model => model.ExpectedFinishDate)       
         <div>
             <p>Project Type:</p>
-            @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.ProjectTypes, "TypeID", "TypeName"))        
+            @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.ProjectTypes, "TypeID", "TypeName"), Model.ProjectTypes.Count == 0 ? "Please add Type" : null)        
         </div>
         @Html.ValidationMessageFor(model => model.TypeID)
         <div>
