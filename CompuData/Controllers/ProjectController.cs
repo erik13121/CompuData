@@ -55,8 +55,8 @@ namespace CompuData.Controllers
             var filteredData = newData.Where(_item =>
             _item.ProjectID.ToString().Contains(request.Search.Value) ||
             _item.ProjectName.ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.StartDate.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.ExpectedFinishDate.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) ||
+            (_item.StartDate != null ? _item.StartDate.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) : false ) ||
+            (_item.ExpectedFinishDate != null ? _item.ExpectedFinishDate.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) : false ) ||
             _item.Finished.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) ||
             _item.ProjectDescription.ToUpper().Contains(request.Search.Value.ToUpper()) ||
             _item.TypeName.ToUpper().Contains(request.Search.Value.ToUpper()) ||

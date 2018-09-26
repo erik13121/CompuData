@@ -10,6 +10,7 @@ namespace CompuData.Models
     {
         public int LicenceID { get; set; }
 
+        [Required(ErrorMessage = "The Name of the Software is required")]
         [MaxLength(50)]
         public string SoftwareName { get; set; }
 

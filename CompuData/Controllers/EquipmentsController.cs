@@ -53,7 +53,7 @@ namespace CompuData.Controllers
             _item.EquipmentID.ToString().Contains(request.Search.Value) ||
             _item.ManufacturerName.ToUpper().Contains(request.Search.Value.ToUpper()) ||
             _item.ModelNumber.ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.DatePurchased.ToString().Contains(request.Search.Value.ToUpper()) ||
+            (_item != null ? _item.DatePurchased.ToString().Contains(request.Search.Value.ToUpper()) : false) ||
             _item.ServiceIntervalMonths.ToString().Contains(request.Search.Value) ||
             _item.Status.ToUpper().Contains(request.Search.Value) ||
             _item.UserName.ToUpper().Contains(request.Search.Value) ||
