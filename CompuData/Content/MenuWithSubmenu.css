@@ -133,12 +133,20 @@ a:hover {
     }
 
 #breadcrumb {
-    top: 0;
-    width: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: auto;
+    width: 80%;
+    z-index: 9000;
 }
 
 .breadcrumb-item {
     font-size: 25px;
+}
+
+.breadcrumb-item a {
+    color: #5a9ad6;
 }
 
 .breadcrumb {
