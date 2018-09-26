@@ -54,9 +54,8 @@ namespace CompuData.Models
         public int TypeID { get; set; }
 
         public string JavaScriptToRun { get; set; }
-        public List<CodeFirst.Funder_Person> FunderPerson { get; set; }
-
-        public IEnumerable<SelectListItem> Users { get; set; }
+        public List<CodeFirst.Funder_Type> FunderTypes { get; set; }
+        public List<CodeFirst.Project> Project { get; set; }
         public Funder_Person() { }
         public Funder_Person(int id, string Fname, string Mname, string Lname, string Initial, string CelltNum, string Email, string Bankname, int AccNum, int Branch, string Streetnum, string cityName, string Area, bool ThankedStatus, int projectID, int typeID)
         {

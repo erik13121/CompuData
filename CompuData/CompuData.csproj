@@ -261,6 +261,7 @@
     <Compile Include="Controllers\AddEquipmentController.cs" />
     <Compile Include="Controllers\AddEquipmentTypeController.cs" />
     <Compile Include="Controllers\AddFunderOrgController.cs" />
+    <Compile Include="Controllers\AddFunderPersonController.cs" />
     <Compile Include="Controllers\AddFunderTypeController.cs" />
     <Compile Include="Controllers\AddJobTitleController.cs" />
     <Compile Include="Controllers\AddProjectController.cs" />
@@ -903,6 +904,7 @@
     <Content Include="Views\DonorOrg\Index.cshtml" />
     <Content Include="Views\AddDonorOrg\Index.cshtml" />
     <Content Include="Views\DonorsMenu\Index.cshtml" />
+    <Content Include="Views\AddFunderPerson\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
