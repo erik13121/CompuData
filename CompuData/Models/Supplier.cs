@@ -40,14 +40,14 @@ namespace CompuData.Models
         public string Bank { get; set; }
 
         [RegularExpression("\\d{9,16}", ErrorMessage = "The Account Number must consist of between 9 and 16 numbers")]
-        public int? AccountNumber { get; set; }
+        public string AccountNumber { get; set; }
 
         [RegularExpression("\\d{4,10}", ErrorMessage = "The Branch Code must consist of between 4 and 10 numbers")]
-        public int? BranchCode { get; set; }
+        public string BranchCode { get; set; }
 
         public string JavaScriptToRun { get; set; }
         public Supplier() { }
-        public Supplier(int ID, string SName, string SVATNumber,string SEmailAddress, string SContactNumber,string SBank, int SAccountNumber, int SBranchCode, string SPOAddress,string SPOCity, string SPOAreaCode)
+        public Supplier(int ID, string SName, string SVATNumber,string SEmailAddress, string SContactNumber,string SBank, string SAccountNumber, string SBranchCode, string SPOAddress,string SPOCity, string SPOAreaCode)
         {
             SupplierID = ID;
             Name = SName;

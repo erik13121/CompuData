@@ -67,7 +67,7 @@
     @Html.ValidationMessageFor(model => model.ServiceIntervalInKMs)
     <div>
         <p>Vehicle Type:</p>
-        @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.VehicleTypes, "TypeID", "Name"))
+        @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.VehicleTypes, "TypeID", "Name"), Model.VehicleTypes.Count == 0 ? "Please add Type" : null)
     </div>
     @Html.ValidationMessageFor(model => model.TypeID)
     <div id="multipleButtons">
@@ -252,15 +252,13 @@
 </style>
 <script type="text/javascript">
     $('#datepicker1').datepicker();
-    $('#datepicker1').datepicker("setDate", new Date());
+    $('#datepicker1').datepicker("option", "maxDate", new Date());
 
     $('#datepicker2').datepicker();
-    $('#datepicker2').datepicker("setDate", new Date());
-
-    $("#datepicker3").datepicker("setDate", "+0d");
-    $("#datepicker4").datepicker("setDate", "+0d");
-
+    $('#datepicker2').datepicker("option", "maxDate", new Date());
+    
     $("#datepicker3").datepicker({
+        maxDate: new Date(),
         onSelect: function (selectdate) {
             var dt = new Date(selectdate);
             dt.setDate(dt.getDate() + 1)

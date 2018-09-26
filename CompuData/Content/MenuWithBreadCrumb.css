@@ -269,7 +269,14 @@ footer>p {
     }
 
 #profile  {
-    z-index : 9000 !important;
+    position: relative;
+    z-index: 9000 !important;
+    margin-left: auto;
+    margin-bottom: auto;
+    font-size: 20px;
+    width: 20%;
+    background-color: #33363b;
+    transform: translateX(-3px);
 }
 
 #profile>a>span  {
@@ -278,7 +285,8 @@ footer>p {
 
 #profile a {
     font-size: 20px !important;
-    line-height: 45px !important;
+    line-height: 61px !important;
+    color: #5a9ad6;
 }
 
 #addButton {

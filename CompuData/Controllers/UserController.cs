@@ -65,12 +65,12 @@ namespace CompuData.Controllers
             var filteredData = newData.Where(_item =>
             _item.UserID.ToString().Contains(request.Search.Value) ||
             _item.FirstName.ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.MiddleName.ToUpper().Contains(request.Search.Value.ToUpper()) ||
+            (_item.MiddleName != null ? _item.MiddleName.ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
             _item.LastName.ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.Initials.ToUpper().Contains(request.Search.Value.ToUpper()) ||
+            (_item.Initials != null ? _item.Initials.ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
             _item.Password.ToUpper().Contains(request.Search.Value.ToUpper()) ||
             _item.NationalID.ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.CellNum.ToUpper().Contains(request.Search.Value.ToUpper()) ||
+            (_item.CellNum != null ? _item.CellNum.ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
             _item.TelNum.ToUpper().Contains(request.Search.Value.ToUpper()) ||
             _item.WorkNum.ToUpper().Contains(request.Search.Value.ToUpper()) ||
             _item.PersonalEmail.ToUpper().Contains(request.Search.Value.ToUpper()) ||
@@ -78,9 +78,9 @@ namespace CompuData.Controllers
             _item.StreetAddress.ToUpper().Contains(request.Search.Value.ToUpper()) ||
             _item.City.ToUpper().Contains(request.Search.Value.ToUpper()) ||
             _item.AreaCode.ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.POAddress.ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.POCity.ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.POAreaCode.ToUpper().Contains(request.Search.Value.ToUpper()) ||
+            (_item.POAddress != null ? _item.POAddress.ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
+            (_item.POCity != null ? _item.POCity.ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
+            (_item.POAreaCode != null ? _item.POAreaCode.ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
             _item.ValidLicense.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) ||
             _item.JobTitleName.ToUpper().Contains(request.Search.Value.ToUpper()) ||
             _item.AccessLevelName.ToUpper().Contains(request.Search.Value.ToUpper())

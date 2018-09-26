@@ -93,12 +93,12 @@
                             @Html.ValidationMessageFor(model => model.WorkEmail)
                             <div>
                                 <p>Job Title:</p>
-                                @Html.DropDownListFor(model => model.JobTitleID, new SelectList(Model.EmployeeTitles, "JobTitleID", "TitleName"))
+                                @Html.DropDownListFor(model => model.JobTitleID, new SelectList(Model.EmployeeTitles, "JobTitleID", "TitleName"), Model.EmployeeTitles.Count == 0 ? "Please add Job Title" : null)
                             </div>
                             @Html.ValidationMessageFor(model => model.JobTitleID)
                             <div>
                                 <p>Access Level:</p>
-                                @Html.DropDownListFor(model => model.AccessLevelID, new SelectList(Model.AccessLevels, "AccessLevelID", "LevelName"))
+                                @Html.DropDownListFor(model => model.AccessLevelID, new SelectList(Model.AccessLevels, "AccessLevelID", "LevelName"), Model.AccessLevels.Count == 0 ? "Please add Access Level" : null)
                             </div>
                             @Html.ValidationMessageFor(model => model.AccessLevelID)
                         </div>

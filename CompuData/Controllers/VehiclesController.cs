@@ -57,10 +57,10 @@ namespace CompuData.Controllers
             _item.Brand.ToUpper().Contains(request.Search.Value.ToUpper()) ||
             _item.Model.ToUpper().Contains(request.Search.Value.ToUpper()) ||
             _item.NumberPlate.ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.DateofPurchase.ToString().Contains(request.Search.Value) ||
-            _item.DateofLastRepair.ToString().Contains(request.Search.Value) ||
-            _item.DateofLicencePurchase.ToString().Contains(request.Search.Value) ||
-            _item.LicenseExpireDate.ToString().Contains(request.Search.Value) ||
+            (_item.DateofPurchase != null ? _item.DateofPurchase.ToString().Contains(request.Search.Value) : false) ||
+            (_item.DateofLastRepair != null ? _item.DateofLastRepair.ToString().Contains(request.Search.Value) : false) ||
+            (_item.DateofLicencePurchase != null ? _item.DateofLicencePurchase.ToString().Contains(request.Search.Value) : false) ||
+            (_item.LicenseExpireDate != null ? _item.LicenseExpireDate.ToString().Contains(request.Search.Value) : false) ||
             _item.ServiceIntervalInMonths.ToString().Contains(request.Search.Value) ||
             _item.ServiceIntervalInKMs.ToString().Contains(request.Search.Value) ||
             _item.TypeName.ToUpper().Contains(request.Search.Value.ToUpper())

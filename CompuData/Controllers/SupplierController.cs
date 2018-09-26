@@ -35,13 +35,13 @@ namespace CompuData.Controllers
             _item.Name.ToUpper().Contains(request.Search.Value.ToUpper()) ||
             _item.ContactNumber.ToUpper().Contains(request.Search.Value.ToUpper()) ||
             (_item.VATNumber != null ? _item.VATNumber.ToString().Contains(request.Search.Value) : false) ||
-             (_item.EmailAddress != null ? _item.EmailAddress.ToString().Contains(request.Search.Value) : false) ||
-             (_item.Bank != null ? _item.Bank.ToString().Contains(request.Search.Value) : false) ||
+            _item.EmailAddress.ToString().Contains(request.Search.Value) ||
+            (_item.Bank != null ? _item.Bank.ToString().Contains(request.Search.Value) : false) ||
             (_item.AccountNumber != null ? _item.AccountNumber.ToString().Contains(request.Search.Value) : false) ||
             (_item.BranchCode != null ? _item.BranchCode.ToString().Contains(request.Search.Value) : false) ||
-             (_item.POAddress != null ? _item.POAddress.ToString().Contains(request.Search.Value) : false) ||
-             (_item.POAreaCode != null ? _item.POAreaCode.ToString().Contains(request.Search.Value) : false) ||
-             (_item.POCity != null ? _item.POCity.ToString().Contains(request.Search.Value) : false) 
+            (_item.POAddress != null ? _item.POAddress.ToString().Contains(request.Search.Value) : false) ||
+            (_item.POAreaCode != null ? _item.POAreaCode.ToString().Contains(request.Search.Value) : false) ||
+            (_item.POCity != null ? _item.POCity.ToString().Contains(request.Search.Value) : false) 
             );
 
             // Paging filtered data.

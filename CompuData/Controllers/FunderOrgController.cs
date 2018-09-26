@@ -33,8 +33,10 @@ namespace CompuData.Controllers
             var FunderType = db.Funder_Type.ToList();
             var Project = db.Projects.ToList();
             var newData = (from d in data
-                           join f in FunderType on d.TypeID equals f.TypeID
                            join p in Project on d.ProjectID equals p.ProjectID
+                           into projects
+                           from mP in projects.DefaultIfEmpty()
+                           join f in FunderType on d.TypeID equals f.TypeID
                            select new
                            {
                                 FunderOrgID = d.FunderOrgID,
@@ -48,23 +50,23 @@ namespace CompuData.Controllers
                                 City = d.City,
                                 AreaCode = d.AreaCode,
                                 Thanked = d.Thanked,
-                                ProjectName = p.ProjectName,
+                                ProjectName = mP != null ? mP.ProjectName : "Not linked to Project",
                                 TypeName = f.Name,
                         }).ToList();
 
             var filteredData = newData.Where(_item =>
             _item.FunderOrgID.ToString().Contains(request.Search.Value) ||
-            _item.OrgName.ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.ContactNumber.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.EmailAddress.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.Bank.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.AccountNumber.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.BranchCode.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.StreetAddress.ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.City.ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.AreaCode.ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.Thanked.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.ProjectName.ToUpper().Contains(request.Search.Value.ToUpper()) ||
+            (_item.OrgName != null ? _item.OrgName.ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
+            (_item.ContactNumber != null ? _item.ContactNumber.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
+            (_item.EmailAddress != null ? _item.EmailAddress.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
+            (_item.Bank != null ? _item.Bank.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
+            (_item.AccountNumber != null ? _item.AccountNumber.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
+            (_item.BranchCode != null ? _item.BranchCode.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
+            (_item.StreetAddress != null ? _item.StreetAddress.ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
+            (_item.City != null ? _item.City.ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
+            (_item.AreaCode != null ? _item.AreaCode.ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
+            (_item.Thanked != null ? _item.Thanked.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
+            (_item.ProjectName != null ? _item.ProjectName.ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
             _item.TypeName.ToUpper().Contains(request.Search.Value.ToUpper())
             );
 

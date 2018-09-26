@@ -35,7 +35,7 @@ namespace CompuData.Models
 
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "The Type is required")]
+        [Required(ErrorMessage = "Please Add an Equipment Type first")]
         public int TypeID { get; set; }
 
         public string TypeName { get; set; }

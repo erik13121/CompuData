@@ -49,7 +49,7 @@
         @Html.ValidationMessageFor(model => model.UserID)
         <div>
             <p>Equipment Type:</p>
-            @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.EquipmentTypes, "TypeID", "TypeName"))
+            @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.EquipmentTypes, "TypeID", "TypeName"), Model.EquipmentTypes.Count == 0 ? "Please add Type" : null)
         </div>
         @Html.ValidationMessageFor(model => model.TypeID)
         @Html.HiddenFor(model => model.Status, new { @Value = "Active"})

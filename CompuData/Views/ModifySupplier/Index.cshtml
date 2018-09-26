@@ -50,12 +50,12 @@
     @Html.ValidationMessageFor(model => model.Bank)
     <div>
         <p>Account Number:</p>
-        @Html.EditorFor(model => model.AccountNumber)
+        @Html.EditorFor(model => model.AccountNumber, new { htmlAttributes = new { @type = "number", @min = "0" } })
     </div>
     @Html.ValidationMessageFor(model => model.AccountNumber)
     <div>
         <p>Branch Code:</p>
-        @Html.EditorFor(model => model.BranchCode)
+        @Html.EditorFor(model => model.BranchCode, new { htmlAttributes = new { @type = "number", @min = "0" } })
     </div>
     @Html.ValidationMessageFor(model => model.BranchCode)
     <div>

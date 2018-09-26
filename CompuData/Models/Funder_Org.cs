@@ -28,9 +28,11 @@ namespace CompuData.Models
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Bank Name")]
         public string Bank { get; set; }
 
-        public int AccountNumber { get; set; }
+        [RegularExpression("\\d{9,16}", ErrorMessage = "The Account Number must consist of between 9 and 16 numbers")]
+        public string AccountNumber { get; set; }
 
-        public int BranchCode { get; set; }
+        [RegularExpression("\\d{9,16}", ErrorMessage = "The Account Number must consist of between 9 and 16 numbers")]
+        public string BranchCode { get; set; }
 
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Street Address")]
         public string StreetAddress { get; set; }
@@ -48,6 +50,7 @@ namespace CompuData.Models
 
         public string ProjectName { get; set; }
 
+        [Required(ErrorMessage = "Please Add a Funder Type first")]
         public int TypeID { get; set; }
 
         public string Name { get; set; }
@@ -56,7 +59,7 @@ namespace CompuData.Models
         public List<CodeFirst.Funder_Type> FunderTypes { get; set; }
         public List<CodeFirst.Project> Project { get; set; }
         public Funder_Org() { }
-        public Funder_Org(int id, string name, string ContactNum, string Email, string Bankname, int AccNum, int Branch, string Streetnum, string cityName, string Area, bool ThankedStatus,int projectID, int typeID)
+        public Funder_Org(int id, string name, string ContactNum, string Email, string Bankname, string AccNum, string Branch, string Streetnum, string cityName, string Area, bool ThankedStatus,int projectID, int typeID)
         {
             FunderOrgID = id;
             OrgName = name;
