@@ -10,15 +10,12 @@
 </head>
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../FundersMenu/Index">Funders Menu</a></li>
-        <li class="breadcrumb-item"><a href="../FunderPerson/Index">Funder Person</a></li>
-        @if (Request.UrlReferrer != null)
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../FundersMenu">Funders Menu</a></li>
+        <li class="breadcrumb-item"><a href="../FunderPerson">Funder Person</a></li>
+        @if (Session["Referrer"] as string == "FunderPersonDetails")
         {
-            if (Request.UrlReferrer.ToString().Contains("Details"))
-            {
-                <li class="breadcrumb-item"><a href="../FunderPersonDetails/Index">Funder Person Details</a></li>
-            }
+            <li class="breadcrumb-item"><a href="../FunderPersonDetails">Funder Person Details</a></li>
         }
         <li class="breadcrumb-item active" aria-current="page">Modify Funder Person Details</li>
     </ol>

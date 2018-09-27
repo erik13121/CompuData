@@ -8,15 +8,12 @@
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../Funders/Index">Funders</a></li>
-        <li class="breadcrumb-item"><a href="../FunderType/Index">Funder Type</a></li>
-        @if (Request.UrlReferrer != null)
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../Funders">Funders</a></li>
+        <li class="breadcrumb-item"><a href="../FunderType">Funder Type</a></li>
+        @if (Session["Referrer"] as string == "FunderTypeDetails")
         {
-            if (Request.UrlReferrer.ToString().Contains("Details"))
-            {
-                <li class="breadcrumb-item"><a href="../FunderTypeDetails/Index">Funder Type Details</a></li>
-            }
+            <li class="breadcrumb-item"><a href="../FunderTypeDetails">Funder Type Details</a></li>
         }
         <li class="breadcrumb-item active" aria-current="page">Modify Funder Type</li>
     </ol>

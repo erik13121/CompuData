@@ -10,12 +10,9 @@
         <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
         <li class="breadcrumb-item"><a href="../DonorsMenu/Index">Donors Menu</a></li>
         <li class="breadcrumb-item"><a href="../DonorOrg/Index">Donor - Organization</a></li>
-        @if (Request.UrlReferrer != null)
+        @if (Session["Referrer"] as string == "DonorOrgDetails")
         {
-            if (Request.UrlReferrer.ToString().Contains("Details"))
-            {
-                <li class="breadcrumb-item"><a href="../DonorOrgDetails/Index">Donor - Organization Details</a></li>
-            }
+            <li class="breadcrumb-item"><a href="../DonorOrgDetails">Donor - Organization Details</a></li>
         }
         <li class="breadcrumb-item active" aria-current="page">Modify Donor - Organization</li>
     </ol>
