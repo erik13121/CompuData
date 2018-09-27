@@ -1,0 +1,300 @@
+﻿@{
+    ViewBag.Title = "SelectEquipmentForRepairRequest";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
+    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+}
+
+<nav id="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment Menu</a></li>
+        <li class="breadcrumb-item"><a href="../EquipmentRepairRequests">Equipment Repair Requests</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Select Request</li>
+    </ol>
+</nav>
+@Html.Partial("_ProfilePartial")
+<div id="table_background">
+    @if (Session["btnClicked"].ToString() == "Approve")
+    {
+        <p>Select Request you wish to Approve</p>
+    }
+    else
+    {
+        <p>Select Request you wish to Finalize/Complete</p>
+    }
+    <table id="equipmentTable" class="display"></table>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "EquipmentRepairRequests")'">Back</div>
+</div>
+<style>
+    #table_background p {
+        font-size: 25px;
+        text-align: center;
+    }
+
+    #table_background {
+        position: absolute;
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    #equipmentTable {
+        background-color: #5a9ad6;
+    }
+
+    #addButton {
+        position: relative;
+        display: table;
+        margin-left: auto;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #addButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #backButton {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: 2vh;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #backButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #breadcrumb {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+    }
+
+    .breadcrumb-item {
+        font-size: 25px;
+    }
+
+    .breadcrumb {
+        top: 0;
+        background-color: #33363b !important;
+        padding-left: 60px !important;
+    }
+
+    #profile {
+        position: relative;
+        z-index: 7979;
+        margin-left: auto;
+        margin-bottom: auto;
+        height: 61px;
+        width: 20%;
+        background-color: #33363b;
+        transform: translateX(-3px);
+    }
+
+        #profile a {
+            display: table;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 200;
+            font-size: 25px;
+            text-decoration: none !important;
+            color: #5a9ad6;
+            line-height: 61px;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    .glyphicon {
+        margin-left: 6px;
+    }
+
+    .dropdown-menu {
+        background-color: #33363b;
+    }
+
+        .dropdown-menu li a {
+            color: #5a9ad6;
+        }
+</style>
+<script>
+    var table;
+    $(document).ready(function () {
+        table = $('#equipmentTable').DataTable({
+            serverSide: true,
+            ajax: "/EquipmentRepairRequests/PageData",
+            autoWidth: true,
+            scrollX: true,
+            select: {
+                style: 'single'
+            },
+            columns: [
+                {
+                    name: 'requestID',
+                    data: 'requestID',
+                    title: "ID",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'approved',
+                    data: "approved",
+                    title: "Approved",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'repaired',
+                    data: "repaired",
+                    title: "Repaired",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'reason',
+                    data: "reason",
+                    title: "Reason",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'equipment',
+                    data: "equipment",
+                    title: "Equipment",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'repPerson',
+                    data: "repPerson",
+                    title: "Repair Person",
+                    sortable: true,
+                    searchable: true
+                }
+            ]
+        });
+    })
+</script>
+
+@if (Session["btnClicked"].ToString() == "Approve")
+{
+    <script>
+        $(document).ready(function () {
+            $('#equipmentTable tbody').on('click', 'tr', function () {
+                var data = table.row(this).data();
+                var requestID = data["requestID"];
+
+                swal({
+                    title: "Are you sure you want to approve this Equipment Repair Request?",
+                    icon: "warning",
+                    dangerMode: true,
+                    buttons: [
+                        true,
+                        "Yes",
+                    ],
+                    closeOnClickOutside: false,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $.ajax({
+                                url: '@Url.Action("Approve", "EquipmentRepairRequests")',
+                                type: 'POST',
+                                data: { requestID: requestID },
+                                dataType: 'json',
+                                success: function (data) {
+                                    swal("You have successfully approved the Equipment Repair Request", {
+                                        icon: "success",
+                                    }).then((done) => {
+                                        if (done) {
+                                            window.location.href = data.Url;
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+            });
+        })
+    </script>
+}
+else
+{
+    <script>
+        $(document).ready(function () {
+            $('#equipmentTable tbody').on('click', 'tr', function () {
+                var data = table.row(this).data();
+                var requestID = data["requestID"];
+
+                swal({
+                    title: "Are you sure you want to Finalize/Complete this Equipment Repair Request?",
+                    icon: "warning",
+                    dangerMode: true,
+                    buttons: [
+                        true,
+                        "Yes",
+                    ],
+                    closeOnClickOutside: false,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $.ajax({
+                                url: '@Url.Action("Finalize", "EquipmentRepairRequests")',
+                                type: 'POST',
+                                data: { requestID: requestID },
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (data.ErrorMessage == "Error")
+                                    {
+                                        swal("This Request first needs to be approved by someone with Project Manager or CEO Access Level", {
+                                            icon: "warning",
+                                            dangerMode: true
+                                        });
+                                    }
+                                    else
+                                    {
+                                        swal("You have successfully completed the Equipment Repair Request", {
+                                            icon: "success",
+                                        }).then((done) => {
+                                            if (done) {
+                                                window.location.href = data.Url;
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                    });
+            });
+        })
+    </script>
+}

@@ -1,7 +1,7 @@
-﻿
-@{
-    ViewBag.Title = "ModifyEquipmentRepairRequest";
+﻿@{
+    ViewBag.Title = "ModifyEquipmentRepairRequestDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    @model CompuData.Models.EquipmentRepairRequest
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
@@ -9,23 +9,56 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Equipment</a></li>
-        <li class="breadcrumb-item"><a href="#">Equipment Repair Request</a></li>
-        <li class="breadcrumb-item"><a href="#">Equipment Repair Request Details</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Modify Equipment Repair Request</li>
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment Menu</a></li>
+        <li class="breadcrumb-item"><a href="../EquipmentRepairRequests">Equipment Repair Request</a></li>
+        @if (Session["Referrer"] as string == "EquipmentRepairRequestDetails")
+        {
+            <li class="breadcrumb-item"><a href="../EquipmentRepairRequestDetails">Request Details</a></li>
+        }
+        <li class="breadcrumb-item active" aria-current="page">Modify Request Details</li>
     </ol>
 </nav>
+
 @Html.Partial("_ProfilePartial")
 <div id="details_holder">
-    <p>Equipment Repair Request Details</p>
-    <div>
-        <p>Reason:</p>
-        <input type="text" id="equipmentRepairRequestReasonText" />
-    </div>
-    <div id="modifyButton">Save</div>
+    @using (@Html.BeginForm("Modify", "ModifyEquipmentRepairRequest", FormMethod.Post, new { id = "myForm" }))
+    {
+        <p>Equipment Repair Request Details</p>
+        @Html.HiddenFor(model => model.RequestID)
+        <div>
+            <p>Reason:</p>
+            @Html.EditorFor(model => model.Reason)
+        </div>
+        @Html.ValidationMessageFor(model => model.Reason)
+        <div>
+            <p>Repair Person:</p>
+            @Html.DropDownListFor(model => model.RepPersonID, new SelectList(Model.repairPeople, "RepPersonID", "Name"))
+        </div>
+        @Html.ValidationMessageFor(model => model.RepPersonID)
+        @Html.HiddenFor(model => model.Approved)
+        @Html.HiddenFor(model => model.Repaired)
+        @Html.HiddenFor(model => model.EquipmentID)
+        <div id="multipleButtons">
+            <div id="saveButton">Save</div>
+        </div>
+    }
 </div>
-<div id="backButton">Back</div>
+@if (Session["Referrer"].ToString().Contains("Details"))
+{
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())@Session["Query"].ToString()'">Back</div>
+}
+else
+{
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
+}
+
 <style>
+    .field-validation-error {
+        display: block;
+        word-wrap: break-word;
+        margin-left: 50%;
+    }
+
     #details_holder {
         position: absolute;
         display: flex;
@@ -53,6 +86,7 @@
         }
 
             #details_holder div p {
+                font-size: 20px;
                 flex: 50%;
                 text-align: left;
                 vertical-align: middle;
@@ -64,27 +98,51 @@
                 flex: 50%;
             }
 
-    #modifyButton {
+            #details_holder div select {
+                flex: 50%;
+            }
+
+            #details_holder div button {
+                background-color: white;
+                flex: 50%;
+            }
+
+    .gj-datepicker {
+        flex: 50%;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        opacity: 1;
+    }
+
+    #typeDropDown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        display: none;
+    }
+
+    #saveButton {
         position: relative;
-        display: inline-block;
-        align-self: flex-end;
-        z-index: 10000;
+        display: inline-block !important;
         text-decoration: none;
         color: white;
         cursor: pointer;
         letter-spacing: 0.15em;
         text-transform: uppercase;
-        margin-left: 2vh;
         box-sizing: border-box;
         border: solid white;
         border-width: 2px;
         border-radius: 50px 50px 50px 50px;
         margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
         padding: 10px;
         transition: background-color linear 0.5s;
     }
 
-        #modifyButton:hover {
+        #saveButton:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
@@ -163,28 +221,23 @@
             color: #5a9ad6;
         }
 </style>
-<script>
-    window.onload = function WindowLoad(event) {
-        bootbox.alert({
-            message: "This is the small alert!",
-            size: 'small'
-        });
-
-        bootbox.confirm({
-            message: "This is a confirm with custom button text and color! Do you like it?",
-            buttons: {
-                confirm: {
-                    label: 'Yes',
-                    className: 'btn-success'
-                },
-                cancel: {
-                    label: 'No',
-                    className: 'btn-danger'
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#saveButton').on('click', function () {
+            swal({
+                title: "Are you sure?",
+                icon: "info",
+                buttons: [
+                    true,
+                    "Yes",
+                ],
+                closeOnClickOutside: false,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $('#myForm').submit();
                 }
-            },
-            callback: function (result) {
-                console.log('This was logged in the callback: ' + result);
-            }
-        });
-    }
+            });
+        })
+    });
 </script>

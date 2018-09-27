@@ -42,7 +42,14 @@
 }
 <div id="modifyButton">Save</div>
 </div>
-<div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
+@if (Session["Referrer"].ToString().Contains("Details"))
+{
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())@Session["Query"].ToString()'">Back</div>
+}
+else
+{
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
+}
 
 <style>
     .field-validation-error {

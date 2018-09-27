@@ -206,7 +206,8 @@
 <script>
     $('#modifyButton').on('click', function () {
         var typeID = @Model.TypeID;
-        @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
+        @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);
+            Session["Query"] = Request.Url.Query;}
 
         $.ajax({
             url: '@Url.Action("RedirectToModifyDonationTypeDetails", "DonationTypeModify")',

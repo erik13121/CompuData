@@ -1,7 +1,7 @@
 ﻿@{
-    ViewBag.Title = "Vehicles";
+    ViewBag.Title = "EquipmentRepairRequests";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    @model CompuData.Models.Vehicle
+    @model CompuData.Models.EquipmentRepairRequest
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
@@ -9,40 +9,42 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../VehicleMenu">Vehicle Menu</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Vehicles</li>
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment Menu</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Equipment Repair Requests</li>
     </ol>
 </nav>
 @Html.Partial("_ProfilePartial")
 <div id="table_background">
-    <p>Vehicles</p>
+    <p>Equipment Repair Requests</p>
     <table id="vehiclesTable" class="display"></table>
     <div id="multipleButtons">
-        <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddVehicle")'">Add Vehicle</div>
-        <div id="addBookingButton" onclick="window.location.href = '@Url.Action("Index", "AddVehicleBooking")'">Add Booking</div>
+        <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "SelectEquipmentForRepairRequest")'">Add Repair Request</div>
+        <div id="approveRequestButton" onclick="window.location.href = '@Url.Action("Index", "SelectRequest", new { button = "Approve"})'">Approve Request</div>
+        <div id="completeRequestButton" onclick="window.location.href = '@Url.Action("Index", "SelectRequest", new { button = "Finalize"})'">Complete Request</div>
     </div>
-    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "VehicleMenu")'">Back</div>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "EquipmentManagementMenu")'">Back</div>
 </div>
+
 <style>
     #table_background p {
         font-size: 25px;
-        text-align: center;
+                    text-align: center;
     }
 
-    #table_background {
-        position: absolute;
+#table_background {
+                position: absolute;
         padding: 15px;
         padding-top: 20px;
         padding-bottom: 20px;
         background-color: rgba(128, 128, 128, 0.95);
-        height: auto;
+                height: auto;
         min-width: 600px;
         border-width: 2px;
         border-radius: 50px 50px 50px 50px;
     }
 
-    #vehiclesTable {
-        background-color: #5a9ad6;
+#vehiclesTable {
+            background-color: #5a9ad6;
         font-size: 14px;
     }
 
@@ -65,7 +67,7 @@
         text-transform: uppercase;
         box-sizing: border-box;
         border: solid white;
-        border-width: 2px;
+            border-width: 2px;
         border-radius: 50px 50px 50px 50px;
         margin-top: 10px;
         padding: 10px;
@@ -76,7 +78,7 @@
             background-color: rgba(0, 255, 255, 0.4);
         }
 
-    #addBookingButton {
+    #approveRequestButton {
         position: relative;
         display: inline-block;
         margin-left: auto;
@@ -90,20 +92,45 @@
         text-transform: uppercase;
         box-sizing: border-box;
         border: solid white;
-        border-width: 2px;
+            border-width: 2px;
         border-radius: 50px 50px 50px 50px;
         margin-top: 10px;
         padding: 10px;
         transition: background-color linear 0.5s;
     }
 
-        #addBookingButton:hover {
+        #approveRequestButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #completeRequestButton {
+        position: relative;
+        display: inline-block;
+        margin-left: auto;
+        margin-right: auto;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        border: solid white;
+            border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #completeRequestButton:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
     #backButton {
         position: fixed;
-        left: 0;
+            left: 0;
         bottom: 0;
         z-index: 10000;
         text-decoration: none;
@@ -114,7 +141,7 @@
         margin-left: 2vh;
         box-sizing: border-box;
         border: solid white;
-        border-width: 2px;
+            border-width: 2px;
         border-radius: 50px 50px 50px 50px;
         padding: 10px;
         transition: background-color linear 0.5s;
@@ -175,119 +202,83 @@
         .dropdown-menu li a {
             color: #5a9ad6;
         }
-
 </style>
 <script>
     var table;
     $(document).ready(function () {
-        table = $('#vehiclesTable').DataTable({
-            serverSide: true,
-            ajax: "/Vehicles/PageData",
+                table = $('#vehiclesTable').DataTable({
+                serverSide: true,
+            ajax: "/EquipmentRepairRequests/PageData",
             autoWidth: true,
             scrollX: true,
             columns: [
-                {
-                    name: 'vehicleID',
-                    data: 'vehicleID',
+                        {
+                    name: 'requestID',
+                    data: 'requestID',
                     title: "ID",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'brand',
-                    data: "brand",
-                    title: "Brand",
+                    name: 'approved',
+                    data: "approved",
+                    title: "Approved",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'model',
-                    data: "model",
-                    title: "Model",
+                    name: 'repaired',
+                    data: "repaired",
+                    title: "Repaired",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'numberPlate',
-                    data: "numberPlate",
-                    title: "Number Plate",
+                    name: 'reason',
+                    data: "reason",
+                    title: "Reason",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'dateofPurchase',
-                    data: "dateofPurchase",
-                    title: "Date of Purchase",
+                    name: 'equipment',
+                    data: "equipment",
+                    title: "Equipment",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'dateofLastRepair',
-                    data: "dateofLastRepair",
-                    title: "Date of Last Repair",
+                    name: 'repPerson',
+                    data: "repPerson",
+                    title: "Repair Person",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'dateofLicencePurchase',
-                    data: "dateofLicencePurchase",
-                    title: "Date of Licence Purchase",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'licenseExpireDate',
-                    data: "licenseExpireDate",
-                    title: "Licence Expire Date",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'serviceIntervalInMonths',
-                    data: "serviceIntervalInMonths",
-                    title: "Service Interval in Months",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'serviceIntervalInKMs',
-                    data: "serviceIntervalInKMs",
-                    title: "Service Interval in KMs",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'typeID',
-                    data: "typeName",
-                    title: "Type",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    "targets": -1,
+                        "targets": -1,
                     "data": null,
                     "defaultContent": '<i class="glyphicon glyphicon-eye-open"></i>',
                     sortable: false,
                 },
                 {
-                    "targets": -2,
+                        "targets": -2,
                     "data": null,
                     "defaultContent": '<i class="glyphicon glyphicon-pencil"></i>',
                     sortable: false,
                 },
                 {
-                    "targets": -3,
+                        "targets": -3,
                     "data": null,
                     "defaultContent": '<i class="glyphicon glyphicon-trash"></i>',
                     sortable: false,
                 }
             ]
         });
-    });
+            });
 
     @Model.JavaScriptToRun
     function mySuccess() {
-        swal("You have successfully added a Vehicle", {
+        swal("You have successfully added a Equipment Repair Request", {
             icon: "success",
         });
         //window.location = "/Vehicles/Index";
@@ -295,14 +286,14 @@
 
     @TempData["js"];
     function myUpdateSuccess() {
-        swal("You have successfully updated the Vehicle", {
+        swal("You have successfully updated the Equipment Repair Request", {
             icon: "success",
         });
     }
 
     $.ajax({
         type: "POST",
-        url: '@Url.Action("SetTempData","Vehicles")',
+        url: '@Url.Action("SetTempData","EquipmentRepairRequests")',
         success: function () {
 
         }
@@ -310,12 +301,12 @@
 
     $('#vehiclesTable').on('click', '.glyphicon-eye-open', function () {
         var data = table.row($(this).parents('tr')).data();
-        var vehicleID = data["vehicleID"];
+        var requestID = data["requestID"];
 
         $.ajax({
-            url: '@Url.Action("RedirectToVehicleDetails", "VehicleDetails")',
+            url: '@Url.Action("RedirectToEquipmentRepairRequestDetails", "EquipmentRepairRequestDetails")',
             type: 'POST',
-            data: { vehicleID: vehicleID },
+            data: { requestID: requestID },
             dataType: 'json',
             success: function (data) {
                 window.location.href = data.Url; // your action should return an object having [redirecturl] property
@@ -325,13 +316,13 @@
 
     $('#vehiclesTable').on('click', '.glyphicon-pencil', function () {
         var data = table.row($(this).parents('tr')).data();
-        var vehicleID = data["vehicleID"];
+        var requestID = data["requestID"];
         @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
 
         $.ajax({
-            url: '@Url.Action("RedirectToModifyVehicleDetails", "ModifyVehicleDetails")',
+            url: '@Url.Action("RedirectToModifyEquipmentRepairRequestDetails", "ModifyEquipmentRepairRequest")',
             type: 'POST',
-            data: { vehicleID: vehicleID },
+            data: { requestID: requestID },
             dataType: 'json',
             success: function (data) {
                 window.location.href = data.Url;
@@ -341,10 +332,10 @@
 
     $('#vehiclesTable').on('click', '.glyphicon-trash', function () {
         var data = table.row($(this).parents('tr')).data();
-        var vehicleID = data["vehicleID"];
+        var requestID = data["requestID"];
 
         swal({
-            title: "Are you sure you want to delete this vehicle?",
+            title: "Are you sure you want to delete this Equipment Repair Request?",
             icon: "warning",
             dangerMode: true,
             buttons: [
@@ -356,13 +347,13 @@
             .then((willDelete) => {
                 if (willDelete) {
                     $.ajax({
-                        url: '@Url.Action("Delete", "Vehicles")',
+                        url: '@Url.Action("Delete", "EquipmentRepairRequests")',
                         type: 'POST',
-                        data: { vehicleID: vehicleID },
+                        data: { requestID: requestID },
                         dataType: 'json',
                         success: function (data) {
                             if (data.Url != "Cascading error!") {
-                                swal("You have successfully deleted the Vehicle", {
+                                swal("You have successfully deleted the Equipment Repair Request", {
                                     icon: "success",
                                 }).then(() => {
                                     window.location.href = data.Url;

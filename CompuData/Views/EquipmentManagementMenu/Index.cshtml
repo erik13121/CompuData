@@ -30,7 +30,10 @@
                 <p style="margin-left: 6vh !important">@Html.ActionLink("Equipment Software Licenses", "Index", "SoftwareLicenses")</p>
             </li>
             <li class="newsubMenu_item">
-                <p style="margin-left: 6vh !important">@Html.ActionLink("Equipment Repair Requests", "Index", "RepairRequests")</p>
+                <p style="margin-left: 6vh !important">@Html.ActionLink("Equipment Repair Requests", "Index", "EquipmentRepairRequests")</p>
+            </li>
+            <li class="newsubMenu_item">
+                <p style="margin-left: 6vh !important">@Html.ActionLink("Equipment Repair People", "Index", "RepairPersons")</p>
             </li>
             <li class="newsubMenu_item">
                 <p style="margin-left: 6vh !important" onclick="@{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}">@Html.ActionLink("Generate Proof of Allocated Removable Equipment", "Index", "SelectEquipment")</p>

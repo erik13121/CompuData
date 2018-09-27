@@ -1,35 +1,56 @@
 ﻿
 @{
-    ViewBag.Title = "DonationTypeModify";
+    ViewBag.Title = "ModifyRepairPerson";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    @model CompuData.Models.DonationType
+    @model CompuData.Models.RepairPerson
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../DonationItemMenu">Donation Menu</a></li>
-        <li class="breadcrumb-item"><a href="../DonationType">Donation Types</a></li>
-        @if (Session["Referrer"] as string == "DonationTypeDetails")
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment Menu</a></li>
+        <li class="breadcrumb-item"><a href="../RepairPersons">Repair People</a></li>
+        @if (Session["Referrer"] as string == "RepairPersonDetails")
         {
-            <li class="breadcrumb-item"><a href="../DonationTypeDetails">Donation Type Details</a></li>
+            <li class="breadcrumb-item"><a href="../RepairPersonDetails">Repair Person Details</a></li>
         }
-        <li class="breadcrumb-item active" aria-current="page">Modify Donation Type</li>
+        <li class="breadcrumb-item active" aria-current="page">Modify Details</li>
     </ol>
 </nav>
+
 @Html.Partial("_ProfilePartial")
 <div id="details_holder">
-    @using (@Html.BeginForm("Update", "DonationTypeModify", FormMethod.Post, new { id = "myForm" }))
+    @using (@Html.BeginForm("Modify", "ModifyRepairPerson", FormMethod.Post, new { id = "myForm" }))
     {
-        <p>Donation Type Details</p>
-        @Html.HiddenFor(model => model.TypeID)
+        <p>Repair Person Details</p>
+        @Html.HiddenFor(model => model.RepPersonID)
         <div>
             <p>Name:</p>
-            @Html.EditorFor(model => model.TypeName)
+            @Html.EditorFor(model => model.Name)
         </div>
-        @Html.ValidationMessageFor(model => model.TypeName)
+        @Html.ValidationMessageFor(model => model.Name)
+        <div>
+            <p>Email Address:</p>
+            @Html.EditorFor(model => model.EmailAddress)
+        </div>
+        @Html.ValidationMessageFor(model => model.EmailAddress)
+        <div>
+            <p>Bank:</p>
+            @Html.EditorFor(model => model.Bank)
+        </div>
+        @Html.ValidationMessageFor(model => model.Bank)
+        <div>
+            <p>Account Number:</p>
+            @Html.TextBoxFor(model => model.AccountNumber, new { htmlAttributes = new { @type = "number", @min = "0" } })
+        </div>
+        @Html.ValidationMessageFor(model => model.AccountNumber)
+        <div>
+            <p>Branch Code:</p>
+            @Html.TextBoxFor(model => model.BranchCode, new { htmlAttributes = new { @type = "number", @min = "0" } })
+        </div>
+        @Html.ValidationMessageFor(model => model.BranchCode)
         <div id="multipleButtons">
             <div id="saveButton">Save</div>
         </div>
@@ -43,6 +64,7 @@ else
 {
     <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
 }
+
 <style>
     .field-validation-error {
         display: block;
@@ -232,3 +254,4 @@ else
         })
     });
 </script>
+

@@ -443,7 +443,8 @@
 
     $('#addButton').on('click', function () {
         var userID = @Model.UserID;
-        @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
+        @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);
+            Session["Query"] = Request.Url.Query;}
 
         $.ajax({
             url: '@Url.Action("RedirectToModifyUserDetails", "UserModify")',

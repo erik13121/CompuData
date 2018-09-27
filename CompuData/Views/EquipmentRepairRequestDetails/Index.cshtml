@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "EquipmentRepairRequestDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    @model CompuData.Models.EquipmentRepairRequest
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
@@ -9,37 +10,34 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Equipment</a></li>
-        <li class="breadcrumb-item"><a href="#">Equipment Repair Requests</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Equipment Repair Request Details</li>
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment</a></li>
+        <li class="breadcrumb-item"><a href="../EquipmentRepairRequests">Equipment Repair Requests</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Request Details</li>
     </ol>
 </nav>
 @Html.Partial("_ProfilePartial")
 <div id="details_holder">
     <p>Equipment Repair Request Details</p>
-    <div>
-        <p>Request ID:</p>
-        <input type="text" id="equipmentRepairRequestIdText" disabled />
-    </div>
+    @Html.HiddenFor(model => model.RequestID)
     <div>
         <p>Approved:</p>
-        <input type="text" id="equipmentRepairRequestApprovedText" disabled />
+        @Html.TextBoxFor(model => model.Approved, new { @readonly = "readonly" })
     </div>
     <div>
         <p>Repaired:</p>
-        <input type="text" id="equipmentRepairRequestRepairedText" disabled />
+        @Html.TextBoxFor(model => model.Repaired, new { @readonly = "readonly" })
     </div>
     <div>
         <p>Reason:</p>
-        <input type="text" id="equipmentRepairRequestReasonText" disabled />
+        @Html.TextBoxFor(model => model.Reason, new { @readonly = "readonly" })
     </div>
     <div>
-        <p>Equipment Model:</p>
-        <input type="text" id="equipmentRepairRequestEquipmentModelText" disabled />
+        <p>Equipment:</p>
+        @Html.TextBoxFor(model => model.EquipmentName, new { @readonly = "readonly" })
     </div>
     <div>
         <p>Repair Person Name:</p>
-        <input type="text" id="equipmentRepairRequestRepairPersonNameText" disabled />
+        @Html.TextBoxFor(model => model.RepairPersonName, new { @readonly = "readonly" })
     </div>
     <div id="multipleButtons">
         <div id="modifyButton">Modify</div>
@@ -77,8 +75,9 @@
         }
 
             #details_holder div p {
+                font-size: 18px;
                 flex: 50%;
-                text-align: center;
+                text-align: left;
                 vertical-align: middle;
                 padding: 0;
                 margin: 0;
@@ -95,19 +94,19 @@
 
     #modifyButton {
         position: relative;
-        z-index: 8000;
+        display: inline-block !important;
         text-decoration: none;
         color: white;
         cursor: pointer;
         letter-spacing: 0.15em;
         text-transform: uppercase;
-        margin-right: auto;
-        margin-left: 2vh;
         box-sizing: border-box;
         border: solid white;
         border-width: 2px;
         border-radius: 50px 50px 50px 50px;
         margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
         padding: 10px;
         transition: background-color linear 0.5s;
     }
@@ -118,11 +117,7 @@
 
     #approveButton {
         position: relative;
-        display: table;
-        align-self: center;
-        margin-left: auto;
-        margin-right: auto;
-        z-index: 8000;
+        display: inline-block !important;
         text-decoration: none;
         color: white;
         cursor: pointer;
@@ -133,6 +128,8 @@
         border-width: 2px;
         border-radius: 50px 50px 50px 50px;
         margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
         padding: 10px;
         transition: background-color linear 0.5s;
     }
@@ -143,11 +140,7 @@
 
     #finalizeButton {
         position: relative;
-        display: table;
-        align-self: center;
-        margin-left: auto;
-        margin-right: auto;
-        z-index: 8000;
+        display: inline-block !important;
         text-decoration: none;
         color: white;
         cursor: pointer;
@@ -158,6 +151,8 @@
         border-width: 2px;
         border-radius: 50px 50px 50px 50px;
         margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
         padding: 10px;
         transition: background-color linear 0.5s;
     }
@@ -168,19 +163,19 @@
 
     #removeButton {
         position: relative;
-        margin-left: auto !important;
-        z-index: 8000;
+        display: inline-block !important;
         text-decoration: none;
         color: white;
         cursor: pointer;
         letter-spacing: 0.15em;
         text-transform: uppercase;
-        margin-right: 2vh;
         box-sizing: border-box;
         border: solid white;
         border-width: 2px;
         border-radius: 50px 50px 50px 50px;
         margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
         padding: 10px;
         transition: background-color linear 0.5s;
     }
@@ -272,3 +267,131 @@
             color: #5a9ad6;
         }
 </style>
+<script>
+    $(document).ready(function() {
+        $('#modifyButton').on('click', function () {
+            var requestID = @Model.RequestID;
+            @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);
+                Session["Query"] = Request.Url.Query;}
+
+            $.ajax({
+                url: '@Url.Action("RedirectToModifyEquipmentRepairRequestDetails", "ModifyEquipmentRepairRequest")',
+                type: 'POST',
+                data: { requestID: requestID },
+                dataType: 'json',
+                success: function (data) {
+                    window.location.href = data.Url;
+                }
+            });
+        });
+
+    $('#approveButton').on('click', function () {
+        var requestID = @Model.RequestID;
+
+        swal({
+            title: "Are you sure you want to approve this Equipment Repair Request?",
+            icon: "warning",
+            dangerMode: true,
+            buttons: [
+                true,
+                "Yes",
+            ],
+            closeOnClickOutside: false,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: '@Url.Action("Approve", "EquipmentRepairRequests")',
+                        type: 'POST',
+                        data: { requestID: requestID },
+                        dataType: 'json',
+                        success: function (data) {
+                            swal("You have successfully approved the Equipment Repair Request", {
+                                icon: "success",
+                            }).then((done) => {
+                                if (done)
+                                {
+                                    window.location.href = data.Url;
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+    });
+
+    $('#finalizeButton').on('click', function () {
+        var requestID = @Model.RequestID;
+
+        swal({
+            title: "Are you sure you want to finalize/complete this Equipment Repair Request?",
+            icon: "warning",
+            dangerMode: true,
+            buttons: [
+                true,
+                "Yes",
+            ],
+            closeOnClickOutside: false,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: '@Url.Action("Finalize", "EquipmentRepairRequests")',
+                        type: 'POST',
+                        data: { requestID: requestID },
+                        dataType: 'json',
+                        success: function (data) {
+                            swal("You have successfully completed the Equipment Repair Request", {
+                                icon: "success",
+                            }).then((done) => {
+                                if (done)
+                                {
+                                    window.location.href = data.Url;
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+    });
+
+    $('#removeButton').on('click', function () {
+        var requestID = @Model.RequestID;
+
+        swal({
+            title: "Are you sure you want to delete this Equipment Repair Request?",
+            icon: "warning",
+            dangerMode: true,
+            buttons: [
+                true,
+                "Yes",
+            ],
+            closeOnClickOutside: false,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: '@Url.Action("Delete", "EquipmentRepairRequests")',
+                        type: 'POST',
+                        data: { requestID: requestID },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.Url != "Cascading error!") {
+                                swal("You have successfully deleted the Equipment Repair Request", {
+                                    icon: "success",
+                                });
+                            }
+                            else {
+                                swal("Cannot delete this due to it being used somewhere else in the system!", {
+                                    icon: "warning",
+                                });
+                            }
+                            window.location.href = data.Url;
+                        }
+                    });
+                }
+            });
+    });
+    })
+    
+</script>

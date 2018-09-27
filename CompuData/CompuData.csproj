@@ -293,6 +293,7 @@
     <Compile Include="Controllers\EquipmentDetailsController.cs" />
     <Compile Include="Controllers\EquipmentManagementMenuController.cs" />
     <Compile Include="Controllers\EquipmentRepairRequestDetailsController.cs" />
+    <Compile Include="Controllers\EquipmentRepairRequestsController.cs" />
     <Compile Include="Controllers\EquipmentsController.cs" />
     <Compile Include="Controllers\EquipmentTypeController.cs" />
     <Compile Include="Controllers\EquipmentTypeDetailsController.cs" />
@@ -315,6 +316,7 @@
     <Compile Include="Controllers\ModifyFunderTypeController.cs" />
     <Compile Include="Controllers\ModifyLoginDetailsController.cs" />
     <Compile Include="Controllers\ModifyProjectController.cs" />
+    <Compile Include="Controllers\ModifyRepairPersonController.cs" />
     <Compile Include="Controllers\ModifySoftwareLicensesController.cs" />
     <Compile Include="Controllers\ModifySupplierController.cs" />
     <Compile Include="Controllers\ModifyVehicleBookingController.cs" />
@@ -330,12 +332,14 @@
     <Compile Include="Controllers\ProjectTypeController.cs" />
     <Compile Include="Controllers\ProjectTypeDetailsController.cs" />
     <Compile Include="Controllers\ProjectTypeModifyController.cs" />
+    <Compile Include="Controllers\RepairPersonDetailsController.cs" />
+    <Compile Include="Controllers\RepairPersonsController.cs" />
     <Compile Include="Controllers\RepairRequestsController.cs" />
     <Compile Include="Controllers\Reports\ReportsMainController.cs" />
     <Compile Include="Controllers\SelectEquipmentController.cs" />
     <Compile Include="Controllers\SelectEquipmentForProofController.cs" />
     <Compile Include="Controllers\SelectEquipmentForRepairRequestController.cs" />
-    <Compile Include="Controllers\SelectRepairPersonforEquipmentRepairRequestController.cs" />
+    <Compile Include="Controllers\SelectRequestController.cs" />
     <Compile Include="Controllers\SelectUserController.cs" />
     <Compile Include="Controllers\SelectVehicleforVehicleServiceController.cs" />
     <Compile Include="Controllers\SoftwareLicensesController.cs" />
@@ -439,6 +443,7 @@
     </Compile>
     <Compile Include="Models\Donor_Org.cs" />
     <Compile Include="Models\Equipment.cs" />
+    <Compile Include="Models\EquipmentRepairRequest.cs" />
     <Compile Include="Models\EquipmentType.cs" />
     <Compile Include="Models\ForgotPasswordModel.cs" />
     <Compile Include="Global\Funder_Org.cs">
@@ -484,6 +489,7 @@
     <Compile Include="Global\Repair_Request.cs">
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RepairPerson.cs" />
     <Compile Include="Models\ResetPasswordModel.cs" />
     <Compile Include="Global\Service.cs">
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
@@ -627,6 +633,7 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\ElementQueries.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -802,7 +809,6 @@
     <Content Include="Views\RepairRequests\Index.cshtml" />
     <Content Include="Views\SelectEquipmentForProof\Index.cshtml" />
     <Content Include="Views\SelectEquipmentForRepairRequest\Index.cshtml" />
-    <Content Include="Views\SelectRepairPersonforEquipmentRepairRequest\Index.cshtml" />
     <Content Include="Views\SelectVehicleforVehicleService\Index.cshtml" />
     <Content Include="Views\VehicleBookingDetails\Index.cshtml" />
     <Content Include="Views\VehicleBookings\Index.cshtml" />
@@ -905,6 +911,11 @@
     <Content Include="Views\AddDonorOrg\Index.cshtml" />
     <Content Include="Views\DonorsMenu\Index.cshtml" />
     <Content Include="Views\AddFunderPerson\Index.cshtml" />
+    <Content Include="Views\EquipmentRepairRequests\Index.cshtml" />
+    <Content Include="Views\RepairPersonDetails\Index.cshtml" />
+    <Content Include="Views\ModifyRepairPerson\Index.cshtml" />
+    <Content Include="Views\RepairPersons\Index.cshtml" />
+    <Content Include="Views\SelectRequest\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

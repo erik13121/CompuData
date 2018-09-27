@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "SelectEquipmentForRepairRequest";
     Layout = "~/Views/Shared/_Layout.cshtml";
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
@@ -9,52 +8,16 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Equipment</a></li>
-        <li class="breadcrumb-item"><a href="#">Equipment Repair Requests</a></li>
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment Menu</a></li>
+        <li class="breadcrumb-item"><a href="../EquipmentRepairRequests">Equipment Repair Requests</a></li>
         <li class="breadcrumb-item active" aria-current="page">Select Equipment</li>
     </ol>
 </nav>
 @Html.Partial("_ProfilePartial")
 <div id="table_background">
-    <p>Select Equipment for Repair Request</p>
-    <table id="equipmentTable" class="display">
-        <thead>
-            <tr>
-                <th>Equipment ID</th>
-                <th>Manufacturer Name</th>
-                <th>Model Number</th>
-                <th>Date Purchased</th>
-                <th>Service Interval Months</th>
-                <th>Status</th>
-                <th>User Name</th>
-                <th>Type Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>IBM</td>
-                <td>I32451</td>
-                <td>03/02/2018</td>
-                <td>24</td>
-                <td>New</td>
-                <td>Wayne</td>
-                <td>Laptop</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>IBM</td>
-                <td>I42685</td>
-                <td>08/02/2018</td>
-                <td>24</td>
-                <td>New</td>
-                <td>Vanessa</td>
-                <td>Laptop</td>
-            </tr>
-        </tbody>
-    </table>
-    <div id="addButton">Add Equipment</div>
-    <div id="backButton">Back</div>
+    <p>Select Equipment you wish to request a repair for</p>
+    <table id="equipmentTable" class="display"></table>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "EquipmentRepairRequest")'">Back</div>
 </div>
 <style>
     #table_background p {
@@ -178,7 +141,92 @@
         }
 </style>
 <script>
+    var table;
     $(document).ready(function () {
-        $('#equipmentTable').DataTable();
+        table = $('#equipmentTable').DataTable({
+            serverSide: true,
+            ajax: "/Equipments/PageData",
+            autoWidth: true,
+            scrollX: true,
+            select: {
+                style: 'single'
+            },
+            columns: [
+                {
+                    name: 'equipmentID',
+                    data: 'equipmentID',
+                    title: "ID",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'manufacturerName',
+                    data: "manufacturerName",
+                    title: "Manufacturer Name",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'modelNumber',
+                    data: "modelNumber",
+                    title: "Model Number",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'datePurchased',
+                    data: "datePurchased",
+                    title: "Date Purchased",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'serviceIntervalMonths',
+                    data: "serviceIntervalMonths",
+                    title: "Service Interval in Months",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'status',
+                    data: "status",
+                    title: "Status",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'userName',
+                    data: "userName",
+                    title: "User Full Name",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'typeName',
+                    data: "typeName",
+                    title: "Type Name",
+                    sortable: true,
+                    searchable: true
+                }
+            ]
+        });
     });
+
+    $(document).ready( function()
+    {
+        $('#equipmentTable tbody').on('click', 'tr', function () {
+            var data = table.row(this).data();
+            var equipmentID = data["equipmentID"];
+
+            $.ajax({
+                url: '@Url.Action("RedirectToAddRepairRequest", "AddRepairRequest")',
+                type: 'POST',
+                data: { equipmentID: equipmentID },
+                dataType: 'json',
+                success: function (data) {
+                        window.location.href = data.Url; // your action should return an object having [redirecturl] property
+                    }
+                });
+        });
+    })
 </script>

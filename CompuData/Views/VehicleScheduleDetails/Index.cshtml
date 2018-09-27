@@ -225,5 +225,6 @@
         $('#vehiclesTable').DataTable();
     });
 
-    @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
+    @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);
+        Session["Query"] = Request.Url.Query;}
 </script>

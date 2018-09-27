@@ -12,6 +12,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
     <link href="@Url.Content("~/bootstrap4-glyphicons-master/bootstrap4-glyphicons/css/bootstrap-glyphicons.min.css")" rel="stylesheet" type="text/css" />
     <script type="text/javascript" charset="utf8" src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/ResizeSensor.js"></script>
+    <script src="~/Scripts/ElementQueries.js"></script>
     @RenderSection("Styles", false)
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 </head>
@@ -91,21 +93,23 @@
         $('#backButton').css('margin-bottom', contentPlacement);
     });
 
-    $(document).ready(function () {
+    /*$(document).ready(function () {
         var contentPlacement = $('#menuwithSub_wrapper').height() - $('.footer').height();
         var footerHeight = $('.footer').height();
         $('#menuwithSub_wrapper').css({
             'height': contentPlacement
         });
-    });
+    });*/
 
     $(document).ready(function () {
         $(".breadcrumb").css("margin-bottom", "0");
     });
 
-    $(document).ready(function () {
+    var element = document.getElementById('breadcrumb');
+    new ResizeSensor(element, function () {
         var contentSize = $("#breadcrumb").height();
         $("#profile").css("height", contentSize);
+        $("#profile>a").css("cssText", "line-height: " + contentSize + "px !important;");
     });
 
     //$(document).ready(function () {

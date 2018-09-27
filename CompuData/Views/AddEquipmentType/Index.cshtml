@@ -14,19 +14,17 @@
                 <li class="breadcrumb-item"><a href="../Equipments">Equipments</a></li>
                 <li class="breadcrumb-item"><a href="../SelectUser">Select User</a></li>
                 <li class="breadcrumb-item"><a href="../AddEquipment">Add Equipment</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Add Equipment Type</li>
             }
             else
             {
                 <li class="breadcrumb-item"><a href="../EquipmentType">Equipment Types</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Add Equipment Type</li>
             }
         }
         else
         {
             <li class="breadcrumb-item"><a href="../EquipmentType">Equipment Types</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Add Equipment Type</li>
         }
+        <li class="breadcrumb-item active" aria-current="page">Add Equipment Type</li>
     </ol>
 </nav>
 
@@ -51,7 +49,7 @@
         </div>
         @Html.ValidationMessageFor(model => model.TypeName)
         <div>
-            <p> Description:</p>
+            <p>Description:</p>
             @Html.EditorFor(model => model.TypeDescription)
         </div>
         @Html.ValidationMessageFor(model => model.TypeDescription)

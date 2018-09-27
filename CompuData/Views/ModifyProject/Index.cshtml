@@ -64,7 +64,14 @@
     }
 </div>
 
-<div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
+@if (Session["Referrer"].ToString().Contains("Details"))
+{
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())@Session["Query"].ToString()'">Back</div>
+}
+else
+{
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
+}
 
 <style>
     form {
@@ -240,7 +247,6 @@
             color: #5a9ad6;
         }
 </style>
-
 <script>
     $('#datepicker1').datepicker();
     $('#datepicker1').datepicker("setDate", new Date());
