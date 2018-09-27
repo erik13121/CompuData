@@ -13,7 +13,7 @@ namespace CompuData.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int FunderPersonID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The First Name is required")]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the First Name")]
         public string FirstName { get; set; }
 
@@ -28,28 +28,30 @@ namespace CompuData.Models
 
         public string CellNum { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The Personal Email is required")]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Email Address")]
         public string PersonalEmail { get; set; }
 
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Name of Bank")]
         public string Bank { get; set; }
 
-        public int AccountNumber { get; set; }
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Account Number")]
+        public string AccountNumber { get; set; }
 
-        public int BranchCode { get; set; }
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Branch Code")]
+        public string BranchCode { get; set; }
 
-        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Manufacturer Name")]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Street Address")]
         public string StreetAddress { get; set; }
 
-        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Manufacturer Name")]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the City")]
         public string City { get; set; }
 
-        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Manufacturer Name")]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Area Code")]
         public string AreaCode { get; set; }
 
         [Column(TypeName = "bit")]
-        public bool? Thanked { get; set; }
+        public bool Thanked { get; set; }
 
         public int? ProjectID { get; set; }
 
@@ -63,7 +65,7 @@ namespace CompuData.Models
         public List<CodeFirst.Funder_Type> FunderTypes { get; set; }
         public List<CodeFirst.Project> Project { get; set; }
         public Funder_Person() { }
-        public Funder_Person(int id, string Fname, string Mname, string Lname, string Initial, string CelltNum, string Email, string Bankname, int AccNum, int Branch, string Streetnum, string cityName, string Area, bool ThankedStatus, int projectID, int typeID)
+        public Funder_Person(int id, string Fname, string Mname, string Lname, string Initial, string CelltNum, string Email, string Bankname, string AccNum, string Branch, string Streetnum, string cityName, string Area, bool ThankedStatus, int projectID, int typeID)
         {
             FunderPersonID = id;
             FirstName = Fname;

@@ -399,7 +399,7 @@ input[type=checkbox] {
     font-size: 14px !important;
 }
 
-#multipleButtons>div {
+#multipleButtons>div,#multipleButtons>a {
     font-size: 1.5vh;
 }
 
@@ -420,13 +420,13 @@ input[type=checkbox] {
 }
 
 #details_holder {
-    min-width: 60% !important;
+    max-width: 60% !important;
     max-height: 50%;
     overflow: auto;
 }
 
 #details_holder>div>p {
-    font-size: 2vh;
+    font-size: 2vh !important;
 }
 
 ::-webkit-scrollbar-track *

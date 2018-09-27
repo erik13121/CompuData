@@ -34,14 +34,12 @@ namespace CompuData.Controllers
                 myModel.City = myFunderPerson.City;
                 myModel.AreaCode = myFunderPerson.AreaCode;
                 myModel.Thanked = myFunderPerson.Thanked;
-                myModel.TypeID = mytypeID.TypeID;
-                myModel.ProjectID = myProjectID.ProjectID;
+                myModel.ProjectName = myProjectID != null ? myProjectID.ProjectName : "None";
+                myModel.Name = mytypeID.Name;
 
-                myModel.ProjectName = db.Projects.Where(i => i.ProjectID == myProjectID.ProjectID).FirstOrDefault().ProjectName;
-                myModel.Name = db.Funder_Type.Where(i => i.TypeID == mytypeID.TypeID).FirstOrDefault().Name;
             }
 
-                return View(myModel);
+            return View(myModel);
         }
 
         [HttpPost]

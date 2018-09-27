@@ -47,7 +47,7 @@ namespace CompuData.Models
         public string AreaCode { get; set; }
 
         [Column(TypeName = "bit")]
-        public bool? Thanked { get; set; }
+        public bool Thanked { get; set; }
 
         public int? ProjectID { get; set; }
 

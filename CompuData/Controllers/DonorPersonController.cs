@@ -32,16 +32,16 @@ namespace CompuData.Controllers
             // If you want something rather easier, check IEnumerableExtensions Sample.
             var filteredData = data.Where(_item =>
             _item.DonorPID.ToString().Contains(request.Search.Value) ||
-            _item.FirstName.ToString().Contains(request.Search.Value) ||
-            _item.MiddleName.ToString().Contains(request.Search.Value) ||
-            _item.SecondName.ToString().Contains(request.Search.Value) ||
-            _item.Initials.ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.CellNum.ToUpper().Contains(request.Search.Value.ToUpper()) ||
+            _item.FirstName.ToUpper().Contains(request.Search.Value.ToUpper()) ||
+            (_item.MiddleName != null ? _item.MiddleName.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
+            _item.SecondName.ToUpper().Contains(request.Search.Value.ToUpper()) ||
+            (_item.Initials != null ? _item.Initials.ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
+            (_item.CellNum != null ? _item.CellNum.ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
             _item.PersonalEmail.ToUpper().Contains(request.Search.Value.ToUpper()) ||
             _item.Thanked.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.StreetAddress.ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.City.ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.AreaCode.ToUpper().Contains(request.Search.Value.ToUpper())
+            (_item.StreetAddress != null ? _item.StreetAddress.ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
+            (_item.City != null ? _item.City.ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
+            (_item.AreaCode != null ? _item.AreaCode.ToUpper().Contains(request.Search.Value.ToUpper()) : false)
             );
 
             // Paging filtered data.
@@ -58,12 +58,12 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(string DonorPID)
+        public ActionResult Delete(string donorPID)
         {
             try
             {
                 var db = new CodeFirst.CodeFirst();
-                var intDonorID = int.Parse(DonorPID);
+                var intDonorID = int.Parse(donorPID);
                 var DonorPerson = db.Donor_Person.Where(v => v.DonorPID == intDonorID).FirstOrDefault();
                 db.Donor_Person.Remove(DonorPerson);
                 db.SaveChanges();

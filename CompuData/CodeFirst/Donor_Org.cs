@@ -31,7 +31,7 @@ namespace CompuData.CodeFirst
         public string ContactEmail { get; set; }
 
         [Column(TypeName = "bit")]
-        public bool? Thanked { get; set; }
+        public bool Thanked { get; set; }
 
         [MaxLength(50)]
         public string StreetAddress { get; set; }

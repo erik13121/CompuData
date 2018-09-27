@@ -9,14 +9,14 @@ namespace CompuData.Controllers
     public class ModifyFunderPersonController : Controller
     {
         // GET: ModifyFunderPerson
-        public ActionResult Index(string FunderPersonID)
+        public ActionResult Index(string funderPersonID)
         {
             CodeFirst.CodeFirst db = new CodeFirst.CodeFirst();
-            if (FunderPersonID != null)
+            if (funderPersonID != null)
             {
                 Models.Funder_Person myModel = new Models.Funder_Person();
 
-                var intFundOrgID = Int32.Parse(FunderPersonID);
+                var intFundOrgID = Int32.Parse(funderPersonID);
                 var myFunderPerson = db.Funder_Person.Where(i => i.FunderPersonID == intFundOrgID).FirstOrDefault();
 
                 myModel.FunderPersonID = myFunderPerson.FunderPersonID;
@@ -45,9 +45,9 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public ActionResult RedirectToModifyFunderPersonDetails(string FunderPersonID)
+        public ActionResult RedirectToModifyFunderPersonDetails(string funderPersonID)
         {
-            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "ModifyFunderPerson", new { FunderPersonID = FunderPersonID });
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "ModifyFunderPerson", new { funderPersonID = funderPersonID });
             return Json(new { Url = redirectUrl });
         }
 
@@ -84,6 +84,8 @@ namespace CompuData.Controllers
                 return RedirectToAction("Index", "FunderPerson");
             }
 
+            model.FunderTypes = db.Funder_Type.ToList();
+            model.Project = db.Projects.ToList();
             return View("Index", model);
         }
     }

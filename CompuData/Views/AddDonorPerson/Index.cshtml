@@ -38,7 +38,7 @@
         </div>
         @Html.ValidationMessageFor(model => model.MiddleName)
         <div>
-            <p>Second Name:</p>
+            <p>Last Name:</p>
             @Html.EditorFor(model => model.SecondName)
         </div>
         @Html.ValidationMessageFor(model => model.SecondName)
@@ -58,11 +58,6 @@
         </div>
         @Html.ValidationMessageFor(model => model.PersonalEmail)
         <div>
-            <p>Thanked:</p>
-            @Html.EditorFor(model => model.Thanked)
-        </div>
-        @Html.ValidationMessageFor(model => model.Thanked)
-        <div>
             <p>Street Address:</p>
             @Html.EditorFor(model => model.StreetAddress)
         </div>
@@ -79,7 +74,7 @@
         @Html.ValidationMessageFor(model => model.AreaCode)
 
         <div id="multipleButtons">
-            <div id="addButton">Save and Add Donors - Organization</div>
+            <div id="addButton">Save and Add Donor - Person</div>
         </div>
     }
 </div>

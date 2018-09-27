@@ -90,12 +90,12 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(string FunderPersonID)
+        public ActionResult Delete(string funderPersonID)
         {
             try
             {
                 var db = new CodeFirst.CodeFirst();
-                var intFunderPersonID = int.Parse(FunderPersonID);
+                var intFunderPersonID = int.Parse(funderPersonID);
                 var FunderPerson = db.Funder_Person.Where(v => v.FunderPersonID == intFunderPersonID).FirstOrDefault();
                 db.Funder_Person.Remove(FunderPerson);
                 db.SaveChanges();

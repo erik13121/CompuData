@@ -46,7 +46,7 @@ namespace CompuData.Models
         public string AreaCode { get; set; }
 
         [Column(TypeName = "bit")]
-        public bool? Thanked { get; set; }
+        public bool Thanked { get; set; }
         public string JavaScriptToRun { get; set; }
         public Donor_Person() { }
         public Donor_Person(int ID, string Fname, string Sname, string Init, string Mname,  string Num, string Email, bool ThankedStatus, string Street, string Cityname, string Area)

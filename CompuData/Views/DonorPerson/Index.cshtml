@@ -358,7 +358,7 @@
             .then((willDelete) => {
                 if (willDelete) {
                     $.ajax({
-                        url: '@Url.Action("Delete", "DonorOrg")',
+                        url: '@Url.Action("Delete", "DonorPerson")',
                         type: 'POST',
                         data: { donorPID: donorPID },
                         dataType: 'json',

@@ -16,98 +16,75 @@
 </nav>
 
 @Html.Partial("_ProfilePartial")
-
-<head>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-</head>
-
 <div id="details_holder">
-    <p>Add Funder Person</p>
+    <p>Funder Person Details</p>
     @Html.HiddenFor(model => model.FunderPersonID)
     <div>
         <p>First Name:</p>
-        @Html.EditorFor(model => model.FirstName)
+        @Html.TextBoxFor(model => model.FirstName, new { @readonly = "readonly" })
     </div>
-    @Html.ValidationMessageFor(model => model.FirstName)
     <div>
         <p>Middle Name:</p>
-        @Html.EditorFor(model => model.MiddleName)
+        @Html.TextBoxFor(model => model.MiddleName, new { @readonly = "readonly" })
     </div>
-    @Html.ValidationMessageFor(model => model.MiddleName)
     <div>
         <p>Last Name:</p>
-        @Html.EditorFor(model => model.LastName)
+        @Html.TextBoxFor(model => model.LastName, new { @readonly = "readonly" })
     </div>
-    @Html.ValidationMessageFor(model => model.LastName)
     <div>
         <p>Initials:</p>
-        @Html.EditorFor(model => model.Initials)
+        @Html.TextBoxFor(model => model.Initials, new { @readonly = "readonly" })
     </div>
-    @Html.ValidationMessageFor(model => model.Initials)
     <div>
         <p>Cell Number:</p>
-        @Html.EditorFor(model => model.CellNum)
+        @Html.TextBoxFor(model => model.CellNum, new { @readonly = "readonly" })
     </div>
-    @Html.ValidationMessageFor(model => model.CellNum)
     <div>
         <p>Personal Email:</p>
-        @Html.EditorFor(model => model.PersonalEmail)
+        @Html.TextBoxFor(model => model.PersonalEmail, new { @readonly = "readonly" })
     </div>
-    @Html.ValidationMessageFor(model => model.PersonalEmail)
     <div>
         <p>Bank:</p>
-        @Html.EditorFor(model => model.Bank)
+        @Html.TextBoxFor(model => model.Bank, new { @readonly = "readonly" })
     </div>
-    @Html.ValidationMessageFor(model => model.Bank)
     <div>
         <p>Account Number:</p>
-        @Html.EditorFor(model => model.AccountNumber)
+        @Html.TextBoxFor(model => model.AccountNumber, new { @readonly = "readonly" })
     </div>
-    @Html.ValidationMessageFor(model => model.AccountNumber)
     <div>
         <p>Branch Code:</p>
-        @Html.EditorFor(model => model.BranchCode)
+        @Html.TextBoxFor(model => model.BranchCode, new { @readonly = "readonly" })
     </div>
-    @Html.ValidationMessageFor(model => model.BranchCode)
     <div>
         <p>Street Address:</p>
-        @Html.EditorFor(model => model.StreetAddress)
+        @Html.TextBoxFor(model => model.StreetAddress, new { @readonly = "readonly" })
     </div>
-    @Html.ValidationMessageFor(model => model.StreetAddress)
     <div>
         <p>City:</p>
-        @Html.EditorFor(model => model.City)
+        @Html.TextBoxFor(model => model.City, new { @readonly = "readonly" })
     </div>
-    @Html.ValidationMessageFor(model => model.City)
     <div>
         <p>Area Code:</p>
-        @Html.EditorFor(model => model.AreaCode)
+        @Html.TextBoxFor(model => model.AreaCode, new { @readonly = "readonly" })
     </div>
-    @Html.ValidationMessageFor(model => model.AreaCode)
     <div>
         <p>Funder Type:</p>
-        @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.FunderTypes, "TypeID", "Name"), Model.FunderTypes.Count == 0 ? "Please add Type" : null)
+        @Html.TextBoxFor(model => model.Name, new { @readonly = "readonly" })
     </div>
-    @Html.ValidationMessageFor(model => model.TypeID)
     <div>
         <p>Project:</p>
-        @Html.DropDownListFor(model => model.ProjectID, new SelectList(Model.Project, "ProjectID", "ProjectName"), "None")
+        @Html.TextBoxFor(model => model.ProjectName, new { @readonly = "readonly" })
     </div>
-    @Html.ValidationMessageFor(model => model.ProjectID)
 
     <div id="multipleButtons">
-        <a id="modifyButton" class="btn btn-dafault">Maintain</a>
-        <a id="removeButton" class="btn btn-default">Remove</a>
+        <div id="modifyButton">Maintain</div>
+        <div id="removeButton">Remove</div>
     </div>
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "FunderOrg")'">Back</div>
-
 <style>
     #details_holder {
         position: absolute;
@@ -193,7 +170,6 @@
         margin-right: auto;
         padding: 10px;
         transition: background-color linear 0.5s;
-        background-color: transparent;
     }
 
         #removeButton:hover {
@@ -283,9 +259,7 @@
             color: #5a9ad6;
         }
 </style>
-
 <script>
-
     $('#modifyButton').on('click', function () {
         var funderPersonID = @Model.FunderPersonID;
 

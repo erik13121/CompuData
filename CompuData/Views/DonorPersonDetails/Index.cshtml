@@ -251,12 +251,12 @@
 
 <script>
     $('#modifyButton').on('click', function () {
-        var DonorPID = @Model.DonorPID;
+        var donorPID = @Model.DonorPID;
 
         $.ajax({
             url: '@Url.Action("RedirectToModifyDonorPersonDetails", "ModifyPerson")',
             type: 'POST',
-            data: { DonorPID: DonorPID },
+            data: { donorPID: donorPID },
             dataType: 'json',
             success: function (data) {
                 window.location.href = data.Url;
@@ -265,7 +265,7 @@
     });
 
     $('#removeButton').on('click', function () {
-        var DonorPID = @Model.DonorPID;
+        var donorPID = @Model.DonorPID;
 
         swal({
             title: "Are you sure you want to delete this Donor - Person?",
@@ -282,7 +282,7 @@
                     $.ajax({
                         url: '@Url.Action("Delete", "DonorPerson")',
                         type: 'POST',
-                        data: { DonorPID: DonorPID },
+                        data: { donorPID: donorPID },
                         dataType: 'json',
                         success: function (data) {
                             if (data.Url != "Cascading error!") {

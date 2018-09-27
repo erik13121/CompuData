@@ -32,7 +32,6 @@ namespace CompuData.CodeFirst
         [MaxLength(50)]
         public string Initials { get; set; }
 
-        [Required]
         [MaxLength(10)]
         public string CellNum { get; set; }
 
@@ -50,7 +49,7 @@ namespace CompuData.CodeFirst
         public string AreaCode { get; set; }
 
         [Column(TypeName = "bit")]
-        public bool? Thanked { get; set; }
+        public bool Thanked { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Donation> Donations { get; set; }

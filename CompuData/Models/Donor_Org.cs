@@ -28,7 +28,7 @@ namespace CompuData.Models
         public string ContactEmail { get; set; }
 
         [Column(TypeName = "bit")]
-        public bool? Thanked { get; set; }
+        public bool Thanked { get; set; }
 
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Street Address")]
         public string StreetAddress { get; set; }

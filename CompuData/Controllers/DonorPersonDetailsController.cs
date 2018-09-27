@@ -9,13 +9,13 @@ namespace CompuData.Controllers
     public class DonorPersonDetailsController : Controller
     {
         // GET: DonorPersonDetails
-        public ActionResult Index(string DonorPersonID)
+        public ActionResult Index(string donorPID)
         {
             Models.Donor_Person myModel = new Models.Donor_Person();
             CodeFirst.CodeFirst db = new CodeFirst.CodeFirst();
-            if (DonorPersonID != null)
+            if (donorPID != null)
             {
-                var intDonoPID = Int32.Parse(DonorPersonID);
+                var intDonoPID = Int32.Parse(donorPID);
                 var myDonorPerson = db.Donor_Person.Where(i => i.DonorPID == intDonoPID).FirstOrDefault();
 
                 myModel.DonorPID = myDonorPerson.DonorPID;
