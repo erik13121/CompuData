@@ -471,12 +471,10 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Repair_Request>()
                 .Property(e => e.Reason)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<RepairPerson>()
                 .Property(e => e.Name)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<RepairPerson>()
@@ -485,17 +483,14 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<RepairPerson>()
                 .Property(e => e.Bank)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<RepairPerson>()
                 .Property(e => e.AccountNumber)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<RepairPerson>()
                 .Property(e => e.BranchCode)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<RepairPerson>()

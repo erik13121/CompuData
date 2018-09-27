@@ -36,7 +36,6 @@ namespace CompuData.CodeFirst
         public string AccountNumber { get; set; }
 
         [Required]
-        [RegularExpression("\\d{6}", ErrorMessage = "A Branch code consists of 6 numbers")]
         [MaxLength(10)]
         public string BranchCode { get; set; }
 
