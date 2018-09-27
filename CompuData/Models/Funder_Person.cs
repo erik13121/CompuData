@@ -13,6 +13,7 @@ namespace CompuData.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int FunderPersonID { get; set; }
 
+        [Required]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the First Name")]
         public string FirstName { get; set; }
 
@@ -27,6 +28,7 @@ namespace CompuData.Models
 
         public string CellNum { get; set; }
 
+        [Required]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Email Address")]
         public string PersonalEmail { get; set; }
 

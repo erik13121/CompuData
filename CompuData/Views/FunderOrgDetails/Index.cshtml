@@ -301,6 +301,8 @@
                             if (data.Url != "Cascading error!") {
                                 swal("You have successfully deleted the Organization Funder", {
                                     icon: "success",
+                                }).then(() => {
+                                    window.location.href = data.Url;
                                 });
                             }
                             else {

@@ -288,6 +288,8 @@
                             if (data.Url != "Cascading error!") {
                                 swal("You have successfully deleted the Donor - Person", {
                                     icon: "success",
+                                }).then(() => {
+                                    window.location.href = data.Url;
                                 });
                             }
                             else {

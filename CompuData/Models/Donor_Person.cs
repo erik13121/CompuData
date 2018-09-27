@@ -13,31 +13,36 @@ namespace CompuData.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int DonorPID { get; set; }
 
-        [MaxLength(50)]
+        [Required(ErrorMessage = "The First Name is required")]
+        [MaxLength(100, ErrorMessage = "You are only allowed up to 100 characters as the First Name")]
         public string FirstName { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Middle Name")]
         public string MiddleName { get; set; }
 
-        [MaxLength(50)]
+        [Required(ErrorMessage = "The Last Name is required")]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Last Name")]
         public string SecondName { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Initials")]
         public string Initials { get; set; }
 
-        [MaxLength(10)]
+        [MaxLength(10, ErrorMessage = "The Cellphone Number must consist of 10 numbers in the format (xxxxxxxxxx)")]
+        [RegularExpression("\\d{10}", ErrorMessage = "The Cellphone Number must consist of 10 numbers in the format (xxxxxxxxxx)")]
         public string CellNum { get; set; }
 
-        [MaxLength(50)]
+        [Required(ErrorMessage = "The Personal Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email format")]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Email")]
         public string PersonalEmail { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Street Address")]
         public string StreetAddress { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the City")]
         public string City { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Area Code")]
         public string AreaCode { get; set; }
 
         [Column(TypeName = "bit")]

@@ -18,12 +18,15 @@ namespace CompuData.CodeFirst
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int DonorOrgID { get; set; }
 
-        [MaxLength(50)]
+        [Required]
+        [MaxLength(100)]
         public string OrgName { get; set; }
 
+        [Required]
         [MaxLength(10)]
         public string ContactNum { get; set; }
 
+        [Required]
         [MaxLength(50)]
         public string ContactEmail { get; set; }
 

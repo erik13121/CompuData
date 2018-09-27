@@ -26,31 +26,31 @@
     @Html.HiddenFor(model => model.DonorOrgID)
     <div>
         <p>Organization Name:</p>
-        @Html.EditorFor(model => model.OrgName, new { @readonly = "readonly" })
+        @Html.TextBoxFor(model => model.OrgName, new { @readonly = "readonly" })
     </div>
     <div>
         <p>Contact Number:</p>
-        @Html.EditorFor(model => model.ContactNum, new { @readonly = "readonly" })
+        @Html.TextBoxFor(model => model.ContactNum, new { @readonly = "readonly" })
     </div>
     <div>
         <p>Email Address:</p>
-        @Html.EditorFor(model => model.ContactEmail, new { @readonly = "readonly" })
+        @Html.TextBoxFor(model => model.ContactEmail, new { @readonly = "readonly" })
     </div>
     <div>
         <p>Thanked:</p>
-        @Html.EditorFor(model => model.Thanked, new { @readonly = "readonly" })
+        @Html.TextBoxFor(model => model.Thanked, new { @readonly = "readonly" })
     </div>
     <div>
         <p>Street Address:</p>
-        @Html.EditorFor(model => model.StreetAddress, new { @readonly = "readonly" })
+        @Html.TextBoxFor(model => model.StreetAddress, new { @readonly = "readonly" })
     </div>
     <div>
         <p>City:</p>
-        @Html.EditorFor(model => model.City, new { @readonly = "readonly" })
+        @Html.TextBoxFor(model => model.City, new { @readonly = "readonly" })
     </div>
     <div>
         <p>Area Code:</p>
-        @Html.EditorFor(model => model.AreaCode, new { @readonly = "readonly" })
+        @Html.TextBoxFor(model => model.AreaCode, new { @readonly = "readonly" })
     </div>
     <div id="multipleButtons">
         <a id="modifyButton" class="btn btn-dafault">Maintain</a>
@@ -275,6 +275,8 @@
                             if (data.Url != "Cascading error!") {
                                 swal("You have successfully deleted the Donor - Organization", {
                                     icon: "success",
+                                }).then(() => {
+                                    window.location.href = data.Url;
                                 });
                             }
                             else {

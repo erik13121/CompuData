@@ -260,6 +260,8 @@
                             if (data.Url != "Cascading error!") {
                                 swal("You have successfully deleted the Equipment Type", {
                                     icon: "success",
+                                }).then(() => {
+                                    window.location.href = data.Url;
                                 });
                             }
                             else {

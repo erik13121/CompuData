@@ -13,25 +13,30 @@ namespace CompuData.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int DonorOrgID { get; set; }
 
-        [MaxLength(50)]
+        [Required(ErrorMessage = "The Organization Name is required")]
+        [MaxLength(100, ErrorMessage = "You are only allowed up to 100 characters as the Organization Name")]
         public string OrgName { get; set; }
 
-        [MaxLength(10)]
+        [Required(ErrorMessage = "The Contact Number is required")]
+        [RegularExpression("\\d{10}", ErrorMessage = "The Cellphone Number must consist of 10 numbers in the format (xxxxxxxxxx)")]
+        [MaxLength(10, ErrorMessage = "The Cellphone Number must consist of 10 numbers in the format (xxxxxxxxxx)")]
         public string ContactNum { get; set; }
 
+        [Required(ErrorMessage = "The Contact Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email format")]
         [MaxLength(50)]
         public string ContactEmail { get; set; }
 
         [Column(TypeName = "bit")]
         public bool? Thanked { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Street Address")]
         public string StreetAddress { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the City")]
         public string City { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Area Code")]
         public string AreaCode { get; set; }
         public string JavaScriptToRun { get; set; }
         public Donor_Org() { }
