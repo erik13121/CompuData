@@ -35,9 +35,8 @@ namespace CompuData.Controllers
                 myModel.AreaCode = myFunderPerson.AreaCode;
                 myModel.Thanked = myFunderPerson.Thanked;
                 myModel.TypeID = mytypeID.TypeID;
-                myModel.ProjectID = myProjectID.ProjectID;
-
                 myModel.ProjectName = db.Projects.Where(i => i.ProjectID == myProjectID.ProjectID).FirstOrDefault().ProjectName;
+
                 myModel.Name = db.Funder_Type.Where(i => i.TypeID == mytypeID.TypeID).FirstOrDefault().Name;
             }
 

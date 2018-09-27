@@ -39,13 +39,13 @@ namespace CompuData.Models
 
         public int BranchCode { get; set; }
 
-        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Manufacturer Name")]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Street Address")]
         public string StreetAddress { get; set; }
 
-        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Manufacturer Name")]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the City")]
         public string City { get; set; }
 
-        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Manufacturer Name")]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Area Code")]
         public string AreaCode { get; set; }
 
         [Column(TypeName = "bit")]
