@@ -13,6 +13,7 @@ namespace CompuData.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int FunderPersonID { get; set; }
 
+        [Required]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the First Name")]
         public string FirstName { get; set; }
 
@@ -27,6 +28,7 @@ namespace CompuData.Models
 
         public string CellNum { get; set; }
 
+        [Required]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Email Address")]
         public string PersonalEmail { get; set; }
 
@@ -51,8 +53,11 @@ namespace CompuData.Models
 
         public int? ProjectID { get; set; }
 
+        public string ProjectName { get; set; }
+
         [Required(ErrorMessage = "Please Add a Funder Type first")]
         public int TypeID { get; set; }
+        public string Name { get; set; }
 
         public string JavaScriptToRun { get; set; }
         public List<CodeFirst.Funder_Type> FunderTypes { get; set; }

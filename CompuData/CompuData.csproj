@@ -258,6 +258,7 @@
     <Compile Include="Controllers\AddDonationItemController.cs" />
     <Compile Include="Controllers\AddDonationTypeController.cs" />
     <Compile Include="Controllers\AddDonorOrgController.cs" />
+    <Compile Include="Controllers\AddDonorPersonController.cs" />
     <Compile Include="Controllers\AddEquipmentController.cs" />
     <Compile Include="Controllers\AddEquipmentTypeController.cs" />
     <Compile Include="Controllers\AddFunderOrgController.cs" />
@@ -289,6 +290,9 @@
     <Compile Include="Controllers\DonationTypeDetailsController.cs" />
     <Compile Include="Controllers\DonationTypeModifyController.cs" />
     <Compile Include="Controllers\DonorOrgController.cs" />
+    <Compile Include="Controllers\DonorOrgDetailsController.cs" />
+    <Compile Include="Controllers\DonorPersonController.cs" />
+    <Compile Include="Controllers\DonorPersonDetailsController.cs" />
     <Compile Include="Controllers\DonorsMenuController.cs" />
     <Compile Include="Controllers\EquipmentDetailsController.cs" />
     <Compile Include="Controllers\EquipmentManagementMenuController.cs" />
@@ -300,6 +304,8 @@
     <Compile Include="Controllers\ForgotPasswordController.cs" />
     <Compile Include="Controllers\FunderOrgController.cs" />
     <Compile Include="Controllers\FunderOrgDetailsController.cs" />
+    <Compile Include="Controllers\FunderPersonController.cs" />
+    <Compile Include="Controllers\FunderPersonDetailsController.cs" />
     <Compile Include="Controllers\FundersMenuController.cs" />
     <Compile Include="Controllers\FunderTypeController.cs" />
     <Compile Include="Controllers\FunderTypeDetailsController.cs" />
@@ -309,10 +315,13 @@
     <Compile Include="Controllers\JobTitleModifyController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MainMenuController.cs" />
+    <Compile Include="Controllers\ModifyDonorOrgController.cs" />
+    <Compile Include="Controllers\ModifyDonorPersonController.cs" />
     <Compile Include="Controllers\ModifyEquipmentDetails.cs" />
     <Compile Include="Controllers\ModifyEquipmentRepairRequestController.cs" />
     <Compile Include="Controllers\ModifyEquipmentTypeController.cs" />
     <Compile Include="Controllers\ModifyFunderOrgController.cs" />
+    <Compile Include="Controllers\ModifyFunderPersonController.cs" />
     <Compile Include="Controllers\ModifyFunderTypeController.cs" />
     <Compile Include="Controllers\ModifyLoginDetailsController.cs" />
     <Compile Include="Controllers\ModifyProjectController.cs" />
@@ -442,6 +451,7 @@
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Donor_Org.cs" />
+    <Compile Include="Models\Donor_Person.cs" />
     <Compile Include="Models\Equipment.cs" />
     <Compile Include="Models\EquipmentRepairRequest.cs" />
     <Compile Include="Models\EquipmentType.cs" />
@@ -911,6 +921,15 @@
     <Content Include="Views\AddDonorOrg\Index.cshtml" />
     <Content Include="Views\DonorsMenu\Index.cshtml" />
     <Content Include="Views\AddFunderPerson\Index.cshtml" />
+    <Content Include="Views\ModifyFunderPerson\Index.cshtml" />
+    <Content Include="Views\FunderPerson\Index.cshtml" />
+    <Content Include="Views\FunderPersonDetails\Index.cshtml" />
+    <Content Include="Views\DonorOrgDetails\Index.cshtml" />
+    <Content Include="Views\ModifyDonorOrg\Index.cshtml" />
+    <Content Include="Views\AddDonorPerson\Index.cshtml" />
+    <Content Include="Views\DonorPerson\Index.cshtml" />
+    <Content Include="Views\DonorPersonDetails\Index.cshtml" />
+    <Content Include="Views\ModifyDonorPerson\Index.cshtml" />
     <Content Include="Views\EquipmentRepairRequests\Index.cshtml" />
     <Content Include="Views\RepairPersonDetails\Index.cshtml" />
     <Content Include="Views\ModifyRepairPerson\Index.cshtml" />

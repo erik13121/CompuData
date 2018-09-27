@@ -12,12 +12,15 @@ namespace CompuData.CodeFirst
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int FunderOrgID { get; set; }
 
+        [Required]
         [MaxLength(50)]
         public string OrgName { get; set; }
 
+        [Required]
         [MaxLength(50)]
         public string ContactNumber { get; set; }
 
+        [Required]
         [MaxLength(50)]
         public string EmailAddress { get; set; }
 

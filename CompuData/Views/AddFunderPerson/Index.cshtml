@@ -8,9 +8,9 @@
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../FundersMenu/Index">Funders Menu</a></li>
-        <li class="breadcrumb-item"><a href="../FunderPerson/Index">Funder Person</a></li>
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../FundersMenu">Funders Menu</a></li>
+        <li class="breadcrumb-item"><a href="../FunderPerson">Funder Person</a></li>
         <li class="breadcrumb-item active" aria-current="page">Add Funder Person</li>
     </ol>
 </nav>
@@ -28,12 +28,12 @@
         </div>
         @Html.ValidationMessageFor(model => model.FirstName)
         <div>
-            <p>First Name:</p>
+            <p>Middle Name:</p>
             @Html.EditorFor(model => model.MiddleName)
         </div>
         @Html.ValidationMessageFor(model => model.MiddleName)
         <div>
-            <p>First Name:</p>
+            <p>Last Name:</p>
             @Html.EditorFor(model => model.LastName)
         </div>
         @Html.ValidationMessageFor(model => model.LastName)
@@ -94,7 +94,7 @@
         @Html.ValidationMessageFor(model => model.ProjectID)
 
         <div id="multipleButtons">
-            <div id="addButton">Save and Add Project</div>
+            <div id="addButton">Save and Add Funder - Person</div>
         </div>
     }
 </div>

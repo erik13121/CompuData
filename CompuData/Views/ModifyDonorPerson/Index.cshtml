@@ -1,52 +1,94 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
-    @model CompuData.Models.FunderType
+    @model CompuData.Models.Donor_Person
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../Funders">Funders</a></li>
-        <li class="breadcrumb-item"><a href="../FunderType">Funder Type</a></li>
-        @if (Session["Referrer"] as string == "FunderTypeDetails")
+        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
+        <li class="breadcrumb-item"><a href="../DonorsMenu/Index">Donors Menu</a></li>
+        <li class="breadcrumb-item"><a href="../DonorPerson/Index">Donor - Person</a></li>
+        @if (Session["Referrer"] as string == "DonorPersonDetails")
         {
-            <li class="breadcrumb-item"><a href="../FunderTypeDetails">Funder Type Details</a></li>
+            <li class="breadcrumb-item"><a href="../DonorPersonDetails">Donor Person Details</a></li>
         }
-        <li class="breadcrumb-item active" aria-current="page">Modify Funder Type</li>
+        <li class="breadcrumb-item active" aria-current="page">Modify Donor - Person</li>
     </ol>
 </nav>
 
 @Html.Partial("_ProfilePartial")
 
 <div id="details_holder">
-    @using (@Html.BeginForm("Modify", "ModifyFunderType", FormMethod.Post, new { id = "myForm" }))
+    @using (@Html.BeginForm("Modify", "ModifyDonorPerson", FormMethod.Post, new { id = "myForm" }))
     {
-        <p>Modify Funder Type</p>
-        @Html.HiddenFor(model => model.TypeID)
-        <div>
-            <p>Name:</p>
-            @Html.EditorFor(model => model.Name)
-        </div>
-        @Html.ValidationMessageFor(model => model.Name)
-        <div>
-            <p> Description:</p>
-            @Html.EditorFor(model => model.Description)
-        </div>
-        @Html.ValidationMessageFor(model => model.Description)
-
+        <p>Add Donors - Person</p>
+    @Html.HiddenFor(model => model.DonorPID)
+    <div>
+        <p>First Name:</p>
+        @Html.EditorFor(model => model.FirstName)
+    </div>
+    @Html.ValidationMessageFor(model => model.FirstName)
+    <div>
+        <p>Middle Name:</p>
+        @Html.EditorFor(model => model.MiddleName)
+    </div>
+    @Html.ValidationMessageFor(model => model.MiddleName)
+    <div>
+        <p>Second Name:</p>
+        @Html.EditorFor(model => model.SecondName)
+    </div>
+    @Html.ValidationMessageFor(model => model.SecondName)
+    <div>
+        <p>Initials:</p>
+        @Html.EditorFor(model => model.Initials)
+    </div>
+    @Html.ValidationMessageFor(model => model.Initials)
+    <div>
+        <p>Cell Number:</p>
+        @Html.EditorFor(model => model.CellNum)
+    </div>
+    @Html.ValidationMessageFor(model => model.CellNum)
+    <div>
+        <p>Personal Email:</p>
+        @Html.EditorFor(model => model.PersonalEmail)
+    </div>
+    @Html.ValidationMessageFor(model => model.PersonalEmail)
+    <div>
+        <p>Thanked:</p>
+        @Html.EditorFor(model => model.Thanked)
+    </div>
+    @Html.ValidationMessageFor(model => model.Thanked)
+    <div>
+        <p>Street Address:</p>
+        @Html.EditorFor(model => model.StreetAddress)
+    </div>
+    @Html.ValidationMessageFor(model => model.StreetAddress)
+    <div>
+        <p>City:</p>
+        @Html.EditorFor(model => model.City)
+    </div>
+    @Html.ValidationMessageFor(model => model.City)
+    <div>
+        <p>Area Code:</p>
+        @Html.EditorFor(model => model.AreaCode)
+    </div>
+    @Html.ValidationMessageFor(model => model.AreaCode)
         <div id="multipleButtons">
-            <div id="saveButton">Save and Add Funder Type</div>
+            <div id="addButton">Save and Add Donors - Person</div>
         </div>
     }
 </div>
+
 <div id="backButton" onclick="window.location = '@Request.UrlReferrer.ToString()'">Back</div>
-<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
-<link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
 <style>
+    form {
+        top: 0;
+        left: 0;
+    }
+
     .field-validation-error {
         display: block;
         word-wrap: break-word;
@@ -117,7 +159,7 @@
         display: none;
     }
 
-    #saveButton {
+    #addButton {
         position: relative;
         display: inline-block !important;
         text-decoration: none;
@@ -136,7 +178,7 @@
         transition: background-color linear 0.5s;
     }
 
-        #saveButton:hover {
+        #addButton:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
@@ -170,7 +212,7 @@
     }
 
     .breadcrumb-item {
-        font-size: 20px;
+        font-size: 25px;
     }
 
     .breadcrumb {
@@ -194,7 +236,7 @@
             display: table;
             font-family: 'Raleway', sans-serif;
             font-weight: 200;
-            font-size: 20px;
+            font-size: 25px;
             text-decoration: none !important;
             color: #5a9ad6;
             line-height: 61px;
@@ -217,22 +259,28 @@
 </style>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('#saveButton').on('click', function () {
-            swal({
-                title: "Are you sure?",
-                icon: "info",
-                buttons: [
-                    true,
-                    "Yes",
-                ],
-                closeOnClickOutside: false,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    $('#myForm').submit();
-                }
-            });
+    $('#datepicker1').datepicker();
+    $('#datepicker1').datepicker("setDate", new Date());
+
+    $('#datepicker2').datepicker();
+    $('#datepicker2').datepicker("setDate", new Date());
+
+    $("#addButton").click(function (event) {
+        swal({
+            title: "Are you sure?",
+            icon: "info",
+            buttons: [
+                true,
+                "Yes",
+            ],
+            closeOnClickOutside: false,
         })
+        .then((willDelete) => {
+            if (willDelete) {
+                $('#myForm').submit();
+            }
+        });
     });
+
+    $("#addButton").css({ 'flex-basis': '' });
 </script>

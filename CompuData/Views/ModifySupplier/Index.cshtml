@@ -7,15 +7,12 @@
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../MainMenu/Index">Home</a></li>
-        <li class="breadcrumb-item"><a href="../ProcurementMenu/Index">Procurement Menu</a></li>
-        <li class="breadcrumb-item"><a href="../Supplier/Index">Suppliers</a></li>
-        @if (Request.UrlReferrer != null)
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../ProcurementMenu">Procurement Menu</a></li>
+        <li class="breadcrumb-item"><a href="../Supplier">Suppliers</a></li>
+        @if (Session["Referrer"] as string == "SupplierDetails")
         {
-            if (Request.UrlReferrer.ToString().Contains("Details"))
-            {
-                <li class="breadcrumb-item"><a href="../SuppliersDetails/Index">Supplier Details</a></li>
-            }
+            <li class="breadcrumb-/item"><a href="../SupplierDetails">Supplier Details</a></li>
         }
         <li class="breadcrumb-item active" aria-current="page">Modify Supplier</li>
     </ol>

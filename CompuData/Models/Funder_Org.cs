@@ -13,15 +13,18 @@ namespace CompuData.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int FunderOrgID { get; set; }
 
+        [Required]
         [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Organization Name")]
         public string OrgName { get; set; }
 
-        [RegularExpression("\\d{10}", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]
-        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Contact Number")]
+        [Required(ErrorMessage = "The Contact Number is required")]
+        [MaxLength(10, ErrorMessage = "The Contact Number must consist of 10 numbers in the format (xxxxxxxxxx)")]
+        [RegularExpression("\\d{10}", ErrorMessage = "The Contact Number must consist of 10 numbers in the format (xxxxxxxxxx)")]
         public string ContactNumber { get; set; }
 
-        [EmailAddress(ErrorMessage = "Please enter a valid Email Address")]
+        [Required(ErrorMessage = "The Personal Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email format")]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Email Address")]
         public string EmailAddress { get; set; }
 
@@ -31,7 +34,7 @@ namespace CompuData.Models
         [RegularExpression("\\d{9,16}", ErrorMessage = "The Account Number must consist of between 9 and 16 numbers")]
         public string AccountNumber { get; set; }
 
-        [RegularExpression("\\d{9,16}", ErrorMessage = "The Account Number must consist of between 9 and 16 numbers")]
+        [RegularExpression("\\d{4,12}", ErrorMessage = "The Account Number must consist of between 4 and 12 numbers")]
         public string BranchCode { get; set; }
 
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Street Address")]

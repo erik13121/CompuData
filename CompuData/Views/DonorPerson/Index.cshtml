@@ -1,43 +1,33 @@
 ﻿@{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
-    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
-    @model CompuData.Models.Funder_Org
+    @model CompuData.Models.Donor_Person
 }
-
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../FundersMenu">Funders Menu</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Funders - Organization</li>
+        <li class="breadcrumb-item"><a href="../DonorsMenu">Donors Menu</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Donor - Person</li>
     </ol>
 </nav>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
 
 @Html.Partial("_ProfilePartial")
 
 <div id="table_background">
-    <p>Funders - Organization</p>
-    <table id="table_id" class="display" cellspacing="0" ></table>
-    @Html.HiddenFor(model => model.JavaScriptToRun)
-    <div id="multipleButtons">
-        <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddFunderOrg")'">Add Organization Funder</div>
-    </div>
-    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "FundersMenu")'">Back</div>
+    <p>Donor - Person</p>
+    <table id="DonorPersonTable" class="display"></table>
+    <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddDonorPerson")'">Add Donor - Person</div>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "DonorsMenu")'">Back</div>
 </div>
 
 <style>
-    th, td {
-        white-space: nowrap;
-    }
-
-    div.dataTables_wrapper {
-        width: 1000px;
-        margin: 0 auto;
-    }
-
     #table_background p {
         font-size: 25px;
         text-align: center;
@@ -55,7 +45,7 @@
         border-radius: 50px 50px 50px 50px;
     }
 
-    .dataTable {
+    #DonorPersonTable {
         background-color: #5a9ad6;
         font-size: 14px;
     }
@@ -194,58 +184,64 @@
 <script>
     var table;
     $(document).ready(function () {
-        table = $('#table_id').DataTable({
+        table = $('#DonorPersonTable').DataTable({
             serverSide: true,
-            ajax: "/FunderOrg/PageData",
+            ajax: "/DonorPerson/PageData",
             autoWidth: true,
-            scrollX: true,
             columns: [
                 {
-                    name: 'funderOrgID',
-                    data: 'funderOrgID',
+                    name: 'donorPID',
+                    data: 'donorPID',
                     title: "ID",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'orgName',
-                    data: "orgName",
-                    title: "Organization Name",
+                    name: 'firstName',
+                    data: "firstName",
+                    title: "First Name",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'contactNumber',
-                    data: "contactNumber",
-                    title: "Contact Number",
+                    name: 'middleName',
+                    data: "middleName",
+                    title: "Middle Name",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'emailAddress',
-                    data: "emailAddress",
-                    title: "Email Address",
+                    name: 'secondName',
+                    data: "secondName",
+                    title: "Last Name",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'bank',
-                    data: "bank",
-                    title: "Bank",
+                    name: 'initials',
+                    data: "initials",
+                    title: "Initials",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'accountNumber',
-                    data: "accountNumber",
-                    title: "Account Number",
+                    name: 'cellNum',
+                    data: "cellNum",
+                    title: "Cell Number",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'branchCode',
-                    data: "branchCode",
-                    title: "Branch Code",
+                    name: 'personalEmail',
+                    data: "personalEmail",
+                    title: "Personal Email",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'thanked',
+                    data: "thanked",
+                    title: "Thanked",
                     sortable: true,
                     searchable: true
                 },
@@ -271,27 +267,6 @@
                     searchable: true
                 },
                 {
-                    name: 'thanked',
-                    data: "thanked",
-                    title: "Thanked",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'projectName',
-                    data: "projectName",
-                    title: "Project Name",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'typeName',
-                    data: "typeName",
-                    title: "Funder Type",
-                    sortable: true,
-                    searchable: true
-                },
-                {
                     "targets": -1,
                     "data": null,
                     "defaultContent": '<i class="glyphicon glyphicon-eye-open"></i>',
@@ -313,37 +288,37 @@
         });
     });
 
-    @Model.JavaScriptToRun
+     @Model.JavaScriptToRun
     function mySuccess() {
-        swal("You have successfully added an Organization Funder", {
+        swal("You have successfully added a Donor - Person", {
             icon: "success",
         });
-        $("#JavaScriptToRun").val("");
+        //window.location = "/Vehicles/Index";
     }
 
     @TempData["js"];
     function myUpdateSuccess() {
-        swal("You have successfully updated the Organization Funder", {
+        swal("You have successfully updated the Donor - Person", {
             icon: "success",
         });
     }
 
     $.ajax({
         type: "POST",
-        url: '@Url.Action("SetTempData","FunderOrg")',
+        url: '@Url.Action("SetTempData","DonorPerson")',
         success: function () {
 
         }
     });
 
-    $('#table_id').on('click', '.glyphicon-eye-open', function () {
+    $('#DonorPersonTable').on('click', '.glyphicon-eye-open', function () {
         var data = table.row($(this).parents('tr')).data();
-        var funderOrgID = data["funderOrgID"];
+        var donorPID = data["donorPID"];
 
         $.ajax({
-            url: '@Url.Action("RedirectToFunderOrgDetails", "FunderOrgDetails")',
+            url: '@Url.Action("RedirectToDonorPersonDetails", "DonorPersonDetails")',
             type: 'POST',
-            data: { funderOrgID: funderOrgID },
+            data: { donorPID: donorPID },
             dataType: 'json',
             success: function (data) {
                 window.location.href = data.Url; // your action should return an object having [redirecturl] property
@@ -351,14 +326,14 @@
         });
     });
 
-    $('#table_id').on('click', '.glyphicon-pencil', function () {
+    $('#DonorPersonTable').on('click', '.glyphicon-pencil', function () {
         var data = table.row($(this).parents('tr')).data();
-        var funderOrgID = data["funderOrgID"];
-
+        var donorPID = data["donorPID"];
+        @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
         $.ajax({
-            url: '@Url.Action("RedirectToModifyFunderOrgDetails", "ModifyFunderOrg")',
+            url: '@Url.Action("RedirectToModifyDonorPersonDetails", "ModifyDonorPerson")',
             type: 'POST',
-            data: { funderOrgID: funderOrgID },
+            data: { donorPID: donorPID },
             dataType: 'json',
             success: function (data) {
                 window.location.href = data.Url;
@@ -366,12 +341,12 @@
         });
     });
 
-    $('#table_id').on('click', '.glyphicon-trash', function () {
+    $('#DonorPersonTable').on('click', '.glyphicon-trash', function () {
         var data = table.row($(this).parents('tr')).data();
-        var funderOrgID = data["funderOrgID"];
+        var donorPID = data["donorPID"];
 
         swal({
-            title: "Are you sure you want to delete this Organization Funder?",
+            title: "Are you sure you want to delete this Donor - Person?",
             icon: "warning",
             dangerMode: true,
             buttons: [
@@ -383,19 +358,18 @@
             .then((willDelete) => {
                 if (willDelete) {
                     $.ajax({
-                        url: '@Url.Action("Delete", "FunderOrg")',
+                        url: '@Url.Action("Delete", "DonorOrg")',
                         type: 'POST',
-                        data: { funderOrgID: funderOrgID },
+                        data: { donorPID: donorPID },
                         dataType: 'json',
                         success: function (data) {
                             if (data.Url != "Cascading error!") {
-                                swal("You have successfully deleted the Organization Funder", {
+                                swal("You have successfully deleted the Donor - Person", {
                                     icon: "success",
                                 }).then(() => {
                                     window.location.href = data.Url;
                                 });
                             }
-
                             else {
                                 swal("Cannot delete this due to it being used somewhere else in the system!", {
                                     icon: "warning",
@@ -406,10 +380,4 @@
                 }
             });
     });
-
-    //$('.swal-icon--warning').css("border", "4px solid red !important");
-
-    @*window.onload = function() {
-        window.location.href = '@Url.Action("Index", "VehicleServices")';
-    }*@
 </script>

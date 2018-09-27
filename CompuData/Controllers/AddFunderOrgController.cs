@@ -44,14 +44,6 @@ namespace CompuData.Controllers
                         TypeID = model.TypeID,
                         ProjectID = model.ProjectID,
 
-                        //ProjectID = item.ProjectID + 1,
-                        //ProjectName = model.ProjectName,
-                        //StartDate = DateTime.Parse(model.StartDate.ToString("yyyy-MM-dd")),
-                        //ExpectedFinishDate = DateTime.Parse(model.ExpectedFinishDate.ToString("yyyy-MM-dd")),
-                        //Finished = false,
-                        //ProjectDescription = model.ProjectDescription,
-                        //TypeID = model.TypeID,
-                        //UserID = model.UserID,
                     });
                 }
                 else

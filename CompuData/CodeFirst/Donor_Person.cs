@@ -18,26 +18,30 @@ namespace CompuData.CodeFirst
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int DonorPID { get; set; }
 
+        [Required]
         [MaxLength(50)]
         public string FirstName { get; set; }
 
         [MaxLength(50)]
         public string MiddleName { get; set; }
 
+        [Required]
         [MaxLength(50)]
         public string SecondName { get; set; }
 
         [MaxLength(50)]
         public string Initials { get; set; }
 
+        [Required]
         [MaxLength(10)]
         public string CellNum { get; set; }
 
+        [Required]
         [MaxLength(50)]
         public string PersonalEmail { get; set; }
 
         [MaxLength(50)]
-        public string StreetAdress { get; set; }
+        public string StreetAddress { get; set; }
 
         [MaxLength(50)]
         public string City { get; set; }

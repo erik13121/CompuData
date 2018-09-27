@@ -1,15 +1,14 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
-    @model CompuData.Models.FunderType
+    @model CompuData.Models.Donor_Person
 }
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../FundersMenu">Funders</a></li>
-        <li class="breadcrumb-item"><a href="../FunderType">Funder Type</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Funder Type Details</li>
+        <li class="breadcrumb-item"><a href="../DonorsMenu">Donors</a></li>
+        <li class="breadcrumb-item"><a href="../DonorPerson">Donors - Person</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Donors - Person</li>
     </ol>
 </nav>
 
@@ -23,25 +22,82 @@
 @Html.Partial("_ProfilePartial")
 
 <div id="details_holder">
-    <p>Funder Type Details</p>
-    @Html.HiddenFor(model => model.TypeID)
-    <div>
-        <p>Name:</p>
-        @Html.TextBoxFor(model => model.Name, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Contact Number:</p>
-        @Html.TextBoxFor(model => model.Description, new { @readonly = "readonly" })
-    </div>
-    <div id="multipleButtons">
-        <a id="modifyButton" class="btn btn-dafault">Maintain</a>
-        <a id="removeButton" class="btn btn-default">Remove</a>
-    </div>
+
+    @using (@Html.BeginForm("Create", "AddDonorPerson", FormMethod.Post, new { id = "myForm" }))
+    {
+        <p>Add Donors - Person</p>
+        @Html.HiddenFor(model => model.DonorPID)
+        <div>
+            <p>First Name:</p>
+            @Html.EditorFor(model => model.FirstName)
+        </div>
+        @Html.ValidationMessageFor(model => model.FirstName)
+        <div>
+            <p>Middle Name:</p>
+            @Html.EditorFor(model => model.MiddleName)
+        </div>
+        @Html.ValidationMessageFor(model => model.MiddleName)
+        <div>
+            <p>Second Name:</p>
+            @Html.EditorFor(model => model.SecondName)
+        </div>
+        @Html.ValidationMessageFor(model => model.SecondName)
+        <div>
+            <p>Initials:</p>
+            @Html.EditorFor(model => model.Initials)
+        </div>
+        @Html.ValidationMessageFor(model => model.Initials)
+        <div>
+            <p>Cell Number:</p>
+            @Html.EditorFor(model => model.CellNum)
+        </div>
+        @Html.ValidationMessageFor(model => model.CellNum)
+        <div>
+            <p>Personal Email:</p>
+            @Html.EditorFor(model => model.PersonalEmail)
+        </div>
+        @Html.ValidationMessageFor(model => model.PersonalEmail)
+        <div>
+            <p>Thanked:</p>
+            @Html.EditorFor(model => model.Thanked)
+        </div>
+        @Html.ValidationMessageFor(model => model.Thanked)
+        <div>
+            <p>Street Address:</p>
+            @Html.EditorFor(model => model.StreetAddress)
+        </div>
+        @Html.ValidationMessageFor(model => model.StreetAddress)
+        <div>
+            <p>City:</p>
+            @Html.EditorFor(model => model.City)
+        </div>
+        @Html.ValidationMessageFor(model => model.City)
+        <div>
+            <p>Area Code:</p>
+            @Html.EditorFor(model => model.AreaCode)
+        </div>
+        @Html.ValidationMessageFor(model => model.AreaCode)
+
+        <div id="multipleButtons">
+            <div id="addButton">Save and Add Donors - Organization</div>
+        </div>
+    }
 </div>
-}
-<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "FunderType")'">Back</div>
+
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "DonorPerson")'">Back</div>
 
 <style>
+    form {
+        top: 0;
+        left: 0;
+    }
+
+    .field-validation-error {
+        display: block;
+        word-wrap: break-word;
+        margin-left: 50%;
+    }
+
     #details_holder {
         position: absolute;
         display: flex;
@@ -69,7 +125,7 @@
         }
 
             #details_holder div p {
-                font-size: 18px;
+                font-size: 20px;
                 flex: 50%;
                 text-align: left;
                 vertical-align: middle;
@@ -81,12 +137,32 @@
                 flex: 50%;
             }
 
-    #multipleButtons {
-        display: flex;
-        flex-direction: row;
+            #details_holder div select {
+                flex: 50%;
+            }
+
+            #details_holder div button {
+                background-color: white;
+                flex: 50%;
+            }
+
+    .gj-datepicker {
+        flex: 50%;
     }
 
-    #modifyButton {
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        opacity: 1;
+    }
+
+    #typeDropDown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        display: none;
+    }
+
+    #addButton {
         position: relative;
         display: inline-block !important;
         text-decoration: none;
@@ -105,31 +181,7 @@
         transition: background-color linear 0.5s;
     }
 
-        #modifyButton:hover {
-            background-color: rgba(0, 255, 255, 0.4);
-        }
-
-    #removeButton {
-        position: relative;
-        display: inline-block !important;
-        text-decoration: none;
-        color: white;
-        cursor: pointer;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        box-sizing: border-box;
-        border: solid white;
-        border-width: 2px;
-        border-radius: 50px 50px 50px 50px;
-        margin-top: 10px;
-        margin-left: auto;
-        margin-right: auto;
-        padding: 10px;
-        transition: background-color linear 0.5s;
-        background-color: transparent;
-    }
-
-        #removeButton:hover {
+        #addButton:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
@@ -158,26 +210,18 @@
 
     #breadcrumb {
         position: absolute;
-        left: 0px;
         top: 0px;
-        height: auto;
-        width: 80%;
+        width: 100%;
     }
 
     .breadcrumb-item {
-        font-size: 20px;
+        font-size: 25px;
     }
-
-        .breadcrumb-item a {
-            text-decoration: none;
-            color: #5a9ad6 !important;
-        }
 
     .breadcrumb {
         top: 0;
         background-color: #33363b !important;
         padding-left: 60px !important;
-        margin-bottom: 0 !important;
     }
 
     #profile {
@@ -195,7 +239,7 @@
             display: table;
             font-family: 'Raleway', sans-serif;
             font-weight: 200;
-            font-size: 20px;
+            font-size: 25px;
             text-decoration: none !important;
             color: #5a9ad6;
             line-height: 61px;
@@ -218,55 +262,22 @@
 </style>
 
 <script>
-    $('#modifyButton').on('click', function () {
-        var typeID = @Model.TypeID;
-
-        $.ajax({
-            url: '@Url.Action("RedirectToModifyFunderTypeDetails", "ModifyFunderType")',
-            type: 'POST',
-            data: { typeID: typeID },
-            dataType: 'json',
-            success: function (data) {
-                window.location.href = data.Url;
-            }
-        });
-    });
-
-    $('#removeButton').on('click', function () {
-        var typeID = @Model.TypeID;
-
+    $("#addButton").click(function (event) {
         swal({
-            title: "Are you sure you want to delete this Funder Type?",
-            icon: "warning",
-            dangerMode: true,
+            title: "Are you sure?",
+            icon: "info",
             buttons: [
                 true,
                 "Yes",
             ],
             closeOnClickOutside: false,
         })
-            .then((willDelete) => {
-                if (willDelete) {
-                    $.ajax({
-                        url: '@Url.Action("Delete", "FunderType")',
-                        type: 'POST',
-                        data: { typeID: typeID },
-                        dataType: 'json',
-                        success: function (data) {
-                            if (data.Url != "Cascading error!") {
-                                swal("You have successfully deleted the Funder Type", {
-                                    icon: "success",
-                                });
-                            }
-                            else {
-                                swal("Cannot delete this due to it being used somewhere else in the system!", {
-                                    icon: "warning",
-                                });
-                            }
-                            window.location.href = data.Url;
-                        }
-                    });
-                }
-            });
+        .then((willDelete) => {
+            if (willDelete) {
+                $('#myForm').submit();
+            }
+        });
     });
+
+    $("#addButton").css({ 'flex-basis': '' });
 </script>

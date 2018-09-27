@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
-    @model CompuData.Models.Funder_Org
+    @model CompuData.Models.Funder_Person
 }
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -12,18 +12,18 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
         <li class="breadcrumb-item"><a href="../FundersMenu">Funders Menu</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Funders - Organization</li>
+        <li class="breadcrumb-item active" aria-current="page">Funders - Person</li>
     </ol>
 </nav>
 
 @Html.Partial("_ProfilePartial")
 
 <div id="table_background">
-    <p>Funders - Organization</p>
-    <table id="table_id" class="display" cellspacing="0" ></table>
+    <p>Funders - Person</p>
+    <table id="table_id" class="display" cellspacing="0"></table>
     @Html.HiddenFor(model => model.JavaScriptToRun)
     <div id="multipleButtons">
-        <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddFunderOrg")'">Add Organization Funder</div>
+        <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddFunderPerson")'">Add Funder - Person</div>
     </div>
     <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "FundersMenu")'">Back</div>
 </div>
@@ -196,34 +196,55 @@
     $(document).ready(function () {
         table = $('#table_id').DataTable({
             serverSide: true,
-            ajax: "/FunderOrg/PageData",
+            ajax: "/FunderPerson/PageData",
             autoWidth: true,
             scrollX: true,
             columns: [
                 {
-                    name: 'funderOrgID',
-                    data: 'funderOrgID',
+                    name: 'funderPersonID',
+                    data: 'funderPersonID',
                     title: "ID",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'orgName',
-                    data: "orgName",
-                    title: "Organization Name",
+                    name: 'firstName',
+                    data: "firstName",
+                    title: "First Name",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'contactNumber',
-                    data: "contactNumber",
-                    title: "Contact Number",
+                    name: 'middleName',
+                    data: "middleName",
+                    title: "Middle Name",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'emailAddress',
-                    data: "emailAddress",
+                    name: 'lastName',
+                    data: "lastName",
+                    title: "Last Name",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'initials',
+                    data: "initials",
+                    title: "initials Name",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'cellNum',
+                    data: "cellNum",
+                    title: "Cell Number",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'personalEmail',
+                    data: "personalEmail",
                     title: "Email Address",
                     sortable: true,
                     searchable: true
@@ -315,7 +336,7 @@
 
     @Model.JavaScriptToRun
     function mySuccess() {
-        swal("You have successfully added an Organization Funder", {
+        swal("You have successfully added a Funder - Person", {
             icon: "success",
         });
         $("#JavaScriptToRun").val("");
@@ -323,7 +344,7 @@
 
     @TempData["js"];
     function myUpdateSuccess() {
-        swal("You have successfully updated the Organization Funder", {
+        swal("You have successfully updated the Funder - Person", {
             icon: "success",
         });
     }
@@ -338,12 +359,12 @@
 
     $('#table_id').on('click', '.glyphicon-eye-open', function () {
         var data = table.row($(this).parents('tr')).data();
-        var funderOrgID = data["funderOrgID"];
+        var funderPersonID = data["funderPersonID"];
 
         $.ajax({
-            url: '@Url.Action("RedirectToFunderOrgDetails", "FunderOrgDetails")',
+            url: '@Url.Action("RedirectToFunderPersonDetails", "FunderPersonDetails")',
             type: 'POST',
-            data: { funderOrgID: funderOrgID },
+            data: { funderPersonID: funderPersonID },
             dataType: 'json',
             success: function (data) {
                 window.location.href = data.Url; // your action should return an object having [redirecturl] property
@@ -353,12 +374,12 @@
 
     $('#table_id').on('click', '.glyphicon-pencil', function () {
         var data = table.row($(this).parents('tr')).data();
-        var funderOrgID = data["funderOrgID"];
+        var funderPersonID = data["funderPersonID"];
 
         $.ajax({
-            url: '@Url.Action("RedirectToModifyFunderOrgDetails", "ModifyFunderOrg")',
+            url: '@Url.Action("RedirectToModifyFunderPersonDetails", "ModifyFunderPerson")',
             type: 'POST',
-            data: { funderOrgID: funderOrgID },
+            data: { funderPersonID: funderPersonID },
             dataType: 'json',
             success: function (data) {
                 window.location.href = data.Url;
@@ -368,10 +389,10 @@
 
     $('#table_id').on('click', '.glyphicon-trash', function () {
         var data = table.row($(this).parents('tr')).data();
-        var funderOrgID = data["funderOrgID"];
+        var funderPersonID = data["funderPersonID"];
 
         swal({
-            title: "Are you sure you want to delete this Organization Funder?",
+            title: "Are you sure you want to delete this Funder - Person?",
             icon: "warning",
             dangerMode: true,
             buttons: [
@@ -385,11 +406,11 @@
                     $.ajax({
                         url: '@Url.Action("Delete", "FunderOrg")',
                         type: 'POST',
-                        data: { funderOrgID: funderOrgID },
+                        data: { funderPersonID: funderPersonID },
                         dataType: 'json',
                         success: function (data) {
                             if (data.Url != "Cascading error!") {
-                                swal("You have successfully deleted the Organization Funder", {
+                                swal("You have successfully deleted the Funder - Person", {
                                     icon: "success",
                                 }).then(() => {
                                     window.location.href = data.Url;
