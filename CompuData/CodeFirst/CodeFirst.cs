@@ -63,12 +63,10 @@ namespace CompuData.CodeFirst
         {
             modelBuilder.Entity<Access_Level>()
                 .Property(e => e.LevelName)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Access_Level>()
                 .Property(e => e.LevelDescription)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Access_Level>()
@@ -78,32 +76,26 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Audit_Log>()
                 .Property(e => e.TableEffected)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Audit_Log>()
                 .Property(e => e.AttrivuteEffected)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Audit_Log>()
                 .Property(e => e.Description)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Audit_Log>()
                 .Property(e => e.NewRecordValue)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Booking_Refreshment_Line>()
                 .Property(e => e.RefreshBookingID)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Building>()
                 .Property(e => e.Name)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Building>()
@@ -136,17 +128,14 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Donation_Item>()
                 .Property(e => e.Description)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Donation_Line>()
                 .Property(e => e.Description)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Donation_Type>()
                 .Property(e => e.TypeName)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Donation_Type>()
@@ -160,17 +149,14 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Donor_Org>()
                 .Property(e => e.OrgName)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Donor_Org>()
                 .Property(e => e.ContactNum)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Donor_Org>()
                 .Property(e => e.ContactEmail)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Donor_Org>()
@@ -179,27 +165,22 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Donor_Person>()
                 .Property(e => e.FirstName)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Donor_Person>()
                 .Property(e => e.MiddleName)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Donor_Person>()
                 .Property(e => e.SecondName)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Donor_Person>()
                 .Property(e => e.Initials)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Donor_Person>()
                 .Property(e => e.CellNum)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Donor_Person>()
@@ -238,7 +219,6 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Employee_Title>()
                 .Property(e => e.TitleName)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Employee_Title>()
@@ -248,7 +228,6 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Equipment>()
                 .Property(e => e.ManufacturerName)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Equipment>()
@@ -257,7 +236,6 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Equipment>()
                 .Property(e => e.Status)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Equipment>()
@@ -277,12 +255,10 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Equipment_Type>()
                 .Property(e => e.TypeName)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Equipment_Type>()
                 .Property(e => e.TypeDescription)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Equipment_Type>()
@@ -296,12 +272,10 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Funder_Org>()
                 .Property(e => e.OrgName)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Funder_Org>()
                 .Property(e => e.ContactNumber)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Funder_Org>()
@@ -318,17 +292,14 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Funder_Person>()
                 .Property(e => e.MiddleName)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Funder_Person>()
                 .Property(e => e.LastName)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Funder_Person>()
                 .Property(e => e.Initials)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Funder_Person>()
@@ -341,12 +312,10 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Funder_Type>()
                 .Property(e => e.Name)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Funder_Type>()
                 .Property(e => e.Description)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Funder_Type>()
@@ -361,7 +330,6 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Petty_Cash_Requisition>()
                 .Property(e => e.ApprovalStatus)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Petty_Cash_Requisition>()
@@ -380,7 +348,6 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Project>()
                 .Property(e => e.ProjectName)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Project>()
@@ -389,7 +356,6 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Project>()
                 .Property(e => e.ProjectDescription)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Project>()
@@ -414,12 +380,10 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Project_Type>()
                 .Property(e => e.TypeName)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Project_Type>()
                 .Property(e => e.TypeDescription)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Project_Type>()
@@ -429,7 +393,6 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Quantity_Type>()
                 .Property(e => e.Description)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Quantity_Type>()
@@ -439,12 +402,10 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Refreshment>()
                 .Property(e => e.Name)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Refreshment>()
                 .Property(e => e.Description)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Refreshment>()
@@ -510,7 +471,6 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Software_Licenses>()
                 .Property(e => e.SoftwareName)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Software_Licenses>()
@@ -690,12 +650,10 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Vehicle_Type>()
                 .Property(e => e.Name)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Vehicle_Type>()
                 .Property(e => e.Description)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Vehicle_Type>()
@@ -727,7 +685,6 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Venue>()
                 .Property(e => e.Name)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Venue>()
