@@ -39,9 +39,9 @@ namespace CompuData.Models
 
         public string LastName { get; set; }
 
-        public List<Supplier> Suppliers { get; set; }
+        public List<CodeFirst.Supplier> Suppliers { get; set; }
 
-        public List<Project> Projects { get; set; }
+        public List<CodeFirst.Project> Projects { get; set; }
 
         public IEnumerable<SelectListItem> Users { get; set; }
     
