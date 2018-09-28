@@ -279,6 +279,7 @@
     <Compile Include="Controllers\AddVehicleUsageController.cs" />
     <Compile Include="Controllers\AddVenueController.cs" />
     <Compile Include="Controllers\AssignDonationItemController.cs" />
+    <Compile Include="Controllers\BackupRestoreMenuController.cs" />
     <Compile Include="Controllers\DonationController.cs" />
     <Compile Include="Controllers\DonationDetailsController.cs" />
     <Compile Include="Controllers\DonationItemController.cs" />
@@ -935,6 +936,7 @@
     <Content Include="Views\ModifyRepairPerson\Index.cshtml" />
     <Content Include="Views\RepairPersons\Index.cshtml" />
     <Content Include="Views\SelectRequest\Index.cshtml" />
+    <Content Include="Views\BackupRestoreMenu\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
