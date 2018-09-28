@@ -10,7 +10,7 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Venue Menu</li>
+        <li class="breadcrumb-item active" aria-current="page">Buildings & Venue Menu</li>
     </ol>
 </nav>
 @Html.Partial("_ProfilePartial")
@@ -19,19 +19,19 @@
         <!--<li class="menu_item">@Html.ActionLink("Home", "Index", "Home")</li>
         <li class="menu_item">@Html.ActionLink("About", "About", "Home")</li>
         <li class="menu_item">@Html.ActionLink("Contact", "Contact", "Home")</li>-->
-        <ul class="newmenu_item">
-            <p>Venues</p>
-            <li class="newsubMenu_item">
-                <p>Venue Bookings</p>
-            </li>
-            <li class="newsubMenu_item">
-                <p>Venue Schedule</p>
-            </li>
+        <ul class="newmenu_item" style="margin-top: auto !important; margin-bottom: 0 !important;">
+            <p>@Html.ActionLink("Buildings", "Index", "Buildings")</p>
         </ul>
-        <ul class="newmenu_item">
-            <p>Refreshments</p>
+        <ul class="newmenu_item" style="margin: 0 !important;">
+            <p>@Html.ActionLink("Refreshments", "Index", "Refreshments")</p>
+        </ul>
+        <ul class="newmenu_item" style="margin-top: 0 !important; margin-bottom: auto !important;">
+            <p>@Html.ActionLink("Venues", "Index", "Venues")</p>
             <li class="newsubMenu_item">
-                <p>Refreshments</p>
+                <p style="margin-left: 6vh !important">@Html.ActionLink("Venue Bookings", "Index", "VenueBookings")</p>
+            </li>
+            <li class="newsubMenu_item">
+                <p style="margin-left: 6vh !important">@Html.ActionLink("Venue Schedules", "Index", "VenueSchedules")</p>
             </li>
         </ul>
     </ul>
@@ -43,7 +43,6 @@
 </div>
 
 <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "MainMenu")'">Back</div>
-
 <style>
     #breadcrumb {
         position: absolute;
@@ -105,6 +104,12 @@
         .dropdown-menu li a {
             color: #5a9ad6;
         }
+    
+    .newmenu_item>p {
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
 </style>
 <script>
 

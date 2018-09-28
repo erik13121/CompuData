@@ -1,129 +1,100 @@
 ﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    @model CompuData.Models.Funder_Org
+    @model CompuData.Models.PCR
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
+
 <head>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 </head>
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../FundersMenu">Funders Menu</a></li>
-        <li class="breadcrumb-item"><a href="../FunderOrg">Organization Funder</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Add Organization Funder</li>
+        <li class="breadcrumb-item"><a href="../ProcurementMenu">Procurement</a></li>
+        <li class="breadcrumb-item"><a href="../PCR">Petty Cash Requisition</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Petty Cash Requisition</li>
     </ol>
 </nav>
 
 @Html.Partial("_ProfilePartial")
 
 <div class="col-md-6" id="mytwoColumns">
-    <p id="myheading2">Add Funder - Organization</p>
+    <p id="myheading2">Add Petty Cash Requisition</p>
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#PCRDetails" id="tabitem">Funder Details</a></li>
-        <li><a data-toggle="tab" href="#LineItems" id="tabitem">Banking Details</a></li>
-        <li><a data-toggle="tab" href="#LineItems2" id="tabitem">Address Details</a></li>
+        <li class="active"><a data-toggle="tab" href="#PCRDetails" id="tabitem">Petty Cash Requisition Details</a></li>
+        <li><a data-toggle="tab" href="#LineItems" id="tabitem">Line Details</a></li>
     </ul>
 
-@using (@Html.BeginForm("Create", "AddFunderOrg", FormMethod.Post, new { id = "myForm" }))
+    @using (@Html.BeginForm("Create", "AddPCR", FormMethod.Post, new { id = "myForm" }))
     {
-        @Html.HiddenFor(model => model.FunderOrgID)
-    <div class="tab-content">
-        <div id="PCRDetails" class="tab-pane fade in active">
-            <div class="row-md-6">
-                <div class="card mb-4 box-shadow">
-                    <div class="card-body">
-                        <div>
-                            <p>Funder Name:</p>
-                            @Html.EditorFor(model => model.OrgName)
-                        </div>
-                        @Html.ValidationMessageFor(model => model.OrgName)
-                        <div>
-                            <p>Contact Number:</p>
-                            @Html.EditorFor(model => model.ContactNumber)
-                        </div>
-                        @Html.ValidationMessageFor(model => model.ContactNumber)
-                        <div>
-                            <p>Email Address:</p>
-                            @Html.EditorFor(model => model.EmailAddress)
-                        </div>
-                        @Html.ValidationMessageFor(model => model.EmailAddress)
-                        <div>
-                            <p>Funder Type:</p>
-                            @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.FunderTypes, "TypeID", "Name"), Model.FunderTypes.Count == 0 ? "Please add Type" : null)
-                        </div>
-                        @Html.ValidationMessageFor(model => model.Name)
-                        <div>
-                            <p>Project:</p>
-                            @Html.DropDownListFor(model => model.ProjectID, new SelectList(Model.Project, "ProjectID", "ProjectName"), "None")
-                        </div>
-                        @Html.ValidationMessageFor(model => model.ProjectName)
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="LineItems" class="tab-pane fade">
-            <div class="row-md-6">
-                <div class="card mb-4 box-shadow">
-                    <div class="card-body" id="cardbody2">
-                        <div>
-                            <p>Bank:</p>
-                            @Html.EditorFor(model => model.Bank)
-                        </div>
-                        @Html.ValidationMessageFor(model => model.Bank)
-                        <div>
-                            <p>Account Number:</p>
-                            @Html.EditorFor(model => model.AccountNumber)
-                        </div>
-                        @Html.ValidationMessageFor(model => model.AccountNumber)
-                        <div>
-                            <p>Branch Code:</p>
-                            @Html.EditorFor(model => model.BranchCode)
-                        </div>
-                        @Html.ValidationMessageFor(model => model.BranchCode)
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="LineItems2" class="tab-pane fade">
-            <div class="row-md-6">
-                <div class="card mb-4 box-shadow">
-                    <div class="card-body" id="cardbody2">
-                        <div>
-                            <p>Street Address:</p>
-                            @Html.EditorFor(model => model.StreetAddress)
-                        </div>
-                        @Html.ValidationMessageFor(model => model.StreetAddress)
-                        <div>
-                            <p>City:</p>
-                            @Html.EditorFor(model => model.City)
-                        </div>
-                        @Html.ValidationMessageFor(model => model.City)
-                        <div>
-                            <p>Area Code:</p>
-                            @Html.EditorFor(model => model.AreaCode)
-                        </div>
-                        @Html.ValidationMessageFor(model => model.AreaCode)
-                        <div>
+        @Html.HiddenFor(model => model.RequisitionID)
+        <div class="tab-content">
+            <div id="PCRDetails" class="tab-pane fade in active">
+                <div class="row-md-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body">
+                            <div>
+                                <p>Supplier Name:</p>
+                                @Html.EditorFor(model => model.Suppliers)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Suppliers)
+                            <div>
+                                <p>Project:</p>
+                                @Html.EditorFor(model => model.ProjectName)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.ProjectName)
+                            <div>
+                                <p>User Responsible:</p>
+                                @Html.DropDownListFor(model => model.UserID, Model.Users)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.UserID)
+                            <div>
+                                <p>VAT Inclusive:</p>
+                                @Html.EditorFor(model => model.VATInclusive)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.VATInclusive)
+                            <div>
+                                <p>Date:</p>
+                                @Html.TextBoxFor(model => model.ReqDate, new { @class = "form-control", @id = "datepicker2", placeholder = "Please Enter Date" })
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div id="LineItems" class="tab-pane fade">
+                <div class="row-md-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body" id="cardbody2">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>           
         </div>
-    </div>
         <div id="multipleButtons">
-            <div id="addButton">Add Funder - Organization</div>
+            <div id="addButton">Add Petty Cash Requisition</div>
         </div>
     }
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "FunderOrg")'">Back</div>
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "PCR")'">Back</div>
 
 <style>
+        input[type=checkbox] {
+        height: 25px;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .datepicker {
+        background-color: white;
+    }
+
+
     .tab-content {
         overflow-y: auto;
     }
@@ -409,9 +380,22 @@
         -ms-transform: rotate(45deg);
         transform: rotate(45deg);
     }
+    gj-datepicker {
+        flex: 50%;
+    }
+
+    .gj-datepicker-md [role=right-icon] {
+        top: 0.25em;
+    }
 </style>
 
 <script>
+    $('#datepicker1').datepicker();
+    $('#datepicker1').datepicker("setDate", new Date());
+
+    $('#datepicker2').datepicker();
+    $('#datepicker2').datepicker("setDate", new Date());
+
     $(document).ready(function () {
         $('tabitem1').on('click', function() {
             var x = document.getElementById("tabitem1").getAttribute("aria-expanded");
@@ -449,4 +433,9 @@
 
     $("#addButton").css({ 'flex-basis': '' });
 </script>
+
+
+
+
+
 

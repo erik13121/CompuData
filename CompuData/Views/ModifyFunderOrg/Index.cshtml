@@ -23,90 +23,212 @@
 
 @Html.Partial("_ProfilePartial")
 
-<div id="details_holder">
+<div class="col-md-6" id="mytwoColumns">
+    <p id="myheading2">Modify
+     Funder - Organization</p>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#PCRDetails" id="tabitem">Funder Details</a></li>
+        <li><a data-toggle="tab" href="#LineItems" id="tabitem">Banking Details</a></li>
+        <li><a data-toggle="tab" href="#LineItems2" id="tabitem">Address Details</a></li>
+    </ul>
+
     @using (@Html.BeginForm("Modify", "ModifyFunderOrg", FormMethod.Post, new { id = "myForm" }))
     {
-        <p>Modify Organization Funder</p>
         @Html.HiddenFor(model => model.FunderOrgID)
-        <div>
-            <p>Funder Name:</p>
-            @Html.EditorFor(model => model.OrgName)
+        <div class="tab-content">
+            <div id="PCRDetails" class="tab-pane fade in active">
+                <div class="row-md-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body">
+                            <div>
+                                <p>Funder Name:</p>
+                                @Html.EditorFor(model => model.OrgName)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.OrgName)
+                            <div>
+                                <p>Contact Number:</p>
+                                @Html.EditorFor(model => model.ContactNumber)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.ContactNumber)
+                            <div>
+                                <p>Email Address:</p>
+                                @Html.EditorFor(model => model.EmailAddress)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.EmailAddress)
+                            <div>
+                                <p>Funder Type:</p>
+                                @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.FunderTypes, "TypeID", "Name"), Model.FunderTypes.Count == 0 ? "Please add Type" : null)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Name)
+                            <div>
+                                <p>Project:</p>
+                                @Html.DropDownListFor(model => model.ProjectID, new SelectList(Model.Project, "ProjectID", "ProjectName"), "None")
+                            </div>
+                            @Html.ValidationMessageFor(model => model.ProjectName)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="LineItems" class="tab-pane fade">
+                <div class="row-md-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body" id="cardbody2">
+                            <div>
+                                <p>Bank:</p>
+                                @Html.EditorFor(model => model.Bank)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Bank)
+                            <div>
+                                <p>Account Number:</p>
+                                @Html.EditorFor(model => model.AccountNumber)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.AccountNumber)
+                            <div>
+                                <p>Branch Code:</p>
+                                @Html.EditorFor(model => model.BranchCode)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.BranchCode)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="LineItems2" class="tab-pane fade">
+                <div class="row-md-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body" id="cardbody2">
+                            <div>
+                                <p>Street Address:</p>
+                                @Html.EditorFor(model => model.StreetAddress)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.StreetAddress)
+                            <div>
+                                <p>City:</p>
+                                @Html.EditorFor(model => model.City)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.City)
+                            <div>
+                                <p>Area Code:</p>
+                                @Html.EditorFor(model => model.AreaCode)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.AreaCode)
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        @Html.ValidationMessageFor(model => model.OrgName)
-        <div>
-            <p>Contact Number:</p>
-            @Html.EditorFor(model => model.ContactNumber)
-        </div>
-        @Html.ValidationMessageFor(model => model.ContactNumber)
-        <div>
-            <p>Email Address:</p>
-            @Html.EditorFor(model => model.EmailAddress)
-        </div>
-        @Html.ValidationMessageFor(model => model.EmailAddress)
-        <div>
-            <p>Bank:</p>
-            @Html.EditorFor(model => model.Bank)
-        </div>
-        @Html.ValidationMessageFor(model => model.Bank)
-        <div>
-            <p>Account Number:</p>
-            @Html.EditorFor(model => model.AccountNumber)
-        </div>
-        @Html.ValidationMessageFor(model => model.AccountNumber)
-        <div>
-            <p>Branch Code:</p>
-            @Html.EditorFor(model => model.BranchCode)
-        </div>
-        @Html.ValidationMessageFor(model => model.BranchCode)
-        <div>
-            <p>Street Address:</p>
-            @Html.EditorFor(model => model.StreetAddress)
-        </div>
-        @Html.ValidationMessageFor(model => model.StreetAddress)
-        <div>
-            <p>City:</p>
-            @Html.EditorFor(model => model.City)
-        </div>
-        @Html.ValidationMessageFor(model => model.City)
-        <div>
-            <p>Area Code:</p>
-            @Html.EditorFor(model => model.AreaCode)
-        </div>
-        @Html.ValidationMessageFor(model => model.AreaCode)
-        <div>
-            <p>Thanked:</p>
-            @Html.CheckBoxFor(model => model.Thanked)
-        </div>
-        @Html.ValidationMessageFor(model => model.Thanked)
-        <div>
-            <p>Funder Type:</p>
-            @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.FunderTypes, "TypeID", "Name"))
-        </div>
-        @Html.ValidationMessageFor(model => model.Name)
-        <div>
-            <p>Project:</p>
-            @Html.DropDownListFor(model => model.ProjectID, new SelectList(Model.Project, "ProjectID", "ProjectName"))
-        </div>
-        @Html.ValidationMessageFor(model => model.ProjectName)
         <div id="multipleButtons">
             <div id="addButton">Save and Add Organization Funder</div>
         </div>
-    }
+    }   
 </div>
 
 <div id="backButton" onclick="window.location.href = '@Request.UrlReferrer.ToString()'">Back</div>
 
 <style>
-    form {
-        top: 0;
-        left: 0;
+    .tab-content {
+        overflow-y: auto;
     }
 
-    .field-validation-error {
-        display: block;
-        word-wrap: break-word;
-        margin-left: 50%;
+    #Dropdown1 {
+        width: auto;
+        border-left: 50px;
     }
+
+    #tabitem {
+        color: black;
+    }
+
+    #myheading1 {
+        font-size: 30px;
+    }
+
+    #myheading2 {
+        transform: translateX(0px) !important;
+        font-size: 25px;
+        text-align: center;
+    }
+
+    #table_background p {
+        font-size: 25px;
+        text-align: center;
+    }
+
+    #table_background {
+        height: auto;
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    #table_id {
+        background-color: #5a9ad6;
+    }
+
+    #Flexyman {
+        display: flex;
+        flex-direction: row;
+        line-height: 30px;
+    }
+
+    #mytwoColumns {
+        position: absolute;
+        height: auto;
+        width: auto;
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    .card-body p {
+        font-size: 25px;
+        text-align: left;
+        flex: 1;
+        text-align: center;
+        flex-basis: 100%;
+    }
+
+    #cardbody2 {
+        overflow: auto;
+        max-height: 350px;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        float: left;
+        position: relative;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+    }
+
+        .card-body div {
+            display: flex;
+            flex-direction: row;
+            margin-top: 1px;
+            margin-bottom: 1px;
+        }
+
+        .card-body p {
+            text-align: left;
+            vertical-align: middle;
+            padding: 0;
+            margin: 0;
+            flex: 50%;
+        }
+
+        .card-body div input {
+            flex: 50%;
+        }
+
+        .card-body div select {
+            flex: 50%;
+        }
 
     #details_holder {
         position: absolute;
@@ -135,7 +257,7 @@
         }
 
             #details_holder div p {
-                font-size: 20px;
+                font-size: 18px;
                 flex: 50%;
                 text-align: left;
                 vertical-align: middle;
@@ -147,32 +269,7 @@
                 flex: 50%;
             }
 
-            #details_holder div select {
-                flex: 50%;
-            }
-
-            #details_holder div button {
-                background-color: white;
-                flex: 50%;
-            }
-
-    .gj-datepicker {
-        flex: 50%;
-    }
-
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button {
-        opacity: 1;
-    }
-
-    #typeDropDown {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        display: none;
-    }
-
-    #addButton {
+     #addButton {
         position: relative;
         display: inline-block !important;
         text-decoration: none;
@@ -220,18 +317,26 @@
 
     #breadcrumb {
         position: absolute;
+        left: 0px;
         top: 0px;
-        width: 100%;
+        height: auto;
+        width: 80%;
     }
 
     .breadcrumb-item {
-        font-size: 25px;
+        font-size: 20px;
     }
+
+        .breadcrumb-item a {
+            text-decoration: none;
+            color: #5a9ad6 !important;
+        }
 
     .breadcrumb {
         top: 0;
         background-color: #33363b !important;
         padding-left: 60px !important;
+        margin-bottom: 0 !important;
     }
 
     #profile {
@@ -249,7 +354,7 @@
             display: table;
             font-family: 'Raleway', sans-serif;
             font-weight: 200;
-            font-size: 25px;
+            font-size: 20px;
             text-decoration: none !important;
             color: #5a9ad6;
             line-height: 61px;
@@ -269,9 +374,92 @@
         .dropdown-menu li a {
             color: #5a9ad6;
         }
+    /* Customize the label (the container) */
+    .container {
+        display: block;
+        width: 25px;
+        position: relative;
+        margin-left: auto;
+        margin-top: 3px;
+        cursor: pointer;
+        font-size: 22px;
+        user-select: none;
+    }
+
+        /* Hide the browser's default checkbox */
+        .container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .container:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .container input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .container input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .container .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
 </style>
 
+
+
 <script>
+    $(document).ready(function () {
+        $('tabitem1').on('click', function () {
+            var x = document.getElementById("tabitem1").getAttribute("aria-expanded");
+
+            if (x == "true") {
+                x = "false"
+            } else {
+                x = "true"
+            }
+            document.getElementById("tabitem1").setAttribute("aria-expanded", x);
+            document.getElementById("tabitem1").innerHTML = "aria-expanded = " + x;
+        })
+
+        $('.nav-tabs>li>a').on('click', function (e) {
+            $(this).siblings().removeClass('active');
+        })
+    })
+
     $("#addButton").click(function (event) {
         swal({
             title: "Are you sure?",

@@ -24,61 +24,91 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 </head>
 
-<div id="details_holder">
-    <p>Organization Funders Details</p>
-    @Html.HiddenFor(model => model.FunderOrgID)
-    <div>
-        <p>Name:</p>
-        @Html.TextBoxFor(model => model.OrgName, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Contact Number:</p>
-        @Html.TextBoxFor(model => model.ContactNumber, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Email Address:</p>
-        @Html.TextBoxFor(model => model.EmailAddress, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Bank:</p>
-        @Html.TextBoxFor(model => model.Bank, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Account Number:</p>
-        @Html.TextBoxFor(model => model.AccountNumber, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Branch Code:</p>
-        @Html.TextBoxFor(model => model.BranchCode, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Street Address:</p>
-        @Html.TextBoxFor(model => model.StreetAddress, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>City:</p>
-        @Html.TextBoxFor(model => model.City, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Area Code:</p>
-        @Html.TextBoxFor(model => model.AreaCode, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Thanked:</p>
-        @Html.TextBoxFor(model => model.Thanked, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Funder Type:</p>
-        @Html.TextBoxFor(model => model.Name, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Project Name:</p>
-        @Html.TextBoxFor(model => model.ProjectName, new { @readonly = "readonly" })
-    </div>
-    <div id="multipleButtons">
-        <a id="modifyButton" class="btn btn-dafault">Maintain</a>
-        <a id="removeButton" class="btn btn-default">Remove</a>
-    </div>
+<div class="col-md-6" id="mytwoColumns">
+    <p id="myheading2">Funder - Organization Details</p>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#PCRDetails" id="tabitem">Funder Details</a></li>
+        <li><a data-toggle="tab" href="#LineItems" id="tabitem">Banking Details</a></li>
+        <li><a data-toggle="tab" href="#LineItems2" id="tabitem">Address Details</a></li>
+    </ul>
+
+        @Html.HiddenFor(model => model.FunderOrgID)
+        <div class="tab-content">
+            <div id="PCRDetails" class="tab-pane fade in active">
+                <div class="row-md-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body">
+                            <div>
+                                <p>Funder Name:</p>
+                                @Html.TextBoxFor(model => model.OrgName, new { @readonly = "readonly" })
+                            </div>
+                            <div>
+                                <p>Contact Number:</p>
+                                @Html.TextBoxFor(model => model.ContactNumber, new { @readonly = "readonly" })
+                            </div>
+                            <div>
+                                <p>Email Address:</p>
+                                @Html.TextBoxFor(model => model.EmailAddress, new { @readonly = "readonly" })
+                            </div>
+                            <div>
+                                <p>Funder Type:</p>
+                                @Html.TextBoxFor(model => model.TypeID, new { @readonly = "readonly" })
+                            </div>
+                            <div>
+                                <p>Project:</p>
+                                @Html.TextBoxFor(model => model.ProjectID, new { @readonly = "readonly" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="LineItems" class="tab-pane fade">
+                <div class="row-md-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body" id="cardbody2">
+                            <div>
+                                <p>Bank:</p>
+                                @Html.TextBoxFor(model => model.Bank, new { @readonly = "readonly" })
+                            </div>
+                            <div>
+                                <p>Account Number:</p>
+                                @Html.TextBoxFor(model => model.AccountNumber, new { @readonly = "readonly" })
+                            </div>
+                            <div>
+                                <p>Branch Code:</p>
+                                @Html.TextBoxFor(model => model.BranchCode, new { @readonly = "readonly" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="LineItems2" class="tab-pane fade">
+                <div class="row-md-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body" id="cardbody2">
+                            <div>
+                                <p>Street Address:</p>
+                                @Html.TextBoxFor(model => model.StreetAddress, new { @readonly = "readonly" })
+                            </div>
+                            <div>
+                                <p>City:</p>
+                                @Html.TextBoxFor(model => model.City, new { @readonly = "readonly" })
+                            </div>
+                            <div>
+                                <p>Area Code:</p>
+                                @Html.TextBoxFor(model => model.AreaCode, new { @readonly = "readonly" })
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="multipleButtons">
+            <div id="modifyButton">Maintain</div>
+            <div id="removeButton">Remove</div>
+        </div>
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -86,6 +116,109 @@
 <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "FunderOrg")'">Back</div>
 
 <style>
+    .tab-content {
+        overflow-y: auto;
+    }
+
+    #Dropdown1 {
+        width: auto;
+        border-left: 50px;
+    }
+
+    #tabitem {
+        color: black;
+    }
+
+    #myheading1 {
+        font-size: 30px;
+    }
+
+    #myheading2 {
+        transform: translateX(0px) !important;
+        font-size: 25px;
+        text-align: center;
+    }
+
+    #table_background p {
+        font-size: 25px;
+        text-align: center;
+    }
+
+    #table_background {
+        height: auto;
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    #table_id {
+        background-color: #5a9ad6;
+    }
+
+    #Flexyman {
+        display: flex;
+        flex-direction: row;
+        line-height: 30px;
+    }
+
+    #mytwoColumns {
+        position: absolute;
+        height: auto;
+        width: auto;
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    .card-body p {
+        font-size: 25px;
+        text-align: left;
+        flex: 1;
+        text-align: center;
+        flex-basis: 100%;
+    }
+
+    #cardbody2 {
+        overflow: auto;
+        max-height: 350px;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        float: left;
+        position: relative;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+    }
+
+        .card-body div {
+            display: flex;
+            flex-direction: row;
+            margin-top: 1px;
+            margin-bottom: 1px;
+        }
+
+        .card-body p {
+            text-align: left;
+            vertical-align: middle;
+            padding: 0;
+            margin: 0;
+            flex: 50%;
+        }
+
+        .card-body div input {
+            flex: 50%;
+        }
+
+        .card-body div select {
+            flex: 50%;
+        }
+
     #details_holder {
         position: absolute;
         display: flex;
@@ -259,9 +392,89 @@
         .dropdown-menu li a {
             color: #5a9ad6;
         }
+         /* Customize the label (the container) */
+    .container {
+        display: block;
+        width: 25px;
+        position: relative;
+        margin-left: auto;
+        margin-top: 3px;
+        cursor: pointer;
+        font-size: 22px;
+        user-select: none;
+    }
+
+        /* Hide the browser's default checkbox */
+        .container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .container:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .container input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .container input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .container .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
 </style>
 
 <script>
+    $(document).ready(function () {
+        $('tabitem1').on('click', function() {
+            var x = document.getElementById("tabitem1").getAttribute("aria-expanded");
+
+            if (x == "true") {
+                x = "false"
+            } else {
+                x = "true"
+            }
+            document.getElementById("tabitem1").setAttribute("aria-expanded", x);
+            document.getElementById("tabitem1").innerHTML = "aria-expanded = " + x;
+        })
+
+        $('.nav-tabs>li>a').on('click', function (e) {
+            $(this).siblings().removeClass('active');
+        })
+    })
 
     $('#modifyButton').on('click', function () {
         var funderOrgID = @Model.FunderOrgID;

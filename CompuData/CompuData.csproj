@@ -56,16 +56,19 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="CrystalDecisions.ReportAppServer.ClientDoc, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalDecisions.ReportAppServer.1.0.0\lib\CrystalDecisions.ReportAppServer.ClientDoc.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\CrystalDecisions.ReportAppServer.1.0.0\lib\CrystalDecisions.ReportAppServer.ClientDoc.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="CrystalDecisions.ReportAppServer.Controllers, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalDecisions.ReportAppServer.1.0.0\lib\CrystalDecisions.ReportAppServer.Controllers.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\CrystalDecisions.ReportAppServer.1.0.0\lib\CrystalDecisions.ReportAppServer.Controllers.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="CrystalDecisions.ReportAppServer.DataDefModel, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
-      <HintPath>..\packages\CrystalDecisions.ReportAppServer.1.0.0\lib\CrystalDecisions.ReportAppServer.DataDefModel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\CrystalDecisions.ReportAppServer.1.0.0\lib\CrystalDecisions.ReportAppServer.DataDefModel.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
       <HintPath>..\packages\CrystalDecisions.Shared.1.0.0\lib\CrystalDecisions.Shared.dll</HintPath>
@@ -256,6 +259,7 @@
     <Compile Include="Controllers\AccessLevelModifyController.cs" />
     <Compile Include="Controllers\AccessLevelsController.cs" />
     <Compile Include="Controllers\AddAccessLevelController.cs" />
+    <Compile Include="Controllers\AddBuildingController.cs" />
     <Compile Include="Controllers\AddDonationController.cs" />
     <Compile Include="Controllers\AddDonationItemController.cs" />
     <Compile Include="Controllers\AddDonationTypeController.cs" />
@@ -267,6 +271,7 @@
     <Compile Include="Controllers\AddFunderPersonController.cs" />
     <Compile Include="Controllers\AddFunderTypeController.cs" />
     <Compile Include="Controllers\AddJobTitleController.cs" />
+    <Compile Include="Controllers\AddPCRController.cs" />
     <Compile Include="Controllers\AddProjectController.cs" />
     <Compile Include="Controllers\AddProjectTypeController.cs" />
     <Compile Include="Controllers\AddRepairPersonController.cs" />
@@ -282,6 +287,7 @@
     <Compile Include="Controllers\AddVenueController.cs" />
     <Compile Include="Controllers\AssignDonationItemController.cs" />
     <Compile Include="Controllers\BackupRestoreMenuController.cs" />
+    <Compile Include="Controllers\BuildingsController.cs" />
     <Compile Include="Controllers\DonationController.cs" />
     <Compile Include="Controllers\DonationDetailsController.cs" />
     <Compile Include="Controllers\DonationItemController.cs" />
@@ -337,6 +343,7 @@
     <Compile Include="Controllers\ModifyVehicleServiceDetailsController.cs" />
     <Compile Include="Controllers\ModifyVenueController.cs" />
     <Compile Include="Controllers\NewPasswordController.cs" />
+    <Compile Include="Controllers\PCRController.cs" />
     <Compile Include="Controllers\ProcurementMenuController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\ProjectDetailsController.cs" />
@@ -413,6 +420,7 @@
     <Compile Include="Global\Donation.cs">
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Building.cs" />
     <Compile Include="Models\DonationType.cs" />
     <Compile Include="Global\Donation_Item.cs">
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
@@ -482,6 +490,8 @@
     <Compile Include="Global\Project.cs">
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PCR.cs" />
+    <Compile Include="Models\PCRLine.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\ProjectType.cs" />
     <Compile Include="Global\Project_Type.cs">
@@ -782,7 +792,9 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -924,6 +936,18 @@
     <Content Include="Views\RepairPersons\Index.cshtml" />
     <Content Include="Views\SelectRequest\Index.cshtml" />
     <Content Include="Views\BackupRestoreMenu\Index.cshtml" />
+    <Content Include="Views\Buildings\Index.cshtml" />
+    <Content Include="Views\AddBuilding\Index.cshtml" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\AddPCR\Index.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -938,6 +962,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Views\Global\" />
+    <Folder Include="Views\PCR\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
