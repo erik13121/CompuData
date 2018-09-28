@@ -1,5 +1,5 @@
 ﻿<div id="profile">
-    <a id="userDropDown" href="#" class="dropdown-toggle " data-toggle="dropdown" aria-expanded="true">User<span class="glyphicon glyphicon-user"></span></a>
+    <a id="userDropDown" href="#" class="dropdown-toggle " data-toggle="dropdown" aria-expanded="true"><span id="helpButton">&#63;</span>User<span class="glyphicon glyphicon-user"></span></a>
     <ul class="dropdown-menu" role="menu">
         <li class=""><a class="">Account<span class="glyphicon glyphicon-file"></span></a></li>
         @{using (Html.BeginForm("Logout", "Login", FormMethod.Post, new { id = "logoutForm" }))
@@ -8,6 +8,58 @@
 
                 <li class=""><a href="javascript:document.getElementById('logoutForm').submit()">Logout<span class="glyphicon glyphicon-off"></span></a></li>
             }
-        }        
-    </ul>
+        }
+    </ul>    
 </div>
+
+<style>
+    #profile a {
+        display: table;
+        font-family: 'Raleway', sans-serif;
+        font-weight: 200;
+        font-size: 20px;
+        text-decoration: none !important;
+        color: #5a9ad6;
+        line-height: 61px;
+        vertical-align: middle;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #profile>a {
+        display: table !important;
+        text-decoration: none !important;
+        color: #5a9ad6 !important;
+        vertical-align: middle !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    #helpButton {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        border: 2px solid #5a9ad6;
+        margin-right: 5px;
+        transition: background-color linear 0.5s;
+    }
+
+    #helpButton:hover {
+        background-color: rgba(0, 255, 255, 0.4);
+    }
+
+    .dropdown-menu {
+        background-color: #33363b
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('#helpButton').on('click', function () {
+            @*window.location.href = '@Url.Action("Index", "HelpPage")';*@
+        })
+    })
+</script>

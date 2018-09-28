@@ -41,6 +41,7 @@
                 <li class="menu_item">@Html.ActionLink("Funders", "Index", "FundersMenu")</li>
                 <li class="menu_item">@Html.ActionLink("Donors", "Index", "DonorsMenu")</li>
                 <li class="menu_item">@Html.ActionLink("Reporting", "Index", "ReportsMain")</li>
+                <li class="menu_item">@Html.ActionLink("Backup & Restore", "Index", "BackupRestoreMenu")</li>
             </ul>
             <div id="menu_right">
                 <img src="~/Content/CompuData(Transparent).png" />
@@ -96,6 +97,10 @@
     $(document).ready(function () {
         $(".breadcrumb").css("margin-bottom", "0");
     });
+
+    var contentSize = $("#breadcrumb").height();
+    $("#profile").css("height", contentSize);
+    $("#profile>a").css("cssText", "line-height: " + contentSize + "px !important;");
 
     var element = document.getElementById('breadcrumb');
     new ResizeSensor(element, function () {
