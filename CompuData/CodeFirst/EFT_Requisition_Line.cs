@@ -18,7 +18,7 @@ namespace CompuData.CodeFirst
 
         public int? QuantityEFT { get; set; }
 
-        public double? UnitPriceEFT { get; set; }
+        public decimal? UnitPriceEFT { get; set; }
 
         [Key]
         [Column(Order = 1)]

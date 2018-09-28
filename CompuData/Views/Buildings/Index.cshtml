@@ -1,8 +1,8 @@
 ﻿
 @{
-    ViewBag.Title = "AccessLevels";
+    ViewBag.Title = "Buildings";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    @model CompuData.Models.AccessLevel
+    @model CompuData.Models.Building
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
@@ -10,16 +10,16 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../AccessLevel">User Access Menu</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Access Level</li>
+        <li class="breadcrumb-item"><a href="../VenueMenu">Building & Venue Menu</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Buildings</li>
     </ol>
 </nav>
 @Html.Partial("_ProfilePartial")
 <div id="table_background">
-    <p>Access Levels</p>
+    <p>Buildings</p>
     <table id="table_id" class="display"></table>
-    <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddAccessLevel")'">Add Access Level</div>
-    <div id="backButton" onclick="window.location = '@Url.Action("Index", "AccessLevel")'">Back</div>
+    <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddBuilding")'">Add Building</div>
+    <div id="backButton" onclick="window.location = '@Url.Action("Index", "VenueMenu")'">Back</div>
 </div>
 <style>
     #table_background p {
@@ -148,27 +148,41 @@
     $(document).ready(function () {
         table = $('#table_id').DataTable({
             serverSide: true,
-            ajax: "/AccessLevels/PageData",
+            ajax: "/Buildings/PageData",
             autoWidth: true,
             columns: [
                 {
-                    name: 'accessLevelID',
-                    data: 'accessLevelID',
-                    title: "Access Level ID",
+                    name: 'buildingID',
+                    data: 'buildingID',
+                    title: "ID",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'levelName',
-                    data: "levelName",
-                    title: "Level Name",
+                    name: 'name',
+                    data: "name",
+                    title: "Name",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'levelDescription',
-                    data: "levelDescription",
-                    title: "Description",
+                    name: 'streetAddress',
+                    data: "streetAddress",
+                    title: "Street Address",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'city',
+                    data: "city",
+                    title: "City",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'areaCode',
+                    data: "areaCode",
+                    title: "Area Code",
                     sortable: true,
                     searchable: true
                 },
@@ -196,7 +210,7 @@
 
     @Model.JavaScriptToRun
     function mySuccess() {
-        swal("You have successfully added an Access Level", {
+        swal("You have successfully added aa Building", {
             icon: "success",
         });
         //window.location = "/Vehicles/Index";
@@ -204,14 +218,14 @@
 
     @TempData["js"];
     function myUpdateSuccess() {
-        swal("You have successfully updated the Access Level", {
+        swal("You have successfully updated the Building", {
             icon: "success",
         });
     }
 
     $.ajax({
         type: "POST",
-        url: '@Url.Action("SetTempData", "AccessLevels")',
+        url: '@Url.Action("SetTempData", "Buildings")',
         success: function () {
 
         }
@@ -219,12 +233,12 @@
 
     $('#table_id').on('click', '.glyphicon-eye-open', function () {
         var data = table.row($(this).parents('tr')).data();
-        var levelID = data["accessLevelID"];
+        var buildingID = data["buildingID"];
 
         $.ajax({
-            url: '@Url.Action("RedirectToAccessLevelDetails", "AccessLevelDetails")',
+            url: '@Url.Action("RedirectToBuildingDetails", "BuildingDetails")',
             type: 'POST',
-            data: { levelID: levelID },
+            data: { buildingID: buildingID },
             dataType: 'json',
             success: function (data) {
                 window.location.href = data.Url; // your action should return an object having [redirecturl] property
@@ -234,13 +248,13 @@
 
     $('#table_id').on('click', '.glyphicon-pencil', function () {
         var data = table.row($(this).parents('tr')).data();
-        var levelID = data["accessLevelID"];
+        var buildingID = data["buildingID"];
         @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
 
         $.ajax({
-            url: '@Url.Action("RedirectToModifyAccessLevelDetails", "AccessLevelModify")',
+            url: '@Url.Action("RedirectToModifyBuildingDetails", "ModifyBuildingDetails")',
             type: 'POST',
-            data: { levelID: levelID },
+            data: { buildingID: buildingID },
             dataType: 'json',
             success: function (data) {
                 window.location.href = data.Url;
@@ -250,10 +264,10 @@
 
     $('#table_id').on('click', '.glyphicon-trash', function () {
         var data = table.row($(this).parents('tr')).data();
-        var levelID = data["accessLevelID"];
+        var buildingID = data["buildingID"];
 
         swal({
-            title: "Are you sure you want to delete this Access Level?",
+            title: "Are you sure you want to delete this Building?",
             icon: "warning",
             dangerMode: true,
             buttons: [
@@ -265,14 +279,14 @@
             .then((willDelete) => {
                 if (willDelete) {
                     $.ajax({
-                        url: '@Url.Action("Delete", "AccessLevels")',
+                        url: '@Url.Action("Delete", "Buildings")',
                         type: 'POST',
-                        data: { levelID: levelID },
+                        data: { buildingID: buildingID },
                         dataType: 'json',
                         success: function (data) {
                             if (data.Url != "Cascading error!")
                             {
-                                swal("You have successfully deleted the Access Level", {
+                                swal("You have successfully deleted the Building", {
                                     icon: "success",
                                 });
                                 window.location.href = data.Url;

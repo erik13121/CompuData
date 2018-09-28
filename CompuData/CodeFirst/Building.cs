@@ -26,7 +26,15 @@ namespace CompuData.CodeFirst
 
         [Required]
         [MaxLength(50)]
-        public string PhysicalAddress { get; set; }
+        public string StreetAddress { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string City { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string AreaCode { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking_Refreshment_Line> Booking_Refreshment_Line { get; set; }

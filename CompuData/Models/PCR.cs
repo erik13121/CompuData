@@ -39,6 +39,9 @@ namespace CompuData.Models
 
         public string LastName { get; set; }
 
+        [RegularExpression("^[1-9]\\d{1,17}(\\.\\d{2}$)", ErrorMessage = "Total Amount must have between 1 and 18 characters and 2 decimal points")]
+        public decimal? TotalAmount { get; set; }
+
         public List<CodeFirst.Supplier> Suppliers { get; set; }
 
         public List<CodeFirst.Project> Projects { get; set; }

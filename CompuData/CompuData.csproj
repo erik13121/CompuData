@@ -254,6 +254,7 @@
     <Compile Include="Controllers\AccessLevelModifyController.cs" />
     <Compile Include="Controllers\AccessLevelsController.cs" />
     <Compile Include="Controllers\AddAccessLevelController.cs" />
+    <Compile Include="Controllers\AddBuildingController.cs" />
     <Compile Include="Controllers\AddDonationController.cs" />
     <Compile Include="Controllers\AddDonationItemController.cs" />
     <Compile Include="Controllers\AddDonationTypeController.cs" />
@@ -281,6 +282,7 @@
     <Compile Include="Controllers\AddVenueController.cs" />
     <Compile Include="Controllers\AssignDonationItemController.cs" />
     <Compile Include="Controllers\BackupRestoreMenuController.cs" />
+    <Compile Include="Controllers\BuildingsController.cs" />
     <Compile Include="Controllers\DonationController.cs" />
     <Compile Include="Controllers\DonationDetailsController.cs" />
     <Compile Include="Controllers\DonationItemController.cs" />
@@ -413,6 +415,7 @@
     <Compile Include="Global\Donation.cs">
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Building.cs" />
     <Compile Include="Models\DonationType.cs" />
     <Compile Include="Global\Donation_Item.cs">
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
@@ -941,6 +944,8 @@
     <Content Include="Views\RepairPersons\Index.cshtml" />
     <Content Include="Views\SelectRequest\Index.cshtml" />
     <Content Include="Views\BackupRestoreMenu\Index.cshtml" />
+    <Content Include="Views\Buildings\Index.cshtml" />
+    <Content Include="Views\AddBuilding\Index.cshtml" />
     <Content Include="Views\AddPCR\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

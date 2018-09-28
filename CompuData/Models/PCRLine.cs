@@ -17,7 +17,8 @@ namespace CompuData.Models
 
         public int Quantity { get; set; }
 
-        public double? UnitPrice { get; set; }
+        [RegularExpression("^[1-9]\\d{1,17}(\\.\\d{2}$)", ErrorMessage = "Unit Price must have between 1 and 18 characters and 2 decimal points")]
+        public decimal? UnitPrice { get; set; }
 
         public int RequisitionID { get; set; }
 
