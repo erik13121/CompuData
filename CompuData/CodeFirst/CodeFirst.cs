@@ -216,6 +216,10 @@ namespace CompuData.CodeFirst
                 //.HasPrecision(1, 0);
 
             modelBuilder.Entity<EFT_Requisition>()
+                .Property(e => e.TotalAmount)
+                .HasPrecision(20, 2);
+
+            modelBuilder.Entity<EFT_Requisition>()
                 .HasMany(e => e.EFT_Requisition_Line)
                 .WithRequired(e => e.EFT_Requisition)
                 .HasForeignKey(e => new { e.RequisitionID, e.SupplierID })
@@ -224,6 +228,10 @@ namespace CompuData.CodeFirst
             modelBuilder.Entity<EFT_Requisition_Line>()
                 .Property(e => e.Details)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<EFT_Requisition_Line>()
+               .Property(e => e.UnitPriceEFT)
+               .HasPrecision(20, 2);
 
             modelBuilder.Entity<Employee_Title>()
                 .Property(e => e.TitleName)
@@ -342,7 +350,7 @@ namespace CompuData.CodeFirst
 
             modelBuilder.Entity<Petty_Cash_Requisition>()
                 .Property(e => e.TotalAmount)
-                .HasPrecision(18, 2);
+                .HasPrecision(20, 2);
 
             modelBuilder.Entity<Petty_Cash_Requisition>()
                 .Property(e => e.VATInclusive);
@@ -357,6 +365,10 @@ namespace CompuData.CodeFirst
             modelBuilder.Entity<Petty_Cash_Requisition_Line>()
                 .Property(e => e.Details)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Petty_Cash_Requisition_Line>()
+               .Property(e => e.UnitPrice)
+               .HasPrecision(20, 2);
 
             modelBuilder.Entity<Project>()
                 .Property(e => e.ProjectName)

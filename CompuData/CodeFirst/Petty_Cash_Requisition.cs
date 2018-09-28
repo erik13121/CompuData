@@ -29,6 +29,8 @@ namespace CompuData.CodeFirst
         [Column(TypeName = "date")]
         public DateTime ReqDate { get; set; }
 
+        public decimal? TotalAmount { get; set; }
+
         [Key]
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
