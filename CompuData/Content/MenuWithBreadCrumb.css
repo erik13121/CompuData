@@ -194,6 +194,15 @@ footer>p {
             #menu_wrapper #menu_left .menu_item {
                 margin: 1.5vh !important;
             }
+
+            .menu_item>a {
+                text-decoration: none;
+                color: white;
+            }
+
+            .menu_item>a:hover {
+                text-decoration: none;
+            }
 }
 
 #menu_wrapper.active {
@@ -236,6 +245,15 @@ footer>p {
 
         #menu_wrapper #menu_left .menu_item:hover {
             color: #e1bee7;
+        }
+
+        .menu_item>a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .menu_item>a:hover {
+            text-decoration: none;
         }
 
 #menu_wrapper #menu_right {

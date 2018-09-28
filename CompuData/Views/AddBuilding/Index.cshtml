@@ -1,7 +1,7 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "AddBuilding";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    @model CompuData.Models.Funder_Person
+    @model CompuData.Models.Building
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
@@ -9,64 +9,22 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../FundersMenu">Funders Menu</a></li>
-        <li class="breadcrumb-item"><a href="../FunderPerson">Funder Person</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Add Funder Person</li>
+        <li class="breadcrumb-item"><a href="../VenueMenu">Building & Venue Menu</a></li>
+        <li class="breadcrumb-item"><a href="../Buildings">Buildings</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Building</li>
     </ol>
 </nav>
-
 @Html.Partial("_ProfilePartial")
-
 <div id="details_holder">
-    @using (@Html.BeginForm("Create", "AddFunderPerson", FormMethod.Post, new { id = "myForm" }))
+    @using (@Html.BeginForm("Create", "AddBuilding", FormMethod.Post, new { id = "myForm" }))
     {
-        <p>Add Funder Person</p>
-        @Html.HiddenFor(model => model.FunderPersonID)
+        <p>Building Details</p>
+        @Html.HiddenFor(model => model.BuildingID)
         <div>
-            <p>First Name:</p>
-            @Html.EditorFor(model => model.FirstName)
+            <p>Building Name:</p>
+            @Html.EditorFor(model => model.Name)
         </div>
-        @Html.ValidationMessageFor(model => model.FirstName)
-        <div>
-            <p>Middle Name:</p>
-            @Html.EditorFor(model => model.MiddleName)
-        </div>
-        @Html.ValidationMessageFor(model => model.MiddleName)
-        <div>
-            <p>Last Name:</p>
-            @Html.EditorFor(model => model.LastName)
-        </div>
-        @Html.ValidationMessageFor(model => model.LastName)
-        <div>
-            <p>Initials:</p>
-            @Html.EditorFor(model => model.Initials)
-        </div>
-        @Html.ValidationMessageFor(model => model.Initials)
-        <div>
-            <p>Cell Number:</p>
-            @Html.EditorFor(model => model.CellNum)
-        </div>
-        @Html.ValidationMessageFor(model => model.CellNum)
-        <div>
-            <p>Personal Email:</p>
-            @Html.EditorFor(model => model.PersonalEmail)
-        </div>
-        @Html.ValidationMessageFor(model => model.PersonalEmail)
-        <div>
-            <p>Bank:</p>
-            @Html.EditorFor(model => model.Bank)
-        </div>
-        @Html.ValidationMessageFor(model => model.Bank)
-        <div>
-            <p>Account Number:</p>
-            @Html.EditorFor(model => model.AccountNumber)
-        </div>
-        @Html.ValidationMessageFor(model => model.AccountNumber)
-        <div>
-            <p>Branch Code:</p>
-            @Html.EditorFor(model => model.BranchCode)
-        </div>
-        @Html.ValidationMessageFor(model => model.BranchCode)
+        @Html.ValidationMessageFor(model => model.Name)
         <div>
             <p>Street Address:</p>
             @Html.EditorFor(model => model.StreetAddress)
@@ -79,39 +37,14 @@
         @Html.ValidationMessageFor(model => model.City)
         <div>
             <p>Area Code:</p>
-            @Html.EditorFor(model => model.AreaCode)
+            @Html.EditorFor(model => model.AreaCode, new { htmlAttributes = new { @type = "number", @min = "0" } })
         </div>
         @Html.ValidationMessageFor(model => model.AreaCode)
-        <div>
-            <p>Funder Type:</p>
-            @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.FunderTypes, "TypeID", "Name"), Model.FunderTypes.Count == 0 ? "Please add Type" : null)
-        </div>
-        @Html.ValidationMessageFor(model => model.TypeID)
-        <div>
-            <p>Project:</p>
-            @Html.DropDownListFor(model => model.ProjectID, new SelectList(Model.Project, "ProjectID", "ProjectName"), "None")
-        </div>
-        @Html.ValidationMessageFor(model => model.ProjectID)
-
-        <div id="multipleButtons">
-            <div id="addButton">Save and Add Funder - Person</div>
-        </div>
     }
+    <div id="addButton">Add Building</div>
 </div>
-
-<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "FunderPerson")'">Back</div>
-
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Buildings")'">Back</div>
 <style>
-    input[type=checkbox] {
-        height: 25px;
-        margin-top: auto;
-        margin-bottom: auto;
-    }
-
-    .datepicker {
-        background-color: white;
-    }
-
     form {
         top: 0;
         left: 0;
@@ -146,7 +79,7 @@
         #details_holder div {
             display: flex;
             flex-direction: row;
-            height: 2.25em;
+            line-height: 30px;
         }
 
             #details_holder div p {
@@ -173,10 +106,6 @@
 
     .gj-datepicker {
         flex: 50%;
-    }
-
-    .gj-datepicker-md [role=right-icon] {
-        top: 0.25em;
     }
 
     input[type=number]::-webkit-inner-spin-button,
@@ -208,7 +137,6 @@
         margin-right: auto;
         padding: 10px;
         transition: background-color linear 0.5s;
-        line-height: 50%;
     }
 
         #addButton:hover {
@@ -310,4 +238,3 @@
 
     $("#addButton").css({ 'flex-basis': '' });
 </script>
-

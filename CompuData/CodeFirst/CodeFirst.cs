@@ -99,7 +99,15 @@ namespace CompuData.CodeFirst
                 .IsUnicode(false);
 
             modelBuilder.Entity<Building>()
-                .Property(e => e.PhysicalAddress)
+                .Property(e => e.StreetAddress)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Building>()
+                .Property(e => e.City)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Building>()
+                .Property(e => e.AreaCode)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Building>()
@@ -331,6 +339,10 @@ namespace CompuData.CodeFirst
             modelBuilder.Entity<Petty_Cash_Requisition>()
                 .Property(e => e.ApprovalStatus)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Petty_Cash_Requisition>()
+                .Property(e => e.TotalAmount)
+                .HasPrecision(18, 2);
 
             modelBuilder.Entity<Petty_Cash_Requisition>()
                 .Property(e => e.VATInclusive);
