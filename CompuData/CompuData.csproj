@@ -318,6 +318,7 @@
     <Compile Include="Controllers\FundersMenuController.cs" />
     <Compile Include="Controllers\FunderTypeController.cs" />
     <Compile Include="Controllers\FunderTypeDetailsController.cs" />
+    <Compile Include="Controllers\HelpPageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobTitleController.cs" />
     <Compile Include="Controllers\JobTitleDetailsController.cs" />
@@ -957,6 +958,7 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\HelpPage\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
