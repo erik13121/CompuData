@@ -14,28 +14,31 @@ namespace CompuData.Models
         public int DonorOrgID { get; set; }
 
         [Required(ErrorMessage = "The Organization Name is required")]
-        [MaxLength(100, ErrorMessage = "You are only allowed up to 100 characters as the Organization Name")]
+        [RegularExpression("^[a-zA-Z1-9- ]*$", ErrorMessage = "No special characters are allowed.")]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 100 characters as the Organization Name")]
         public string OrgName { get; set; }
 
         [Required(ErrorMessage = "The Contact Number is required")]
-        [RegularExpression("\\d{10}", ErrorMessage = "The Cellphone Number must consist of 10 numbers in the format (xxxxxxxxxx)")]
-        [MaxLength(10, ErrorMessage = "The Cellphone Number must consist of 10 numbers in the format (xxxxxxxxxx)")]
+        [Phone(ErrorMessage = "Invalid Contact Number format")]
         public string ContactNum { get; set; }
 
         [Required(ErrorMessage = "The Contact Email is required")]
         [EmailAddress(ErrorMessage = "Invalid email format")]
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "Max of 50 characters allowed as the Contact Email")]
         public string ContactEmail { get; set; }
 
         [Column(TypeName = "bit")]
         public bool Thanked { get; set; }
 
+        [RegularExpression("^[a-zA-Z1-9 ]*$", ErrorMessage = "No special characters are allowed.")]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Street Address")]
         public string StreetAddress { get; set; }
 
-        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the City")]
+        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the City Name")]
         public string City { get; set; }
 
+        [RegularExpression("\\d{4}", ErrorMessage = "The Area Code must consist of 4 numbers in the format (xxxx)")]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Area Code")]
         public string AreaCode { get; set; }
         public string JavaScriptToRun { get; set; }

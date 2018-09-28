@@ -32,7 +32,7 @@ namespace CompuData.CodeFirst
         [MaxLength(50)]
         public string Initials { get; set; }
 
-        [MaxLength(10)]
+        [MaxLength(50)]
         public string CellNum { get; set; }
 
         [Required]

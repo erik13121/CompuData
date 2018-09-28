@@ -11,11 +11,12 @@ namespace CompuData.Models
         public int TypeID { get; set; }
 
         [Required(ErrorMessage = "An Equipment Type Name is required")]
-        [MaxLength(50, ErrorMessage = "You have entered too many characters!")]
+        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "No numbers or special characters are allowed.")]
+        [MaxLength(50, ErrorMessage = "Max of 50 characters allowed for Equipment Type Name")]
         public string TypeName { get; set; }
 
         [Required(ErrorMessage = "An Equipment Type Description is required")]
-        [MaxLength(50, ErrorMessage = "You have entered too many characters!")]
+        [MaxLength(50, ErrorMessage = "Max of 50 characters allowed for Description")]
         public string TypeDescription { get; set; }
 
         [Column(TypeName = "bit")]

@@ -15,17 +15,17 @@ namespace CompuData.Models
         public int RepPersonID { get; set; }
 
         [Required(ErrorMessage = "The Person's Name is required")]
-        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]
+        [RegularExpression("^[a-zA-Z- ]*$", ErrorMessage = "No numbers or special characters are allowed.")]
         [MaxLength(30, ErrorMessage = "The Name(s) can only be up to 30 characters long")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "The Email Address is required")]
-        [MaxLength(50, ErrorMessage = "The Email Address can only be up to 50 characters long")]
         [EmailAddress(ErrorMessage = "Invalid Email Address Format")]
+        [MaxLength(50, ErrorMessage = "The Email Address can only be up to 50 characters long")]
         public string EmailAddress { get; set; }
 
         [Required(ErrorMessage = "The Bank Name is required")]
-        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]
+        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "No numbers or special characters allowed.")]
         [MaxLength(30, ErrorMessage = "The Bank Name can only be up to 30 characters long")]
         public string Bank { get; set; }
 
@@ -34,7 +34,7 @@ namespace CompuData.Models
         [MaxLength(16, ErrorMessage = "The Account Number can only be up to 16 characters long")]
         public string AccountNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The Branch Code is required")]
         [RegularExpression("\\d{4,10}", ErrorMessage = "The Branch Code must consist of between 4 and 10 numbers")]
         [MaxLength(10, ErrorMessage = "The Branch Code can only be up to 10 characters long")]
         public string BranchCode { get; set; }

@@ -14,8 +14,8 @@ namespace CompuData.Models
         public int JobTitleID { get; set; }
 
         [Required(ErrorMessage = "The Job Title Name is required")]
-        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]
-        [MaxLength(50)]
+        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "No numbers or special characters are allowed.")]
+        [MaxLength(50, ErrorMessage = "Max of 50 characters are allowed for the Job Title Name")]
         public string TitleName { get; set; }
 
         public string JavaScriptToRun { get; set; }

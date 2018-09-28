@@ -17,7 +17,7 @@ namespace CompuData.Models
         public string Name { get; set; }
 
         [Required(ErrorMessage = "The Funder Type Description is required")]
-        [RegularExpression("^[a-zA-Z- ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]
+        [RegularExpression("^[a-zA-Z- ]*$", ErrorMessage = "No numbers or special characters are allowed.")]
         [MaxLength(50, ErrorMessage = "The Funder Type Description can be a maximum of 50 characters")]
         public string Description { get; set; }
 

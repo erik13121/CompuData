@@ -18,12 +18,15 @@ namespace CompuData.Models
         public string ManufacturerName { get; set; }
 
         [Required(ErrorMessage = "The Model Number is required")]
+        [RegularExpression("^[a-zA-Z1-9- ]*$", ErrorMessage = "No special characters are allowed.")]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Model Number")]
         public string ModelNumber { get; set; }
 
+        [Required(ErrorMessage = "The Date Purchased is Required")]
         [Column(TypeName = "date")]
         public DateTime DatePurchased { get; set; }
 
+        [Required(ErrorMessage = "The Service Interval in Months is Required")]
         [RegularExpression("\\d{1,2}", ErrorMessage = "The Service Interval Months has to consist of between 1 and 2-digit numbers")]
         public int ServiceIntervalMonths { get; set; }
 

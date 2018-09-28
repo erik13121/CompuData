@@ -11,7 +11,7 @@ namespace CompuData.Models
         public int LicenceID { get; set; }
 
         [Required(ErrorMessage = "The Name of the Software is required")]
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "Max allowed characters for the Software name is 50")]
         public string SoftwareName { get; set; }
 
         public int? ActivationPeriodInMonths { get; set; }

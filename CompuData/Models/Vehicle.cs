@@ -15,21 +15,21 @@ namespace CompuData.Models
         public int VehicleID { get; set; }
 
         [Required(ErrorMessage = "The Brand is required")]
-        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]
+        [RegularExpression("^[a-zA-Z- ]*$", ErrorMessage = "No numbers or special characters are allowed")]
         [DataType(DataType.Text)]
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Brand Name")]
         public string Brand { get; set; }
 
         [Required(ErrorMessage = "The Model is required")]
-        [RegularExpression("^[a-zA-Z0-9 ]*$", ErrorMessage = "No special characters are allowed!")]
+        [RegularExpression("^[a-zA-Z0-9- ]*$", ErrorMessage = "No special characters are allowed")]
         [DataType(DataType.Text)]
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Model")]
         public string Model { get; set; }
 
         [Required(ErrorMessage = "The Number Plate is required")]
-        [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "No special characters or spaces are allowed!")]
+        [RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "No spaces or special characters are allowed!")]
         [DataType(DataType.Text)]
-        [MaxLength(8, ErrorMessage = "You are only allowed up to 6 characters on a License Plate")]
+        [MaxLength(8, ErrorMessage = "You are only allowed up to 8 characters on a License Plate")]
         public string NumberPlate { get; set; }
 
         [Column(TypeName = "date")]
@@ -56,9 +56,13 @@ namespace CompuData.Models
 
         [Required(ErrorMessage = "Please Add a Vehicle Type first")]
         public int TypeID { get; set; }
+
         public string TypeName { get; set; }
+
         public string JavaScriptToRun { get; set; }
+
         public List<CodeFirst.Vehicle_Type> VehicleTypes { get; set; }
+
         public Vehicle() { }
         public Vehicle(int id, string brand, string model, string numberPlate, DateTime? purchase, DateTime? repair, DateTime? licensePurchase, DateTime? expire, int? kmsInterval, int? monthInterval, int typeID)
         {

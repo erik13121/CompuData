@@ -15,11 +15,11 @@ namespace CompuData.Models
 
         [Required(ErrorMessage = "The Access Level Name is required")]
         [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "Max of 50 characters allowed as the Access Level Name")]
         public string LevelName { get; set; }
 
         [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "Max of 50 characters allowed as the Description")]
         public string LevelDescription { get; set; }
 
         public string JavaScriptToRun { get; set; }

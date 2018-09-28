@@ -15,7 +15,7 @@ namespace CompuData.Models
 
         [Required(ErrorMessage = "The Type Name is required")]
         [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]
-        [MaxLength(50)]
+        [MaxLength(50, ErrorMessage = "Max of 50 characters allowed as the Donation Type Name")]
         public string TypeName { get; set; }
 
         public string JavaScriptToRun { get; set; }

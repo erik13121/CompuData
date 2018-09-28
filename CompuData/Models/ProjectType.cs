@@ -20,7 +20,7 @@ namespace CompuData.Models
 
         [Required(ErrorMessage = "The Project Type Description is required")]
         [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]
-        [MaxLength(30, ErrorMessage = "The Project Type Description can be a maximum of 30 characters")]
+        [MaxLength(50, ErrorMessage = "The Project Type Description can be a maximum of 30 characters")]
         public string TypeDescription { get; set; }
 
         public string JavaScriptToRun { get; set; }

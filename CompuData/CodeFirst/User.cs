@@ -49,15 +49,15 @@ namespace CompuData.CodeFirst
         [MaxLength(13)]
         public string NationalID { get; set; }
 
-        [MaxLength(10)]
+        [MaxLength(50)]
         public string CellNum { get; set; }
 
         [Required]
-        [MaxLength(10)]
+        [MaxLength(50)]
         public string TelNum { get; set; }
 
         [Required]
-        [MaxLength(10)]
+        [MaxLength(50)]
         public string WorkNum { get; set; }
 
         [Required]

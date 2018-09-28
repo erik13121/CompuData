@@ -23,7 +23,7 @@ namespace CompuData.CodeFirst
         public string OrgName { get; set; }
 
         [Required]
-        [MaxLength(10)]
+        [MaxLength(50)]
         public string ContactNum { get; set; }
 
         [Required]

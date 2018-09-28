@@ -14,21 +14,24 @@ namespace CompuData.Models
         public int DonorPID { get; set; }
 
         [Required(ErrorMessage = "The First Name is required")]
-        [MaxLength(100, ErrorMessage = "You are only allowed up to 100 characters as the First Name")]
+        [RegularExpression("^[a-zA-Z- ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters are allowed.")]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 100 characters as the First Name")]
         public string FirstName { get; set; }
 
+        [RegularExpression("^[a-zA-Z- ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Middle Name")]
         public string MiddleName { get; set; }
 
         [Required(ErrorMessage = "The Last Name is required")]
+        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters are allowed.")]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Last Name")]
         public string SecondName { get; set; }
 
-        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Initials")]
+        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters are allowed.")]
+        [MaxLength(10, ErrorMessage = "You are only allowed up to 50 characters as the Initials")]
         public string Initials { get; set; }
 
-        [MaxLength(10, ErrorMessage = "The Cellphone Number must consist of 10 numbers in the format (xxxxxxxxxx)")]
-        [RegularExpression("\\d{10}", ErrorMessage = "The Cellphone Number must consist of 10 numbers in the format (xxxxxxxxxx)")]
+        [Phone(ErrorMessage = "Invalid Cell Number format")]
         public string CellNum { get; set; }
 
         [Required(ErrorMessage = "The Personal Email is required")]
@@ -36,12 +39,15 @@ namespace CompuData.Models
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Email")]
         public string PersonalEmail { get; set; }
 
+        [RegularExpression("^[a-zA-Z1-9 ]*$", ErrorMessage = "No special characters are allowed.")]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Street Address")]
         public string StreetAddress { get; set; }
 
+        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters are allowed.")]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the City")]
         public string City { get; set; }
 
+        [RegularExpression("\\d{4}", ErrorMessage = "The Area Code must consist of 4 numbers in the format (xxxx)")]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Area Code")]
         public string AreaCode { get; set; }
 

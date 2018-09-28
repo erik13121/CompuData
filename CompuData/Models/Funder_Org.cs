@@ -13,14 +13,13 @@ namespace CompuData.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int FunderOrgID { get; set; }
 
-        [Required]
-        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]
+        [Required(ErrorMessage = "The Organization Name is required")]
+        [RegularExpression("^[a-zA-Z1-9- ]*$", ErrorMessage = "No special characters are allowed.")]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Organization Name")]
         public string OrgName { get; set; }
 
         [Required(ErrorMessage = "The Contact Number is required")]
-        [MaxLength(10, ErrorMessage = "The Contact Number must consist of 10 numbers in the format (xxxxxxxxxx)")]
-        [RegularExpression("\\d{10}", ErrorMessage = "The Contact Number must consist of 10 numbers in the format (xxxxxxxxxx)")]
+        [Phone(ErrorMessage = "Invalid Contact Number format")]
         public string ContactNumber { get; set; }
 
         [Required(ErrorMessage = "The Personal Email is required")]
@@ -28,6 +27,7 @@ namespace CompuData.Models
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Email Address")]
         public string EmailAddress { get; set; }
 
+        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "No numbers or special characters are allowed.")]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Bank Name")]
         public string Bank { get; set; }
 
@@ -37,12 +37,15 @@ namespace CompuData.Models
         [RegularExpression("\\d{4,12}", ErrorMessage = "The Account Number must consist of between 4 and 12 numbers")]
         public string BranchCode { get; set; }
 
+        [RegularExpression("^[a-zA-Z1-9 ]*$", ErrorMessage = "No special characters are allowed.")]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Street Address")]
         public string StreetAddress { get; set; }
 
+        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "No numbers or special characters are allowed.")]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the City")]
         public string City { get; set; }
 
+        [RegularExpression("\\d{4}", ErrorMessage = "The Area Code must consist of 4 numbers in the format (xxxx)")]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Area Code")]
         public string AreaCode { get; set; }
 

@@ -17,9 +17,11 @@ namespace CompuData.Models
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Project Name")]
         public string ProjectName { get; set; }
 
+        [Required(ErrorMessage = "The Start Date is Required")]
         [Column(TypeName = "date")]
         public DateTime StartDate { get; set; }
 
+        [Required(ErrorMessage = "The Expected Finish Date is Required")]
         [Column(TypeName = "date")]
         public DateTime ExpectedFinishDate { get; set; }
 
@@ -27,15 +29,20 @@ namespace CompuData.Models
         public bool Finished { get; set; }
 
         [Required(ErrorMessage = "The Project Description is required")]
+        [RegularExpression("^[a-zA-Z1-9- ]*$", ErrorMessage = "No special characters are allowed.")]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Project Description")]
         public string ProjectDescription { get; set; }
 
         [Required(ErrorMessage = "Please Add a Project Type first")]
         public int TypeID { get; set; }
+
         public string TypeName { get; set; }
 
+        [Required(ErrorMessage = "Please Add a User first")]
         public int UserID { get; set; }
+
         public string Initials { get; set; }
+
         public string LastName { get; set; }
 
         public string JavaScriptToRun { get; set; }

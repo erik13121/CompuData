@@ -15,13 +15,13 @@ namespace CompuData.Models
         public int TypeID { get; set; }
 
         [Required(ErrorMessage = "The Vehicle Type Name is required")]
-        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]
+        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "No numbers or special characters are allowed.")]
         [DataType(DataType.Text)]
         [MaxLength(30, ErrorMessage = "Name must be shorter than 30 characters")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "The Description is required")]
-        [RegularExpression("^[a-zA-Z 0-9]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]
+        [RegularExpression("^[a-zA-Z0-9- ]*$", ErrorMessage = "No special characters are allowed.")]
         [DataType(DataType.Text)]
         [MaxLength(30, ErrorMessage = "Description must be shorter than 30 characters")]
         public string Description { get; set; }
