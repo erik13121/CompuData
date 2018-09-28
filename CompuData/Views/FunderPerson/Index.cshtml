@@ -20,7 +20,7 @@
 
 <div id="table_background">
     <p>Funders - Person</p>
-    <table id="table_id" class="display" cellspacing="0"></table>
+    <table id="table_id" class="display" cellspacing="0" width="100%"></table>
     @Html.HiddenFor(model => model.JavaScriptToRun)
     <div id="multipleButtons">
         <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddFunderPerson")'">Add Funder - Person</div>
@@ -190,6 +190,7 @@
             color: #5a9ad6;
         }
 </style>
+
 <script>
     var table;
     $(document).ready(function () {

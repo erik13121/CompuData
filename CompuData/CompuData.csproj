@@ -479,6 +479,8 @@
     <Compile Include="Global\Project.cs">
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PCR.cs" />
+    <Compile Include="Models\PCRLine.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\ProjectType.cs" />
     <Compile Include="Global\Project_Type.cs">
