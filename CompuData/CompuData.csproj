@@ -287,6 +287,7 @@
     <Compile Include="Controllers\AddVenueController.cs" />
     <Compile Include="Controllers\AssignDonationItemController.cs" />
     <Compile Include="Controllers\BackupRestoreMenuController.cs" />
+    <Compile Include="Controllers\BuildingDetailsController.cs" />
     <Compile Include="Controllers\BuildingsController.cs" />
     <Compile Include="Controllers\DonationController.cs" />
     <Compile Include="Controllers\DonationDetailsController.cs" />
@@ -325,6 +326,7 @@
     <Compile Include="Controllers\JobTitleModifyController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MainMenuController.cs" />
+    <Compile Include="Controllers\ModifyBuildingDetailsController.cs" />
     <Compile Include="Controllers\ModifyDonorOrgController.cs" />
     <Compile Include="Controllers\ModifyDonorPersonController.cs" />
     <Compile Include="Controllers\ModifyEquipmentDetails.cs" />
@@ -959,6 +961,8 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\HelpPage\Index.cshtml" />
+    <Content Include="Views\BuildingDetails\Index.cshtml" />
+    <Content Include="Views\ModifyBuildingDetails\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

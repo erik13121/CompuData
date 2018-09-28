@@ -1,8 +1,8 @@
 ﻿
 @{
-    ViewBag.Title = "AccessLevelDetails";
+    ViewBag.Title = "BuildingDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    @model CompuData.Models.AccessLevel
+    @model CompuData.Models.Building
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
@@ -10,29 +10,37 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../AccessLevel">User Menu</a></li>
-        <li class="breadcrumb-item"><a href="../AccessLevels">Access Levels</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Access Level Details</li>
+        <li class="breadcrumb-item"><a href="../VenueMenu">Building & Venue Menu</a></li>
+        <li class="breadcrumb-item"><a href="../Buildings">Buildings</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Building Details</li>
     </ol>
 </nav>
 @Html.Partial("_ProfilePartial")
 <div id="details_holder">
-    <p>Access Level Details</p>
-    @Html.HiddenFor(model => model.AccessLevelID)
+    <p>Building Details</p>
+    @Html.HiddenFor(model => model.BuildingID)
     <div id="donationitemDetails">
-        <p>Access Level Name:</p>
-        @Html.TextBoxFor(model => model.LevelName, new { @readonly = "readonly" })
+        <p>Building Name:</p>
+        @Html.TextBoxFor(model => model.Name, new { @readonly = "readonly" })
     </div>
     <div id="donationitemDescDetails">
-        <p>Description:</p>
-        @Html.TextBoxFor(model => model.LevelDescription, new { @readonly = "readonly" })
+        <p>Street Address:</p>
+        @Html.TextBoxFor(model => model.StreetAddress, new { @readonly = "readonly" })
+    </div>
+    <div id="donationitemDescDetails">
+        <p>City:</p>
+        @Html.TextBoxFor(model => model.City, new { @readonly = "readonly" })
+    </div>
+    <div id="donationitemDescDetails">
+        <p>Area Code:</p>
+        @Html.TextBoxFor(model => model.AreaCode, new { @readonly = "readonly" })
     </div>
     <div id="multipleButtons">
         <div id="modifyButton">Modify</div>
         <div id="removeButton">Remove</div>
     </div>
 </div>
-<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "AccessLevels")'">Back</div>
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Buildings")'">Back</div>
 <style>
     #details_holder {
         position: absolute;
@@ -209,14 +217,14 @@
 </style>
 <script>
     $('#modifyButton').on('click', function () {
-        var levelID = @Model.AccessLevelID;
+        var buildingID = @Model.BuildingID;
         @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);
             Session["Query"] = Request.Url.Query;}
 
         $.ajax({
-            url: '@Url.Action("RedirectToModifyAccessLevelDetails", "AccessLevelModify")',
+            url: '@Url.Action("RedirectToModifyBuildingDetails", "ModifyBuildingDetails")',
             type: 'POST',
-            data: { levelID: levelID },
+            data: { buildingID: buildingID },
             dataType: 'json',
             success: function (data) {
                 window.location.href = data.Url;
@@ -225,10 +233,10 @@
     });
 
     $('#removeButton').on('click', function () {
-        var levelID = @Model.AccessLevelID;
+        var buildingID = @Model.BuildingID;
 
         swal({
-            title: "Are you sure you want to delete this Access Level?",
+            title: "Are you sure you want to delete this Building?",
             icon: "warning",
             dangerMode: true,
             buttons: [
@@ -240,13 +248,13 @@
             .then((willDelete) => {
                 if (willDelete) {
                     $.ajax({
-                        url: '@Url.Action("Delete", "AccessLevels")',
+                        url: '@Url.Action("Delete", "Buildings")',
                         type: 'POST',
-                        data: { levelID: levelID },
+                        data: { buildingID: buildingID },
                         dataType: 'json',
                         success: function (data) {
                             if (data.Url != "Cascading error!") {
-                                swal("You have successfully deleted the Access Level", {
+                                swal("You have successfully deleted the Building", {
                                     icon: "success",
                                 }).then((done) => {
                                     if (done)
