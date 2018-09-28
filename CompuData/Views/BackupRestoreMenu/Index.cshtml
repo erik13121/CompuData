@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "BackupRestoreMenu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
+    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+}
+
+<link href="@Url.Content("~/Content/MenuWithSubmenu.css")" rel="stylesheet" type="text/css" />
+<nav id="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Backup & Restore Menu</li>
+    </ol>
+</nav>
+
+@Html.Partial("_ProfilePartial")
+<div id="menuwithSub_wrapper">
+    <ul id="menuwithSub_left">
+        <ul class="newmenu_item">
+            <li class="newsubMenu_item">
+                <p style="margin-left: 6vh !important">@Html.ActionLink("Backup", "DoBackup", "BackupRestoreMenu")</p>
+            </li>
+            <li class="newsubMenu_item">
+                <p style="margin-left: 6vh !important">@Html.ActionLink("Restore", "DoRestore", "BackupRestoreMenu")</p>
+            </li>
+        </ul>
+    </ul>
+    <div id="menuwithSub_right">
+        <img src="~/Content/CompuData(Transparent).png" />
+
+        <h1>CompuData</h1>
+    </div>
+</div>
+
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "MainMenu")'">Back</div>
