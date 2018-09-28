@@ -271,6 +271,7 @@
     <Compile Include="Controllers\AddFunderPersonController.cs" />
     <Compile Include="Controllers\AddFunderTypeController.cs" />
     <Compile Include="Controllers\AddJobTitleController.cs" />
+    <Compile Include="Controllers\AddPCRController.cs" />
     <Compile Include="Controllers\AddProjectController.cs" />
     <Compile Include="Controllers\AddProjectTypeController.cs" />
     <Compile Include="Controllers\AddRepairPersonController.cs" />
@@ -342,6 +343,7 @@
     <Compile Include="Controllers\ModifyVehicleServiceDetailsController.cs" />
     <Compile Include="Controllers\ModifyVenueController.cs" />
     <Compile Include="Controllers\NewPasswordController.cs" />
+    <Compile Include="Controllers\PCRController.cs" />
     <Compile Include="Controllers\ProcurementMenuController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\ProjectDetailsController.cs" />
@@ -943,11 +945,13 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\AddPCR\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Views\Global\" />
+    <Folder Include="Views\PCR\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
