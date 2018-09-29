@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "VenueDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    @model CompuData.Models.Venue
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
@@ -9,24 +10,30 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Venue Menu</a></li>
-        <li class="breadcrumb-item"><a href="#">Venues</a></li>
+        <li class="breadcrumb-item"><a href="../VenueMenu">Building & Venue Menu</a></li>
+        <li class="breadcrumb-item"><a href="../Venues">Venues</a></li>
         <li class="breadcrumb-item active" aria-current="page">Venue Details</li>
     </ol>
 </nav>
 @Html.Partial("_ProfilePartial")
 <div id="details_holder">
     <p>Venue Details</p>
+    @Html.HiddenFor(model => model.VenueID)
     <div>
         <p>Venue Name:</p>
-        <input type="text" disabled />
+        @Html.TextBoxFor(model => model.Name, new { @readonly = "readonly" })
+    </div>
+    <div>
+        <p>Building Name:</p>
+        @Html.TextBoxFor(model => model.BuildingName, new { @readonly = "readonly" })
     </div>
     <div id="multipleButtons">
         <div id="modifyButton">Modify</div>
         <div id="removeButton">Remove</div>
     </div>
 </div>
-<div id="backButton">Back</div>
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Venues")'">Back</div>
+
 <style>
     #details_holder {
         position: absolute;
@@ -55,7 +62,7 @@
         }
 
             #details_holder div p {
-                font-size: 22px;
+                font-size: 18px;
                 flex: 50%;
                 text-align: left;
                 vertical-align: middle;
@@ -74,19 +81,19 @@
 
     #modifyButton {
         position: relative;
-        z-index: 8000;
+        display: inline-block !important;
         text-decoration: none;
         color: white;
         cursor: pointer;
         letter-spacing: 0.15em;
         text-transform: uppercase;
-        margin-left: auto;
-        margin-right: auto;
         box-sizing: border-box;
         border: solid white;
         border-width: 2px;
         border-radius: 50px 50px 50px 50px;
         margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
         padding: 10px;
         transition: background-color linear 0.5s;
     }
@@ -97,19 +104,19 @@
 
     #removeButton {
         position: relative;
-        z-index: 8000;
+        display: inline-block !important;
         text-decoration: none;
         color: white;
         cursor: pointer;
         letter-spacing: 0.15em;
         text-transform: uppercase;
-        margin-left: auto;
-        margin-right: auto;
         box-sizing: border-box;
         border: solid white;
         border-width: 2px;
         border-radius: 50px 50px 50px 50px;
         margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
         padding: 10px;
         transition: background-color linear 0.5s;
     }
@@ -201,3 +208,61 @@
             color: #5a9ad6;
         }
 </style>
+<script>
+    $('#modifyButton').on('click', function () {
+        var venueID = @Model.VenueID;
+        @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);
+            Session["Query"] = Request.Url.Query;}
+
+        $.ajax({
+            url: '@Url.Action("RedirectToModifyVenueDetails", "ModifyVenue")',
+            type: 'POST',
+            data: { venueID: venueID },
+            dataType: 'json',
+            success: function (data) {
+                window.location.href = data.Url;
+            }
+        });
+    });
+
+    $('#removeButton').on('click', function () {
+        var venueID = @Model.VenueID;
+
+        swal({
+            title: "Are you sure you want to delete this Venue?",
+            icon: "warning",
+            dangerMode: true,
+            buttons: [
+                true,
+                "Yes",
+            ],
+            closeOnClickOutside: false,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: '@Url.Action("Delete", "Venues")',
+                        type: 'POST',
+                        data: { venueID: venueID },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.Url != "Cascading error!") {
+                                swal("You have successfully deleted the Venue", {
+                                    icon: "success",
+                                }).then(() => {
+                                    window.location.href = data.Url;
+                                });
+                            }
+                            else {
+                                swal("Cannot delete this due to it being used somewhere else in the system!", {
+                                    icon: "warning",
+                                }).then(() => {
+                                    window.location.href = data.Url;
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+    });
+</script>

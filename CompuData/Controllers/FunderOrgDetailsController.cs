@@ -18,7 +18,7 @@ namespace CompuData.Controllers
                 var intFunderOrgID = Int32.Parse(funderOrgID);
                 var myFunderOrg = db.Funder_Org.Where(i => i.FunderOrgID == intFunderOrgID).FirstOrDefault();
                 var mytypeID = db.Funder_Type.Where(i => i.TypeID == myFunderOrg.TypeID).FirstOrDefault();
-                var myProjectID = db.Projects.Where(i => i.ProjectID == myFunderOrg.ProjectID).FirstOrDefault();
+                var myProject = db.Projects.Where(i => i.ProjectID == myFunderOrg.ProjectID).FirstOrDefault();
 
                 myModel.FunderOrgID = myFunderOrg.FunderOrgID;
                 myModel.OrgName = myFunderOrg.OrgName;
@@ -32,9 +32,9 @@ namespace CompuData.Controllers
                 myModel.AreaCode = myFunderOrg.AreaCode;
                 myModel.Thanked = myFunderOrg.Thanked;
                 myModel.TypeID = mytypeID.TypeID;
-                myModel.ProjectID = myProjectID.ProjectID;
+                myModel.ProjectID = myFunderOrg.ProjectID;
 
-                myModel.ProjectName = db.Projects.Where(i => i.ProjectID == myProjectID.ProjectID).FirstOrDefault().ProjectName;
+                myModel.ProjectName = myProject != null ? myProject.ProjectName : "Not linked to Project";
                 myModel.Name = db.Funder_Type.Where(i => i.TypeID == mytypeID.TypeID).FirstOrDefault().Name;
             }
 
