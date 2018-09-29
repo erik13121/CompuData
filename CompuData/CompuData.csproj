@@ -947,12 +947,12 @@
     <Content Include="Views\Buildings\Index.cshtml" />
     <Content Include="Views\AddBuilding\Index.cshtml" />
     <Content Include="Views\AddPCR\Index.cshtml" />
+    <Content Include="Views\PCR\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Views\Global\" />
-    <Folder Include="Views\PCR\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

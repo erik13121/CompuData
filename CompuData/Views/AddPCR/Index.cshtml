@@ -37,14 +37,14 @@
                         <div class="card-body">
                             <div>
                                 <p>Supplier Name:</p>
-                                @Html.EditorFor(model => model.Suppliers)
+                                @Html.DropDownListFor(model => model.SupplierID, new SelectList(Model.Suppliers, "SupplierID", "Name"), Model.Suppliers.Count == 0 ? "Please add a Supplier Name" : null)
                             </div>
-                            @Html.ValidationMessageFor(model => model.Suppliers)
+                            @Html.ValidationMessageFor(model => model.SupplierID)
                             <div>
                                 <p>Project:</p>
-                                @Html.EditorFor(model => model.ProjectName)
+                                @Html.DropDownListFor(model => model.ProjectID, new SelectList(Model.Projects, "ProjectID", "ProjectName"), Model.Projects.Count == 0 ? "Please add a Project Name" : null)
                             </div>
-                            @Html.ValidationMessageFor(model => model.ProjectName)
+                            @Html.ValidationMessageFor(model => model.ProjectID)
                             <div>
                                 <p>User Responsible:</p>
                                 @Html.DropDownListFor(model => model.UserID, Model.Users)

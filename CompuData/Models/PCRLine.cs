@@ -30,7 +30,7 @@ namespace CompuData.Models
 
         public PCRLine() { }
 
-        public PCRLine(int ID, string Dets, int Quants, double? Price, int SupID, int reqID)
+        public PCRLine(int ID, string Dets, int Quants, Decimal? Price, int SupID, int reqID)
         {
             LineID = ID;
             Details = Dets;
