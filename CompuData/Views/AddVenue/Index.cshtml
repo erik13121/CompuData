@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "AddVenue";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    @model CompuData.Models.Venue
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
@@ -8,22 +9,45 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Venue Menu</a></li>
-        <li class="breadcrumb-item"><a href="#">Venues</a></li>
+        <li class="breadcrumb-item"><a href="../VenueMenu">Building & Venue Menu</a></li>
+        <li class="breadcrumb-item"><a href="../Venues">Venues</a></li>
         <li class="breadcrumb-item active" aria-current="page">Add Venue</li>
     </ol>
 </nav>
 @Html.Partial("_ProfilePartial")
 <div id="details_holder">
-    <p>Venue Details</p>
-    <div>
-        <p>Venue Name:</p>
-        <input type="text" id="addVenueNameText" />
-    </div>
-    <div id="addButton">Add</div>
+    @using (@Html.BeginForm("Create", "AddVenue", FormMethod.Post, new { id = "myForm" }))
+    {
+        <p>Venue Details</p>
+        @Html.HiddenFor(model => model.VenueID)
+        <div>
+            <p>Venue Name:</p>
+            @Html.EditorFor(model => model.Name)
+        </div>
+        @Html.ValidationMessageFor(model => model.Name)
+        <div>
+            <p>Building Name:</p>
+            @Html.DropDownListFor(model => model.BuildingID, new SelectList(Model.Buildings, "BuildingID", "Name"))
+        </div>
+        @Html.ValidationMessageFor(model => model.BuildingID)
+        <div id="multipleButtons">
+            <div id="addButton">Add Venue</div>
+        </div>
+    }
 </div>
-<div id="backButton">Back</div>
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Venues")'">Back</div>
 <style>
+    form {
+        top: 0;
+        left: 0;
+    }
+
+    .field-validation-error {
+        display: block;
+        word-wrap: break-word;
+        margin-left: 50%;
+    }
+
     #details_holder {
         position: absolute;
         display: flex;
@@ -40,7 +64,7 @@
 
         #details_holder p {
             font-size: 25px;
-            text-align: left;
+            text-align: center;
             flex: 1;
         }
 
@@ -51,8 +75,9 @@
         }
 
             #details_holder div p {
+                font-size: 20px;
                 flex: 50%;
-                text-align: center;
+                text-align: left;
                 vertical-align: middle;
                 padding: 0;
                 margin: 0;
@@ -62,22 +87,46 @@
                 flex: 50%;
             }
 
+            #details_holder div select {
+                flex: 50%;
+            }
+
+            #details_holder div button {
+                background-color: white;
+                flex: 50%;
+            }
+
+    .gj-datepicker {
+        flex: 50%;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        opacity: 1;
+    }
+
+    #typeDropDown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        display: none;
+    }
+
     #addButton {
         position: relative;
-        display: inline-block;
-        align-self: flex-end;
-        z-index: 10000;
+        display: inline-block !important;
         text-decoration: none;
         color: white;
         cursor: pointer;
         letter-spacing: 0.15em;
         text-transform: uppercase;
-        margin-left: 2vh;
         box-sizing: border-box;
         border: solid white;
         border-width: 2px;
         border-radius: 50px 50px 50px 50px;
         margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
         padding: 10px;
         transition: background-color linear 0.5s;
     }
@@ -161,3 +210,23 @@
             color: #5a9ad6;
         }
 </style>
+<script type="text/javascript">
+    $("#addButton").click(function (event) {
+        swal({
+            title: "Are you sure?",
+            icon: "info",
+            buttons: [
+                true,
+                "Yes",
+            ],
+            closeOnClickOutside : false,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                $('#myForm').submit();
+            }
+        });
+    });
+
+    $("#addButton").css({ 'flex-basis': ''});
+</script>

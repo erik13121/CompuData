@@ -21,7 +21,7 @@ namespace CompuData.Models
         public string StreetAddress { get; set; }
 
         [Required(ErrorMessage = "The City Name is required")]
-        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters are allowed.")]
+        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "No numbers or special characters are allowed.")]
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the City")]
         public string City { get; set; }
 

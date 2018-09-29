@@ -26,43 +26,43 @@
     @Html.HiddenFor(model => model.DonorPID)
     <div>
         <p>First Name:</p>
-        @Html.EditorFor(model => model.FirstName, new { @readonly = "readonly" })
+        @Html.TextBoxFor(model => model.FirstName, new { @readonly = "readonly" })
     </div>
     <div>
         <p>Middle Name:</p>
-        @Html.EditorFor(model => model.MiddleName, new { @readonly = "readonly" })
+        @Html.TextBoxFor(model => model.MiddleName, new { @readonly = "readonly" })
     </div>
     <div>
         <p>Second Name:</p>
-        @Html.EditorFor(model => model.SecondName, new { @readonly = "readonly" })
+        @Html.TextBoxFor(model => model.SecondName, new { @readonly = "readonly" })
     </div>
     <div>
         <p>Initials:</p>
-        @Html.EditorFor(model => model.Initials, new { @readonly = "readonly" })
+        @Html.TextBoxFor(model => model.Initials, new { @readonly = "readonly" })
     </div>
     <div>
         <p>Cell Number:</p>
-        @Html.EditorFor(model => model.CellNum, new { @readonly = "readonly" })
+        @Html.TextBoxFor(model => model.CellNum, new { @readonly = "readonly" })
     </div>
     <div>
         <p>Personal Email:</p>
-        @Html.EditorFor(model => model.PersonalEmail, new { @readonly = "readonly" })
+        @Html.TextBoxFor(model => model.PersonalEmail, new { @readonly = "readonly" })
     </div>
     <div>
         <p>Thanked:</p>
-        @Html.EditorFor(model => model.Thanked, new { @readonly = "readonly" })
+        @Html.TextBoxFor(model => model.Thanked, new { @readonly = "readonly" })
     </div>
     <div>
         <p>Street Address:</p>
-        @Html.EditorFor(model => model.StreetAddress, new { @readonly = "readonly" })
+        @Html.TextBoxFor(model => model.StreetAddress, new { @readonly = "readonly" })
     </div>
     <div>
         <p>City:</p>
-        @Html.EditorFor(model => model.City, new { @readonly = "readonly" })
+        @Html.TextBoxFor(model => model.City, new { @readonly = "readonly" })
     </div>
     <div>
         <p>Area Code:</p>
-        @Html.EditorFor(model => model.AreaCode, new { @readonly = "readonly" })
+        @Html.TextBoxFor(model => model.AreaCode, new { @readonly = "readonly" })
     </div>
     
     <div id="multipleButtons">
@@ -254,7 +254,7 @@
         var donorPID = @Model.DonorPID;
 
         $.ajax({
-            url: '@Url.Action("RedirectToModifyDonorPersonDetails", "ModifyPerson")',
+            url: '@Url.Action("RedirectToModifyDonorPersonDetails", "ModifyDonorPerson")',
             type: 'POST',
             data: { donorPID: donorPID },
             dataType: 'json',

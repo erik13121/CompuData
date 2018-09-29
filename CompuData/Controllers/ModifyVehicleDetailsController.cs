@@ -17,7 +17,6 @@ namespace CompuData.Controllers
             {
                 var intVehicleID = Int32.Parse(vehicleID);
                 var myVehicle = db.Vehicles.Where(i => i.VehicleID == intVehicleID).FirstOrDefault();
-                var myTypeID = db.Vehicle_Type.Where(i => i.TypeID == myVehicle.TypeID).FirstOrDefault();
 
                 myModel.VehicleID = myVehicle.VehicleID;
                 myModel.Brand = myVehicle.Brand;
@@ -29,7 +28,7 @@ namespace CompuData.Controllers
                 myModel.LicenseExpireDate = myVehicle.LicenseExpireDate;
                 myModel.ServiceIntervalInMonths = myVehicle.ServiceIntervalInMonths;
                 myModel.ServiceIntervalInKMs = myVehicle.ServiceIntervalInKMs;
-                myModel.TypeID = myTypeID.TypeID;
+                myModel.TypeID = myVehicle.TypeID;
 
                 myModel.VehicleTypes = db.Vehicle_Type.ToList();
                 return View(myModel);

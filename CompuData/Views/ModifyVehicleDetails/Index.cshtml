@@ -12,7 +12,7 @@
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
         <li class="breadcrumb-item"><a href="../VehicleMenu">Vehicle Menu</a></li>
         <li class="breadcrumb-item"><a href="../Vehicles">Vehicles</a></li>
-        @if (Session["Referrer"] as string == "VehicleDetails")
+        @if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "VehicleDetails" : false)
         {
             <li class="breadcrumb-item"><a href="../VehicleDetails">Vehicle Details</a></li>
         }
@@ -82,11 +82,11 @@
     </div>
 }
 </div>
-@if (Session["Referrer"].ToString().Contains("Details"))
+@if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "VehicleDetails" : false)
 {
     <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())@Session["Query"].ToString()'">Back</div>
 }
-else
+@if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "Vehicles" : false)
 {
     <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
 }
