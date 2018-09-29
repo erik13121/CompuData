@@ -20,88 +20,121 @@
 
 @Html.Partial("_ProfilePartial")
 
-<div id="details_holder">
-    @using (@Html.BeginForm("Modify", "ModifyFunderPerson", FormMethod.Post, new { id = "myForm" }))
+<head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
+
+<div class="col-md-6" id="mytwoColumns">
+    <p id="myheading2">Modify Funder - Person</p>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#PCRDetails" id="tabitem">Funder Details</a></li>
+        <li><a data-toggle="tab" href="#LineItems" id="tabitem">Banking Details</a></li>
+        <li><a data-toggle="tab" href="#LineItems2" id="tabitem">Address Details</a></li>
+    </ul>
+    @using (@Html.BeginForm("Modify", "MOdifyFunderPerson", FormMethod.Post, new { id = "myForm" }))
     {
-        <p>Add Funder Person</p>
         @Html.HiddenFor(model => model.FunderPersonID)
-        <div>
-            <p>First Name:</p>
-            @Html.EditorFor(model => model.FirstName)
-        </div>
-        @Html.ValidationMessageFor(model => model.FirstName)
-        <div>
-            <p>Middle Name:</p>
-            @Html.EditorFor(model => model.MiddleName)
-        </div>
-        @Html.ValidationMessageFor(model => model.MiddleName)
-        <div>
-            <p>Last Name:</p>
-            @Html.EditorFor(model => model.LastName)
-        </div>
-        @Html.ValidationMessageFor(model => model.LastName)
-        <div>
-            <p>Initials:</p>
-            @Html.EditorFor(model => model.Initials)
-        </div>
-        @Html.ValidationMessageFor(model => model.Initials)
-        <div>
-            <p>Cell Number:</p>
-            @Html.EditorFor(model => model.CellNum)
-        </div>
-        @Html.ValidationMessageFor(model => model.CellNum)
-        <div>
-            <p>Personal Email:</p>
-            @Html.EditorFor(model => model.PersonalEmail)
-        </div>
-        @Html.ValidationMessageFor(model => model.PersonalEmail)
-        <div>
-            <p>Bank:</p>
-            @Html.EditorFor(model => model.Bank)
-        </div>
-        @Html.ValidationMessageFor(model => model.Bank)
-        <div>
-            <p>Account Number:</p>
-            @Html.EditorFor(model => model.AccountNumber)
-        </div>
-        @Html.ValidationMessageFor(model => model.AccountNumber)
-        <div>
-            <p>Branch Code:</p>
-            @Html.EditorFor(model => model.BranchCode)
-        </div>
-        @Html.ValidationMessageFor(model => model.BranchCode)
-        <div>
-            <p>Street Address:</p>
-            @Html.EditorFor(model => model.StreetAddress)
-        </div>
-        @Html.ValidationMessageFor(model => model.StreetAddress)
-        <div>
-            <p>City:</p>
-            @Html.EditorFor(model => model.City)
-        </div>
-        @Html.ValidationMessageFor(model => model.City)
-        <div>
-            <p>Area Code:</p>
-            @Html.EditorFor(model => model.AreaCode)
-        </div>
-        @Html.ValidationMessageFor(model => model.AreaCode)
-        <div>
-            <p>Thanked:</p>
-            @Html.CheckBoxFor(model => model.Thanked)
-        </div>
-        @Html.ValidationMessageFor(model => model.Thanked)
-        <div>
-            <p>Funder Type:</p>
-            @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.FunderTypes, "TypeID", "Name"), Model.FunderTypes.Count == 0 ? "Please add Type" : null)
-        </div>
-        @Html.ValidationMessageFor(model => model.TypeID)
-        <div>
-            <p>Project:</p>
-            @Html.DropDownListFor(model => model.ProjectID, new SelectList(Model.Project, "ProjectID", "ProjectName"), "None")
-        </div>
-        @Html.ValidationMessageFor(model => model.ProjectID)
-        <div id="multipleButtons">
-            <div id="addButton">Save and Add Person Funder</div>
+        <div class="tab-content">
+            <div id="PCRDetails" class="tab-pane fade in active">
+                <div class="row-md-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body">
+                            <div>
+                                <p>First Name:</p>
+                                @Html.EditorFor(model => model.FirstName)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.FirstName)
+                            <div>
+                                <p>Middle Name:</p>
+                                @Html.EditorFor(model => model.MiddleName)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.MiddleName)
+                            <div>
+                                <p>Last Name:</p>
+                                @Html.EditorFor(model => model.LastName)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.LastName)
+                            <div>
+                                <p>Initials:</p>
+                                @Html.EditorFor(model => model.Initials)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Initials)
+                            <div>
+                                <p>Cell Number:</p>
+                                @Html.EditorFor(model => model.CellNum)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.CellNum)
+                            <div>
+                                <p>Personal Email:</p>
+                                @Html.EditorFor(model => model.PersonalEmail)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.PersonalEmail)
+                            <div>
+                                <p>Funder Type:</p>
+                                @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.FunderTypes, "TypeID", "Name"), Model.FunderTypes.Count == 0 ? "Please add Type" : null)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.TypeID)
+                            <div>
+                                <p>Project:</p>
+                                @Html.DropDownListFor(model => model.ProjectID, new SelectList(Model.Project, "ProjectID", "ProjectName"), "None")
+                            </div>
+                            @Html.ValidationMessageFor(model => model.ProjectID)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="LineItems" class="tab-pane fade">
+                <div class="row-md-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body" id="cardbody2">
+                            <div>
+                                <p>Bank:</p>
+                                @Html.EditorFor(model => model.Bank)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Bank)
+                            <div>
+                                <p>Account Number:</p>
+                                @Html.EditorFor(model => model.AccountNumber)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.AccountNumber)
+                            <div>
+                                <p>Branch Code:</p>
+                                @Html.EditorFor(model => model.BranchCode)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.BranchCode)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="LineItems2" class="tab-pane fade">
+                <div class="row-md-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body" id="cardbody2">
+                            <div>
+                                <p>Street Address:</p>
+                                @Html.EditorFor(model => model.StreetAddress)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.StreetAddress)
+                            <div>
+                                <p>City:</p>
+                                @Html.EditorFor(model => model.City)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.City)
+                            <div>
+                                <p>Area Code:</p>
+                                @Html.EditorFor(model => model.AreaCode)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.AreaCode)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="multipleButtons">
+                <div id="addButton">Save and Add Funder - Person</div>
+            </div>
         </div>
     }
 </div>
@@ -109,6 +142,172 @@
 <div id="backButton" onclick="window.location.href = '@Request.UrlReferrer.ToString()'">Back</div>
 
 <style>
+            /* Customize the label (the container) */
+    .container {
+        display: block;
+        width: 25px;
+        position: relative;
+        margin-left: auto;
+        margin-top: 3px;
+        cursor: pointer;
+        font-size: 22px;
+        user-select: none;
+    }
+
+        /* Hide the browser's default checkbox */
+        .container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .container:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .container input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .container input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .container .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+        .tab-content {
+        overflow-y: auto;
+    }
+
+    #Dropdown1 {
+        width: auto;
+        border-left: 50px;
+    }
+
+    #tabitem {
+        color: black;
+    }
+
+    #myheading1 {
+        font-size: 30px;
+    }
+
+    #myheading2 {
+        transform: translateX(0px) !important;
+        font-size: 25px;
+        text-align: center;
+    }
+
+    #table_background p {
+        font-size: 25px;
+        text-align: center;
+    }
+
+    #table_background {
+        height: auto;
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    #table_id {
+        background-color: #5a9ad6;
+    }
+
+    #Flexyman {
+        display: flex;
+        flex-direction: row;
+        line-height: 30px;
+    }
+
+    #mytwoColumns {
+        position: absolute;
+        height: auto;
+        width: auto;
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    .card-body p {
+        font-size: 25px;
+        text-align: left;
+        flex: 1;
+        text-align: center;
+        flex-basis: 100%;
+    }
+
+    #cardbody2 {
+        overflow: auto;
+        max-height: 350px;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        float: left;
+        position: relative;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+    }
+
+        .card-body div {
+            display: flex;
+            flex-direction: row;
+            margin-top: 1px;
+            margin-bottom: 1px;
+        }
+
+        .card-body p {
+            text-align: left;
+            vertical-align: middle;
+            padding: 0;
+            margin: 0;
+            flex: 50%;
+        }
+
+        .card-body div input {
+            flex: 50%;
+        }
+
+        .card-body div select {
+            flex: 50%;
+        }
+
     form {
         top: 0;
         left: 0;
@@ -284,6 +483,24 @@
 </style>
 
 <script>
+    $(document).ready(function () {
+        $('tabitem1').on('click', function () {
+            var x = document.getElementById("tabitem1").getAttribute("aria-expanded");
+
+            if (x == "true") {
+                x = "false"
+            } else {
+                x = "true"
+            }
+            document.getElementById("tabitem1").setAttribute("aria-expanded", x);
+            document.getElementById("tabitem1").innerHTML = "aria-expanded = " + x;
+        })
+
+        $('.nav-tabs>li>a').on('click', function (e) {
+            $(this).siblings().removeClass('active');
+        })
+    })
+
     $("#addButton").click(function (event) {
         swal({
             title: "Are you sure?",

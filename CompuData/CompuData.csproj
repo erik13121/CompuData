@@ -952,6 +952,7 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\AddPCR\Index.cshtml" />
+    <Content Include="Views\PCR\Index.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -969,7 +970,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Views\Global\" />
-    <Folder Include="Views\PCR\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
