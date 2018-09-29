@@ -33,19 +33,19 @@
     </div>
     <div>
         <p>Date of Purchase:</p>
-        @Html.TextBoxFor(model => model.DateofPurchase, new { @readonly = "readonly" })
+        @Html.EditorFor(model => model.DateofPurchase, new { htmlAttributes = new { @readonly = "readonly" } })
     </div>
     <div>
         <p>Date of Last Repair:</p>
-        @Html.TextBoxFor(model => model.DateofLastRepair, new { @readonly = "readonly" })
+        @Html.EditorFor(model => model.DateofLastRepair, new { htmlAttributes = new { @readonly = "readonly" } })
     </div>
     <div>
         <p>Date of License Purchase:</p>
-        @Html.TextBoxFor(model => model.DateofLicencePurchase, new { @readonly = "readonly" })
+        @Html.EditorFor(model => model.DateofLicencePurchase, new { htmlAttributes = new { @readonly = "readonly" } })
     </div>
     <div>
         <p>Licence Expire Date:</p>
-        @Html.TextBoxFor(model => model.LicenseExpireDate, new { @readonly = "readonly" })
+        @Html.EditorFor(model => model.LicenseExpireDate, new { htmlAttributes = new { @readonly = "readonly" } })
     </div>
     <div>
         <p>Service Interval in Months:</p>

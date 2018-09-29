@@ -18,7 +18,7 @@
 
 <div id="table_background">
     <p>Projects</p>
-    <table id="table_id" class="display" cellspacing="0" width="100%"></table>
+    <table id="table_id" class="display" cellspacing="0"></table>
     @Html.HiddenFor(model => model.JavaScriptToRun)
     <div id="multipleButtons">
         <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddProject")'">Add Project</div>
@@ -29,11 +29,6 @@
 <style>
     th, td {
         white-space: nowrap;
-    }
-
-    div.dataTables_wrapper {
-        width: 1000px;
-        margin: 0 auto;
     }
 
     #table_background p {
@@ -365,7 +360,6 @@
                                     window.location.href = data.Url;
                                 });
                             }
-
                             else {
                                 swal("Cannot delete this due to it being used somewhere else in the system!", {
                                     icon: "warning",

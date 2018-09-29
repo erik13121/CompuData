@@ -54,7 +54,9 @@
         @Html.ValidationMessageFor(model => model.UserID)       
 
         <div id="multipleButtons">
-            <div id="addButton">Save and Add Project</div>
+            <div id="addTypeButton">Add Project Type</div>
+            <div id="addUserButton">Add User</div>
+            <div id="addButton">Add Project</div>
         </div>
     }
 </div>
@@ -151,7 +153,7 @@
         display: none;
     }
 
-    #addButton {
+    #addButton, #addTypeButton, #addUserButton {
         position: relative;
         display: inline-block !important;
         text-decoration: none;
@@ -171,7 +173,7 @@
         line-height: 50%;
     }
 
-        #addButton:hover {
+        #addButton:hover, #addTypeButton:hover, #addUserButton:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
@@ -250,13 +252,23 @@
             color: #5a9ad6;
         }
 </style>
-
 <script>
-    $('#datepicker1').datepicker();
-    $('#datepicker1').datepicker("setDate", new Date());
+    $("#datepicker1").datepicker({
+        maxDate: new Date(),
+        onSelect: function (selectdate) {
+            var dt = new Date(selectdate);
+            dt.setDate(dt.getDate() + 1)
+            $("#datepicker2").datepicker("option", "minDate", dt);
+        }
+    }).datepicker("setDate", new Date());
 
-    $('#datepicker2').datepicker();
-    $('#datepicker2').datepicker("setDate", new Date());
+    $("#datepicker2").datepicker({
+        onSelect: function (selectdate) {
+            var dt = new Date(selectdate);
+            dt.setDate(dt.getDate() - 1)
+            $("#datepicker1").datepicker("option", "maxDate", dt);
+        }
+    }).datepicker("setDate", new Date());
 
     $("#addButton").click(function (event) {
         swal({
@@ -275,6 +287,16 @@
         });
     });
 
+    $("#addTypeButton").click(function (event) {
+        window.location.href = '@Url.Action("FromAddProjectScreen", "AddProjectType")'
+    });
+
+    $("#addUserButton").click(function (event) {
+        window.location.href = '@Url.Action("FromAddProjectScreen", "AddUser")'
+    });
+
     $("#addButton").css({ 'flex-basis': '' });
+    $("#addTypeButton").css({ 'flex-basis': '' });
+    $("#addUserButton").css({ 'flex-basis': '' });
 </script>
 

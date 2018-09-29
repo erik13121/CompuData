@@ -273,8 +273,9 @@
                             {
                                 swal("You have successfully deleted the Project Type", {
                                     icon: "success",
+                                }).then(() => {
+                                    window.location.href = data.Url;
                                 });
-                                window.location.href = data.Url;
                             }
                             else
                             {

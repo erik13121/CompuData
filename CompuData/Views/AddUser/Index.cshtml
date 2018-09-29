@@ -12,8 +12,17 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../AccessLevel">User Access Menu</a></li>
-        <li class="breadcrumb-item"><a href="../User">Users</a></li>
+        @if (ViewBag.Referrer != null ? ViewBag.Referrer == "AddProject" : false)
+        {
+            <li class="breadcrumb-item"><a href="../ProjectManagementMenu">Project Management Menu</a></li>
+            <li class="breadcrumb-item"><a href="../Project">Projects</a></li>
+            <li class="breadcrumb-item"><a href="../AddProject">Add Project</a></li>
+        }
+        else
+        {
+            <li class="breadcrumb-item"><a href="../AccessLevel">User Access Menu</a></li>
+            <li class="breadcrumb-item"><a href="../User">Users</a></li>
+        }
         <li class="breadcrumb-item active" aria-current="page">Add User</li>
     </ol>
 </nav>
@@ -152,6 +161,7 @@
                 </div>
             </div>
         </div>
+        <input type="hidden" name="Referrer" value="@ViewBag.Referrer" />
         <div id="multipleButtons">
             <div id="addButton">Add User</div>
         </div>
@@ -159,7 +169,14 @@
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "User")'">Back</div>
+@if (ViewBag.Referrer != null ? ViewBag.Referrer == "AddProject" : false)
+{
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "AddProject")'">Back</div>
+}
+else
+{
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "User")'">Back</div>
+}
 <style>
     .tab-content {
         overflow-y: auto;
