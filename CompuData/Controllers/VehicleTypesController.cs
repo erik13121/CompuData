@@ -36,13 +36,27 @@ namespace CompuData.Controllers
             if (ModelState.IsValid)
             {
                 var db = new CodeFirst.CodeFirst();
-                var item = db.Vehicle_Type.OrderByDescending(a => a.TypeID).FirstOrDefault();
-                db.Vehicle_Type.Add(new CodeFirst.Vehicle_Type
+                if (db.Vehicle_Type.Count() > 0)
                 {
-                    TypeID = item.TypeID + 1,
-                    Name = model.Name,
-                    Description = model.Description,
-                });
+                    var item = db.Vehicle_Type.OrderByDescending(a => a.TypeID).FirstOrDefault();
+
+                    db.Vehicle_Type.Add(new CodeFirst.Vehicle_Type
+                    {
+                        TypeID = item.TypeID + 1,
+                        Name = model.Name,
+                        Description = model.Description,
+                    });
+                }
+                else
+                {
+                    db.Vehicle_Type.Add(new CodeFirst.Vehicle_Type
+                    {
+                        TypeID = 1,
+                        Name = model.Name,
+                        Description = model.Description,
+                    });
+                }
+                
                 db.SaveChanges();
                 model.JavaScriptToRun = "mySuccess()";
                 TempData["model"] = model;

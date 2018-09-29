@@ -16,6 +16,15 @@ namespace CompuData.Controllers
             return View(types);
         }
 
+        public ActionResult FromAddProjectScreen()
+        {
+            //equipmentModelToPassBack = equipmentModel;
+            var db = new CodeFirst.CodeFirst();
+            var type = new Models.ProjectType();
+            ViewBag.Referrer = "AddProject";
+            return View("Index", type);
+        }
+
         [HttpPost]
         public ActionResult Create([Bind(Prefix = "")]Models.ProjectType model)
         {
@@ -42,11 +51,19 @@ namespace CompuData.Controllers
                         TypeDescription = model.TypeDescription
                     });
                 }
-
                 db.SaveChanges();
-                model.JavaScriptToRun = "mySuccess()";
-                TempData["model"] = model;
-                return RedirectToAction("Index", "ProjectType");
+
+                if (Request.Form["Referrer"] == "AddProject")
+                {
+                    //TempData["EquipmentModel"] = equipmentModelToPassBack;
+                    return RedirectToAction("Index", "AddProject");
+                }
+                else
+                {
+                    model.JavaScriptToRun = "mySuccess()";
+                    TempData["model"] = model;
+                    return RedirectToAction("Index", "EquipmentType");
+                }
             }
 
             return View("Index", model);

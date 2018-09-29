@@ -19,6 +19,17 @@ namespace CompuData.Controllers
             return View(users);
         }
 
+        public ActionResult FromAddProjectScreen()
+        {
+            //equipmentModelToPassBack = equipmentModel;
+            var db = new CodeFirst.CodeFirst();
+            var user = new Models.User();
+            user.AccessLevels = db.Access_Level.ToList();
+            user.EmployeeTitles = db.Employee_Title.ToList();
+            ViewBag.Referrer = "AddProject";
+            return View("Index", user);
+        }
+
         [HttpPost]
         public ActionResult Create([Bind(Prefix = "")]Models.User model)
         {
@@ -81,11 +92,19 @@ namespace CompuData.Controllers
                         AccessLevelID = model.AccessLevelID,
                     });
                 }
-
                 db.SaveChanges();
-                model.JavaScriptToRun = "mySuccess()";
-                TempData["model"] = model;
-                return RedirectToAction("Index", "User");
+
+                if (Request.Form["Referrer"] == "AddProject")
+                {
+                    //TempData["EquipmentModel"] = equipmentModelToPassBack;
+                    return RedirectToAction("Index", "AddProject");
+                }
+                else
+                {
+                    model.JavaScriptToRun = "mySuccess()";
+                    TempData["model"] = model;
+                    return RedirectToAction("Index", "User");
+                }
             }
 
             model.AccessLevels = db.Access_Level.ToList();

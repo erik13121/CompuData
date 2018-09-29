@@ -33,19 +33,19 @@ namespace CompuData.Models
         public string NumberPlate { get; set; }
 
         [Column(TypeName = "date")]
-        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DateofPurchase { get; set; }
 
         [Column(TypeName = "date")]
-        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DateofLastRepair { get; set; }
 
         [Column(TypeName = "date")]
-        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DateofLicencePurchase { get; set; }
 
         [Column(TypeName = "date")]
-        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? LicenseExpireDate { get; set; }
 
         [RegularExpression("\\d{1,2}", ErrorMessage = "The Service Interval Months has to consist of between 1 and 2-digit numbers")]

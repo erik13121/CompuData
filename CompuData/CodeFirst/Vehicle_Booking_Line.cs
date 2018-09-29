@@ -35,10 +35,7 @@ namespace CompuData.CodeFirst
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int VehicleBookingID { get; set; }
 
-        [Key]
-        [Column(Order = 3)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int IntervalID { get; set; }
+        public int? IntervalID { get; set; }
 
         [Key]
         [Column(Order = 4)]
