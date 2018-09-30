@@ -53,5 +53,46 @@ namespace CompuData.Controllers
                 return Json(newData, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpGet]
+        public JsonResult GetScheduleEvents()
+        {
+            using (CodeFirst.CodeFirst db = new CodeFirst.CodeFirst())
+            {
+                db.Configuration.LazyLoadingEnabled = false;
+                var events = db.Vehicle_Schedule_Line.ToList();
+
+                Dictionary<string, int> days = new Dictionary<string, int>();
+                days.Add("Sunday", 0);
+                days.Add("Monday", 1);
+                days.Add("Tuesday", 2);
+                days.Add("Wednesday", 3);
+                days.Add("Thursday", 4);
+                days.Add("Friday", 5);
+                days.Add("Saturday", 6);
+
+                var newData =
+                    (from e in events
+                     select new
+                     {
+                         start = e.StartTime,
+                         end = e.EndTime,
+                         dow = e.Date == "Sunday" ? 0 : 
+                         e.Date == "Monday" ? 1 :
+                         e.Date == "Tuesday" ? 2 :
+                         e.Date == "Wednesday" ? 3 :
+                         e.Date == "Thursday" ? 4 :
+                         e.Date == "Friday" ? 5 :
+                         e.Date == "Saturday" ? 6 : -1
+                     })
+                     .ToList();
+
+                var myResult = new JsonResult();
+                myResult = new JsonResult { Data = newData, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+                db.Configuration.LazyLoadingEnabled = false;
+                return Json(newData, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

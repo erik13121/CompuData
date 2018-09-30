@@ -468,3 +468,38 @@ input[type=checkbox] {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	background-color: #555;
 }
+
+/*#btnEdit {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+#btnConfirm {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+#pDetails {
+    padding-top: 1rem;
+}*/
+
+.modal {
+}
+
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+}
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+}
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width:inherit !important;
+    height:inherit;
+    /* To center horizontally */
+    margin: 0 25%;
+}
