@@ -1,46 +1,46 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
-    @model CompuData.Models.FunderType
+    ViewBag.Title = "BuildingDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @model CompuData.Models.Building
+    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
+    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../FundersMenu">Funders</a></li>
-        <li class="breadcrumb-item"><a href="../FunderType">Funder Type</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Funder Type Details</li>
+        <li class="breadcrumb-item"><a href="../VenueMenu">Building & Venue Menu</a></li>
+        <li class="breadcrumb-item"><a href="../Buildings">Buildings</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Building Details</li>
     </ol>
 </nav>
-
-<head>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-</head>
-
 @Html.Partial("_ProfilePartial")
-
 <div id="details_holder">
-    <p>Funder Type Details</p>
-    @Html.HiddenFor(model => model.TypeID)
-    <div>
-        <p>Name:</p>
+    <p>Building Details</p>
+    @Html.HiddenFor(model => model.BuildingID)
+    <div id="donationitemDetails">
+        <p>Building Name:</p>
         @Html.TextBoxFor(model => model.Name, new { @readonly = "readonly" })
     </div>
-    <div>
-        <p>Contact Number:</p>
-        @Html.TextBoxFor(model => model.Description, new { @readonly = "readonly" })
+    <div id="donationitemDescDetails">
+        <p>Street Address:</p>
+        @Html.TextBoxFor(model => model.StreetAddress, new { @readonly = "readonly" })
+    </div>
+    <div id="donationitemDescDetails">
+        <p>City:</p>
+        @Html.TextBoxFor(model => model.City, new { @readonly = "readonly" })
+    </div>
+    <div id="donationitemDescDetails">
+        <p>Area Code:</p>
+        @Html.TextBoxFor(model => model.AreaCode, new { @readonly = "readonly" })
     </div>
     <div id="multipleButtons">
-        <a id="modifyButton" class="btn btn-dafault">Maintain</a>
-        <a id="removeButton" class="btn btn-default">Remove</a>
+        <div id="modifyButton">Modify</div>
+        <div id="removeButton">Remove</div>
     </div>
 </div>
-}
-<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "FunderType")'">Back</div>
-
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Buildings")'">Back</div>
 <style>
     #details_holder {
         position: absolute;
@@ -126,7 +126,6 @@
         margin-right: auto;
         padding: 10px;
         transition: background-color linear 0.5s;
-        background-color: transparent;
     }
 
         #removeButton:hover {
@@ -216,15 +215,16 @@
             color: #5a9ad6;
         }
 </style>
-
 <script>
     $('#modifyButton').on('click', function () {
-        var typeID = @Model.TypeID;
+        var buildingID = @Model.BuildingID;
+        @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);
+            Session["Query"] = Request.Url.Query;}
 
         $.ajax({
-            url: '@Url.Action("RedirectToModifyFunderTypeDetails", "ModifyFunderType")',
+            url: '@Url.Action("RedirectToModifyBuildingDetails", "ModifyBuildingDetails")',
             type: 'POST',
-            data: { typeID: typeID },
+            data: { buildingID: buildingID },
             dataType: 'json',
             success: function (data) {
                 window.location.href = data.Url;
@@ -233,10 +233,10 @@
     });
 
     $('#removeButton').on('click', function () {
-        var typeID = @Model.TypeID;
+        var buildingID = @Model.BuildingID;
 
         swal({
-            title: "Are you sure you want to delete this Funder Type?",
+            title: "Are you sure you want to delete this Building?",
             icon: "warning",
             dangerMode: true,
             buttons: [
@@ -248,21 +248,29 @@
             .then((willDelete) => {
                 if (willDelete) {
                     $.ajax({
-                        url: '@Url.Action("Delete", "FunderType")',
+                        url: '@Url.Action("Delete", "Buildings")',
                         type: 'POST',
-                        data: { typeID: typeID },
+                        data: { buildingID: buildingID },
                         dataType: 'json',
                         success: function (data) {
                             if (data.Url != "Cascading error!") {
-                                swal("You have successfully deleted the Funder Type", {
+                                swal("You have successfully deleted the Building", {
                                     icon: "success",
-                                }).then(() => {
-                                    window.location.href = data.Url;
+                                }).then((done) => {
+                                    if (done)
+                                    {
+                                        window.location.href = data.Url;
+                                    }
                                 });
                             }
                             else {
                                 swal("Cannot delete this due to it being used somewhere else in the system!", {
                                     icon: "warning",
+                                }).then((done) => {
+                                    if (done)
+                                    {
+                                        window.location.href = data.Url;
+                                    }
                                 });
                             }
                         }

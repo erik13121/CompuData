@@ -5,162 +5,191 @@
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
-
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Vehicle Menu</a></li>
+        <li class="breadcrumb-item"><a href="../VehicleMenu">Vehicle Menu</a></li>
         <li class="breadcrumb-item active" aria-current="page">Vehicle Bookings</li>
     </ol>
 </nav>
 @Html.Partial("_ProfilePartial")
 <div id="table_background">
-    <div id="calendar"></div> 
-    @*<div class="container">
-        <h2>Vehicle Bookings</h2>
-
-        <div class="agenda">
-            <div class="table-responsive">
-                <table class="table table-condensed table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Reason</th>
-                            <th>Project Name</th>
-                            <th>Name of Driver</th>
-                            <th>Service?</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Single event in a single day -->
-                        <tr>
-                            <td class="agenda-date" class="active" rowspan="1">
-                                <div class="dayofmonth">1</div>
-                                <div class="dayofweek">Wednesday</div>
-                                <div class="shortdate text-muted">August, 2018</div>
-                            </td>
-                            <td class="agenda-time">
-                                5:30 - 6:00 AM
-                            </td>
-                            <td class="agenda-events">
-                                <div class="agenda-event">
-                                    Book transfer
-                                </div>
-                            </td>
-                            <td class="agenda-events">
-                                <div class="agenda-event">
-                                    Inkululeko Community Centre
-                                </div>
-                            </td>
-                            <td class="agenda-events">
-                                <div class="agenda-event">
-                                    Joel
-                                </div>
-                            </td>
-                            <td class="agenda-events">
-                                <div class="agenda-event">
-                                    False
-                                </div>
-                            </td>
-                        </tr>
-
-                        <!-- Multiple events in a single day (note the rowspan) -->
-                        <tr>
-                            <td class="agenda-date" class="active" rowspan="3">
-                                <div class="dayofmonth">3</div>
-                                <div class="dayofweek">Friday</div>
-                                <div class="shortdate text-muted">August, 2018</div>
-                            </td>
-                            <td class="agenda-time">
-                                8:00 - 9:00 AM
-                            </td>
-                            <td class="agenda-events">
-                                <div class="agenda-event">
-                                    Female Clothes Transfer
-                                </div>
-                            </td>
-                            <td class="agenda-events">
-                                <div class="agenda-event">
-                                    The Potter's House
-                                </div>
-                            </td>
-                            <td class="agenda-events">
-                                <div class="agenda-event">
-                                    Joel
-                                </div>
-                            </td>
-                            <td class="agenda-events">
-                                <div class="agenda-event">
-                                    False
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="agenda-time">
-                                9:30 AM - 12:00 PM
-                            </td>
-                            <td class="agenda-events">
-                                <div class="agenda-event">
-                                    Housing Utensil transfer
-                                </div>
-                            </td>
-                            <td class="agenda-events">
-                                <div class="agenda-event">
-                                    Lerato House
-                                </div>
-                            </td>
-                            <td class="agenda-events">
-                                <div class="agenda-event">
-                                    Joel
-                                </div>
-                            </td>
-                            <td class="agenda-events">
-                                <div class="agenda-event">
-                                    False
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="agenda-time">
-                                2:00 - 4:00 PM
-                            </td>
-                            <td class="agenda-events">
-                                <div class="agenda-event">
-                                    Food Transfer
-                                </div>
-                            </td>
-                            <td class="agenda-events">
-                                <div class="agenda-event">
-                                    Akanani Homelessness Centre
-                                </div>
-                            </td>
-                            <td class="agenda-events">
-                                <div class="agenda-event">
-                                    Joel
-                                </div>
-                            </td>
-                            <td class="agenda-events">
-                                <div class="agenda-event">
-                                    False
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+    <h2>Vehicle Bookings</h2>
+    <div id="calendar"></div>
+    <div class="well">
+        <div class="row">
+            <div class="col-sm-10 offset-sm-1 text-center">
+                @using (Html.BeginForm("Create", "Plantation", FormMethod.Get, new { @class = "form-inline justify-content-center" }))
+                {
+                    <button class="btn btn-success center-block" type="submit">
+                        Add Booking
+                    </button>
+                }
             </div>
         </div>
     </div>
-    <div id="addButton">Add Vehicle Booking</div>*@
-    <div id="backButton">Back</div>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "VehicleMenu")'">Back</div>
 </div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <button id="btnEdit" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
+                                <span class="glyphicon glyphicon-pencil"></span> Edit
+                            </button>
+                        </div>
+                        <div class="col text-right">
+                            <button id="btnConfirm" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
+                                <span class="glyphicon glyphicon-pencil"></span> Confirm
+                            </button>
+                        </div>
+                    </div>
+                    <p id="pDetails"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="createEventModal" class="modal fade">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Add a Vehicle Booking</h4>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span> <span class="sr-only">close</span></button>
+                </div>
+                <div id="modalBody" class="modal-body">
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="Booking Reason" id="bookingReason">
+                    </div>
+                    <div class="form-group form-inline">
+                        <div class="input-group">
+                            <input type="text" id="bookingStartTime" class="form-control">
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="bookingEndTime" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" type="text" rows="4" placeholder="Event Description" id="eventDescription"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModalSave" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Plan Plantation</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <input type="hidden" id="hdEventID" value="0" />
+                    <div class="form-group">
+                        <label>FieldID</label>
+                        <input type="text" id="txtFieldID" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Date Planted</label>
+                        <div class="input-group date" id="dtp1">
+                            <input type="text" id="txtDatePlanted" class="form-control" />
+                            @*<span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Date Harvested</label>
+                        <div class="input-group date" id="dtp1">
+                            <input type="text" id="txtDateHarvested" class="form-control" />
+                            @*<span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>CropTypeID</label>
+                        <textarea id="txtCropTypeID" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>CropCycleID</label>
+                        <input type="text" id="txtCropCycleID" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>FieldStageID</label>
+                        <input type="text" id="txtFieldStageID" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Refuge Seed Amount Used</label>
+                        <input type="text" id="txtRefugeSeedAmntUsed" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Refuge Unit</label>
+                        <input type="text" id="txtRefugeUnit" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Refuge Area Hectares</label>
+                        <input type="text" id="txtRefugeAreaHectares" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Expected Yield Quantity</label>
+                        <input type="text" id="txtExpectedYieldQuantity" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Yield Unit</label>
+                        <input type="text" id="txtYieldUnit" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Date Harvested</label>
+                        <input type="text" id="txtDateHarvested" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Plantation Status</label>
+                        <input type="text" id="txtPlantationStatus" class="form-control" />
+                    </div>
+                    <button type="button" id="btnSave" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="~/Content/jquery.timepicker.min.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
+@*<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />*@
+<script src="~/Scripts/jquery.timepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
-<link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 <style>
+    .center-block {
+        float: none;
+    }
+
+    .table-heading {
+        color: #0AA633;
+    }
+
     #table_background {
         position: absolute;
         padding: 15px;
@@ -172,51 +201,6 @@
         border-width: 2px;
         border-radius: 50px 50px 50px 50px;
     }
-
-    h2 {
-        text-align: center;
-    }
-
-    thead {
-        background-color: #5a9ad6;
-    }
-
-    .agenda {
-        background-color: white;
-    }
-
-        /* Dates */
-        .agenda .agenda-date {
-            width: 170px;
-        }
-
-            .agenda .agenda-date .dayofmonth {
-                width: 40px;
-                font-size: 36px;
-                line-height: 36px;
-                float: left;
-                text-align: right;
-                margin-right: 10px;
-            }
-
-            .agenda .agenda-date .shortdate {
-                font-size: 0.75em;
-            }
-
-
-        /* Times */
-        .agenda .agenda-time {
-            width: 140px;
-        }
-
-
-        /* Events */
-        .agenda .agenda-events {
-        }
-
-            .agenda .agenda-events .agenda-event {
-            }
-
 
     #addButton {
         position: relative;
@@ -320,95 +304,182 @@
     #vehiclesTable {
         font-size: 15px;
     }
+
+    h2 {
+        text-align: center;
+    }
+
+    #calendar {
+        background: white;
+        border: 10px solid white;
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: lightgrey !important;
+    }
 </style>
 <script>
-    $(function () {
-        $(document).ready(function () {
-            var events = [];
-            //added in for CRUDS
-            var selectedEvent = null;
-            //FetchEventAndRenderCalender();
-            ///////////////////////////////
-            $.ajax({
-                type: "GET",
-                url: "/VehicleBookings/GetEvents",
-                success: function (data) {
-                    //log the results of OBJECT (data)
-                    console.log(JSON.stringify(data));
-                    $.each(data, function (i, v) {
-                        //log the OBJECT data
-                        console.log(i);
-                        console.log(v);
-                        events.push({
-                            brand: v.Brand,
-                            model: v.model,
-                            numberplate: v.NumberPlate,
-                            reason: v.Reason,
-                            username: v.UserName,
-                            datebooked: moment(v.DateBooked),
-                            start: v.StartTime,
-                            end: v.EndTime,
-                            projectname: v.ProjectName,
-                            odoend: v.OdoEnd,
-                            intervalid: v.IntervalID,
-                            vehiclebookingid: v.VehicleBookingID,
-                            //color: blue,
-                            allDay: true
-                        });
-                    })
+    $(document).ready(function () {
+        var events = [];
+        var businessHours = [];
+        //added in for CRUDS
+        var selectedEvent = null;
+        //FetchEventAndRenderCalender();
+        ///////////////////////////////
+        $.ajax({
+            type: "GET",
+            url: "/VehicleBookings/GetEvents",
+            success: function (data) {
+                //log the results of OBJECT (data)
+                //console.log(JSON.stringify(data));
+                $.each(data, function (i, v) {
+                    //log the OBJECT data
+                    events.push({
+                        brand: v.Brand,
+                        model: v.Model,
+                        numberplate: v.NumberPlate,
+                        reason: v.Reason,
+                        username: v.UserName,
+                        datebooked: moment(v.DateBooked),
+                        start: v.StartTime,
+                        end: v.EndTime,
+                        projectname: v.ProjectName,
+                        odoend: v.OdoEnd,
+                        intervalid: v.IntervalID,
+                        vehiclebookingid: v.VehicleBookingID,
+                        //color: blue,
+                        allDay: false
+                    });
+                })
 
-                    GenerateCalender(events);
-                },
-                error: function (error) {
-                    console.log(error);
-                    alert('failed');
-                }
-            })
+                $.ajax({
+                    type: "GET",
+                    url: "/VehicleBookings/GetScheduleEvents",
+                    success: function (scheduleData) {
+                        //log the results of OBJECT (data)
+                        //console.log(JSON.stringify(scheduleData));
+                        $.each(scheduleData, function (i, v) {
+                            //log the OBJECT data
+                            businessHours.push({
+                                start: v.start,
+                                end: v.end,
+                                overlap: false,
+                                dow: [v.dow]
+                            });
+                        })
 
-            function GenerateCalender(events) {
-                $('#calender').fullCalendar('destroy');
-                $('#calender').fullCalendar({
-                    contentHeight: 400,
-                    defaultDate: new Date(),
-                    timeFormat: 'h(:mm)a',
-                    header: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'month'
-                    },
-                    eventLimit: true,
-                    eventColor: '#378006',
-                    events: events,
-                    eventClick: function (calEvent, jsEvent, view) {
-                        //added in code for CRUDS
-                        selectedEvent = calEvent;
-                        //////////////////////////
-                        $('#myModal #eventTitle').text(calEvent.reason);
-                        var $description = $('<div/>');
-                        $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start));
-                        if (calEvent.end != null) {
-                            $description.append($('<p/>').html('<b>End:</b>' + calEvent.end));
-                        }
-
-                        $description.append($('<p/>').html('<b>Date Booked for:</b>' + calEvent.datebooked.format("DD-MMM-YYYY")));
-                        $description.append($('<p/>').html('<b>Car Brand:</b>' + calEvent.brand));
-                        $description.append($('<p/>').html('<b>Car Model:</b>' + calEvent.model));
-                        $description.append($('<p/>').html('<b>Car Number Plate:</b>' + calEvent.numberplate));
-                        $description.append($('<p/>').html('<b>Reason for Booking:</b>' + calEvent.reason));
-                        $description.append($('<p/>').html('<b>Booking is for Project:</b>' + calEvent.projectname));
-                        $description.append($('<p/>').html('<b>Odometer end reading on Vehicle after booking:</b>' + calEvent.odoend));
-                        if (calEvent.intervalid != null)
-                        {
-                            $description.append($('<p/>').html('<b>Interval was done in booking:</b>true'));
-                        }                        
-                        $description.append($('<p/>').html('<b>Part of Booking ID:</b>' + calEvent.vehiclebookingid));
-
-                        $('#myModal #pDetails').empty().html($description);
-
-                        $('#myModal').modal('show');
+                        GenerateCalender(events, businessHours);
                     }
                 })
+            },
+            error: function (error) {
+                console.log(error);
+                alert('failed');
             }
         })
+
+        function GenerateCalender(events, businessHours) {
+            $('#calendar').fullCalendar('destroy');
+            $('#calendar').fullCalendar({
+                themeSystem: 'bootstrap4',
+                allDaySlot: false,
+                businessHours: businessHours,
+                contentHeight: 400,
+                defaultDate: new Date(),
+                defaultTimedEventDuration: '01:00:00',
+                selectable: true,
+                timeFormat: 'h(:mm)a',
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                editable: false,
+                eventLimit: true,
+                eventColor: '#007fff',
+                eventConstraint: 'businessHours',
+                eventOverlap: false,
+                events: events,
+                slotDuration: '01:00:00',
+                slotEventOverlap: false,
+                select: function (start, end, jsEvent, view) {
+                    /*var allDay = !start.hasTime && !end.hasTime;
+                    alert(["Event Date: " + moment(start).format('DD/MM/YYYY'),
+                    "Event Start Time: " + moment(start).format('h:mm:ss'),
+                    "Event End Time: " + moment(end).format('h:mm:ss')].join("\n"));*/
+                    $('#createEventModal').appendTo("body").modal('show');
+                },
+                eventClick: function (calEvent, jsEvent, view) {
+                    //added in code for CRUDS
+                    selectedEvent = calEvent;
+                    //////////////////////////
+                    $('#myModal #eventTitle').text("Reason: " + calEvent.reason);
+                    var $description = $('<div/>');
+                    $description.append($('<p/>').html('<b>Booking ID:</b>' + calEvent.vehiclebookingid));
+                    $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD/MM/YYYY hh:mm")));
+                    if (calEvent.end != null) {
+                        $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("DD/MM/YYYY hh:mm")));
+                    }
+
+                    $description.append($('<p/>').html('<b>Date Booked for:</b>' + calEvent.datebooked.format("DD-MMM-YYYY")));
+                    $description.append($('<p/>').html('<b>Reason for Booking:</b>' + calEvent.reason));
+                    $description.append($('<p/>').html('<b>Car Brand:</b>' + calEvent.brand));
+                    $description.append($('<p/>').html('<b>Car Model:</b>' + calEvent.model));
+                    $description.append($('<p/>').html('<b>Car Number Plate:</b>' + calEvent.numberplate));
+                    $description.append($('<p/>').html('<b>Booking is for Project:</b>' + calEvent.projectname));
+                    if (calEvent.odoend != 0) {
+                        $description.append($('<p/>').html('<b>Odometer end reading on Vehicle after booking:</b>' + calEvent.odoend));
+                    }
+                    else {
+                        $description.append($('<p/>').html('<b>Odometer end reading has not yet been recorded</b>'));
+                    }
+                    if (calEvent.intervalid != 0) {
+                        $description.append($('<p/>').html('<b>Service Interval was done in booking:</b>true'));
+                    }
+                    $description.append($('<p/>').html('<b>Driver Name:</b>' + calEvent.username));
+                    $('#myModal #pDetails').empty().html($description);
+
+                    $("#myModal").appendTo("body").modal('show');
+                },
+                eventRender: function (event, element) {
+                    $(element).tooltip({ title: event.title });
+                }
+            })
+        }
+
+        $('#submitButton').on('click', function (e) {
+            // We don't want this to act as a link so cancel the link action
+            e.preventDefault();
+
+            doSubmit();
+        });
+
+        function doSubmit() {
+            $("#createEventModal").modal('hide');
+            var start = moment(new Date($('#eventDueDate').val() + ' 01:00:00'));
+            console.log(start);
+            $("#calendar").fullCalendar('renderEvent',
+                {
+                    title: $('#eventName').val(),
+                    start: start
+                    /*if (isValid) {
+                        return {
+                            title: $('#eventName').val(),
+                            start: start
+                        }
+                    }*/               
+                },
+                true);
+        }
+
+        function isValid() {
+            $('#calendar').fullCalendar('clientEvents', function (event) {
+                if (event.start <= date && event.end >= date) {
+                    return true;
+                }
+                return false;
+            });
+        }
     })
 </script>

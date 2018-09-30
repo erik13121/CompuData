@@ -1,84 +1,64 @@
-﻿@{
-    ViewBag.Title = "Index";
+﻿
+@{
+    ViewBag.Title = "ModifyBuildingDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    @model CompuData.Models.Project
+    @model CompuData.Models.Building
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../ProjectManagementMenu">Project Management Menu</a></li>
-        <li class="breadcrumb-item"><a href="../Project">Project</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Add Project</li>
+        <li class="breadcrumb-item"><a href="../VenueMenu">Building & Venu Menu</a></li>
+        <li class="breadcrumb-item"><a href="../Buildings">Buildings</a></li>
+        @if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "BuildingDetails" : false)
+        {
+            <li class="breadcrumb-item"><a href="../BuildingDetails">Building Details</a></li>
+        }
+        <li class="breadcrumb-item active" aria-current="page">Modify Building</li>
     </ol>
 </nav>
-
 @Html.Partial("_ProfilePartial")
-
 <div id="details_holder">
-    @using (@Html.BeginForm("Create", "AddProject", FormMethod.Post, new { id = "myForm" }))
+    @using (@Html.BeginForm("Update", "ModifyBuildingDetails", FormMethod.Post, new { id = "myForm" }))
     {
-        <p>Add Project</p>
-        @Html.HiddenFor(model => model.ProjectID)
+        <p>Building Details</p>
+        @Html.HiddenFor(model => model.BuildingID)
         <div>
-            <p>Project Name:</p>
-            @Html.EditorFor(model => model.ProjectName)
+            <p>Name:</p>
+            @Html.EditorFor(model => model.Name)
         </div>
-        @Html.ValidationMessageFor(model => model.ProjectName)
+        @Html.ValidationMessageFor(model => model.Name)
         <div>
-            <p>Project Description:</p>
-            @Html.EditorFor(model => model.ProjectDescription)
+            <p>Street Address:</p>
+            @Html.EditorFor(model => model.StreetAddress)
         </div>
-        @Html.ValidationMessageFor(model => model.ProjectDescription)
+        @Html.ValidationMessageFor(model => model.StreetAddress)
         <div>
-            <p>Start Date:</p>
-            @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control", @id = "datepicker1", placeholder = "Please Enter Date" })
+            <p>City:</p>
+            @Html.EditorFor(model => model.City)
         </div>
-        @Html.ValidationMessageFor(model => model.StartDate)
+        @Html.ValidationMessageFor(model => model.City)
         <div>
-            <p>Expected Complete Date:</p>
-            @Html.TextBoxFor(model => model.ExpectedFinishDate, new { @class = "form-control", @id = "datepicker2", placeholder = "Please Enter Date" })
+            <p>Area Code:</p>
+            @Html.EditorFor(model => model.AreaCode)
         </div>
-        @Html.ValidationMessageFor(model => model.ExpectedFinishDate)       
-        <div>
-            <p>Project Type:</p>
-            @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.ProjectTypes, "TypeID", "TypeName"), Model.ProjectTypes.Count == 0 ? "Please add Type" : null)        
-        </div>
-        @Html.ValidationMessageFor(model => model.TypeID)
-        <div>
-            <p>User Responsible:</p>
-            @Html.DropDownListFor(model => model.UserID, Model.Users)
-        </div>
-        @Html.ValidationMessageFor(model => model.UserID)       
-
+        @Html.ValidationMessageFor(model => model.AreaCode)
         <div id="multipleButtons">
-            <div id="addTypeButton">Add Project Type</div>
-            <div id="addUserButton">Add User</div>
-            <div id="addButton">Add Project</div>
+            <div id="saveButton">Save</div>
         </div>
     }
 </div>
-
-<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Project")'">Back</div>
-
+@if (Session["Referrer"] != null ? Session["Referrer"].ToString().Contains("Details") : false)
+{
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())@Session["Query"].ToString()'">Back</div>
+}
+@if (Session["Referrer"] != null ? Session["Referrer"].ToString().Contains("Buildings") : false)
+{
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
+}
 <style>
-    input[type=checkbox] {
-        height: 25px;
-        margin-top: auto;
-        margin-bottom: auto;
-    }
-
-    .datepicker {
-        background-color: white;
-    }
-
-    form {
-        top: 0;
-        left: 0;
-    }
-
     .field-validation-error {
         display: block;
         word-wrap: break-word;
@@ -108,7 +88,7 @@
         #details_holder div {
             display: flex;
             flex-direction: row;
-            height: 2.25em;
+            line-height: 30px;
         }
 
             #details_holder div p {
@@ -137,10 +117,6 @@
         flex: 50%;
     }
 
-    .gj-datepicker-md [role=right-icon] {
-        top: 0.25em;
-    }
-
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button {
         opacity: 1;
@@ -153,7 +129,7 @@
         display: none;
     }
 
-    #addButton, #addTypeButton, #addUserButton {
+    #saveButton {
         position: relative;
         display: inline-block !important;
         text-decoration: none;
@@ -170,10 +146,9 @@
         margin-right: auto;
         padding: 10px;
         transition: background-color linear 0.5s;
-        line-height: 50%;
     }
 
-        #addButton:hover, #addTypeButton:hover, #addUserButton:hover {
+        #saveButton:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
@@ -207,7 +182,7 @@
     }
 
     .breadcrumb-item {
-        font-size: 25px;
+        font-size: 20px;
     }
 
     .breadcrumb {
@@ -231,7 +206,7 @@
             display: table;
             font-family: 'Raleway', sans-serif;
             font-weight: 200;
-            font-size: 25px;
+            font-size: 20px;
             text-decoration: none !important;
             color: #5a9ad6;
             line-height: 61px;
@@ -252,51 +227,23 @@
             color: #5a9ad6;
         }
 </style>
-<script>
-    $("#datepicker1").datepicker({
-        maxDate: new Date(),
-        onSelect: function (selectdate) {
-            var dt = new Date(selectdate);
-            dt.setDate(dt.getDate() + 1)
-            $("#datepicker2").datepicker("option", "minDate", dt);
-        }
-    }).datepicker("setDate", new Date());
-
-    $("#datepicker2").datepicker({
-        onSelect: function (selectdate) {
-            var dt = new Date(selectdate);
-            dt.setDate(dt.getDate() - 1)
-            $("#datepicker1").datepicker("option", "maxDate", dt);
-        }
-    }).datepicker("setDate", new Date());
-
-    $("#addButton").click(function (event) {
-        swal({
-            title: "Are you sure?",
-            icon: "info",
-            buttons: [
-                true,
-                "Yes",
-            ],
-            closeOnClickOutside: false,
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#saveButton').on('click', function () {
+            swal({
+                title: "Are you sure?",
+                icon: "info",
+                buttons: [
+                    true,
+                    "Yes",
+                ],
+                closeOnClickOutside: false,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $('#myForm').submit();
+                }
+            });
         })
-        .then((willDelete) => {
-            if (willDelete) {
-                $('#myForm').submit();
-            }
-        });
     });
-
-    $("#addTypeButton").click(function (event) {
-        window.location.href = '@Url.Action("FromAddProjectScreen", "AddProjectType")'
-    });
-
-    $("#addUserButton").click(function (event) {
-        window.location.href = '@Url.Action("FromAddProjectScreen", "AddUser")'
-    });
-
-    $("#addButton").css({ 'flex-basis': '' });
-    $("#addTypeButton").css({ 'flex-basis': '' });
-    $("#addUserButton").css({ 'flex-basis': '' });
 </script>
-

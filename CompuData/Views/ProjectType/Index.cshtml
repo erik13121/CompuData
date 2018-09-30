@@ -269,12 +269,12 @@
                         data: { typeID: typeID },
                         dataType: 'json',
                         success: function (data) {
-                            if (data.Url != "Cascading error!")
-                            {
-                                swal("You have successfully deleted the Project Type", {
+                            if (data.Url != "Cascading error!") {
+                                swal("You have successfully deleted the Equipment", {
                                     icon: "success",
+                                }).then(() => {
+                                    window.location.href = data.Url;
                                 });
-                                window.location.href = data.Url;
                             }
                             else
                             {

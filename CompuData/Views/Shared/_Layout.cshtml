@@ -60,10 +60,11 @@
     <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
     <script type="text/javascript" charset="utf8" src="~/Scripts/jquery-ui-1.12.1.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @RenderSection("Scripts", false)
 </body>
 </html>
 <footer class="footer">
-    <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    <p>&copy; @DateTime.Now.Year - CompuData</p>
 </footer>
 <style>
     .ui-datepicker {
@@ -145,6 +146,6 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    
 </body>-->
 

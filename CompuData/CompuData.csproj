@@ -287,6 +287,7 @@
     <Compile Include="Controllers\AddVenueController.cs" />
     <Compile Include="Controllers\AssignDonationItemController.cs" />
     <Compile Include="Controllers\BackupRestoreMenuController.cs" />
+    <Compile Include="Controllers\BuildingDetailsController.cs" />
     <Compile Include="Controllers\BuildingsController.cs" />
     <Compile Include="Controllers\DonationController.cs" />
     <Compile Include="Controllers\DonationDetailsController.cs" />
@@ -325,6 +326,7 @@
     <Compile Include="Controllers\JobTitleModifyController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MainMenuController.cs" />
+    <Compile Include="Controllers\ModifyBuildingDetailsController.cs" />
     <Compile Include="Controllers\ModifyDonorOrgController.cs" />
     <Compile Include="Controllers\ModifyDonorPersonController.cs" />
     <Compile Include="Controllers\ModifyEquipmentDetails.cs" />
@@ -566,6 +568,7 @@
     <Compile Include="Global\Venue_Schedule_Line.cs">
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Venue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -577,6 +580,7 @@
     <Content Include="Contents\bootstrap-datepicker3.min.css" />
     <Content Include="Contents\bootstrap-datepicker3.standalone.css" />
     <Content Include="Contents\bootstrap-datepicker3.standalone.min.css" />
+    <Content Include="Contents\bootstrap-min.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -695,6 +699,8 @@
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Content\jquery.timepicker.min.css" />
+    <Content Include="Scripts\jquery.timepicker.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -949,6 +955,7 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\AddPCR\Index.cshtml" />
+    <Content Include="Views\PCR\Index.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -959,12 +966,13 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\HelpPage\Index.cshtml" />
+    <Content Include="Views\BuildingDetails\Index.cshtml" />
+    <Content Include="Views\ModifyBuildingDetails\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Views\Global\" />
-    <Folder Include="Views\PCR\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

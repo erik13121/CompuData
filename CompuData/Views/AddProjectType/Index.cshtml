@@ -11,7 +11,15 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
         <li class="breadcrumb-item"><a href="../ProjectManagementMenu">Project Management Menu</a></li>
-        <li class="breadcrumb-item"><a href="../ProjectType">Project Type</a></li>
+        @if (ViewBag.Referrer != null ? ViewBag.Referrer == "AddProject" : false)
+        {
+            <li class="breadcrumb-item"><a href="../Project">Projects</a></li>
+            <li class="breadcrumb-item"><a href="../AddProject">Add Project</a></li>
+        }
+        else
+        {
+            <li class="breadcrumb-item"><a href="../ProjectType">Project Type</a></li>
+        }
         <li class="breadcrumb-item active" aria-current="page">Add Project Type</li>
     </ol>
 </nav>
@@ -31,10 +39,18 @@
             @Html.EditorFor(model => model.TypeDescription)<br />
         </div>
         @Html.ValidationMessageFor(model => model.TypeDescription)
+        <input type="hidden" name="Referrer" value="@ViewBag.Referrer" />
     }
     <div id="addButton">Add</div>
 </div>
-<div id="backButton">Back</div>
+@if (ViewBag.Referrer != null ? ViewBag.Referrer == "AddProject" : false)
+{
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "AddProject")'">Back</div>
+}
+else
+{
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "ProjectType")'">Back</div>
+}
 <style>
     form {
         top: 0;

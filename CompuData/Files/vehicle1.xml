@@ -1,423 +1,423 @@
-<?xml version="1.0"?>
-<Dates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dates>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>03/09/2018</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>10/09/2018</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>17/09/2018</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>24/09/2018</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>01/10/2018</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>08/10/2018</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>15/10/2018</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>22/10/2018</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>29/10/2018</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>05/11/2018</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>12/11/2018</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>19/11/2018</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>26/11/2018</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>03/12/2018</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>10/12/2018</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>17/12/2018</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>24/12/2018</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>31/12/2018</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>07/01/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>14/01/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>21/01/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>28/01/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>04/02/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>11/02/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>18/02/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>25/02/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>04/03/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>11/03/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>18/03/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>25/03/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>01/04/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>08/04/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>15/04/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>22/04/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>29/04/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>06/05/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>13/05/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>20/05/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>27/05/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>03/06/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>10/06/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>17/06/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>24/06/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>01/07/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>08/07/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>15/07/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>22/07/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>29/07/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>05/08/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>12/08/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>19/08/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>26/08/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>02/09/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>09/09/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>16/09/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>23/09/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>30/09/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>07/10/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>14/10/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>21/10/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>28/10/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>04/11/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>11/11/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>18/11/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>25/11/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>02/12/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>09/12/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>16/12/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>23/12/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
   <Date>
     <dayofWeek>Monday</dayofWeek>
     <date>30/12/2019</date>
-    <startTime>06:00:00</startTime>
-    <endTime>10:00:00</endTime>
+    <startTime>00:00:00</startTime>
+    <endTime>06:00:00</endTime>
   </Date>
 </Dates>
