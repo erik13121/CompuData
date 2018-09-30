@@ -256,6 +256,8 @@
                             if (data.Url != "Cascading error!") {
                                 swal("You have successfully deleted the Funder Type", {
                                     icon: "success",
+                                }).then(() => {
+                                    window.location.href = data.Url;
                                 });
                             }
                             else {
@@ -263,7 +265,6 @@
                                     icon: "warning",
                                 });
                             }
-                            window.location.href = data.Url;
                         }
                     });
                 }
