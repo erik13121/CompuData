@@ -12,16 +12,18 @@ namespace CompuData.Models
     {
         public int RequisitionID { get; set; }
 
-        [Required]
-        [MaxLength(50)]
+        [Required(ErrorMessage = "The Status is required")]
+        [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Approval Status")]
         public string ApprovalStatus { get; set; }
 
         [Column(TypeName = "bit")]
         public bool VATInclusive { get; set; }
 
+        [Required(ErrorMessage = "The Requisition Date is Required")]
         [Column(TypeName = "date")]
         public DateTime ReqDate { get; set; }
 
+        [Required(ErrorMessage = "A Supplier is required")]
         [Key]
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -29,10 +31,12 @@ namespace CompuData.Models
 
         public string Name { get; set; }
 
+        [Required(ErrorMessage = "A Project is required")]
         public int ProjectID { get; set; }
 
         public string ProjectName { get; set; }
 
+        [Required(ErrorMessage = "A User is required")]
         public int UserID { get; set; }
 
         public string Initials { get; set; }
