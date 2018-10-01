@@ -17,7 +17,7 @@ namespace CompuData.Models
         public string ApprovalStatus { get; set; }
 
         [Column(TypeName = "bit")]
-        public bool? VATInclusive { get; set; }
+        public bool VATInclusive { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime ReqDate { get; set; }
@@ -52,7 +52,7 @@ namespace CompuData.Models
 
         public PCR() { }
 
-        public PCR(int ID, string ApprovalStat, bool? VAT, DateTime Date, int SupID, int ProID, int UsersID)
+        public PCR(int ID, string ApprovalStat, bool VAT, DateTime Date, int SupID, int ProID, int UsersID)
         {
             RequisitionID = ID;
             ApprovalStatus = ApprovalStat;
