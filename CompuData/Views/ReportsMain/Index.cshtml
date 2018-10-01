@@ -1,6 +1,5 @@
-﻿
-@{
-    ViewBag.Title = "ReportsMain";
+﻿@{
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,7 +9,9 @@
         <li class="breadcrumb-item active" aria-current="page">Reporting</li>
     </ol>
 </nav>
+
 @Html.Partial("_ProfilePartial")
+
 <head>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -26,7 +27,7 @@
         <div class="card mb-4 box-shadow" id="Box1">
             <div id="addVenueButton">@Html.ActionLink("Generate Procurement Report", "Procurement", "ReportsMain")</div>
             <br />
-            <div id="addVenueButton">@Html.ActionLink("Generate Vehicle Register", "VehicleRegister", "ReportsMain")</div>
+            <div id="addVenueButton">@Html.ActionLink("Generate Vehicle Register", "Index","ReportsVehiclesRegister")</div>
             <br />
             <div id="addVenueButton">@Html.ActionLink("Generate Donations Report", "Donations", "ReportsMain")</div>
             <br />
