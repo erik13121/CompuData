@@ -40,7 +40,6 @@ namespace CompuData.Controllers
                            {
                                RequisitionID = d.RequisitionID ,
                                ApprovalStatus = d.ApprovalStatus,
-                               VATInclusive = d.VATInclusive,
                                ReqDate = d.ReqDate,
                                TotalAmount = d.TotalAmount,
                                SupplierName = s.Name,
@@ -60,7 +59,7 @@ namespace CompuData.Controllers
             _item.TotalAmount.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) ||
             _item.SupplierName.ToUpper().Contains(request.Search.Value.ToUpper()) ||
             _item.ProjectName.ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.UserInitials.ToUpper().Contains(request.Search.Value.ToUpper()) ||
+            (_item.UserInitials != null ? _item.UserInitials.ToUpper().Contains(request.Search.Value.ToUpper()  : false) ||
             _item.UserLastName.ToUpper().Contains(request.Search.Value.ToUpper())
             );
 

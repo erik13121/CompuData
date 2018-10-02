@@ -51,11 +51,6 @@
                             </div>
                             @Html.ValidationMessageFor(model => model.UserID)
                             <div>
-                                <p>VAT Inclusive:</p>
-                                @Html.CheckBoxFor(model => model.VATInclusive)
-                            </div>
-                            @Html.ValidationMessageFor(model => model.VATInclusive)
-                            <div>
                                 <p>Date:</p>
                                 @Html.TextBoxFor(model => model.ReqDate, new { @class = "form-control date-picker", @id = "datepicker", placeholder = "Please Enter Date" })
                             </div>
@@ -519,19 +514,9 @@
             SupplierID: $("#SupplierID").val(),
             UserID: $("#UserID").val(),
             ProjectID: $("#ProjectID").val(),
-            VATInclusive: $("#VATInclusive").val(),
             ReqDate: $("#datepicker").val(),
             pcrdetails: pcrdetails
         });
-
-        console.log($("#SupplierID").val());
-        console.log($("#UserID").val());
-        console.log($("#ProjectID").val());
-        console.log($("#VATInclusive").val());
-        console.log($("#datepicker").val());
-        console.log(pcrdetails);
-
-        console.log(data);
         
         $.ajax({
             contentType: 'application/json; charset=utf-8',
@@ -540,8 +525,20 @@
             url: '@Url.Action("SavePCRALL","AddPCR")',
             data: data,
             success: function (result) {
-                alert(result);
-                location.reload();
+                if (result.includes("success"))
+                {
+                    swal(result, "success")
+                    .then(() => {
+                        window.location.href = "/PCR/Index";
+                    });
+                }
+                else
+                {
+                    swal(result, "error")
+                    .then(() => {
+                        location.reload();
+                    });
+                }
             },
             error: function () {
                 alert("Error! Something Went Wrong")

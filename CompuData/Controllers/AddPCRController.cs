@@ -30,6 +30,7 @@ namespace CompuData.Controllers
         {
             string result = "Error!information is incomplete";
             int LineID = 1;
+            decimal Sum = 0;
             if (pcrdetails != null && SupplierID != null && UserID != 0 && ProjectID != 0)
             {
                 var db = new CodeFirst.CodeFirst();
@@ -40,7 +41,6 @@ namespace CompuData.Controllers
 
                     newPCR.RequisitionID = waduuu.RequisitionID + 1;
                     newPCR.ApprovalStatus = "Not Approved";
-                    newPCR.VATInclusive = VATInclusive;
                     newPCR.ReqDate = DateTime.Parse(ReqDate.Value.ToString("yyyy-MM-dd"));
                     newPCR.SupplierID = Convert.ToInt32(SupplierID);
                     newPCR.ProjectID = ProjectID;
@@ -50,7 +50,6 @@ namespace CompuData.Controllers
                 {
                     newPCR.RequisitionID = 1;
                     newPCR.ApprovalStatus = "Not Approved";
-                    newPCR.VATInclusive = VATInclusive;
                     newPCR.ReqDate = DateTime.Parse(ReqDate.Value.ToString("yyyy-MM-dd"));
                     newPCR.SupplierID = Convert.ToInt32(SupplierID);
                     newPCR.ProjectID = ProjectID;
@@ -82,11 +81,23 @@ namespace CompuData.Controllers
                     FUckARrie.Total = decimal.Parse(item.Total.ToString().Substring(1, item.Total.ToString().Length));
                     FUckARrie.SupplierID = (int)item.SupplierID;
 
+                    Sum += decimal.Parse(item.Total.ToString().Substring(1, item.Total.ToString().Length));
                     LineID++;
                     db.Petty_Cash_Requisition_Line.Add(FUckARrie);
                 }
-                db.SaveChanges();
-                result = "Success! Order is complete!";
+
+                newPCR.TotalAmount = Sum;
+
+                if (Sum > 2000)
+                {
+                    result = "Total Amount is over R2000. Please Use EFT Requisition for this Transaction";
+                }
+                else
+                {
+                    db.SaveChanges();
+                    result = "Success! Order is complete!";
+                }
+
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
