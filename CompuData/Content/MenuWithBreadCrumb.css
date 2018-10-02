@@ -484,19 +484,19 @@ input[type=checkbox] {
 }*/
 
 .vertical-alignment-helper {
-    display:table;
-    height: 100%;
-    width: 100%;
+    display:table !important;
+    height: 100% !important;
+    width: 100% !important;
 }
 .vertical-align-center {
     /* To center vertically */
-    display: table-cell;
-    vertical-align: middle;
+    display: table-cell !important;
+    vertical-align: middle !important;
 }
 .modal-content {
     /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
     width:inherit !important;
-    height:inherit;
+    height:inherit !important;
     /* To center horizontally */
-    margin: 0 25%;
+    margin: 0 25% !important;
 }
