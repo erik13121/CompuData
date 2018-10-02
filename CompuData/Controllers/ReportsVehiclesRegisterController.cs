@@ -20,11 +20,12 @@ namespace CompuData.Controllers
         }
 
         //VehicleRegister
-        public ActionResult VehicleRegister(int vehicletypeID)
+        public ActionResult VehicleRegister(DateTime fromDate, DateTime toDate)
         {
             ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath("~/Report"), "VehicleRegister.rpt"));
-            rd.SetParameterValue("@id", vehicletypeID);
+            rd.Load(Path.Combine(Server.MapPath("~/Report/VehicleRegister.rpt")));
+            rd.SetParameterValue("@startdate", fromDate);
+            rd.SetParameterValue("@enddate", toDate);
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();

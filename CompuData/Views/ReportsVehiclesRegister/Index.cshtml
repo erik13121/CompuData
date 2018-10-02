@@ -21,17 +21,35 @@
 @Html.Partial("_ProfilePartial")
 
 <div id="table_background">
-    <form action="VehicleRegister" method="post">
+    <form action="VehicleRegister">
         <p>Reports Vehicle Report</p>
-        <div>
+        @*<div>
             <p>Vehicle Type:</p>
             @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.VehicleTypes, "TypeID", "Name"))
+        </div>*@
+            <input type="submit" value="Export Report" />
+        <div class="form-group">
+            <label class="control-label col-md-2" for="fromDate">From Date</label>
+            <div class="col-md-10">
+                <input class="date-picker" data-val="true" data-val-date="The field startDate must be a date." data-val-required="The startDate field is required." id="fromDate" name="fromDate" type="text" value="" />
+                <span class="field-validation-valid" data-valmsg-for="fromDate" data-valmsg-replace="true"></span>
+            </div>
         </div>
-        <input type="submit" value="Export Report" />
+        <div class="form-group">
+            <label class="control-label col-md-2" for="toDate">To Date</label>
+            <div class="col-md-10">
+                <input class="date-picker" data-val="true" data-val-date="The field toDate must be a date." data-val-required="The toDate field is required." id="toDate" name="toDate" type="text" value="" />
+                <span class="field-validation-valid" data-valmsg-for="fromDate" data-valmsg-replace="true"></span>
+            </div>
+        </div>
     </form>
 </div>
 
 <style>
+        .gj-datepicker {
+                flex: 50%;
+    }
+
     #table_background p {
         font-size: 25px;
         text-align: center;
@@ -184,3 +202,31 @@
             color: #5a9ad6;
         }
 </style>
+
+<script type="text/javascript">
+    $(function () {
+        //date picker for START DATE
+        //dt = selected Date and passes to END DATE datepicker as minDate
+        $("#fromDate").datepicker({
+            onSelect: function (selectdate) {
+                var dt = new Date(selectdate);
+                dt.setDate(dt.getDate() + 1)
+                $("#toDate").datepicker("option", "minDate", dt);
+            }
+        });
+
+        //date picker for END DATE
+        //dt = selected Date and passes to START DATE datepicker as maxDate
+        $("#toDate").datepicker({
+            onSelect: function (selectdate) {
+                var dt = new Date(selectdate);
+                dt.setDate(dt.getDate() - 1)
+                $("#fromDate").datepicker("option", "maxDate", dt);
+            }
+        });
+
+        //initialise datepicker dates with today date for start and +1d for end date
+        $("#fromDate").datepicker("setDate", "+0d");
+        $("#toDate").datepicker("setDate", "+1d");
+    });
+</script>
