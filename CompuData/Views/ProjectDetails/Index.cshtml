@@ -245,6 +245,7 @@
             color: #5a9ad6;
         }
 </style>
+
 <script>
     $('#modifyButton').on('click', function () {
         var projectID = @Model.ProjectID;
@@ -284,8 +285,10 @@
                         dataType: 'json',
                         success: function (data) {
                             if (data.Url != "Cascading error!") {
-                                swal("You have successfully deleted the Project", {
+                                swal("You have successfully deleted the Equipment", {
                                     icon: "success",
+                                }).then(() => {
+                                    window.location.href = data.Url;
                                 });
                             }
                             else {

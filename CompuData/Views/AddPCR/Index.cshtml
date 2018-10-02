@@ -52,26 +52,62 @@
                             @Html.ValidationMessageFor(model => model.UserID)
                             <div>
                                 <p>VAT Inclusive:</p>
-                                @Html.EditorFor(model => model.VATInclusive)
+                                @Html.CheckBoxFor(model => model.VATInclusive)
                             </div>
                             @Html.ValidationMessageFor(model => model.VATInclusive)
                             <div>
                                 <p>Date:</p>
-                                @Html.TextBoxFor(model => model.ReqDate, new { @class = "form-control", @id = "datepicker2", placeholder = "Please Enter Date" })
+                                @Html.TextBoxFor(model => model.ReqDate, new { @class = "form-control date-picker", @id = "datepicker", placeholder = "Please Enter Date" })
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="LineItems" class="tab-pane fade">
-                <div class="row-md-6">
-                    <div class="card mb-4 box-shadow">
-                        <div class="card-body" id="cardbody2">
-                            
+                            @Html.ValidationMessageFor(model => model.ReqDate)
                         </div>
                     </div>
                 </div>
             </div>           
+            <div id="LineItems" class="tab-pane fade">
+                <div class="row-md-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body" id="cardbody2">
+                            <div id="table_background">
+                                <table id="table_id" class="display">
+                                    <thead>
+                                        <tr>
+                                            <th>Details</th>
+                                            <th>Quantity</th>
+                                            <th>Amount</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="col-sm-6">
+                                                <input type="text" name="Details" class="form-control" />
+                                            </td>
+                                            <td class="col-sm-2">
+                                                <input type="text" name="phone" class="form-control" />
+                                            </td>
+                                            <td class="col-sm-2">
+                                                <input type="text" name="phone" class="form-control" />
+                                            </td>
+                                            <td class="col-sm-2">
+                                                <a class="deleteRow"></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="5" style="text-align: left;">
+                                                <input type="button" class="btn btn-lg btn-block " id="addrow" value="Add Row" />
+                                            </td>
+                                        </tr>
+                                        <tr></tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>         
         </div>
         <div id="multipleButtons">
             <div id="addButton">Add Petty Cash Requisition</div>
@@ -79,11 +115,14 @@
     }
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "PCR")'">Back</div>
 
 <style>
+        .gj-datepicker {
+                flex: 50%;
+    }
+
         input[type=checkbox] {
         height: 25px;
         margin-top: auto;
@@ -132,6 +171,8 @@
 
     #table_id {
         background-color: #5a9ad6;
+        width: 100%;
+        border-right: 250px;
     }
 
     #Flexyman {
@@ -389,12 +430,41 @@
     }
 </style>
 
-<script>
-    $('#datepicker1').datepicker();
-    $('#datepicker1').datepicker("setDate", new Date());
+<script type="text/javascript">
+    var table;
+    $(document).ready(function () {
+        table = $('#table_id').DataTable({
+            "paging": false,
+            "ordering": false,
+            "info": false,
+            "searching": false,
+            "scrollCollapse": true
+        });
+    });
 
-    $('#datepicker2').datepicker();
-    $('#datepicker2').datepicker("setDate", new Date());
+    $("#addrow").on("click", function () {
+        table = $('#table_id').DataTable();
+        table.row.add([
+            '<td><input type="text" class="form-control" name="Details"/><td/>',
+            '<td><input type="text" class="form-control" name="Quantity"/><td/>',
+            '<td><input type="text" class="form-control" name="Amount"/><td/>',
+            '<td><input type="button" class="ibtnDel btn btn-md btn-danger" value="Delete"/><td/>',
+        ])
+            .draw();
+    });
+
+    $("#table_id").on('click', '.ibtnDel', function () {
+        console.log($(this).parent());
+        table.row($(this).parents('tr')).remove().draw(false);
+    });
+
+    $(document).ready(function () {
+        var contentPlacement = "-200px";
+        $('#myheading2').css('transform', "translateX(" + contentPlacement + ")");
+    });
+
+    $('#datepicker').datepicker();
+    $('#datepicker').datepicker("option", "maxDate", new Date());
 
     $(document).ready(function () {
         $('tabitem1').on('click', function() {
@@ -432,10 +502,133 @@
     });
 
     $("#addButton").css({ 'flex-basis': '' });
+
+
+
 </script>
 
+@*@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
 
+    <script type="text/javascript">
+        $(function () {
+            $(document).ready(function () {
+                $('#btnNewOrder').click(function () {
+                    $("#newOrderModal").modal();
+                })
 
+                //Add multiple Harvests
+                $('#addItemToList').click(function (e) {
+                    e.preventDefault();
 
+                    //if ($.trim($("#InventoryID option:selected").text()) == "" || $.trim($("#quantity").val()) == "") return;
+                    var isAllValid = true;
 
+                    //Validate input fields and Add
+                    if (!($('#quantity').val().trim() != '' && (parseInt($('#quantity').val()) || 0))) {
+                        isAllValid = false;
+                        $('#quantity').siblings('span.error').css('visibility', 'visible');
+                        return;
+                    }
+                    else {
+                        $('#quantity').siblings('span.error').css('visibility', 'hidden');
+                    }
+                    if ($('#SupplierID').val() == "0") {
+                        isAllValid = false;
+                        $('#SupplierID').siblings('span.error').css('visibility', 'visible');
+                    }
+                    else {
+                        $('#SupplierID').siblings('span.error').css('visibility', 'hidden');
+                    }
+                    if ($('#FarmID').val() == "0") {
+                        isAllValid = false;
+                        $('#FarmID').siblings('span.error').css('visibility', 'visible');
+                    }
+                    else {
+                        $('#FarmID').siblings('span.error').css('visibility', 'hidden');
+                    }
+                    if ($('#InventoryID').val() == "0") {
+                        isAllValid = false;
+                        $('#InventoryID').siblings('span.error').css('visibility', 'visible');
+                    }
+                    else {
+                        $('#InventoryID').siblings('span.error').css('visibility', 'hidden');
+                    }
+                    if ($('#price').val() == "0") {
+                        isAllValid = false;
+                        $('#price').siblings('span.error').css('visibility', 'visible');
+                    }
+                    else {
+                        $('#price').siblings('span.error').css('visibility', 'hidden');
+                    }
 
+                    if (isAllValid) {
+                        var SupplierID = $("#SupplierID option:selected").val(),
+                            SupplierName = $("#SupplierID option:selected").text(),
+                            FarmID = $("#FarmID option:selected").val(),
+                            FarmName = $("#FarmID option:selected").text(),
+                            InventoryID = $("#InventoryID option:selected").val(),
+                            InvDescr = $("#InventoryID option:selected").text(),
+                                OrderItemPrice = $("#price").val(),
+                                OrderQty = $("#quantity").val(),
+                        detailsTableBody = $("#detailsTable tbody");
+
+                        var productItem = '<tr><td>' + InventoryID + '</td><td>' + InvDescr + '</td><td>' + OrderItemPrice + '</td><td>' + OrderQty + '</td><td>' + (parseFloat(OrderItemPrice) * parseInt(OrderQty)) + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+                        detailsTableBody.append(productItem);
+                        clearItems();
+                    }
+
+                });
+
+                //add save order funct here
+                function saveOrder(data) {
+                    return $.ajax({
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        type: 'POST',
+                        url: "/SupplierOrder/SaveOrder",
+                        data: data,
+                        success: function (result) {
+                            alert(result);
+                            location.reload();
+                        },
+                        error: function () {
+                            alert("Error!")
+                        }
+                    });
+                }
+
+                $("#saveOrder").click(function (e) {
+                    e.preventDefault();
+
+                    var OrdersArr = []; //OrderLineArr
+                    OrdersArr.length = 0;
+
+                    $.each($("#detailsTable tbody tr"), function () {
+                        OrdersArr.push({
+                            InventoryID: $(this).find('td:eq(0)').html(),
+                            OrderItemPrice: $(this).find('td:eq(2)').html(),
+                            OrderLineTotalQuantity: $(this).find('td:eq(3)').html(),
+                            OrderLineTotalAmount: $(this).find('td:eq(4)').html()
+                        });
+                    });
+                    //var myDomElement = document.getElementById("hdEventID");
+                    var data = JSON.stringify({
+                        SupplierID: $("#SupplierID option:selected").val(),
+                        FarmID: $("#FarmID option:selected").val(),
+                        orders: OrdersArr
+                    });
+
+                    $.when(saveOrder(data)).then(function (response) {
+                        console.log(response);
+                        window.location.href = "/SupplierOrder/Index/";
+                        //window.location.href = "/{controller}/{action}/{params}";
+                    }).fail(function (err) {
+                        console.log(err);
+                    });
+                });
+            })
+        })
+
+    </script>*@
