@@ -51,14 +51,7 @@ namespace CompuData.Models
         public string NationalID { get; set; }
 
         [Required(ErrorMessage = "The Password is required")]
-        [MembershipPassword(
-            MinRequiredNonAlphanumericCharacters = 1,
-            MinNonAlphanumericCharactersError = "Your password needs to contain at least one symbol (!, @, #, etc.)",
-            MinRequiredPasswordLength = 6,
-            ErrorMessage = "Your password must be 6 characters long and contain at least one symbol (!, @, #, etc.)"
-        )]
         [DataType(DataType.Password)]
-        [MaxLength(50, ErrorMessage = "Max allowed characters for Password is 50")]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "The Personal Email is required")]
