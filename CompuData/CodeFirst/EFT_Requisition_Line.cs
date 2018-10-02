@@ -16,9 +16,11 @@ namespace CompuData.CodeFirst
         [MaxLength(50)]
         public string Details { get; set; }
 
-        public int? QuantityEFT { get; set; }
+        public int QuantityEFT { get; set; }
 
-        public decimal? UnitPriceEFT { get; set; }
+        public decimal UnitPriceEFT { get; set; }
+
+        public decimal? TotalEFT { get; set; }
 
         [Key]
         [Column(Order = 1)]

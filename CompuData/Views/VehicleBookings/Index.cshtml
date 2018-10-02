@@ -13,13 +13,14 @@
     </ol>
 </nav>
 @Html.Partial("_ProfilePartial")
+@{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
 <div id="table_background">
     <h2>Vehicle Bookings</h2>
     <div id="calendar"></div>
     <div class="well">
         <div class="row">
             <div class="col-sm-10 offset-sm-1 text-center">
-                @using (Html.BeginForm("Create", "Plantation", FormMethod.Get, new { @class = "form-inline justify-content-center" }))
+                @using (Html.BeginForm("Index", "SelectVehicleforVehicleService", FormMethod.Get, new { @class = "form-inline justify-content-center" }))
                 {
                     <button class="btn btn-success center-block" type="submit">
                         Add Booking
@@ -72,18 +73,27 @@
                 </div>
                 <div id="modalBody" class="modal-body">
                     <div class="form-group">
-                        <input class="form-control" type="text" placeholder="Booking Reason" id="bookingReason">
+                        <input type="text" id="bookingReason" placeholder="Booking Reason" class="form-control" />
                     </div>
-                    <div class="form-group form-inline">
-                        <div class="input-group">
-                            <input type="text" id="bookingStartTime" class="form-control">
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="bookingStartTime">Start Time:</label>
+                            <input type="text" id="bookingStartTime" class="form-control" />
                         </div>
-                        <div class="input-group">
-                            <input type="text" id="bookingEndTime" class="form-control">
+                        <div class="form-group col pull-right">
+                            <label for="bookingEndTime">End Time:</label>
+                            <input type="text" id="bookingEndTime" class="form-control" />
                         </div>
                     </div>
-                    <div class="form-group">
-                        <textarea class="form-control" type="text" rows="4" placeholder="Event Description" id="eventDescription"></textarea>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="bookingStartTime">Project:</label>
+                            @Html.DropDownList("Projects", (IEnumerable<SelectListItem>)ViewBag.Projects, new { id = "ddlProjects", @class = "form-control" })
+                        </div>
+                        <div class="form-group col pull-right">
+                            <label for="bookingEndTime">Driver:</label>
+                            @Html.DropDownList("Drivers", (IEnumerable<SelectListItem>)ViewBag.Users, new { id = "ddlUsers", @class = "form-control" })
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -94,6 +104,7 @@
         </div>
     </div>
 </div>
+
 
 <div id="myModalSave" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -175,13 +186,18 @@
     </div>
 </div>
 
-<link href="~/Content/jquery.timepicker.min.css" rel="stylesheet"/>
+<link href="~/Content/jquery.timepicker.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
-@*<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />*@
 <script src="~/Scripts/jquery.timepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
 <style>
+    form {
+        display: table;
+        height: 100%;
+        width: 100%;
+    }
+
     .center-block {
         float: none;
     }
@@ -323,27 +339,22 @@
     $(document).ready(function () {
         var events = [];
         var businessHours = [];
-        //added in for CRUDS
         var selectedEvent = null;
-        //FetchEventAndRenderCalender();
-        ///////////////////////////////
+        var eventStart = "";
+
         $.ajax({
             type: "GET",
             url: "/VehicleBookings/GetEvents",
             success: function (data) {
-                //log the results of OBJECT (data)
-                //console.log(JSON.stringify(data));
                 $.each(data, function (i, v) {
-                    //log the OBJECT data
                     events.push({
                         brand: v.Brand,
                         model: v.Model,
                         numberplate: v.NumberPlate,
                         reason: v.Reason,
                         username: v.UserName,
-                        datebooked: moment(v.DateBooked),
-                        start: v.StartTime,
-                        end: v.EndTime,
+                        start: moment(v.DateBooked + " " + moment(v.StartTime).format("HH:mm:ss")).format("MM/DD/YYYY HH:mm:ss"),
+                        end: moment(v.DateBooked + " " + v.EndTime).format("MM/DD/YYYY HH:mm:ss"),
                         projectname: v.ProjectName,
                         odoend: v.OdoEnd,
                         intervalid: v.IntervalID,
@@ -357,10 +368,7 @@
                     type: "GET",
                     url: "/VehicleBookings/GetScheduleEvents",
                     success: function (scheduleData) {
-                        //log the results of OBJECT (data)
-                        //console.log(JSON.stringify(scheduleData));
                         $.each(scheduleData, function (i, v) {
-                            //log the OBJECT data
                             businessHours.push({
                                 start: v.start,
                                 end: v.end,
@@ -388,28 +396,25 @@
                 contentHeight: 400,
                 defaultDate: new Date(),
                 defaultTimedEventDuration: '01:00:00',
-                selectable: true,
-                timeFormat: 'h(:mm)a',
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
-                },
+                defaultView: 'agendaWeek',
+                displayEventTime: false,
+                displayEventEnd: false,
                 editable: false,
                 eventLimit: true,
                 eventColor: '#007fff',
                 eventConstraint: 'businessHours',
                 eventOverlap: false,
                 events: events,
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
                 slotDuration: '01:00:00',
                 slotEventOverlap: false,
-                select: function (start, end, jsEvent, view) {
-                    /*var allDay = !start.hasTime && !end.hasTime;
-                    alert(["Event Date: " + moment(start).format('DD/MM/YYYY'),
-                    "Event Start Time: " + moment(start).format('h:mm:ss'),
-                    "Event End Time: " + moment(end).format('h:mm:ss')].join("\n"));*/
-                    $('#createEventModal').appendTo("body").modal('show');
-                },
+                selectConstraint: 'businessHours',
+                selectable: true,
+                timeFormat: 'h(:mm)a',
                 eventClick: function (calEvent, jsEvent, view) {
                     //added in code for CRUDS
                     selectedEvent = calEvent;
@@ -417,12 +422,11 @@
                     $('#myModal #eventTitle').text("Reason: " + calEvent.reason);
                     var $description = $('<div/>');
                     $description.append($('<p/>').html('<b>Booking ID:</b>' + calEvent.vehiclebookingid));
-                    $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("DD/MM/YYYY hh:mm")));
+                    $description.append($('<p/>').html('<b>Date Booked for:</b>' + moment(calEvent.datebooked).format("Do MMMM YYYY")));
+                    $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("hh:mm")));
                     if (calEvent.end != null) {
-                        $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("DD/MM/YYYY hh:mm")));
+                        $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("hh:mm")));
                     }
-
-                    $description.append($('<p/>').html('<b>Date Booked for:</b>' + calEvent.datebooked.format("DD-MMM-YYYY")));
                     $description.append($('<p/>').html('<b>Reason for Booking:</b>' + calEvent.reason));
                     $description.append($('<p/>').html('<b>Car Brand:</b>' + calEvent.brand));
                     $description.append($('<p/>').html('<b>Car Model:</b>' + calEvent.model));
@@ -443,7 +447,15 @@
                     $("#myModal").appendTo("body").modal('show');
                 },
                 eventRender: function (event, element) {
-                    $(element).tooltip({ title: event.title });
+                    //$(element).tooltip({ title: event.title });
+                    element.popover({
+                        title: event.title,
+                        html: true,
+                        content: event.start.format("Do MMMM YYYY") + "<br />" + event.start.format("H:mma") + "-" + event.end.format("H:mma"),
+                        trigger: 'hover',
+                        placement: 'top',
+                        container: 'body'
+                    });
                 }
             })
         }
@@ -454,32 +466,5 @@
 
             doSubmit();
         });
-
-        function doSubmit() {
-            $("#createEventModal").modal('hide');
-            var start = moment(new Date($('#eventDueDate').val() + ' 01:00:00'));
-            console.log(start);
-            $("#calendar").fullCalendar('renderEvent',
-                {
-                    title: $('#eventName').val(),
-                    start: start
-                    /*if (isValid) {
-                        return {
-                            title: $('#eventName').val(),
-                            start: start
-                        }
-                    }*/               
-                },
-                true);
-        }
-
-        function isValid() {
-            $('#calendar').fullCalendar('clientEvents', function (event) {
-                if (event.start <= date && event.end >= date) {
-                    return true;
-                }
-                return false;
-            });
-        }
     })
 </script>

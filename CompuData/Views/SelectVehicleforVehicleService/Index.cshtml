@@ -11,22 +11,29 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
         <li class="breadcrumb-item"><a href="../VehicleMenu">Vehicle Menu</a></li>
-        @if (Session["Referrer"] as string == "VehicleServices")
+        @if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "VehicleServices" : false)
         {
             <li class="breadcrumb-item"><a href="../VehicleServices">Vehicle Services</a></li>
         }
-        else if (Session["Referrer"] as string == "VehicleSchedules")
+        else if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "VehicleSchedules" : false)
         {
             <li class="breadcrumb-item"><a href="../VehicleSchedules">Vehicle Schedules</a></li>
+        }
+        else if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "VehicleBookings" : false)
+        {
+            <li class="breadcrumb-item"><a href="../VehicleBookings">Vehicle Bookings</a></li>
         }
         <li class="breadcrumb-item active" aria-current="page">Select Vehicle</li>
     </ol>
 </nav>
 @Html.Partial("_ProfilePartial")
 <div id="table_background">
-    <p>Select Vehicle</p>
+    @if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "VehicleBookings" : false)
+    {
+        <p>Select Vehicle for Vehicle Booking</p>
+    }
     <table id="vehiclesTable" class="display"></table>
-    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"] != null ? Session["Referrer"].ToString() : "VehicleMenu")'">Back</div>
 </div>
 <style>
     #table_background p {
@@ -261,47 +268,67 @@
         });
     });
 </script>
-@if (Session["Referrer"] as string == "VehicleServices")
+@if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "VehicleServices" : false)
 {
     <script>
-            $(document).ready( function()
-            {
-                $('#vehiclesTable tbody').on('click', 'tr', function () {
-                    var data = table.row(this).data();
-                    var vehicleID = data["vehicleID"];
+        $(document).ready(function () {
+            $('#vehiclesTable tbody').on('click', 'tr', function () {
+                var data = table.row(this).data();
+                var vehicleID = data["vehicleID"];
 
-                    $.ajax({
-                        url: '@Url.Action("RedirectToAddVehicleServiceDetails", "AddVehicleService")',
-                        type: 'POST',
-                        data: { vehicleID: vehicleID },
-                        dataType: 'json',
-                        success: function (data) {
-                            window.location.href = data.Url; // your action should return an object having [redirecturl] property
-                        }
-                    });
+                $.ajax({
+                    url: '@Url.Action("RedirectToAddVehicleServiceDetails", "AddVehicleService")',
+                    type: 'POST',
+                    data: { vehicleID: vehicleID },
+                    dataType: 'json',
+                    success: function (data) {
+                        window.location.href = data.Url; // your action should return an object having [redirecturl] property
+                    }
                 });
-            })
+            });
+        })
     </script>
 }
-else if (Session["Referrer"] as string == "VehicleSchedules")
+else if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "VehicleSchedules" : false)
 {
     <script>
-            $(document).ready(function () {
-                $('#vehiclesTable tbody').on('click', 'tr', function () {
-                    var data = table.row(this).data();
-                    var vehicleID = data["vehicleID"];
+        $(document).ready(function () {
+            $('#vehiclesTable tbody').on('click', 'tr', function () {
+                var data = table.row(this).data();
+                var vehicleID = data["vehicleID"];
 
-                    $.ajax({
-                        url: '@Url.Action("RedirectToAddVehicleScheduleDetails", "AddVehicleSchedule")',
-                        type: 'POST',
-                        data: { vehicleID: vehicleID },
-                        dataType: 'json',
-                        success: function (data) {
-                            window.location.href = data.Url; // your action should return an object having [redirecturl] property
-                        }
-                    });
+                $.ajax({
+                    url: '@Url.Action("RedirectToAddVehicleScheduleDetails", "AddVehicleSchedule")',
+                    type: 'POST',
+                    data: { vehicleID: vehicleID },
+                    dataType: 'json',
+                    success: function (data) {
+                        window.location.href = data.Url; // your action should return an object having [redirecturl] property
+                    }
                 });
-            })
+            });
+        })
+    </script>
+}
+else if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "VehicleBookings" : false)
+{
+    <script>
+        $(document).ready(function () {
+            $('#vehiclesTable tbody').on('click', 'tr', function () {
+                var data = table.row(this).data();
+                var vehicleID = data["vehicleID"];
+
+                $.ajax({
+                    url: '@Url.Action("RedirectToAddVehicleBooking", "AddVehicleBooking")',
+                    type: 'POST',
+                    data: { vehicleID: vehicleID },
+                    dataType: 'json',
+                    success: function (data) {
+                        window.location.href = data.Url; // your action should return an object having [redirecturl] property
+                    }
+                });
+            });
+        })
     </script>
 }
 

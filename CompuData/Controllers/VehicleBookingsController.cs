@@ -42,7 +42,7 @@ namespace CompuData.Controllers
                          VehicleBookingID = e.VehicleBookingID,
                          IntervalID = inter != null ? inter.IntervalID : 0,
                          UserName = u.FirstName + " " + u.LastName,
-                         DateBooked = e.DateBooked
+                         DateBooked = e.DateBooked.ToString("MM/dd/yyyy")
                      })
                      .ToList();
 
@@ -62,22 +62,13 @@ namespace CompuData.Controllers
                 db.Configuration.LazyLoadingEnabled = false;
                 var events = db.Vehicle_Schedule_Line.ToList();
 
-                Dictionary<string, int> days = new Dictionary<string, int>();
-                days.Add("Sunday", 0);
-                days.Add("Monday", 1);
-                days.Add("Tuesday", 2);
-                days.Add("Wednesday", 3);
-                days.Add("Thursday", 4);
-                days.Add("Friday", 5);
-                days.Add("Saturday", 6);
-
                 var newData =
                     (from e in events
                      select new
                      {
                          start = e.StartTime,
                          end = e.EndTime,
-                         dow = e.Date == "Sunday" ? 0 : 
+                         dow = e.Date == "Sunday" ? 0 :
                          e.Date == "Monday" ? 1 :
                          e.Date == "Tuesday" ? 2 :
                          e.Date == "Wednesday" ? 3 :

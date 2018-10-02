@@ -25,8 +25,7 @@ namespace CompuData.CodeFirst
 
         public TimeSpan EndTime { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime DateAvailable { get; set; }
+        public string DateAvailable { get; set; }
 
         public virtual Venue Venue { get; set; }
     }
