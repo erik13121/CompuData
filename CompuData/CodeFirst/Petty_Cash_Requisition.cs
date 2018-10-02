@@ -27,18 +27,18 @@ namespace CompuData.CodeFirst
         public bool? VATInclusive { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime ReqDate { get; set; }
+        public DateTime? ReqDate { get; set; }
 
         public decimal? TotalAmount { get; set; }
 
         [Key]
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int SupplierID { get; set; }
+        public int? SupplierID { get; set; }
 
-        public int ProjectID { get; set; }
+        public int? ProjectID { get; set; }
 
-        public int UserID { get; set; }
+        public int? UserID { get; set; }
 
         public virtual Project Project { get; set; }
 

@@ -9,6 +9,7 @@
 <head>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 </head>
+
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
@@ -26,7 +27,6 @@
         <li class="active"><a data-toggle="tab" href="#PCRDetails" id="tabitem">Petty Cash Requisition Details</a></li>
         <li><a data-toggle="tab" href="#LineItems" id="tabitem">Line Details</a></li>
     </ul>
-
     @using (@Html.BeginForm("Create", "AddPCR", FormMethod.Post, new { id = "myForm" }))
     {
         @Html.HiddenFor(model => model.RequisitionID)
@@ -63,7 +63,7 @@
                         </div>
                     </div>
                 </div>
-            </div>           
+            </div>
             <div id="LineItems" class="tab-pane fade">
                 <div class="row-md-6">
                     <div class="card mb-4 box-shadow">
@@ -75,25 +75,11 @@
                                             <th>Details</th>
                                             <th>Quantity</th>
                                             <th>Amount</th>
+                                            <th>Total</th>
                                             <th></th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="col-sm-6">
-                                                <input type="text" name="Details" class="form-control" />
-                                            </td>
-                                            <td class="col-sm-2">
-                                                <input type="text" name="phone" class="form-control" />
-                                            </td>
-                                            <td class="col-sm-2">
-                                                <input type="text" name="phone" class="form-control" />
-                                            </td>
-                                            <td class="col-sm-2">
-                                                <a class="deleteRow"></a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
+                                    <tbody></tbody>
                                     <tfoot>
                                         <tr>
                                             <td colspan="5" style="text-align: left;">
@@ -107,7 +93,7 @@
                         </div>
                     </div>
                 </div>
-            </div>         
+            </div>
         </div>
         <div id="multipleButtons">
             <div id="addButton">Add Petty Cash Requisition</div>
@@ -115,15 +101,68 @@
     }
 </div>
 
+<div id="newOrderModal" class="modal">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Add Line Items</h4>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span> <span class="sr-only">close</span></button>
+                </div>
+                <div id="modalBody" class="modal-body">
+                    <input type="hidden" id="LineID" />
+                    <div class="row">
+                        <label class="control-label col-md-4" id="textboxes">Details</label>
+                        <div class="col-md-8">
+                            <input type="text" id="details" placeholder="Details" class="form-control" />
+                            <span class="error">Details required</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="control-label col-md-4" id="textboxes"> Quantity</label>
+                        <div class="col-md-8">
+                            <input type="number" id="quantity" placeholder="Quantity" class="form-control" />
+                            <span class="error">Quantity required</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="control-label col-md-4" id="textboxes"> Unit Price(R)</label>
+                        <div class="col-md-8">
+                            <input type="number" id="unitprice" placeholder="Unit Price" class="form-control" />
+                            <span class="error">Unit Price is required</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="addItemToList">Add Item To List</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "PCR")'">Back</div>
 
 <style>
-        .gj-datepicker {
-                flex: 50%;
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
     }
 
-        input[type=checkbox] {
+
+    #newOrderModal {
+        z-index: 1100;
+    }
+
+    .gj-datepicker {
+        flex: 50%;
+    }
+
+    input[type=checkbox] {
         height: 25px;
         margin-top: auto;
         margin-bottom: auto;
@@ -421,6 +460,7 @@
         -ms-transform: rotate(45deg);
         transform: rotate(45deg);
     }
+
     gj-datepicker {
         flex: 50%;
     }
@@ -431,33 +471,6 @@
 </style>
 
 <script type="text/javascript">
-    var table;
-    $(document).ready(function () {
-        table = $('#table_id').DataTable({
-            "paging": false,
-            "ordering": false,
-            "info": false,
-            "searching": false,
-            "scrollCollapse": true
-        });
-    });
-
-    $("#addrow").on("click", function () {
-        table = $('#table_id').DataTable();
-        table.row.add([
-            '<td><input type="text" class="form-control" name="Details"/><td/>',
-            '<td><input type="text" class="form-control" name="Quantity"/><td/>',
-            '<td><input type="text" class="form-control" name="Amount"/><td/>',
-            '<td><input type="button" class="ibtnDel btn btn-md btn-danger" value="Delete"/><td/>',
-        ])
-            .draw();
-    });
-
-    $("#table_id").on('click', '.ibtnDel', function () {
-        console.log($(this).parent());
-        table.row($(this).parents('tr')).remove().draw(false);
-    });
-
     $(document).ready(function () {
         var contentPlacement = "-200px";
         $('#myheading2').css('transform', "translateX(" + contentPlacement + ")");
@@ -467,7 +480,7 @@
     $('#datepicker').datepicker("option", "maxDate", new Date());
 
     $(document).ready(function () {
-        $('tabitem1').on('click', function() {
+        $('tabitem1').on('click', function () {
             var x = document.getElementById("tabitem1").getAttribute("aria-expanded");
 
             if (x == "true") {
@@ -485,150 +498,118 @@
     })
 
     $("#addButton").click(function (event) {
-        swal({
-            title: "Are you sure?",
-            icon: "info",
-            buttons: [
-                true,
-                "Yes",
-            ],
-            closeOnClickOutside: false,
-        })
-        .then((willDelete) => {
-            if (willDelete) {
-                $('#myForm').submit();
+        event.preventDefault();
+
+        var pcrdetails = [];
+        pcrdetails.length = 0;
+
+        $.each($("#table_id tbody tr"), function () {
+            pcrdetails.push({
+                //RequisitionID: $("#RequisitionID").val(),
+                SupplierID: parseInt($("#SupplierID").val()),
+                Details: $(this).find('td:eq(0)').html(),
+                Quantity: $(this).find('td:eq(1)').html(),
+                UnitPrice: $(this).find('td:eq(2)').html(),
+                Total: $(this).find('td:eq(3)').html()
+            });
+        });
+
+        var data = JSON.stringify({
+            //RequisitionID: $("#RequisitionID").val(),
+            SupplierID: $("#SupplierID").val(),
+            UserID: $("#UserID").val(),
+            ProjectID: $("#ProjectID").val(),
+            VATInclusive: $("#VATInclusive").val(),
+            ReqDate: $("#datepicker").val(),
+            pcrdetails: pcrdetails
+        });
+
+        console.log($("#SupplierID").val());
+        console.log($("#UserID").val());
+        console.log($("#ProjectID").val());
+        console.log($("#VATInclusive").val());
+        console.log($("#datepicker").val());
+        console.log(pcrdetails);
+
+        console.log(data);
+        
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '@Url.Action("SavePCRALL","AddPCR")',
+            data: data,
+            success: function (result) {
+                alert(result);
+                location.reload();
+            },
+            error: function () {
+                alert("Error! Something Went Wrong")
             }
         });
     });
 
     $("#addButton").css({ 'flex-basis': '' });
 
+    $(document).ready(function () {
 
-
-</script>
-
-@*@section Scripts{
-    @Scripts.Render("~/bundles/jqueryval")
-    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
-
-    <script type="text/javascript">
-        $(function () {
-            $(document).ready(function () {
-                $('#btnNewOrder').click(function () {
-                    $("#newOrderModal").modal();
-                })
-
-                //Add multiple Harvests
-                $('#addItemToList').click(function (e) {
-                    e.preventDefault();
-
-                    //if ($.trim($("#InventoryID option:selected").text()) == "" || $.trim($("#quantity").val()) == "") return;
-                    var isAllValid = true;
-
-                    //Validate input fields and Add
-                    if (!($('#quantity').val().trim() != '' && (parseInt($('#quantity').val()) || 0))) {
-                        isAllValid = false;
-                        $('#quantity').siblings('span.error').css('visibility', 'visible');
-                        return;
-                    }
-                    else {
-                        $('#quantity').siblings('span.error').css('visibility', 'hidden');
-                    }
-                    if ($('#SupplierID').val() == "0") {
-                        isAllValid = false;
-                        $('#SupplierID').siblings('span.error').css('visibility', 'visible');
-                    }
-                    else {
-                        $('#SupplierID').siblings('span.error').css('visibility', 'hidden');
-                    }
-                    if ($('#FarmID').val() == "0") {
-                        isAllValid = false;
-                        $('#FarmID').siblings('span.error').css('visibility', 'visible');
-                    }
-                    else {
-                        $('#FarmID').siblings('span.error').css('visibility', 'hidden');
-                    }
-                    if ($('#InventoryID').val() == "0") {
-                        isAllValid = false;
-                        $('#InventoryID').siblings('span.error').css('visibility', 'visible');
-                    }
-                    else {
-                        $('#InventoryID').siblings('span.error').css('visibility', 'hidden');
-                    }
-                    if ($('#price').val() == "0") {
-                        isAllValid = false;
-                        $('#price').siblings('span.error').css('visibility', 'visible');
-                    }
-                    else {
-                        $('#price').siblings('span.error').css('visibility', 'hidden');
-                    }
-
-                    if (isAllValid) {
-                        var SupplierID = $("#SupplierID option:selected").val(),
-                            SupplierName = $("#SupplierID option:selected").text(),
-                            FarmID = $("#FarmID option:selected").val(),
-                            FarmName = $("#FarmID option:selected").text(),
-                            InventoryID = $("#InventoryID option:selected").val(),
-                            InvDescr = $("#InventoryID option:selected").text(),
-                                OrderItemPrice = $("#price").val(),
-                                OrderQty = $("#quantity").val(),
-                        detailsTableBody = $("#detailsTable tbody");
-
-                        var productItem = '<tr><td>' + InventoryID + '</td><td>' + InvDescr + '</td><td>' + OrderItemPrice + '</td><td>' + OrderQty + '</td><td>' + (parseFloat(OrderItemPrice) * parseInt(OrderQty)) + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
-                        detailsTableBody.append(productItem);
-                        clearItems();
-                    }
-
-                });
-
-                //add save order funct here
-                function saveOrder(data) {
-                    return $.ajax({
-                        contentType: 'application/json; charset=utf-8',
-                        dataType: 'json',
-                        type: 'POST',
-                        url: "/SupplierOrder/SaveOrder",
-                        data: data,
-                        success: function (result) {
-                            alert(result);
-                            location.reload();
-                        },
-                        error: function () {
-                            alert("Error!")
-                        }
-                    });
-                }
-
-                $("#saveOrder").click(function (e) {
-                    e.preventDefault();
-
-                    var OrdersArr = []; //OrderLineArr
-                    OrdersArr.length = 0;
-
-                    $.each($("#detailsTable tbody tr"), function () {
-                        OrdersArr.push({
-                            InventoryID: $(this).find('td:eq(0)').html(),
-                            OrderItemPrice: $(this).find('td:eq(2)').html(),
-                            OrderLineTotalQuantity: $(this).find('td:eq(3)').html(),
-                            OrderLineTotalAmount: $(this).find('td:eq(4)').html()
-                        });
-                    });
-                    //var myDomElement = document.getElementById("hdEventID");
-                    var data = JSON.stringify({
-                        SupplierID: $("#SupplierID option:selected").val(),
-                        FarmID: $("#FarmID option:selected").val(),
-                        orders: OrdersArr
-                    });
-
-                    $.when(saveOrder(data)).then(function (response) {
-                        console.log(response);
-                        window.location.href = "/SupplierOrder/Index/";
-                        //window.location.href = "/{controller}/{action}/{params}";
-                    }).fail(function (err) {
-                        console.log(err);
-                    });
-                });
-            })
+        $('#addrow').click(function () {
+            $("#newOrderModal").appendTo("body").modal("show");
         })
 
-    </script>*@
+        $('#addItemToList').click(function (e) {
+            e.preventDefault();
+
+            var isAllValid = true;
+
+            if (!($('#quantity').val().trim() != '' && (parseInt($('#quantity').val()) || 0))) {
+                isAllValid = false;
+                $('#quantity').siblings('span.error').css('visibility', 'visible');
+                $('#quantity').addClass("is-invalid");
+            }
+            else {
+                $('#quantity').siblings('span.error').css('visibility', 'hidden');
+            }
+            if (!($('#unitprice').val().trim() != '' && (parseInt($('#unitprice').val()) || 0))) {
+                isAllValid = false;
+                $('#unitprice').siblings('span.error').css('visibility', 'visible');
+                $('#unitprice').addClass("is-invalid");
+
+            }
+            else {
+                $('#unitprice').siblings('span.error').css('visibility', 'hidden');
+            }
+
+            if (isAllValid) {
+                var Details = $("#details").val(),
+                    Quantity = $("#quantity").val(),
+                    UnitPrice = $("#unitprice").val(),
+                detailsTableBody = $("#table_id tbody");
+
+                var productItem = '<tr>' +
+                    '<td>' + Details + '</td>' +
+                    '<td>' + Quantity + '</td>' +
+                    '<td>' + UnitPrice + '</td>' +
+                    '<td>R' + (parseFloat(UnitPrice) * parseInt(Quantity)) + '</td>' +
+                    '<td>' + '<input type="button" class="ibtnDel btn btn-md btn-danger" value="Delete"/>' + '</td>' +
+                    '</tr>';
+                detailsTableBody.append(productItem);
+                clearItems();
+                $('#newOrderModal').modal('hide');
+            }
+
+        });
+
+        function clearItems() {
+            $("#details").val('');
+            $("#quantity").val('');
+            $("#unitprice").val('');
+        }
+
+        $(document).on('click', '.ibtnDel', function (e) {
+            e.preventDefault();
+            $(this).parents('tr').remove();
+        });
+    })
+</script>
+
