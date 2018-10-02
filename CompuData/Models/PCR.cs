@@ -16,9 +16,6 @@ namespace CompuData.Models
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Approval Status")]
         public string ApprovalStatus { get; set; }
 
-        [Column(TypeName = "bit")]
-        public bool VATInclusive { get; set; }
-
         [Required(ErrorMessage = "The Requisition Date is Required")]
         [Column(TypeName = "date")]
         public DateTime ReqDate { get; set; }

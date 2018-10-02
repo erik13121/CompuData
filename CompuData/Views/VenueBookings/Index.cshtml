@@ -29,7 +29,7 @@
             </div>
         </div>
     </div>
-    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Venue")'">Back</div>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "VenueMenu")'">Back</div>
 </div>
 
 <div id="myModal" class="modal fade" role="dialog">
@@ -305,12 +305,12 @@
             success: function (data) {
                 $.each(data, function (i, v) {
                     events.push({
-                        people: v.people,
+                        people: v.People,
                         start: moment(v.DateBooked + " " + moment(v.StartTime).format("HH:mm:ss")).format("MM/DD/YYYY HH:mm:ss"),
                         end: moment(v.DateBooked + " " + v.EndTime).format("MM/DD/YYYY HH:mm:ss"),
                         username: v.UserName,
                         venue: v.Venue,
-                        building: b.building,
+                        building: b.Building,
                         projectname: v.ProjectName,
                         //color: blue,
                         allDay: false
@@ -374,27 +374,16 @@
                     //////////////////////////
                     $('#myModal #eventTitle').text("Reason: " + calEvent.reason);
                     var $description = $('<div/>');
-                    $description.append($('<p/>').html('<b>Booking ID:</b>' + calEvent.vehiclebookingid));
                     $description.append($('<p/>').html('<b>Date Booked for:</b>' + moment(calEvent.datebooked).format("Do MMMM YYYY")));
                     $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("hh:mm")));
                     if (calEvent.end != null) {
                         $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("hh:mm")));
                     }
                     $description.append($('<p/>').html('<b>Reason for Booking:</b>' + calEvent.reason));
-                    $description.append($('<p/>').html('<b>Car Brand:</b>' + calEvent.brand));
-                    $description.append($('<p/>').html('<b>Car Model:</b>' + calEvent.model));
-                    $description.append($('<p/>').html('<b>Car Number Plate:</b>' + calEvent.numberplate));
+                    $description.append($('<p/>').html('<b>Number of people attending:</b>' + calEvent.people));
+                    $description.append($('<p/>').html('<b>Host of Booking:</b>' + calEvent.username));
                     $description.append($('<p/>').html('<b>Booking is for Project:</b>' + calEvent.projectname));
-                    if (calEvent.odoend != 0) {
-                        $description.append($('<p/>').html('<b>Odometer end reading on Vehicle after booking:</b>' + calEvent.odoend));
-                    }
-                    else {
-                        $description.append($('<p/>').html('<b>Odometer end reading has not yet been recorded</b>'));
-                    }
-                    if (calEvent.intervalid != 0) {
-                        $description.append($('<p/>').html('<b>Service Interval was done in booking:</b>true'));
-                    }
-                    $description.append($('<p/>').html('<b>Driver Name:</b>' + calEvent.username));
+                    $description.append($('<p/>').html('<b>Booking location:</b>' + calEvent.Venue + ", " + calEvent.Building));
                     $('#myModal #pDetails').empty().html($description);
 
                     $("#myModal").appendTo("body").modal('show');

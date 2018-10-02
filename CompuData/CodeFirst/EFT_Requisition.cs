@@ -29,9 +29,6 @@ namespace CompuData.CodeFirst
         [MaxLength(50)]
         public string ReceiptFile { get; set; }
 
-        [Column(TypeName = "bit")]
-        public bool VATInclusive { get; set; }
-
         [Column(TypeName = "date")]
         public DateTime Date { get; set; }
 

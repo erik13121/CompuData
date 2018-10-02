@@ -212,10 +212,6 @@ namespace CompuData.CodeFirst
                 .IsUnicode(false);
 
             modelBuilder.Entity<EFT_Requisition>()
-                .Property(e => e.VATInclusive);
-                //.HasPrecision(1, 0);
-
-            modelBuilder.Entity<EFT_Requisition>()
                 .Property(e => e.TotalAmount)
                 .HasPrecision(20, 2);
 
@@ -355,10 +351,6 @@ namespace CompuData.CodeFirst
             modelBuilder.Entity<Petty_Cash_Requisition>()
                 .Property(e => e.TotalAmount)
                 .HasPrecision(20, 2);
-
-            modelBuilder.Entity<Petty_Cash_Requisition>()
-                .Property(e => e.VATInclusive);
-                //.HasPrecision(1, 0);
 
             modelBuilder.Entity<Petty_Cash_Requisition>()
                 .HasMany(e => e.Petty_Cash_Requisition_Line)

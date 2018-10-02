@@ -23,9 +23,6 @@ namespace CompuData.CodeFirst
         [MaxLength(50)]
         public string ApprovalStatus { get; set; }
 
-        [Column(TypeName = "bit")]
-        public bool? VATInclusive { get; set; }
-
         [Column(TypeName = "date")]
         public DateTime ReqDate { get; set; }
 

@@ -63,49 +63,6 @@
     </div>
 </div>
 
-<div id="createEventModal" class="modal fade">
-    <div class="vertical-alignment-helper">
-        <div class="modal-dialog vertical-align-center">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4>Add a Vehicle Booking</h4>
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span> <span class="sr-only">close</span></button>
-                </div>
-                <div id="modalBody" class="modal-body">
-                    <div class="form-group">
-                        <input type="text" id="bookingReason" placeholder="Booking Reason" class="form-control" />
-                    </div>
-                    <div class="row">
-                        <div class="form-group col">
-                            <label for="bookingStartTime">Start Time:</label>
-                            <input type="text" id="bookingStartTime" class="form-control" />
-                        </div>
-                        <div class="form-group col pull-right">
-                            <label for="bookingEndTime">End Time:</label>
-                            <input type="text" id="bookingEndTime" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col">
-                            <label for="bookingStartTime">Project:</label>
-                            @Html.DropDownList("Projects", (IEnumerable<SelectListItem>)ViewBag.Projects, new { id = "ddlProjects", @class = "form-control" })
-                        </div>
-                        <div class="form-group col pull-right">
-                            <label for="bookingEndTime">Driver:</label>
-                            @Html.DropDownList("Drivers", (IEnumerable<SelectListItem>)ViewBag.Users, new { id = "ddlUsers", @class = "form-control" })
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                    <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <div id="myModalSave" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
