@@ -57,7 +57,6 @@ namespace CompuData.Models
         {
             RequisitionID = ID;
             ApprovalStatus = ApprovalStat;
-            VATInclusive = VAT;
             ReqDate = Date;
             SupplierID = SupID;
             ProID = ProjectID;

@@ -19,7 +19,7 @@
         {
             <li class="breadcrumb-item"><a href="../VehicleSchedules">Vehicle Schedules</a></li>
         }
-        else if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "VehicleBookings" : false)
+        else if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "VehicleBookings" || Session["Referrer"].ToString() == "AddVehicleBooking" : false)
         {
             <li class="breadcrumb-item"><a href="../VehicleBookings">Vehicle Bookings</a></li>
         }
@@ -30,10 +30,25 @@
 <div id="table_background">
     @if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "VehicleBookings" : false)
     {
-        <p>Select Vehicle for Vehicle Booking</p>
+        <p>Select Vehicle for Booking</p>
+    }
+    else if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "VehicleServices" : false)
+    {
+        <p>Select Vehicle for Service</p>
+    }
+    else if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "VehicleSchedules" : false)
+    {
+        <p>Select Vehicle for Schedule</p>
     }
     <table id="vehiclesTable" class="display"></table>
-    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"] != null ? Session["Referrer"].ToString() : "VehicleMenu")'">Back</div>
+    @if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "AddVehicleBooking" : false)
+    {
+        <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "VehicleBookings")'">Back</div>
+    }
+    else
+    {
+        <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"] != null ? Session["Referrer"].ToString() : "VehicleMenu")'">Back</div>
+    }
 </div>
 <style>
     #table_background p {
@@ -310,7 +325,7 @@ else if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "Vehicl
         })
     </script>
 }
-else if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "VehicleBookings" : false)
+else if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "VehicleBookings" || Session["Referrer"].ToString() == "AddVehicleBooking" : false)
 {
     <script>
         $(document).ready(function () {
@@ -331,4 +346,4 @@ else if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "Vehicl
         })
     </script>
 }
-
+@{Session["Referrer"] = "";}

@@ -8,7 +8,7 @@ namespace CompuData.Controllers
 {
     public class AddVehicleBookingController : Controller
     {
-        int globalVehicleID;
+        static int globalVehicleID;
         // GET: AddVehicleBooking
         public ActionResult Index(string vehicleID)
         {

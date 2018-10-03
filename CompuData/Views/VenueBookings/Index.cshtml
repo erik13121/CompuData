@@ -305,12 +305,13 @@
             success: function (data) {
                 $.each(data, function (i, v) {
                     events.push({
+                        title: v.Venue,
                         people: v.People,
                         start: moment(v.DateBooked + " " + moment(v.StartTime).format("HH:mm:ss")).format("MM/DD/YYYY HH:mm:ss"),
-                        end: moment(v.DateBooked + " " + v.EndTime).format("MM/DD/YYYY HH:mm:ss"),
+                        end: moment(v.DateBooked + " " + moment(v.EndTime).format("HH:mm:ss")).format("MM/DD/YYYY HH:mm:ss"),
                         username: v.UserName,
                         venue: v.Venue,
-                        building: b.Building,
+                        building: v.Building,
                         projectname: v.ProjectName,
                         //color: blue,
                         allDay: false
@@ -372,18 +373,17 @@
                     //added in code for CRUDS
                     selectedEvent = calEvent;
                     //////////////////////////
-                    $('#myModal #eventTitle').text("Reason: " + calEvent.reason);
+                    $('#myModal #eventTitle').text("Booking location: " + calEvent.venue + ", " + calEvent.building);
                     var $description = $('<div/>');
-                    $description.append($('<p/>').html('<b>Date Booked for:</b>' + moment(calEvent.datebooked).format("Do MMMM YYYY")));
-                    $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("hh:mm")));
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Date Booked for:</b></p> <p style="display: inline; font-weight:550">' + moment(calEvent.datebooked).format("Do MMMM YYYY") + '</p><br>');
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Start:</b></p> <p style="display: inline; font-weight:550">' + calEvent.start.format("hh:mma") + '</p><br>');
                     if (calEvent.end != null) {
-                        $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("hh:mm")));
+                        $description.append('<p style="display: inline; font-weight:bold"><b>End:</b></p> <p style="display: inline; font-weight:550">' + calEvent.end.format("hh:mma") + '</p><br>');
                     }
-                    $description.append($('<p/>').html('<b>Reason for Booking:</b>' + calEvent.reason));
-                    $description.append($('<p/>').html('<b>Number of people attending:</b>' + calEvent.people));
-                    $description.append($('<p/>').html('<b>Host of Booking:</b>' + calEvent.username));
-                    $description.append($('<p/>').html('<b>Booking is for Project:</b>' + calEvent.projectname));
-                    $description.append($('<p/>').html('<b>Booking location:</b>' + calEvent.Venue + ", " + calEvent.Building));
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Number of people attending:</b></p> <p style="display: inline; font-weight:550">' + calEvent.people + '</p><br>');
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Host of Booking:</b></p> <p style="display: inline; font-weight:550">' + calEvent.username + '</p><br>');
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Booking is for Project:</b></p> <p style="display: inline; font-weight:550">' + calEvent.projectname + '</p><br>');
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Booking location:</b></p> <p style="display: inline; font-weight:550">' + calEvent.venue + ", " + calEvent.building + '</p><br>');
                     $('#myModal #pDetails').empty().html($description);
 
                     $("#myModal").appendTo("body").modal('show');
