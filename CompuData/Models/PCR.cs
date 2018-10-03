@@ -20,6 +20,9 @@ namespace CompuData.Models
         [Column(TypeName = "date")]
         public DateTime ReqDate { get; set; }
 
+        [MaxLength(255)]
+        public string ReceiptFile { get; set; }
+
         [Required(ErrorMessage = "A Supplier is required")]
         [Key]
         [Column(Order = 1)]
@@ -53,11 +56,10 @@ namespace CompuData.Models
 
         public PCR() { }
 
-        public PCR(int ID, string ApprovalStat, bool VAT, DateTime Date, int SupID, int ProID, int UsersID)
+        public PCR(int ID, string ApprovalStat, DateTime Date, int SupID, int ProID, int UsersID)
         {
             RequisitionID = ID;
             ApprovalStatus = ApprovalStat;
-            VATInclusive = VAT;
             ReqDate = Date;
             SupplierID = SupID;
             ProID = ProjectID;

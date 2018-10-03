@@ -305,6 +305,7 @@
     <Compile Include="Controllers\AddDonationTypeController.cs" />
     <Compile Include="Controllers\AddDonorOrgController.cs" />
     <Compile Include="Controllers\AddDonorPersonController.cs" />
+    <Compile Include="Controllers\AddEFTRController.cs" />
     <Compile Include="Controllers\AddEquipmentController.cs" />
     <Compile Include="Controllers\AddEquipmentTypeController.cs" />
     <Compile Include="Controllers\AddFunderOrgController.cs" />
@@ -344,6 +345,8 @@
     <Compile Include="Controllers\DonorPersonController.cs" />
     <Compile Include="Controllers\DonorPersonDetailsController.cs" />
     <Compile Include="Controllers\DonorsMenuController.cs" />
+    <Compile Include="Controllers\EFTRController.cs" />
+    <Compile Include="Controllers\EFTRDetailsController.cs" />
     <Compile Include="Controllers\EquipmentDetailsController.cs" />
     <Compile Include="Controllers\EquipmentManagementMenuController.cs" />
     <Compile Include="Controllers\EquipmentRepairRequestDetailsController.cs" />
@@ -369,6 +372,7 @@
     <Compile Include="Controllers\ModifyBuildingDetailsController.cs" />
     <Compile Include="Controllers\ModifyDonorOrgController.cs" />
     <Compile Include="Controllers\ModifyDonorPersonController.cs" />
+    <Compile Include="Controllers\ModifyEFTRController.cs" />
     <Compile Include="Controllers\ModifyEquipmentDetails.cs" />
     <Compile Include="Controllers\ModifyEquipmentRepairRequestController.cs" />
     <Compile Include="Controllers\ModifyEquipmentTypeController.cs" />
@@ -376,6 +380,7 @@
     <Compile Include="Controllers\ModifyFunderPersonController.cs" />
     <Compile Include="Controllers\ModifyFunderTypeController.cs" />
     <Compile Include="Controllers\ModifyLoginDetailsController.cs" />
+    <Compile Include="Controllers\ModifyPCRController.cs" />
     <Compile Include="Controllers\ModifyProjectController.cs" />
     <Compile Include="Controllers\ModifyRepairPersonController.cs" />
     <Compile Include="Controllers\ModifySoftwareLicensesController.cs" />
@@ -387,6 +392,7 @@
     <Compile Include="Controllers\ModifyVenueController.cs" />
     <Compile Include="Controllers\NewPasswordController.cs" />
     <Compile Include="Controllers\PCRController.cs" />
+    <Compile Include="Controllers\PCRDetailsController.cs" />
     <Compile Include="Controllers\ProcurementMenuController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\ProjectDetailsController.cs" />
@@ -507,6 +513,7 @@
     </Compile>
     <Compile Include="Models\Donor_Org.cs" />
     <Compile Include="Models\Donor_Person.cs" />
+    <Compile Include="Models\EFTR.cs" />
     <Compile Include="Models\Equipment.cs" />
     <Compile Include="Models\EquipmentRepairRequest.cs" />
     <Compile Include="Models\EquipmentType.cs" />
@@ -999,6 +1006,12 @@
     <Content Include="Views\ModifyBuildingDetails\Index.cshtml" />
     <Content Include="Views\ReportsMain\Index.cshtml" />
     <Content Include="Views\ReportsVehiclesRegister\Index.cshtml" />
+    <Content Include="Views\PCRDetails\Index.cshtml" />
+    <Content Include="Views\ModifyPCR\Index.cshtml" />
+    <Content Include="Views\AddEFTR\Index.cshtml" />
+    <Content Include="Views\EFTRDetails\Index.cshtml" />
+    <Content Include="Views\ModifyEFTR\Index.cshtml" />
+    <Content Include="Views\EFTR\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

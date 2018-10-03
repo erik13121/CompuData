@@ -1,0 +1,614 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @model CompuData.Models.PCR
+    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
+    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+}
+
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+</head>
+
+<nav id="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../ProcurementMenu">Procurement</a></li>
+        <li class="breadcrumb-item"><a href="../PCR">Petty Cash Requisition</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Petty Cash Requisition Details</li>
+    </ol>
+</nav>
+
+@Html.Partial("_ProfilePartial")
+
+<div class="col-md-6" id="mytwoColumns">
+    <p id="myheading2">Petty Cash Requisition Details</p>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#PCRDetails" id="tabitem">Petty Cash Requisition Details</a></li>
+        <li><a data-toggle="tab" href="#LineItems" id="tabitem">Line Details</a></li>
+    </ul>
+    @Html.HiddenFor(model => model.RequisitionID)
+    <div class="tab-content">
+        <div id="PCRDetails" class="tab-pane fade in active">
+            <div class="row-md-6">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-body">
+                        <div>
+                            <p>Supplier Name:</p>
+                            @Html.TextBoxFor(model => model.SupplierID, new { @readonly = "readonly" })
+                        </div>
+                        <div>
+                            <p>Project:</p>
+                            @Html.TextBoxFor(model => model.ProjectID, new { @readonly = "readonly" })
+                        </div>
+                        <div>
+                            <p>User Responsible:</p>
+                            @Html.TextBoxFor(model => model.UserID, new { @readonly = "readonly" })
+                        </div>
+                        <div>
+                            <p>Date:</p>
+                            @Html.TextBoxFor(model => model.ReqDate, new { @readonly = "readonly" })
+                        </div>
+                        <div>
+                            <p>Approval Status:</p>
+                            @Html.TextBoxFor(model => model.ApprovalStatus, new { @readonly = "readonly" })
+                        </div>
+                        <div>
+                            <p>Total Amount:</p>
+                            @Html.TextBoxFor(model => model.TotalAmount, new { @readonly = "readonly" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="LineItems" class="tab-pane fade">
+            <div class="row-md-6">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-body" id="cardbody2">
+                        <div id="table_background">
+                            <table id="table_id" class="display">
+                                <thead>
+                                    <tr>
+                                        <th>Details</th>
+                                        <th>Quantity</th>
+                                        <th>Amount</th>
+                                        <th>Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5" style="text-align: left;">
+                                            <input type="button" class="btn btn-lg btn-block " id="addrow" value="Add Row" />
+                                        </td>
+                                    </tr>
+                                    <tr></tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="multipleButtons">
+        <a id="modifyButton" class="btn btn-dafault">Maintain</a>
+        <a id="removeButton" class="btn btn-default">Remove</a>
+        <a id="assignButton" class="btn btn-default">Assign Receipt</a>
+        <a id="approveButton" class="btn btn-default">Approve</a>
+    </div>
+</div>
+
+<div id="newOrderModal" class="modal">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Add Line Items</h4>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span> <span class="sr-only">close</span></button>
+                </div>
+                <div id="modalBody" class="modal-body">
+                    <input type="hidden" id="LineID" />
+                    <div class="row">
+                        <label class="control-label col-md-4" id="textboxes">Details</label>
+                        <div class="col-md-8">
+                            <input type="text" id="details" placeholder="Details" class="form-control" />
+                            <span class="error">Details required</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="control-label col-md-4" id="textboxes"> Quantity</label>
+                        <div class="col-md-8">
+                            <input type="number" id="quantity" placeholder="Quantity" class="form-control" />
+                            <span class="error">Quantity required</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="control-label col-md-4" id="textboxes"> Unit Price(R)</label>
+                        <div class="col-md-8">
+                            <input type="number" id="unitprice" placeholder="Unit Price" class="form-control" />
+                            <span class="error">Unit Price is required</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="addItemToList">Add Item To List</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "PCR")'">Back</div>
+
+<style>
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+
+
+    #newOrderModal {
+        z-index: 1100;
+    }
+
+    .gj-datepicker {
+        flex: 50%;
+    }
+
+    input[type=checkbox] {
+        height: 25px;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .datepicker {
+        background-color: white;
+    }
+
+
+    .tab-content {
+        overflow-y: auto;
+    }
+
+    #Dropdown1 {
+        width: auto;
+        border-left: 50px;
+    }
+
+    #tabitem {
+        color: black;
+    }
+
+    #myheading1 {
+        font-size: 30px;
+    }
+
+    #myheading2 {
+        transform: translateX(0px) !important;
+        font-size: 25px;
+        text-align: center;
+    }
+
+    #table_background p {
+        font-size: 25px;
+        text-align: center;
+    }
+
+    #table_background {
+        height: auto;
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    #table_id {
+        background-color: #5a9ad6;
+        width: 100%;
+        border-right: 250px;
+    }
+
+    #Flexyman {
+        display: flex;
+        flex-direction: row;
+        line-height: 30px;
+    }
+
+    #mytwoColumns {
+        position: absolute;
+        height: auto;
+        width: auto;
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    .card-body p {
+        font-size: 25px;
+        text-align: left;
+        flex: 1;
+        text-align: center;
+        flex-basis: 100%;
+    }
+
+    #cardbody2 {
+        overflow: auto;
+        max-height: 350px;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        float: left;
+        position: relative;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+    }
+
+        .card-body div {
+            display: flex;
+            flex-direction: row;
+            margin-top: 1px;
+            margin-bottom: 1px;
+        }
+
+        .card-body p {
+            text-align: left;
+            vertical-align: middle;
+            padding: 0;
+            margin: 0;
+            flex: 50%;
+        }
+
+        .card-body div input {
+            flex: 50%;
+        }
+
+        .card-body div select {
+            flex: 50%;
+        }
+
+    #multipleButtons {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #addButton {
+        position: relative;
+        z-index: 8000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #addButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    .btn-group {
+        display: flex !important;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+    }
+
+    #addVenueButton:hover {
+        background-color: rgba(0, 255, 255, 0.4);
+    }
+
+    #backButton {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 1000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: 2vh;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #backButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #breadcrumb {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+    }
+
+    .breadcrumb-item {
+        font-size: 25px;
+    }
+
+    .breadcrumb {
+        top: 0;
+        background-color: #33363b !important;
+        padding-left: 60px !important;
+    }
+
+    #profile {
+        position: relative;
+        z-index: 8000;
+        margin-left: auto;
+        margin-bottom: auto;
+        height: 61px;
+        width: 20%;
+        background-color: #33363b;
+        transform: translateX(-3px);
+    }
+
+        #profile a {
+            display: table;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 200;
+            font-size: 25px;
+            text-decoration: none !important;
+            color: #5a9ad6;
+            line-height: 61px;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    .glyphicon {
+        margin-left: 6px;
+    }
+
+    .dropdown-menu {
+        background-color: white;
+    }
+
+        .dropdown-menu li a {
+            color: #5a9ad6;
+        }
+
+    .vsc-initialized {
+        overflow: hidden;
+        height: 100%;
+    }
+
+    /* Customize the label (the container) */
+    .container {
+        display: block;
+        width: 25px;
+        position: relative;
+        margin-left: auto;
+        margin-top: 3px;
+        cursor: pointer;
+        font-size: 22px;
+        user-select: none;
+    }
+
+        /* Hide the browser's default checkbox */
+        .container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .container:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .container input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .container input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .container .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+    gj-datepicker {
+        flex: 50%;
+    }
+
+    .gj-datepicker-md [role=right-icon] {
+        top: 0.25em;
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var contentPlacement = "-200px";
+        $('#myheading2').css('transform', "translateX(" + contentPlacement + ")");
+    });
+
+    $('#datepicker').datepicker();
+    $('#datepicker').datepicker("option", "maxDate", new Date());
+
+    $(document).ready(function () {
+        $('tabitem1').on('click', function () {
+            var x = document.getElementById("tabitem1").getAttribute("aria-expanded");
+
+            if (x == "true") {
+                x = "false"
+            } else {
+                x = "true"
+            }
+            document.getElementById("tabitem1").setAttribute("aria-expanded", x);
+            document.getElementById("tabitem1").innerHTML = "aria-expanded = " + x;
+        })
+
+        $('.nav-tabs>li>a').on('click', function (e) {
+            $(this).siblings().removeClass('active');
+        })
+    })
+
+    $("#addButton").click(function (event) {
+        event.preventDefault();
+
+        var pcrdetails = [];
+        pcrdetails.length = 0;
+
+        $.each($("#table_id tbody tr"), function () {
+            pcrdetails.push({
+                //RequisitionID: $("#RequisitionID").val(),
+                SupplierID: parseInt($("#SupplierID").val()),
+                Details: $(this).find('td:eq(0)').html(),
+                Quantity: $(this).find('td:eq(1)').html(),
+                UnitPrice: $(this).find('td:eq(2)').html(),
+                Total: $(this).find('td:eq(3)').html()
+            });
+        });
+
+        var data = JSON.stringify({
+            //RequisitionID: $("#RequisitionID").val(),
+            SupplierID: $("#SupplierID").val(),
+            UserID: $("#UserID").val(),
+            ProjectID: $("#ProjectID").val(),
+            ReqDate: $("#datepicker").val(),
+            pcrdetails: pcrdetails
+        });
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '@Url.Action("SavePCRALL","AddPCR")',
+            data: data,
+            success: function (result) {
+                if (result.includes("success")) {
+                    swal(result, "success")
+                    .then(() => {
+                        window.location.href = "/PCR/Index";
+                    });
+                }
+                else {
+                    swal(result, "error")
+                    .then(() => {
+                        location.reload();
+                    });
+                }
+            },
+            error: function () {
+                alert("Error! Something Went Wrong")
+            }
+        });
+    });
+
+    $("#addButton").css({ 'flex-basis': '' });
+
+    $(document).ready(function () {
+
+        $('#addrow').click(function () {
+            $("#newOrderModal").appendTo("body").modal("show");
+        })
+
+        $('#addItemToList').click(function (e) {
+            e.preventDefault();
+
+            var isAllValid = true;
+
+            if (!($('#quantity').val().trim() != '' && (parseInt($('#quantity').val()) || 0))) {
+                isAllValid = false;
+                $('#quantity').siblings('span.error').css('visibility', 'visible');
+                $('#quantity').addClass("is-invalid");
+            }
+            else {
+                $('#quantity').siblings('span.error').css('visibility', 'hidden');
+            }
+            if (!($('#unitprice').val().trim() != '' && (parseInt($('#unitprice').val()) || 0))) {
+                isAllValid = false;
+                $('#unitprice').siblings('span.error').css('visibility', 'visible');
+                $('#unitprice').addClass("is-invalid");
+
+            }
+            else {
+                $('#unitprice').siblings('span.error').css('visibility', 'hidden');
+            }
+
+            if (isAllValid) {
+                var Details = $("#details").val(),
+                    Quantity = $("#quantity").val(),
+                    UnitPrice = $("#unitprice").val(),
+                detailsTableBody = $("#table_id tbody");
+
+                var productItem = '<tr>' +
+                    '<td>' + Details + '</td>' +
+                    '<td>' + Quantity + '</td>' +
+                    '<td>' + UnitPrice + '</td>' +
+                    '<td>R' + (parseFloat(UnitPrice) * parseInt(Quantity)) + '</td>' +
+                    '<td>' + '<input type="button" class="ibtnDel btn btn-md btn-danger" value="Delete"/>' + '</td>' +
+                    '</tr>';
+                detailsTableBody.append(productItem);
+                clearItems();
+                $('#newOrderModal').modal('hide');
+            }
+
+        });
+
+        function clearItems() {
+            $("#details").val('');
+            $("#quantity").val('');
+            $("#unitprice").val('');
+        }
+
+        $(document).on('click', '.ibtnDel', function (e) {
+            e.preventDefault();
+            $(this).parents('tr').remove();
+        });
+    })
+</script>
+
