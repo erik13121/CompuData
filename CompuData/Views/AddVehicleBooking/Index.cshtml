@@ -15,6 +15,8 @@
     </ol>
 </nav>
 @Html.Partial("_ProfilePartial")
+@{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);
+            Session["Query"] = Request.Url.Query;}
 <div id="table_background">
     <h2>Vehicle Bookings</h2>
     <div id="calendar"></div>
@@ -58,11 +60,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4>Add a Vehicle Booking</h4>
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span> <span class="sr-only">close</span></button>
+                    <button type="button" class="close" data-dismiss="modal" onclick="document.getElementById('reasonError').style.visibility = 'hidden';
+                        $('#bookingReason').removeClass('is-invalid');
+                        $('#bookingReason').val('')">
+                        <span aria-hidden="true">&times;</span> <span class="sr-only">close</span>
+                    </button>
                 </div>
                 <div id="modalBody" class="modal-body">
                     <div class="form-group">
                         <input type="text" id="bookingReason" placeholder="Booking Reason" class="form-control" />
+                        <span id="reasonError" style="color:red; visibility: hidden">Please enter a Reason</span>
                     </div>
                     <div class="row">
                         <div class="form-group col">
@@ -86,7 +93,11 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true" onclick="document.getElementById('reasonError').style.visibility = 'hidden';
+                        $('#bookingReason').removeClass('is-invalid');
+                        $('#bookingReason').val('')">
+                        Cancel
+                    </button>
                     <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
                 </div>
             </div>
@@ -331,10 +342,13 @@
 
         var selectedEvent = null;
         var eventStart = "";
+        var brand;
+        var model;
+        var numberplate;
 
         $.ajax({
             type: "GET",
-            url: "/VehicleBookings/GetEvents",
+            url: "/AddVehicleBooking/GetEvents",
             success: function (data) {
 
                 $.each(data, function (i, v) {
@@ -342,10 +356,10 @@
                         brand: v.Brand,
                         model: v.Model,
                         numberplate: v.NumberPlate,
-                        reason: v.Reason,
-                        username: v.UserName,
                         start: moment(v.DateBooked + " " + moment(v.StartTime).format("HH:mm:ss")).format("MM/DD/YYYY HH:mm:ss"),
                         end: moment(v.DateBooked + " " + v.EndTime).format("MM/DD/YYYY HH:mm:ss"),
+                        reason: v.Reason,
+                        username: v.UserName,
                         projectname: v.ProjectName,
                         odoend: v.OdoEnd,
                         intervalid: v.IntervalID,
@@ -357,7 +371,7 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "/VehicleBookings/GetScheduleEvents",
+                    url: "/AddVehicleBooking/GetScheduleEvents",
                     success: function (scheduleData) {
                         $.each(scheduleData, function (i, v) {
                             businessHours.push({
@@ -415,6 +429,9 @@
                                 var inEndTime = moment(b.end).format('HH:mm:ss');
                                 eventStart = start;
                                 if (startTime < inEndTime && startTime >= inStartTime) {
+                                    brand = events[0].brand;
+                                    model = events[0].model;
+                                    numberplate = events[0].numberplate;
                                     $('#bookingStartTime').timepicker({
                                         step: 60,
                                     });
@@ -439,9 +456,6 @@
                                         return evt.start.format("MM/DD/YYYY") == start.format("MM/DD/YYYY");
                                     });
                                     $.each(calendar, function (index, c) {
-                                        console.log(moment(c.start).format("MM/DD/YYYY"));
-                                        console.log(start.format("MM/DD/YYYY"));
-                                        console.log(moment(c.start).format("MM/DD/YYYY") == start.format("MM/DD/YYYY"));
                                         if (moment(c.start).format("MM/DD/YYYY") == start.format("MM/DD/YYYY")) {
                                             if (start.format("HH:mm") < moment(c.start).format("HH:mm")) {
                                                 $('#bookingEndTime').val("");
@@ -470,31 +484,31 @@
 
                 },
                 eventClick: function (calEvent, jsEvent, view) {
+                    //added in code for CRUDS
                     selectedEvent = calEvent;
-
+                    //////////////////////////
                     $('#myModal #eventTitle').text("Reason: " + calEvent.reason);
                     var $description = $('<div/>');
-                    $description.append($('<p/>').html('<b>Booking ID:</b>' + calEvent.vehiclebookingid));
-                    $description.append($('<p/>').html('<b>Date Booked for:</b>' + moment(calEvent.datebooked).format("Do MMMM YYYY")));
-                    $description.append($('<p/>').html('<b>Start:</b>' + calEvent.start.format("hh:mm")));
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Date Booked for:</b></p> <p style="display: inline; font-weight:550">' + moment(calEvent.datebooked).format("Do MMMM YYYY") + '</p><br>');
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Start:</b></p> <p style="display: inline; font-weight:550">' + calEvent.start.format("hh:mma") + '</p><br>');
                     if (calEvent.end != null) {
-                        $description.append($('<p/>').html('<b>End:</b>' + calEvent.end.format("hh:mm")));
+                        $description.append('<p style="display: inline; font-weight:bold"><b>End:</b></p> <p style="display: inline; font-weight:550">' + calEvent.end.format("hh:mma") + '</p><br>');
                     }
-                    $description.append($('<p/>').html('<b>Reason for Booking:</b>' + calEvent.reason));
-                    $description.append($('<p/>').html('<b>Car Brand:</b>' + calEvent.brand));
-                    $description.append($('<p/>').html('<b>Car Model:</b>' + calEvent.model));
-                    $description.append($('<p/>').html('<b>Car Number Plate:</b>' + calEvent.numberplate));
-                    $description.append($('<p/>').html('<b>Booking is for Project:</b>' + calEvent.projectname));
-                    if (calEvent.odoend != 0) {
-                        $description.append($('<p/>').html('<b>Odometer end reading on Vehicle after booking:</b>' + calEvent.odoend));
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Reason for Booking:</b></p> <p style="display: inline; font-weight:550">' + calEvent.reason + '</p><br>');
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Car Brand:</b></p> <p style="display: inline; font-weight:550">' + calEvent.brand + '</p><br>');
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Car Model:</b></p> <p style="display: inline; font-weight:550">' + calEvent.model + '</p><br>');
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Car Number Plate:</b></p> <p style="display: inline; font-weight:550">' + calEvent.numberplate + '</p><br>');
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Booking is for Project:</b></p> <p style="display: inline; font-weight:550">' + calEvent.projectname + '</p><br>');
+                    if (calEvent.odoend != 0 && calEvent.odoend != undefined) {
+                        $description.append('<p style="display: inline; font-weight:bold"><b>Odometer end reading on Vehicle after booking:</b></p> <p style="display: inline; font-weight:550">' + calEvent.odoend + '</p><br>');
                     }
                     else {
-                        $description.append($('<p/>').html('<b>Odometer end reading has not yet been recorded</b>'));
+                        $description.append('<p style="display: inline; font-weight:bold"><b>Odometer end reading has not yet been recorded</b></p> <p style="display: inline; font-weight:550">' + '</p><br>');
                     }
-                    if (calEvent.intervalid != 0) {
-                        $description.append($('<p/>').html('<b>Service Interval was done in booking:</b>true'));
+                    if (calEvent.intervalid != 0 && calEvent.intervalid != undefined) {
+                        $description.append('<p style="display: inline; font-weight:bold"><b>Service Interval was done in booking:</b></p> <p style="display: inline; font-weight:550">' + 'True' + '</p><br>');
                     }
-                    $description.append($('<p/>').html('<b>Driver Name:</b>' + calEvent.username));
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Driver Name:</b></p> <p style="display: inline; font-weight:550">' + calEvent.username + '</p><br>');
                     $('#myModal #pDetails').empty().html($description);
 
                     $("#myModal").appendTo("body").modal('show');
@@ -517,32 +531,53 @@
             // We don't want this to act as a link so cancel the link action
             e.preventDefault();
 
-            doSubmit();
+            if ($('#bookingReason').val() == "") {
+                document.getElementById("reasonError").style.visibility = "visible";
+                $('#bookingReason').addClass("is-invalid");
+            }
+            else {
+                doSubmit();
+            }
         });
 
         function doSubmit() {
             $("#createEventModal").modal('hide');
             var start = moment(eventStart).format("MM/DD/YYYY HH:mm:ss");
             var startHour = moment(start).hour();
+
             getEndHour = function () {
+                var startVal = $('#bookingStartTime').val();
                 var val = $('#bookingEndTime').val()
-                if (val != "") {
-                    return moment(val, "HH:mma").hour();
-                }
-                else {
+
+                if (val == startVal || val == "") {
                     return moment(eventStart).add(1, 'hour').hour();
                 }
+                else {
+                    return moment(val, "HH:mma").hour();
+                }
             }
+
             var endHour = getEndHour();
             var end = moment(eventStart).add(endHour - startHour, 'hour').format("MM/DD/YYYY HH:mm:ss");
 
             $("#calendar").fullCalendar('renderEvent',
                 {
                     title: $('#bookingReason').val(),
+                    brand: brand,
+                    model: model,
+                    numberplate: numberplate,
                     start: start,
-                    end: end
+                    end: end,
+                    reason: $('#bookingReason').val(),
+                    username: $('#ddlUsers option:selected').text(),
+                    projectname: $('#ddlProjects option:selected').text(),
                 },
                 true);
+
+            $("#bookingReason").val("");
+
+            document.getElementById("reasonError").style.visibility = "hidden";
+            $("#bookingReason").removeClass("is-invalid");
         }
     })
 </script>

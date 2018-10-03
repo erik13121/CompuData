@@ -95,6 +95,7 @@
 /// <reference path="locales/bootstrap-datepicker.zh-tw.min.js" />
 /// <reference path="locales/bootstrap-datepicker-en-ca.min.js" />
 /// <reference path="modernizr-2.6.2.js" />
+/// <reference path="pdfobject.js" />
 /// <reference path="popper.min.js" />
 /// <reference path="popper-utils.min.js" />
 /// <reference path="respond.min.js" />

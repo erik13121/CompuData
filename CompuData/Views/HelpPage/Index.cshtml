@@ -2,7 +2,51 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var path = Server.MapPath("~");
+    var docPath = Path.GetFullPath(Path.Combine(path, "../Files/Help.pdf"));
+    TempData["path"] = docPath;
 }
+<link href="@Url.Content("~/Content/MenuWithSubmenu.css")" rel="stylesheet" type="text/css" />
+<nav id="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Help Page</li>
+    </ol>
+</nav>
+@Html.Partial("_ProfilePartial")
+<iframe id='help' name='abcdef' src='../Files/web/viewer.html?file=Proof%20of%20Registration.pdf'></iframe>
 
-<h2>Index</h2>
+<style>
+    .vsc-initialized {
+        overflow: hidden;
+    }
 
+    #help {
+        width: 100%;
+        height: 100%;
+        scrollbar-track-color: #F5F5F5;
+        scrollbar-base-color: #F5F5F5;
+    }
+</style>
+<script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
+<script>
+    window.onload = function () {
+        $('body::-webkit-scrollbar-track *').css({
+            '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.3)',
+            'border-radius': '10px',
+            'background-color': '#F5F5F5',
+        })
+
+        $('body::-webkit-scrollbar').css({
+            'width': '12px'
+        })
+
+        $('body::-webkit-scrollbar-thumb').css({
+            'height': '20px',
+            'border-radius': '10px',
+            '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,.3)',
+            'background-color': '#555'
+        })
+    }
+
+</script>
