@@ -681,6 +681,7 @@
     <Compile Include="Controllers\RepairPersonsController.cs" />
     <Compile Include="Controllers\RepairRequestsController.cs" />
     <Compile Include="Controllers\ReportDonationsController.cs" />
+    <Compile Include="Controllers\ReportEquipmentBookingsController.cs" />
     <Compile Include="Controllers\ReportEquipmentUsageController.cs" />
     <Compile Include="Controllers\ReportsMainController.cs" />
     <Compile Include="Controllers\ReportsProcurementController.cs" />
@@ -1353,6 +1354,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Views\Global\" />
+    <Folder Include="Views\ReportEquipmentBookings\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
