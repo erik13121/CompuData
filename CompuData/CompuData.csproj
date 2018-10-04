@@ -620,7 +620,6 @@
     <Compile Include="Controllers\DonorPersonController.cs" />
     <Compile Include="Controllers\DonorPersonDetailsController.cs" />
     <Compile Include="Controllers\DonorsMenuController.cs" />
-    <Compile Include="Controllers\EquipmentBookingsController.cs" />
     <Compile Include="Controllers\EFTRController.cs" />
     <Compile Include="Controllers\EFTRDetailsController.cs" />
     <Compile Include="Controllers\EquipmentBookingsController.cs" />
@@ -1346,7 +1345,6 @@
     <Content Include="Views\ReportsProcurement\Index.cshtml" />
     <Content Include="Views\ReportDonations\Index.cshtml" />
     <Content Include="Views\ReportEquipmentUsage\Index.cshtml" />
-    <Content Include="Views\EquipmentBookings\Index.cshtml" />
     <Content Include="Views\ReportVehicleBookings\Index.cshtml" />
     <Content Include="Views\ReportVenueBookings\Index.cshtml" />
   </ItemGroup>
