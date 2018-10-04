@@ -9,25 +9,40 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
         <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment</a></li>
-        @if (Session["Referrer"] as string == "Equipments")
+        @if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "Equipments" : false)
         {
             <li class="breadcrumb-item"><a href="../Equipments">Equipments</a></li>
+        }
+        else if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "EquipmentBookings" || Session["Referrer"].ToString() == "AddEquipmentBooking" : false)
+        {
+            <li class="breadcrumb-item"><a href="../VehicleBookings">Equipment Bookings</a></li>
         }
         <li class="breadcrumb-item active" aria-current="page">Select Equipment</li>
     </ol>
 </nav>
 @Html.Partial("_ProfilePartial")
 <div id="table_background">
-    @if (Session["Referrer"] as string == "Equipments")
+    @if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "Equipments" : false)
     {
         <p>Select Equipment you wish to assign to a User</p>
+    }
+    else if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "EquipmentBookings" : false)
+    {
+        <p>Select Equipment for Booking</p>
     }
     else
     {
         <p>Select Equipment you wish to Generate Proof of Removable Allocated Equipment for</p>
     }
     <table id="equipmentTable" class="display"></table>
-    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
+    @if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "AddEquipmentBooking" : false)
+    {
+        <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "EquipmentBookings")'">Back</div>
+    }
+    else
+    {
+        <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
+    }
 </div>
 <style>
     #table_background p {
@@ -217,44 +232,50 @@
                     title: "Type Name",
                     sortable: true,
                     searchable: true
-                },
-                {
-                    "targets": -1,
-                    "data": null,
-                    "defaultContent": '<i class="glyphicon glyphicon-eye-open"></i>',
-                    sortable: false,
-                },
-                {
-                    "targets": -2,
-                    "data": null,
-                    "defaultContent": '<i class="glyphicon glyphicon-pencil"></i>',
-                    sortable: false,
-                },
-                {
-                    "targets": -3,
-                    "data": null,
-                    "defaultContent": '<i class="glyphicon glyphicon-trash"></i>',
-                    sortable: false,
                 }
             ]
         });
     });
-
-    $(document).ready( function()
-    {
-        $('#equipmentTable tbody').on('click', 'tr', function () {
-            var data = table.row(this).data();
-            var equipmentID = data["equipmentID"];
-
-            $.ajax({
-                url: '@Url.Action("RedirectToSelectUser", "SelectUser")',
-                type: 'POST',
-                data: { equipmentID: equipmentID },
-                dataType: 'json',
-                success: function (data) {
-                    window.location.href = data.Url; // your action should return an object having [redirecturl] property
-                }
-            });
-        });
-    })
 </script>
+@if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "Equipments" : false)
+{
+    <script>
+        $(document).ready(function () {
+            $('#equipmentTable tbody').on('click', 'tr', function () {
+                var data = table.row(this).data();
+                var equipmentID = data["equipmentID"];
+
+                $.ajax({
+                    url: '@Url.Action("RedirectToSelectUser", "SelectUser")',
+                    type: 'POST',
+                    data: { equipmentID: equipmentID },
+                    dataType: 'json',
+                    success: function (data) {
+                        window.location.href = data.Url; // your action should return an object having [redirecturl] property
+                    }
+                });
+            });
+        })
+    </script>
+}
+else if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "EquipmentBookings" || Session["Referrer"].ToString() == "AddEquipmentBooking" : false)
+{
+    <script>
+        $(document).ready(function () {
+            $('#equipmentTable tbody').on('click', 'tr', function () {
+                var data = table.row(this).data();
+                var equipmentID = data["equipmentID"];
+
+                $.ajax({
+                    url: '@Url.Action("RedirectToAddEquipmentBooking", "AddEquipmentBooking")',
+                    type: 'POST',
+                    data: { equipmentID: equipmentID },
+                    dataType: 'json',
+                    success: function (data) {
+                        window.location.href = data.Url; // your action should return an object having [redirecturl] property
+                    }
+                });
+            });
+        })
+    </script>
+}

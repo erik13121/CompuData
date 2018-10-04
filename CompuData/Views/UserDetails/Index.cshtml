@@ -127,7 +127,7 @@
         </div>
         <div id="multipleButtons">
             <div id="addButton">Modify User</div>
-            <div id="addButton">Remove</div>
+            <div id="removeButton">Remove</div>
         </div>
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -243,7 +243,7 @@
         flex-direction: row;
     }
 
-    #addButton {
+    #addButton, #removeButton {
         position: relative;
         z-index: 8000;
         text-decoration: none;
@@ -262,7 +262,7 @@
         transition: background-color linear 0.5s;
     }
 
-        #addButton:hover {
+        #addButton:hover, #removeButton:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 

@@ -578,6 +578,7 @@
     <Compile Include="Controllers\AddDonationTypeController.cs" />
     <Compile Include="Controllers\AddDonorOrgController.cs" />
     <Compile Include="Controllers\AddDonorPersonController.cs" />
+    <Compile Include="Controllers\AddEquipmentBookingController.cs" />
     <Compile Include="Controllers\AddEquipmentController.cs" />
     <Compile Include="Controllers\AddEquipmentTypeController.cs" />
     <Compile Include="Controllers\AddFunderOrgController.cs" />
@@ -618,6 +619,7 @@
     <Compile Include="Controllers\DonorPersonController.cs" />
     <Compile Include="Controllers\DonorPersonDetailsController.cs" />
     <Compile Include="Controllers\DonorsMenuController.cs" />
+    <Compile Include="Controllers\EquipmentBookingsController.cs" />
     <Compile Include="Controllers\EquipmentDetailsController.cs" />
     <Compile Include="Controllers\EquipmentManagementMenuController.cs" />
     <Compile Include="Controllers\EquipmentRepairRequestDetailsController.cs" />
@@ -1277,6 +1279,8 @@
     <Content Include="Views\ReportsVehiclesRegister\Index.cshtml" />
     <Content Include="Views\SelectVenue\Index.cshtml" />
     <Content Include="Views\AddVenueBooking\Index.cshtml" />
+    <Content Include="Views\EquipmentBookings\Index.cshtml" />
+    <Content Include="Views\AddEquipmentBooking\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

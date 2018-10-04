@@ -1,0 +1,416 @@
+﻿
+@{
+    ViewBag.Title = "EquipmentBookings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
+    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+}
+<nav id="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment Menu</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Equipment Bookings</li>
+    </ol>
+</nav>
+@Html.Partial("_ProfilePartial")
+@{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
+<div id="table_background">
+    <h2>Equipment Bookings</h2>
+    <div id="calendar"></div>
+    <div class="well">
+        <div class="row">
+            <div class="col-sm-10 offset-sm-1 text-center">
+                @using (Html.BeginForm("Index", "SelectEquipment", FormMethod.Get, new { @class = "form-inline justify-content-center" }))
+                {
+                    <button class="btn btn-success center-block" type="submit">
+                        Add Booking
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "EquipmentManagementMenu")'">Back</div>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <button id="btnEdit" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
+                                <span class="glyphicon glyphicon-pencil"></span> Edit
+                            </button>
+                        </div>
+                        <div class="col text-right">
+                            <button id="btnConfirm" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
+                                <span class="glyphicon glyphicon-pencil"></span> Confirm
+                            </button>
+                        </div>
+                    </div>
+                    <p id="pDetails"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModalSave" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Plan Plantation</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <input type="hidden" id="hdEventID" value="0" />
+                    <div class="form-group">
+                        <label>FieldID</label>
+                        <input type="text" id="txtFieldID" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Date Planted</label>
+                        <div class="input-group date" id="dtp1">
+                            <input type="text" id="txtDatePlanted" class="form-control" />
+                            @*<span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Date Harvested</label>
+                        <div class="input-group date" id="dtp1">
+                            <input type="text" id="txtDateHarvested" class="form-control" />
+                            @*<span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>*@
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>CropTypeID</label>
+                        <textarea id="txtCropTypeID" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>CropCycleID</label>
+                        <input type="text" id="txtCropCycleID" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>FieldStageID</label>
+                        <input type="text" id="txtFieldStageID" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Refuge Seed Amount Used</label>
+                        <input type="text" id="txtRefugeSeedAmntUsed" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Refuge Unit</label>
+                        <input type="text" id="txtRefugeUnit" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Refuge Area Hectares</label>
+                        <input type="text" id="txtRefugeAreaHectares" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Expected Yield Quantity</label>
+                        <input type="text" id="txtExpectedYieldQuantity" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Yield Unit</label>
+                        <input type="text" id="txtYieldUnit" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Date Harvested</label>
+                        <input type="text" id="txtDateHarvested" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Plantation Status</label>
+                        <input type="text" id="txtPlantationStatus" class="form-control" />
+                    </div>
+                    <button type="button" id="btnSave" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="~/Content/jquery.timepicker.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.timepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+<style>
+    form {
+        display: table;
+        height: 100%;
+        width: 100%;
+    }
+
+    .center-block {
+        float: none;
+    }
+
+    .table-heading {
+        color: #0AA633;
+    }
+
+    #table_background {
+        position: absolute;
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    #addButton {
+        position: relative;
+        display: table;
+        margin-left: auto;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #addButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #backButton {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: 2vh;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #backButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #breadcrumb {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+    }
+
+    .breadcrumb-item {
+        font-size: 25px;
+    }
+
+    .breadcrumb {
+        top: 0;
+        background-color: #33363b !important;
+        padding-left: 60px !important;
+    }
+
+    #profile {
+        position: relative;
+        z-index: 7979;
+        margin-left: auto;
+        margin-bottom: auto;
+        height: 61px;
+        width: 20%;
+        background-color: #33363b;
+        transform: translateX(-3px);
+    }
+
+        #profile a {
+            display: table;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 200;
+            font-size: 25px;
+            text-decoration: none !important;
+            color: #5a9ad6;
+            line-height: 61px;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    .glyphicon {
+        margin-left: 6px;
+    }
+
+    .dropdown-menu {
+        background-color: #33363b;
+    }
+
+        .dropdown-menu li a {
+            color: #5a9ad6;
+        }
+
+    #vehiclesTable {
+        font-size: 15px;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    #calendar {
+        background: white;
+        border: 10px solid white;
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: lightgrey !important;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        var events = [];
+        var businessHours = [];
+        var selectedEvent = null;
+        var eventStart = "";
+
+        $.ajax({
+            type: "GET",
+            url: "/EquipmentBookings/GetEvents",
+            success: function (data) {
+                $.each(data, function (i, v) {
+                    events.push({
+                        title: moment(v.StartTime).format("H:mma") + "-" + moment(v.EndTime).format("H:mma"),
+                        bookingid: v.BookingID,
+                        equipmentbookingid: v.EquipmentBookingID,
+                        start: moment(v.DateBooked + " " + moment(v.StartTime).format("HH:mm:ss")).format("MM/DD/YYYY HH:mm:ss"),
+                        end: moment(v.DateBooked + " " + moment(v.EndTime).format("HH:mm:ss")).format("MM/DD/YYYY HH:mm:ss"),
+                        pagesprinted: v.PagesPrinted,
+                        manufacturer: v.Manufacturer,
+                        model: v.Model,
+                        equiptype: v.EquipType,
+                        projectname: v.ProjectName,
+                        username: v.UserName,
+                        //color: blue,
+                        allDay: false
+                    });
+                })
+
+                $.ajax({
+                    type: "GET",
+                    url: "/EquipmentBookings/GetScheduleEvents",
+                    success: function (scheduleData) {
+                        $.each(scheduleData, function (i, v) {
+                            businessHours.push({
+                                start: v.start,
+                                end: v.end,
+                                overlap: false,
+                                dow: [v.dow]
+                            });
+                        })
+
+                        GenerateCalender(events, businessHours);
+                    }
+                })
+            },
+            error: function (error) {
+                console.log(error);
+                alert('failed');
+            }
+        })
+
+        function GenerateCalender(events, businessHours) {
+            $('#calendar').fullCalendar('destroy');
+            $('#calendar').fullCalendar({
+                themeSystem: 'bootstrap4',
+                allDaySlot: false,
+                businessHours: businessHours,
+                contentHeight: 400,
+                defaultDate: new Date(),
+                defaultTimedEventDuration: '01:00:00',
+                defaultView: 'agendaWeek',
+                displayEventTime: false,
+                displayEventEnd: false,
+                editable: false,
+                eventLimit: true,
+                eventColor: '#007fff',
+                eventConstraint: 'businessHours',
+                eventOverlap: false,
+                events: events,
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                slotDuration: '01:00:00',
+                slotEventOverlap: false,
+                selectConstraint: 'businessHours',
+                selectable: true,
+                timeFormat: 'h(:mm)a',
+                eventClick: function (calEvent, jsEvent, view) {
+                    //added in code for CRUDS
+                    selectedEvent = calEvent;
+                    //////////////////////////
+                    $('#myModal #eventTitle').text(calEvent.equiptype +": " + calEvent.manufacturer + " " + calEvent.model);
+                    var $description = $('<div/>');
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Date Booked for:</b></p> <p style="display: inline; font-weight:550">' + moment(calEvent.datebooked).format("Do MMMM YYYY") + '</p><br>');
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Start:</b></p> <p style="display: inline; font-weight:550">' + calEvent.start.format("hh:mma") + '</p><br>');
+                    if (calEvent.end != null) {
+                        $description.append('<p style="display: inline; font-weight:bold"><b>End:</b></p> <p style="display: inline; font-weight:550">' + calEvent.end.format("hh:mma") + '</p><br>');
+                    }
+                    if (calEvent.pagesprinted) {
+                        $description.append('<p style="display: inline; font-weight:bold"><b>Pages printed:</b></p> <p style="display: inline; font-weight:550">' + calEvent.pagesprinted + '</p><br>');
+                    } else {
+                        $description.append('<p style="display: inline; font-weight:bold"><b>Pages printed:</b></p> <p style="display: inline; font-weight:550">Not yet recorded</p><br>');
+                    }
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Booking is for Project:</b></p> <p style="display: inline; font-weight:550">' + calEvent.projectname + '</p><br>');
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Person using Equipment in Booking:</b></p> <p style="display: inline; font-weight:550">' + calEvent.username + '</p><br>');
+                    $description.append('<p style="display: inline; font-weight:bold"><u style="font-weight: bold">Equipment Details</u></p><br>');
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Manufacturer Name:</b></p> <p style="display: inline; font-weight:550">' + calEvent.manufacturer + '</p><br>');
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Model:</b></p> <p style="display: inline; font-weight:550">' + calEvent.model + '</p><br>');
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Type:</b></p> <p style="display: inline; font-weight:550">' + calEvent.equiptype + '</p><br>');
+                    
+                    $('#myModal #pDetails').empty().html($description);
+
+                    $("#myModal").appendTo("body").modal('show');
+                },
+                eventRender: function (event, element) {
+                    //$(element).tooltip({ title: event.title });
+                    element.popover({
+                        title: event.title,
+                        html: true,
+                        content: event.equiptype + ": " + event.manufacturer + " " + event.model,
+                        trigger: 'hover',
+                        placement: 'top',
+                        container: 'body'
+                    });
+                }
+            })
+        }
+    })
+</script>

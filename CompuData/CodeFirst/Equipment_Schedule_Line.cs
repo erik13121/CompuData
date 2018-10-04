@@ -18,8 +18,7 @@ namespace CompuData.CodeFirst
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int EquipmentID { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
 
         public TimeSpan TimeStart { get; set; }
 
