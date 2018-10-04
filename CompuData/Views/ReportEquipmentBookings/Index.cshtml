@@ -1,0 +1,231 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<nav id="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../ReportsMain">Reportings</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Equipment Bookings Report</li>
+    </ol>
+</nav>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
+
+@Html.Partial("_ProfilePartial")
+
+<div id="table_background">
+    <form action="ReportEquipmentBookings">
+        <p>Equipment Bookings Report</p>
+
+        <div class="row">
+            <label class="control-label col-md-4" for="fromDate">From Date</label>
+            <div class="col-md-8">
+                <input class="date-picker" data-val="true" data-val-date="The field startDate must be a date." data-val-required="The startDate field is required." id="fromDate" name="fromDate" type="text" value="" />
+                <span class="field-validation-valid" data-valmsg-for="fromDate" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <label label class="control-label col-md-4" for="toDate">To Date</label>
+            <div class="col-md-8">
+                <input class="date-picker" data-val="true" data-val-date="The field toDate must be a date." data-val-required="The toDate field is required." id="toDate" name="toDate" type="text" value="" />
+                <span class="field-validation-valid" data-valmsg-for="fromDate" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        <input type="submit" id="addButton" value="Export Report" />
+    </form>
+</div>
+
+<style>
+    .gj-datepicker {
+        flex: 50%;
+    }
+
+    #table_background p {
+        font-size: 25px;
+        text-align: center;
+    }
+
+    #table_background {
+        position: absolute;
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    #SupplierTable {
+        background-color: #5a9ad6;
+        font-size: 14px;
+    }
+
+    #multipleButtons {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #addButton {
+        position: relative;
+        display: inline-block;
+        margin-left: auto;
+        margin-right: auto;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+        background-color: transparent;
+    }
+
+        #addButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #addBookingButton {
+        position: relative;
+        display: inline-block;
+        margin-left: auto;
+        margin-right: auto;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #addBookingButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #backButton {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: 2vh;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #backButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #breadcrumb {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+    }
+
+    .breadcrumb-item {
+        font-size: 25px;
+    }
+
+    .breadcrumb {
+        top: 0;
+        background-color: #33363b !important;
+        padding-left: 60px !important;
+    }
+
+    #profile {
+        position: relative;
+        z-index: 7979;
+        margin-left: auto;
+        margin-bottom: auto;
+        height: 61px;
+        width: 20%;
+        background-color: #33363b;
+        transform: translateX(-3px);
+    }
+
+        #profile a {
+            display: table;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 200;
+            font-size: 25px;
+            text-decoration: none !important;
+            color: #5a9ad6;
+            line-height: 61px;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    .glyphicon {
+        margin-left: 6px;
+    }
+
+    .dropdown-menu {
+        background-color: #33363b;
+    }
+
+        .dropdown-menu li a {
+            color: #5a9ad6;
+        }
+</style>
+
+<script type="text/javascript">
+    $(function () {
+        //date picker for START DATE
+        //dt = selected Date and passes to END DATE datepicker as minDate
+        $("#fromDate").datepicker({
+            onSelect: function (selectdate) {
+                var dt = new Date(selectdate);
+                dt.setDate(dt.getDate() + 1)
+                $("#toDate").datepicker("option", "minDate", dt);
+            }
+        });
+
+        //date picker for END DATE
+        //dt = selected Date and passes to START DATE datepicker as maxDate
+        $("#toDate").datepicker({
+            onSelect: function (selectdate) {
+                var dt = new Date(selectdate);
+                dt.setDate(dt.getDate() - 1)
+                $("#fromDate").datepicker("option", "maxDate", dt);
+            }
+        });
+
+        //initialise datepicker dates with today date for start and +1d for end date
+        $("#fromDate").datepicker("setDate", "+0d");
+        $("#toDate").datepicker("setDate", "+1d");
+    });
+</script>

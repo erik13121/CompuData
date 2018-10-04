@@ -51,9 +51,9 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public ActionResult RedirectToModifyEquipTypeDetails(string LicenceID)
+        public ActionResult RedirectToModifySoftwareLicensesDetails(string licenceID)
         {
-            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "ModifySoftwareLicenses", new { LicenceID = LicenceID });
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "ModifySoftwareLicenses", new { licenceID = licenceID });
             return Json(new { Url = redirectUrl });
         }
 

@@ -42,7 +42,7 @@ namespace CompuData.Controllers
 
                     db.Users.Add(new CodeFirst.User
                     {
-                        UserID = model.UserID + 1,
+                        UserID = item.UserID + 1,
                         FirstName = model.FirstName,
                         MiddleName = model.MiddleName,
                         LastName = model.LastName,

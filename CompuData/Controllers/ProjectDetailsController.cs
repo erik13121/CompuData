@@ -22,8 +22,8 @@ namespace CompuData.Controllers
 
                 myModel.ProjectID = myProject.ProjectID;
                 myModel.ProjectName = myProject.ProjectName;
-                myModel.StartDate = myProject.StartDate;
-                myModel.ExpectedFinishDate = myProject.ExpectedFinishDate;
+                myModel.StartDate = DateTime.Parse(myProject.StartDate.ToString("yyyy-MM-dd")).Date;
+                myModel.ExpectedFinishDate = DateTime.Parse(myProject.ExpectedFinishDate.ToString("yyyy-MM-dd")).Date;
                 myModel.Finished = myProject.Finished;
                 myModel.ProjectDescription = myProject.ProjectDescription;            
                 myModel.TypeID = mytypeID.TypeID;

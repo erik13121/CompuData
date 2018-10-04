@@ -19,10 +19,12 @@ namespace CompuData.Models
 
         [Required(ErrorMessage = "The Start Date is Required")]
         [Column(TypeName = "date")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; }
 
         [Required(ErrorMessage = "The Expected Finish Date is Required")]
         [Column(TypeName = "date")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ExpectedFinishDate { get; set; }
 
         [Column(TypeName = "bit")]

@@ -9,13 +9,13 @@ namespace CompuData.Controllers
     public class SoftwareLicensesDetailsController : Controller
     {
         // GET: SoftwareLicensesDetails
-        public ActionResult Index(string LicenseID)
+        public ActionResult Index(string licenceID)
         {
             Models.SoftwareLicenses myModel = new Models.SoftwareLicenses();
             CodeFirst.CodeFirst db = new CodeFirst.CodeFirst();
-            if (LicenseID != null)
+            if (licenceID != null)
             {
-                var intLicID = Int32.Parse(LicenseID);
+                var intLicID = Int32.Parse(licenceID);
                 var myLicence = db.Software_Licenses.Where(i => i.LicenceID == intLicID).FirstOrDefault();
 
                 myModel.LicenceID = myLicence.LicenceID;
@@ -27,9 +27,9 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public ActionResult RedirectToEquipTypeDetails(string LicenceID)
+        public ActionResult RedirectToSoftwareLicenseDetails(string licenceID)
         {
-            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "SoftwareLicensesDetails", new { LicenceID = LicenceID });
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "SoftwareLicensesDetails", new { licenceID = licenceID });
             return Json(new { Url = redirectUrl });
         }
     }

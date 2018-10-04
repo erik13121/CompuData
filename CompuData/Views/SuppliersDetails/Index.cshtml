@@ -285,8 +285,10 @@
                         dataType: 'json',
                         success: function (data) {
                             if (data.Url != "Cascading error!") {
-                                swal("You have successfully deleted the Supplier", {
+                                swal("You have successfully deleted the Equipment", {
                                     icon: "success",
+                                }).then(() => {
+                                    window.location.href = data.Url;
                                 });
                             }
                             else {
