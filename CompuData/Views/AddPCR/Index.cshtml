@@ -500,6 +500,7 @@
 
         $.each($("#table_id tbody tr"), function () {
             pcrdetails.push({
+
                 //RequisitionID: $("#RequisitionID").val(),
                 SupplierID: parseInt($("#SupplierID").val()),
                 Details: $(this).find('td:eq(0)').html(),
@@ -507,7 +508,10 @@
                 UnitPrice: $(this).find('td:eq(2)').html(),
                 Total: $(this).find('td:eq(3)').html()
             });
+            console.log($(this).find('td:eq(2)').html());
+            console.log($(this).find('td:eq(3)').html());
         });
+
 
         var data = JSON.stringify({
             //RequisitionID: $("#RequisitionID").val(),
@@ -518,6 +522,8 @@
             pcrdetails: pcrdetails
         });
         
+        console.log(data);
+
         $.ajax({
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
@@ -534,7 +540,7 @@
                 }
                 else
                 {
-                    swal(result, "error")
+                    swal(result, "Error!")
                     .then(() => {
                         location.reload();
                     });

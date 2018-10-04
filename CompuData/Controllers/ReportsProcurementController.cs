@@ -8,19 +8,18 @@ using System.Web.Mvc;
 
 namespace CompuData.Controllers
 {
-    public class ReportsVehiclesRegisterController : Controller
+    public class ReportsProcurementController : Controller
     {
-        // GET: ReportsVehiclesRegister
+        // GET: ReportsProcurement
         public ActionResult Index()
         {
             return View();
         }
 
-        //VehicleRegister
-        public ActionResult VehicleRegister(DateTime fromDate, DateTime toDate)
+        public ActionResult ProcurementReport(DateTime fromDate, DateTime toDate)
         {
             ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath("~/Report/VehicleRegister.rpt")));
+            rd.Load(Path.Combine(Server.MapPath("~/Report/ProcurementReport.rpt")));
             rd.SetParameterValue("@startdate", fromDate);
             rd.SetParameterValue("@enddate", toDate);
             Response.Buffer = false;
@@ -30,7 +29,7 @@ namespace CompuData.Controllers
             {
                 Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
                 stream.Seek(0, SeekOrigin.Begin);
-                return File(stream, "application/pdf", "VehiclesRegister.pdf");
+                return File(stream, "application/pdf", "ProcurementReport.pdf");
             }
             catch
             {

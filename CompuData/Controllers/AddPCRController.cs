@@ -28,7 +28,7 @@ namespace CompuData.Controllers
         [HttpPost]
         public JsonResult SavePCRALL(string SupplierID, int? UserID, int? ProjectID,bool? VATInclusive , DateTime? ReqDate , PCRLine[] pcrdetails)
         {
-            string result = "Error!information is incomplete";
+            string result = "information is incomplete.";
             int LineID = 1;
             decimal Sum = 0;
             if (pcrdetails != null && SupplierID != null && UserID != 0 && ProjectID != 0)
@@ -78,7 +78,7 @@ namespace CompuData.Controllers
                     FUckARrie.Details = item.Details;
                     FUckARrie.Quantity = (int)item.Quantity;
                     FUckARrie.UnitPrice = (decimal)item.UnitPrice;
-                    FUckARrie.Total = decimal.Parse(item.Total.ToString().Substring(1, item.Total.ToString().Length));
+                    FUckARrie.Total = decimal.Parse(item.Total.ToString().Substring(1, item.Total.ToString().Length - 1));
                     FUckARrie.SupplierID = (int)item.SupplierID;
 
                     Sum += decimal.Parse(item.Total.ToString().Substring(1, item.Total.ToString().Length));

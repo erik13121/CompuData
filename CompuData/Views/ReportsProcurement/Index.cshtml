@@ -7,7 +7,7 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
         <li class="breadcrumb-item"><a href="../ReportsMain">Reportings</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Vehicle Register Report</li>
+        <li class="breadcrumb-item active" aria-current="page">Procurement Report</li>
     </ol>
 </nav>
 
@@ -22,12 +22,7 @@
 
 <div id="table_background">
     <form action="VehicleRegister">
-        <p>Vehicle Report</p>
-        @*<div>
-            <p>Vehicle Type:</p>
-            @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.VehicleTypes, "TypeID", "Name"))
-        </div>*@           
-                
+        <p>Procurement Report</p>
         <div class="row">
             <label class="control-label col-md-4" for="fromDate">From Date</label>
             <div class="col-md-8">
@@ -49,8 +44,8 @@
 </div>
 
 <style>
-        .gj-datepicker {
-                flex: 50%;
+    .gj-datepicker {
+        flex: 50%;
     }
 
     #table_background p {

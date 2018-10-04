@@ -678,6 +678,7 @@
     <Compile Include="Controllers\RepairPersonsController.cs" />
     <Compile Include="Controllers\RepairRequestsController.cs" />
     <Compile Include="Controllers\ReportsMainController.cs" />
+    <Compile Include="Controllers\ReportsProcurementController.cs" />
     <Compile Include="Controllers\ReportsVehiclesRegisterController.cs" />
     <Compile Include="Controllers\SelectEquipmentController.cs" />
     <Compile Include="Controllers\SelectEquipmentForProofController.cs" />
@@ -893,6 +894,18 @@
     </Compile>
     <Compile Include="Models\Venue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\PCReport1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PCReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Report\ProcurementReport1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProcurementReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Report\VehicleRegister.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1290,6 +1303,7 @@
     <Content Include="Views\EFTR\Index.cshtml" />
     <Content Include="Views\SelectVenue\Index.cshtml" />
     <Content Include="Views\AddVenueBooking\Index.cshtml" />
+    <Content Include="Views\ReportsProcurement\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1315,6 +1329,14 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Report\PCReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PCReport1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\ProcurementReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ProcurementReport1.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\VehicleRegister.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>VehicleRegister.cs</LastGenOutput>

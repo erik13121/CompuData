@@ -20,7 +20,7 @@ namespace CompuData.Models
         [RegularExpression("^[1-9]\\d{1,17}(\\.\\d{2}$)", ErrorMessage = "Unit Price must have between 1 and 18 characters and 2 decimal points")]
         public decimal UnitPrice { get; set; }
 
-        public decimal Total { get; set; }
+        public string Total { get; set; }
 
         public int RequisitionID { get; set; }
 
@@ -32,7 +32,7 @@ namespace CompuData.Models
 
         public PCRLine() { }
 
-        public PCRLine(int ID, string Dets, int Quants, Decimal Price, int SupID, int reqID)
+        public PCRLine(int ID, string Dets, int Quants, decimal Price, int SupID, int reqID, string TotalAmount)
         {
             LineID = ID;
             Details = Dets;
@@ -40,6 +40,7 @@ namespace CompuData.Models
             UnitPrice = Price;
             SupplierID = SupID;
             RequisitionID = reqID;
+            Total = TotalAmount;
         }
 
         public static IEnumerable<CodeFirst.Petty_Cash_Requisition_Line> Data;
