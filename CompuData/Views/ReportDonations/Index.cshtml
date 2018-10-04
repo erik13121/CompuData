@@ -6,7 +6,7 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
         <li class="breadcrumb-item"><a href="../ReportsMain">Reportings</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Vehicle Register Report</li>
+        <li class="breadcrumb-item active" aria-current="page">Donations Report</li>
     </ol>
 </nav>
 
@@ -20,10 +20,10 @@
 @Html.Partial("_ProfilePartial")
 
 <div id="table_background">
-    <form action="VehicleRegister">
-        <p>Vehicle Report</p>        
-                
-        <div class="row">
+    <form action="DonationsReport">
+        <p>Donations Report</p>
+
+        @*<div class="row">
             <label class="control-label col-md-4" for="fromDate">From Date</label>
             <div class="col-md-8">
                 <input class="date-picker" data-val="true" data-val-date="The field startDate must be a date." data-val-required="The startDate field is required." id="fromDate" name="fromDate" type="text" value="" />
@@ -37,15 +37,15 @@
                 <input class="date-picker" data-val="true" data-val-date="The field toDate must be a date." data-val-required="The toDate field is required." id="toDate" name="toDate" type="text" value="" />
                 <span class="field-validation-valid" data-valmsg-for="fromDate" data-valmsg-replace="true"></span>
             </div>
-        </div>
+        </div>*@
 
         <input type="submit" id="addButton" value="Export Report" />
     </form>
 </div>
 
 <style>
-        .gj-datepicker {
-                flex: 50%;
+    .gj-datepicker {
+        flex: 50%;
     }
 
     #table_background p {
