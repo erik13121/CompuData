@@ -28,6 +28,9 @@ namespace CompuData.CodeFirst
 
         public decimal? TotalAmount { get; set; }
 
+        [MaxLength(255)]
+        public string ReceiptFile { get; set; }
+
         [Key]
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

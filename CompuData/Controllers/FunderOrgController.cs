@@ -65,7 +65,7 @@ namespace CompuData.Controllers
             (_item.StreetAddress != null ? _item.StreetAddress.ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
             (_item.City != null ? _item.City.ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
             (_item.AreaCode != null ? _item.AreaCode.ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
-            (_item.Thanked != null ? _item.Thanked.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
+            _item.Thanked.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) ||
             (_item.ProjectName != null ? _item.ProjectName.ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
             _item.TypeName.ToUpper().Contains(request.Search.Value.ToUpper())
             );

@@ -15,7 +15,9 @@
         <li class="breadcrumb-item active" aria-current="page">Add Donation Type</li>
     </ol>
 </nav>
+
 @Html.Partial("_ProfilePartial")
+
 <div id="details_holder">
     @using (@Html.BeginForm("Create", "AddDonationType", FormMethod.Post, new { id = "myForm" }))
     {
@@ -30,6 +32,7 @@
     <div id="addButton">Add</div>
 </div>
 <div id="backButton" onclick="window.location = '@Request.UrlReferrer.ToString()'">Back</div>
+
 <style>
     form {
         top: 0;
@@ -204,6 +207,7 @@
             color: #5a9ad6;
         }
 </style>
+
 <script>
     $("#addButton").click(function (event) {
         swal({

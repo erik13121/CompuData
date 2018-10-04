@@ -15,85 +15,89 @@
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
         <li class="breadcrumb-item"><a href="../ProcurementMenu">Procurement</a></li>
         <li class="breadcrumb-item"><a href="../PCR">Petty Cash Requisition</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Add Petty Cash Requisition</li>
+        <li class="breadcrumb-item active" aria-current="page">Petty Cash Requisition Details</li>
     </ol>
 </nav>
 
 @Html.Partial("_ProfilePartial")
 
 <div class="col-md-6" id="mytwoColumns">
-    <p id="myheading2">Add Petty Cash Requisition</p>
+    <p id="myheading2">Petty Cash Requisition Details</p>
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#PCRDetails" id="tabitem">Petty Cash Requisition Details</a></li>
         <li><a data-toggle="tab" href="#LineItems" id="tabitem">Line Details</a></li>
     </ul>
-    @using (@Html.BeginForm("Create", "AddPCR", FormMethod.Post, new { id = "myForm" }))
-    {
-        @Html.HiddenFor(model => model.RequisitionID)
-        <div class="tab-content">
-            <div id="PCRDetails" class="tab-pane fade in active">
-                <div class="row-md-6">
-                    <div class="card mb-4 box-shadow">
-                        <div class="card-body">
-                            <div>
-                                <p>Supplier Name:</p>
-                                @Html.DropDownListFor(model => model.SupplierID, new SelectList(Model.Suppliers, "SupplierID", "Name"), Model.Suppliers.Count == 0 ? "Please add a Supplier Name" : null)
-                            </div>
-                            @Html.ValidationMessageFor(model => model.SupplierID)
-                            <div>
-                                <p>Project:</p>
-                                @Html.DropDownListFor(model => model.ProjectID, new SelectList(Model.Projects, "ProjectID", "ProjectName"), Model.Projects.Count == 0 ? "Please add a Project Name" : null)
-                            </div>
-                            @Html.ValidationMessageFor(model => model.ProjectID)
-                            <div>
-                                <p>User Responsible:</p>
-                                @Html.DropDownListFor(model => model.UserID, Model.Users)
-                            </div>
-                            @Html.ValidationMessageFor(model => model.UserID)
-                            <div>
-                                <p>Date:</p>
-                                @Html.TextBoxFor(model => model.ReqDate, new { @class = "form-control date-picker", @id = "datepicker", placeholder = "Please Enter Date" })
-                            </div>
-                            @Html.ValidationMessageFor(model => model.ReqDate)
+    @Html.HiddenFor(model => model.RequisitionID)
+    <div class="tab-content">
+        <div id="PCRDetails" class="tab-pane fade in active">
+            <div class="row-md-6">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-body">
+                        <div>
+                            <p>Supplier Name:</p>
+                            @Html.TextBoxFor(model => model.SupplierID, new { @readonly = "readonly" })
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div id="LineItems" class="tab-pane fade">
-                <div class="row-md-6">
-                    <div class="card mb-4 box-shadow">
-                        <div class="card-body" id="cardbody2">
-                            <div id="table_background">
-                                <table id="table_id" class="display">
-                                    <thead>
-                                        <tr>
-                                            <th>Details</th>
-                                            <th>Quantity</th>
-                                            <th>Amount</th>
-                                            <th>Total</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <td colspan="5" style="text-align: left;">
-                                                <input type="button" class="btn btn-lg btn-block " id="addrow" value="Add Row" />
-                                            </td>
-                                        </tr>
-                                        <tr></tr>
-                                    </tfoot>
-                                </table>
-                            </div>
+                        <div>
+                            <p>Project:</p>
+                            @Html.TextBoxFor(model => model.ProjectID, new { @readonly = "readonly" })
+                        </div>
+                        <div>
+                            <p>User Responsible:</p>
+                            @Html.TextBoxFor(model => model.UserID, new { @readonly = "readonly" })
+                        </div>
+                        <div>
+                            <p>Date:</p>
+                            @Html.TextBoxFor(model => model.ReqDate, new { @readonly = "readonly" })
+                        </div>
+                        <div>
+                            <p>Approval Status:</p>
+                            @Html.TextBoxFor(model => model.ApprovalStatus, new { @readonly = "readonly" })
+                        </div>
+                        <div>
+                            <p>Total Amount:</p>
+                            @Html.TextBoxFor(model => model.TotalAmount, new { @readonly = "readonly" })
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="multipleButtons">
-            <div id="addButton">Add Petty Cash Requisition</div>
+        <div id="LineItems" class="tab-pane fade">
+            <div class="row-md-6">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-body" id="cardbody2">
+                        <div id="table_background">
+                            <table id="table_id" class="display">
+                                <thead>
+                                    <tr>
+                                        <th>Details</th>
+                                        <th>Quantity</th>
+                                        <th>Amount</th>
+                                        <th>Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5" style="text-align: left;">
+                                            <input type="button" class="btn btn-lg btn-block " id="addrow" value="Add Row" />
+                                        </td>
+                                    </tr>
+                                    <tr></tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    }
+    </div>
+    <div id="multipleButtons">
+        <a id="modifyButton" class="btn btn-dafault">Maintain</a>
+        <a id="removeButton" class="btn btn-default">Remove</a>
+        <a id="assignButton" class="btn btn-default">Assign Receipt</a>
+        <a id="approveButton" class="btn btn-default">Approve</a>
+    </div>
 </div>
 
 <div id="newOrderModal" class="modal">
@@ -500,7 +504,6 @@
 
         $.each($("#table_id tbody tr"), function () {
             pcrdetails.push({
-
                 //RequisitionID: $("#RequisitionID").val(),
                 SupplierID: parseInt($("#SupplierID").val()),
                 Details: $(this).find('td:eq(0)').html(),
@@ -508,10 +511,7 @@
                 UnitPrice: $(this).find('td:eq(2)').html(),
                 Total: $(this).find('td:eq(3)').html()
             });
-            console.log($(this).find('td:eq(2)').html());
-            console.log($(this).find('td:eq(3)').html());
         });
-
 
         var data = JSON.stringify({
             //RequisitionID: $("#RequisitionID").val(),
@@ -521,8 +521,6 @@
             ReqDate: $("#datepicker").val(),
             pcrdetails: pcrdetails
         });
-        
-        console.log(data);
 
         $.ajax({
             contentType: 'application/json; charset=utf-8',
@@ -531,16 +529,14 @@
             url: '@Url.Action("SavePCRALL","AddPCR")',
             data: data,
             success: function (result) {
-                if (result.includes("success"))
-                {
+                if (result.includes("success")) {
                     swal(result, "success")
                     .then(() => {
                         window.location.href = "/PCR/Index";
                     });
                 }
-                else
-                {
-                    swal(result, "Error!")
+                else {
+                    swal(result, "error")
                     .then(() => {
                         location.reload();
                     });

@@ -8,40 +8,41 @@ using System.Web.Mvc;
 
 namespace CompuData.Controllers
 {
-    public class AddPCRController : Controller
+    public class AddEFTRController : Controller
     {
-        // GET: AddPCR
+        // GET: AddEFTR
         public ActionResult Index()
         {
             var db = new CodeFirst.CodeFirst();
-            var PCR = new Models.PCR();
-            PCR.Suppliers = db.Suppliers.ToList();
-            PCR.Projects = db.Projects.ToList();
-            PCR.Users = db.Users.AsEnumerable().Select(u => new SelectListItem
+            var EFTR = new Models.EFTR();
+            EFTR.Suppliers = db.Suppliers.ToList();
+            EFTR.Projects = db.Projects.ToList();
+            EFTR.Users = db.Users.AsEnumerable().Select(u => new SelectListItem
             {
                 Value = u.UserID.ToString(),
                 Text = u.Initials + " " + u.LastName
             }).ToList();
-            return View(PCR);
+            return View(EFTR);
         }
 
         [HttpPost]
-        public JsonResult SavePCRALL(string SupplierID, int? UserID, int? ProjectID,bool? VATInclusive , DateTime? ReqDate , PCRLine[] pcrdetails)
+        public JsonResult SavePCRALL(string SupplierID, int UserID, int ProjectID, bool? VATInclusive, DateTime? Date, PCRLine[] pcrdetails)
         {
-            string result = "information is incomplete.";
+            string result = "Error!information is incomplete";
             int LineID = 1;
             decimal Sum = 0;
             if (pcrdetails != null && SupplierID != null && UserID != 0 && ProjectID != 0)
             {
                 var db = new CodeFirst.CodeFirst();
-                Petty_Cash_Requisition newPCR = new Petty_Cash_Requisition();
-                if (db.Petty_Cash_Requisition.ToList().Count > 0)
+                EFT_Requisition newPCR = new EFT_Requisition();
+                if (db.EFT_Requisition.ToList().Count > 0)
                 {
-                    var waduuu = db.Petty_Cash_Requisition.OrderByDescending(a => a.RequisitionID).FirstOrDefault();
+                    var waduuu = db.EFT_Requisition.OrderByDescending(a => a.RequisitionID).FirstOrDefault();
 
                     newPCR.RequisitionID = waduuu.RequisitionID + 1;
-                    newPCR.ApprovalStatus = "Not Approved";
-                    newPCR.ReqDate = DateTime.Parse(ReqDate.Value.ToString("yyyy-MM-dd"));
+                    newPCR.ApprovedCEO = false;
+                    newPCR.ApprovedProjectManger = false;
+                    newPCR.Date = DateTime.Parse(Date.Value.ToString("yyyy-MM-dd"));
                     newPCR.SupplierID = Convert.ToInt32(SupplierID);
                     newPCR.ProjectID = ProjectID;
                     newPCR.UserID = UserID;
@@ -49,8 +50,9 @@ namespace CompuData.Controllers
                 else
                 {
                     newPCR.RequisitionID = 1;
-                    newPCR.ApprovalStatus = "Not Approved";
-                    newPCR.ReqDate = DateTime.Parse(ReqDate.Value.ToString("yyyy-MM-dd"));
+                    newPCR.ApprovedCEO = false;
+                    newPCR.ApprovedProjectManger = false;
+                    newPCR.Date = DateTime.Parse(Date.Value.ToString("yyyy-MM-dd"));
                     newPCR.SupplierID = Convert.ToInt32(SupplierID);
                     newPCR.ProjectID = ProjectID;
                     newPCR.UserID = UserID;
@@ -67,23 +69,23 @@ namespace CompuData.Controllers
                     Text = u.Initials + " " + u.LastName
                 }).ToList();
 
-                db.Petty_Cash_Requisition.Add(newPCR);
+                db.EFT_Requisition.Add(newPCR);
 
                 //OrderLine
                 foreach (var item in pcrdetails)
                 {
-                    CodeFirst.Petty_Cash_Requisition_Line FUckARrie = new CodeFirst.Petty_Cash_Requisition_Line();
+                    CodeFirst.EFT_Requisition_Line FUckARrie = new CodeFirst.EFT_Requisition_Line();
                     FUckARrie.RequisitionID = (int)newPCR.RequisitionID;
                     FUckARrie.LineID = LineID;
                     FUckARrie.Details = item.Details;
-                    FUckARrie.Quantity = (int)item.Quantity;
-                    FUckARrie.UnitPrice = (decimal)item.UnitPrice;
-                    FUckARrie.Total = decimal.Parse(item.Total.ToString().Substring(1, item.Total.ToString().Length - 1));
+                    FUckARrie.QuantityEFT = (int)item.Quantity;
+                    FUckARrie.UnitPriceEFT = (decimal)item.UnitPrice;
+                    FUckARrie.TotalEFT = decimal.Parse(item.Total.ToString().Substring(1, item.Total.ToString().Length));
                     FUckARrie.SupplierID = (int)item.SupplierID;
 
                     Sum += decimal.Parse(item.Total.ToString().Substring(1, item.Total.ToString().Length));
                     LineID++;
-                    db.Petty_Cash_Requisition_Line.Add(FUckARrie);
+                    db.EFT_Requisition_Line.Add(FUckARrie);
                 }
 
                 newPCR.TotalAmount = Sum;
@@ -101,6 +103,5 @@ namespace CompuData.Controllers
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
     }
 }

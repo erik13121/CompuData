@@ -20,7 +20,7 @@
     <div id="multipleButtons">
         <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddPCR")'">Add Petty Cash Requisition</div>
     </div>
-    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "EquipmentManagementMenu")'">Back</div>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "ProcurementMenu")'">Back</div>
 </div>
 
 <style>
@@ -182,63 +182,56 @@
     $(document).ready(function () {
         table = $('#vehiclesTable').DataTable({
             serverSide: true,
-            ajax: "/Equipments/PageData",
+            ajax: "/PCR/PageData",
             autoWidth: true,
             scrollX: true,
             columns: [
                 {
-                    name: 'equipmentID',
-                    data: 'equipmentID',
+                    name: 'requisitionID',
+                    data: 'requisitionID',
                     title: "ID",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'manufacturerName',
-                    data: "manufacturerName",
-                    title: "Manufacturer Name",
+                    name: 'reqDate',
+                    data: "reqDate",
+                    title: "Requisition Date",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'modelNumber',
-                    data: "modelNumber",
-                    title: "Model Number",
+                    name: 'supplierName',
+                    data: "supplierName",
+                    title: "Supplier Name",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'datePurchased',
-                    data: "datePurchased",
-                    title: "Date Purchased",
+                    name: 'projectName',
+                    data: "projectName",
+                    title: "Project Name",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'serviceIntervalMonths',
-                    data: "serviceIntervalMonths",
-                    title: "Service Interval in Months",
+                    name: 'userInitials',
+                    data: "userInitials",
+                    title: "User Initials",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'status',
-                    data: "status",
-                    title: "Status",
+                    name: 'userLastName',
+                    data: "userLastName",
+                    title: "User Last Name",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'userName',
-                    data: "userName",
-                    title: "User Full Name",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'typeName',
-                    data: "typeName",
-                    title: "Type Name",
+                    name: 'approvalStatus',
+                    data: "approvalStatus",
+                    title: "Approval Status",
                     sortable: true,
                     searchable: true
                 },
@@ -269,19 +262,18 @@
         swal("You have successfully added a Petty Cash Requisition", {
             icon: "success",
         });
-        //window.location = "/Vehicles/Index";
     }
 
     @TempData["js"];
     function myUpdateSuccess() {
-        swal("You have successfully updated the Equipment", {
+        swal("You have successfully updated a Petty Cash Requisition", {
             icon: "success",
         });
     }
 
     $.ajax({
         type: "POST",
-        url: '@Url.Action("SetTempData", "Equipments")',
+        url: '@Url.Action("SetTempData", "PCR")',
         success: function () {
 
         }
@@ -289,12 +281,12 @@
 
     $('#vehiclesTable').on('click', '.glyphicon-eye-open', function () {
         var data = table.row($(this).parents('tr')).data();
-        var equipmentID = data["equipmentID"];
+        var requisitionID = data["requisitionID"];
 
         $.ajax({
             url: '@Url.Action("RedirectToEquipmentDetails", "EquipmentDetails")',
             type: 'POST',
-            data: { equipmentID: equipmentID },
+            data: { requisitionID: requisitionID },
             dataType: 'json',
             success: function (data) {
                 window.location.href = data.Url; // your action should return an object having [redirecturl] property
@@ -304,13 +296,13 @@
 
     $('#vehiclesTable').on('click', '.glyphicon-pencil', function () {
         var data = table.row($(this).parents('tr')).data();
-        var equipmentID = data["equipmentID"];
+        var requisitionID = data["requisitionID"];
         @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
 
         $.ajax({
-            url: '@Url.Action("RedirectToModifyEquipmentDetails", "ModifyEquipmentDetails")',
+            url: '@Url.Action("RedirectToModifyPCRDetails", "ModifyPCRDetails")',
             type: 'POST',
-            data: { equipmentID: equipmentID },
+            data: { requisitionID: requisitionID },
             dataType: 'json',
             success: function (data) {
                 window.location.href = data.Url;
@@ -320,10 +312,10 @@
 
     $('#vehiclesTable').on('click', '.glyphicon-trash', function () {
         var data = table.row($(this).parents('tr')).data();
-        var equipmentID = data["equipmentID"];
+        var requisitionID = data["requisitionID"];
 
         swal({
-            title: "Are you sure you want to delete this Equipment?",
+            title: "Are you sure you want to delete this Petty Cash Requisition?",
             icon: "warning",
             dangerMode: true,
             buttons: [
@@ -335,13 +327,13 @@
             .then((willDelete) => {
                 if (willDelete) {
                     $.ajax({
-                        url: '@Url.Action("Delete", "Equipments")',
+                        url: '@Url.Action("Delete", "PCR")',
                         type: 'POST',
-                        data: { equipmentID: equipmentID },
+                        data: { requisitionID: requisitionID },
                         dataType: 'json',
                         success: function (data) {
                             if (data.Url != "Cascading error!") {
-                                swal("You have successfully deleted the Equipment", {
+                                swal("You have successfully deleted the Petty Cash Requisition", {
                                     icon: "success",
                                 }).then(() => {
                                     window.location.href = data.Url;

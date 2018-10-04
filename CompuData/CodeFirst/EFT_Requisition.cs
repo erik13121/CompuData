@@ -25,8 +25,7 @@ namespace CompuData.CodeFirst
         [Column(TypeName = "bit")]
         public bool ApprovedCEO { get; set; }
 
-        [Required]
-        [MaxLength(50)]
+        [MaxLength(255)]
         public string ReceiptFile { get; set; }
 
         [Column(TypeName = "date")]

@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    @model CompuData.Models.PCR
+    @model CompuData.Models.EFTR
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
@@ -14,20 +14,20 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
         <li class="breadcrumb-item"><a href="../ProcurementMenu">Procurement</a></li>
-        <li class="breadcrumb-item"><a href="../PCR">Petty Cash Requisition</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Add Petty Cash Requisition</li>
+        <li class="breadcrumb-item"><a href="../EFTR">EFT Requisition</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add EFT Requisition</li>
     </ol>
 </nav>
 
 @Html.Partial("_ProfilePartial")
 
 <div class="col-md-6" id="mytwoColumns">
-    <p id="myheading2">Add Petty Cash Requisition</p>
+    <p id="myheading2">Add EFT Requisition</p>
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#PCRDetails" id="tabitem">Petty Cash Requisition Details</a></li>
+        <li class="active"><a data-toggle="tab" href="#PCRDetails" id="tabitem">EFT Requisition Details</a></li>
         <li><a data-toggle="tab" href="#LineItems" id="tabitem">Line Details</a></li>
     </ul>
-    @using (@Html.BeginForm("Create", "AddPCR", FormMethod.Post, new { id = "myForm" }))
+    @using (@Html.BeginForm("Create", "AddEFTR", FormMethod.Post, new { id = "myForm" }))
     {
         @Html.HiddenFor(model => model.RequisitionID)
         <div class="tab-content">
@@ -52,9 +52,9 @@
                             @Html.ValidationMessageFor(model => model.UserID)
                             <div>
                                 <p>Date:</p>
-                                @Html.TextBoxFor(model => model.ReqDate, new { @class = "form-control date-picker", @id = "datepicker", placeholder = "Please Enter Date" })
+                                @Html.TextBoxFor(model => model.Date, new { @class = "form-control date-picker", @id = "datepicker", placeholder = "Please Enter Date" })
                             </div>
-                            @Html.ValidationMessageFor(model => model.ReqDate)
+                            @Html.ValidationMessageFor(model => model.Date)
                         </div>
                     </div>
                 </div>
@@ -494,13 +494,12 @@
 
     $("#addButton").click(function (event) {
         event.preventDefault();
-
+        
         var pcrdetails = [];
         pcrdetails.length = 0;
 
         $.each($("#table_id tbody tr"), function () {
             pcrdetails.push({
-
                 //RequisitionID: $("#RequisitionID").val(),
                 SupplierID: parseInt($("#SupplierID").val()),
                 Details: $(this).find('td:eq(0)').html(),
@@ -508,10 +507,7 @@
                 UnitPrice: $(this).find('td:eq(2)').html(),
                 Total: $(this).find('td:eq(3)').html()
             });
-            console.log($(this).find('td:eq(2)').html());
-            console.log($(this).find('td:eq(3)').html());
         });
-
 
         var data = JSON.stringify({
             //RequisitionID: $("#RequisitionID").val(),
@@ -521,26 +517,24 @@
             ReqDate: $("#datepicker").val(),
             pcrdetails: pcrdetails
         });
-        
-        console.log(data);
 
         $.ajax({
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             type: 'POST',
-            url: '@Url.Action("SavePCRALL","AddPCR")',
+            url: '@Url.Action("SavePCRALL","AddEFTR")',
             data: data,
             success: function (result) {
                 if (result.includes("success"))
                 {
                     swal(result, "success")
                     .then(() => {
-                        window.location.href = "/PCR/Index";
+                        window.location.href = "/EFTR/Index";
                     });
                 }
                 else
                 {
-                    swal(result, "Error!")
+                    swal(result, "error")
                     .then(() => {
                         location.reload();
                     });
