@@ -6,6 +6,7 @@
 /// <reference path="ElementQueries.js" />
 /// <reference path="esm/popper.min.js" />
 /// <reference path="esm/popper-utils.min.js" />
+/// <reference path="fullcalendar.min.js" />
 /// <reference path="jquery.timepicker.min.js" />
 /// <reference path="jquery.validate.min.js" />
 /// <reference path="jquery.validate.unobtrusive.min.js" />
