@@ -6,12 +6,39 @@ using System.Web.Mvc;
 
 namespace CompuData.Controllers
 {
-    public class EquipmentBookingsController : Controller
+    public class AddEquipmentBookingController : Controller
     {
-        // GET: EquipmentBookings
-        public ActionResult Index()
+        static int globalEquipmentID;
+        // GET: AddEquipmentBooking
+        public ActionResult Index(string equipmentID)
         {
+            CodeFirst.CodeFirst db = new CodeFirst.CodeFirst();
+
+            globalEquipmentID = Int32.Parse(equipmentID);
+            ViewBag.Users = db.Users
+                    .AsEnumerable()
+                    .Select(u => new SelectListItem
+                    {
+                        Value = u.UserID.ToString(),
+                        Text = u.Initials + " " + u.LastName
+                    }).ToList();
+
+            ViewBag.Projects = db.Projects
+                .AsEnumerable()
+                .Select(p => new SelectListItem
+                {
+                    Value = p.ProjectID.ToString(),
+                    Text = p.ProjectName
+                }).ToList();
+
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult RedirectToAddEquipmentBooking(string equipmentID)
+        {
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "AddEquipmentBooking", new { equipmentID = equipmentID });
+            return Json(new { Url = redirectUrl });
         }
 
         [HttpGet]
@@ -57,7 +84,9 @@ namespace CompuData.Controllers
             using (CodeFirst.CodeFirst db = new CodeFirst.CodeFirst())
             {
                 db.Configuration.LazyLoadingEnabled = false;
-                var events = db.Equipment_Schedule_Line.ToList();
+                var events = db.Equipment_Schedule_Line
+                    .Where(v => v.EquipmentID == globalEquipmentID)
+                    .ToList();
 
                 var newData =
                     (from e in events

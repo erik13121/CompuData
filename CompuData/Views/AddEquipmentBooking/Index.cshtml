@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "AddVenueBooking";
+    ViewBag.Title = "AddEquipmentBooking";
     Layout = "~/Views/Shared/_Layout.cshtml";
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
@@ -8,19 +8,19 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../VenueMenu">Building & Venue Menu</a></li>
-        <li class="breadcrumb-item"><a href="../VenueBookings">Venue Bookings</a></li>
-        <li class="breadcrumb-item"><a href="../SelectVenue">Select Venue</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Add Venue Booking</li>
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment Menu</a></li>
+        <li class="breadcrumb-item"><a href="../EquipmentBookings">Equipment Bookings</a></li>
+        <li class="breadcrumb-item"><a href="../SelectEquipment">Select Equipment</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Equipment Booking</li>
     </ol>
 </nav>
 @Html.Partial("_ProfilePartial")
 @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);
             Session["Query"] = Request.Url.Query;}
 <div id="table_background">
-    <h2>Venue Bookings</h2>
+    <h2>Equipment Bookings</h2>
     <div id="calendar"></div>
-    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "SelectVenue")'">Back</div>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "SelectEquipment")'">Back</div>
 </div>
 
 <div id="myModal" class="modal fade" role="dialog">
@@ -39,8 +39,8 @@
                             </button>
                         </div>
                         <div class="col text-right">
-                            <button id="btnDelete" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
-                                <span class="glyphicon glyphicon-trash"></span> Remove
+                            <button id="btnConfirm" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
+                                <span class="glyphicon glyphicon-pencil"></span> Confirm
                             </button>
                         </div>
                     </div>
@@ -59,12 +59,14 @@
         <div class="modal-dialog vertical-align-center">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4>Add Venue Booking</h4>
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span> <span class="sr-only">close</span></button>
+                    <h4>Add an Equipment Booking</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span> <span class="sr-only">close</span>
+                    </button>
                 </div>
                 <div id="modalBody" class="modal-body">
                     <div class="form-group">
-                        <input type="text" id="bookingLocation" class="form-control" />
+                        <input type="text" id="bookingReason" class="form-control" />
                     </div>
                     <div class="row">
                         <div class="form-group col">
@@ -78,21 +80,19 @@
                     </div>
                     <div class="row">
                         <div class="form-group col">
-                            <label for="bookingPeople">People attending:</label>
-                            <input type="number" id="bookingPeople" class="form-control" min="0" value="0" />
-                        </div>
-                        <div class="form-group col">
-                            <label for="bookingProject">Project:</label>
+                            <label for="bookingStartTime">Project using Equipment:</label>
                             @Html.DropDownList("Projects", (IEnumerable<SelectListItem>)ViewBag.Projects, new { id = "ddlProjects", @class = "form-control" })
                         </div>
                         <div class="form-group col pull-right">
-                            <label for="bookingUser">Host:</label>
+                            <label for="bookingEndTime">User of Equipment:</label>
                             @Html.DropDownList("Users", (IEnumerable<SelectListItem>)ViewBag.Users, new { id = "ddlUsers", @class = "form-control" })
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">
+                        Cancel
+                    </button>
                     <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
                 </div>
             </div>
@@ -105,40 +105,40 @@
         <div class="modal-dialog vertical-align-center">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4>Edit Venue Booking</h4>
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span> <span class="sr-only">close</span></button>
+                    <h4>Edit an Equipment Booking</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span> <span class="sr-only">close</span>
+                    </button>
                 </div>
                 <div id="modalBody" class="modal-body">
                     <div class="form-group">
-                        <input type="text" id="bookingLocationEdit" class="form-control" />
+                        <input type="text" id="bookingReason" class="form-control" />
                     </div>
                     <div class="row">
                         <div class="form-group col">
                             <label for="bookingStartTime">Start Time:</label>
-                            <input type="text" id="bookingStartTimeEdit" class="form-control" />
+                            <input type="text" id="bookingStartTime" class="form-control" />
                         </div>
                         <div class="form-group col pull-right">
                             <label for="bookingEndTime">End Time:</label>
-                            <input type="text" id="bookingEndTimeEdit" class="form-control" />
+                            <input type="text" id="bookingEndTime" class="form-control" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col">
-                            <label for="bookingPeopleEdit">People attending:</label>
-                            <input type="number" id="bookingPeopleEdit" class="form-control" min="0" value="0" />
-                        </div>
-                        <div class="form-group col">
-                            <label for="ddlProjectsEdit">Project:</label>
-                            @Html.DropDownList("Projects", (IEnumerable<SelectListItem>)ViewBag.Projects, new { id = "ddlProjectsEdit", @class = "form-control" })
+                            <label for="bookingStartTime">Project using Equipment:</label>
+                            @Html.DropDownList("Projects", (IEnumerable<SelectListItem>)ViewBag.Projects, new { id = "ddlProjects", @class = "form-control" })
                         </div>
                         <div class="form-group col pull-right">
-                            <label for="ddlUsersEdit">Host:</label>
-                            @Html.DropDownList("Users", (IEnumerable<SelectListItem>)ViewBag.Users, new { id = "ddlUsersEdit", @class = "form-control" })
+                            <label for="bookingEndTime">User of Equipment:</label>
+                            @Html.DropDownList("Users", (IEnumerable<SelectListItem>)ViewBag.Users, new { id = "ddlUsers", @class = "form-control" })
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">
+                        Cancel
+                    </button>
                     <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
                 </div>
             </div>
@@ -302,23 +302,28 @@
 
         var selectedEvent = null;
         var eventStart = "";
-        var venue;
-        var building;
+        var manufacturer;
+        var model;
+        var type;
 
         $.ajax({
             type: "GET",
-            url: "/AddVenueBooking/GetEvents",
+            url: "/AddEquipmentBooking/GetEvents",
             success: function (data) {
+
                 $.each(data, function (i, v) {
                     events.push({
-                        title: v.ProjectName,
-                        people: v.People,
+                        title: moment(v.StartTime).format("H:mma") + "-" + moment(v.EndTime).format("H:mma"),
+                        bookingid: v.BookingID,
+                        equipmentbookingid: v.EquipmentBookingID,
                         start: moment(v.DateBooked + " " + moment(v.StartTime).format("HH:mm:ss")).format("MM/DD/YYYY HH:mm:ss"),
                         end: moment(v.DateBooked + " " + moment(v.EndTime).format("HH:mm:ss")).format("MM/DD/YYYY HH:mm:ss"),
-                        username: v.UserName,
-                        venue: v.Venue,
-                        building: v.Building,
+                        pagesprinted: v.PagesPrinted,
+                        manufacturer: v.Manufacturer,
+                        model: v.Model,
+                        equiptype: v.EquipType,
                         projectname: v.ProjectName,
+                        username: v.UserName,
                         //color: blue,
                         allDay: false
                     });
@@ -326,7 +331,7 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "/AddVenueBooking/GetScheduleEvents",
+                    url: "/AddEquipmentBooking/GetScheduleEvents",
                     success: function (scheduleData) {
                         $.each(scheduleData, function (i, v) {
                             businessHours.push({
@@ -389,11 +394,29 @@
                                     });
                                     $('#bookingStartTime').timepicker('setTime', moment(start).format("h:mmA"));
 
-                                    venue = events[0].venue;
-                                    building = events[0].building;
-                                    $('#bookingLocation').val(venue + ", " + building);
-                                    $('#bookingLocation').attr('readonly', true);
+                                    manufacturer = events[0].manufacturer;
+                                    model = events[0].model;
+                                    type = events[0].equiptype;
+                                    $('#bookingReason').val(type + ": " + manufacturer + " " + model);
+                                    $('#bookingReason').attr('readonly', true);
                                     $('#bookingStartTime').attr('readonly', true);
+                                    //console.log($('#bookingStartTime').data());
+                                    //console.log(moment(start).format("hh:mma"));
+                                    //$('#bookingStartTime').timepicker('remove');
+                                    //console.log($('#bookingStartTime'));
+                                    //$('#bookingStartTime').attr('class', 'form-control');
+                                    //$('#bookingStartTime').toggleClass('ui-timepicker-input');
+                                    //console.log($('#bookingStartTime'));
+                                    //$('#bookingStartTime').timepicker({});
+                                    //$('#bookingStartTime').timepicker('setTime', moment(start).format("hh:mma"));
+                                    //$('#bookingStartTime').timepicker('option', {
+                                    //    'minTime': moment(start).format("hh:mmA"),
+                                    //    'defaultValue': moment(start).format("hh:mmA")
+                                    //});
+                                    
+                                    //$('#bookingStartTime').val($('#bookingStartTime').timepicker('setTime', moment(start).format("h:mmA")).val());
+                                    //console.log($('#bookingStartTime').data("uiTimepickerValue"));
+                                    //$('#bookingStartTime').attr('readonly', true);
 
                                     $('#bookingEndTime').timepicker({
                                         'minTime': moment(start).format("h:mmA"),
@@ -444,17 +467,25 @@
                     //added in code for CRUDS
                     selectedEvent = calEvent;
                     //////////////////////////
-                    $('#myModal #eventTitle').text("Booking location: " + calEvent.venue + ", " + calEvent.building);
+                    $('#myModal #eventTitle').text(calEvent.equiptype + ": " + calEvent.manufacturer + " " + calEvent.model);
                     var $description = $('<div/>');
                     $description.append('<p style="display: inline; font-weight:bold"><b>Date Booked for:</b></p> <p style="display: inline; font-weight:550">' + moment(calEvent.datebooked).format("Do MMMM YYYY") + '</p><br>');
                     $description.append('<p style="display: inline; font-weight:bold"><b>Start:</b></p> <p style="display: inline; font-weight:550">' + calEvent.start.format("hh:mma") + '</p><br>');
                     if (calEvent.end != null) {
                         $description.append('<p style="display: inline; font-weight:bold"><b>End:</b></p> <p style="display: inline; font-weight:550">' + calEvent.end.format("hh:mma") + '</p><br>');
                     }
-                    $description.append('<p style="display: inline; font-weight:bold"><b>Number of people attending:</b></p> <p style="display: inline; font-weight:550">' + calEvent.people + '</p><br>');
-                    $description.append('<p style="display: inline; font-weight:bold"><b>Host of Booking:</b></p> <p style="display: inline; font-weight:550">' + calEvent.username + '</p><br>');
+                    if (calEvent.pagesprinted) {
+                        $description.append('<p style="display: inline; font-weight:bold"><b>Pages printed:</b></p> <p style="display: inline; font-weight:550">' + calEvent.pagesprinted + '</p><br>');
+                    } else {
+                        $description.append('<p style="display: inline; font-weight:bold"><b>Pages printed:</b></p> <p style="display: inline; font-weight:550">Not yet recorded</p><br>');
+                    }
                     $description.append('<p style="display: inline; font-weight:bold"><b>Booking is for Project:</b></p> <p style="display: inline; font-weight:550">' + calEvent.projectname + '</p><br>');
-                    $description.append('<p style="display: inline; font-weight:bold"><b>Booking location:</b></p> <p style="display: inline; font-weight:550">' + calEvent.venue + ", " + calEvent.building + '</p><br>');
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Person using Equipment in Booking:</b></p> <p style="display: inline; font-weight:550">' + calEvent.username + '</p><br>');
+                    $description.append('<p style="display: inline; font-weight:bold"><u style="font-weight: bold">Equipment Details</u></p><br>');
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Manufacturer Name:</b></p> <p style="display: inline; font-weight:550">' + calEvent.manufacturer + '</p><br>');
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Model:</b></p> <p style="display: inline; font-weight:550">' + calEvent.model + '</p><br>');
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Type:</b></p> <p style="display: inline; font-weight:550">' + calEvent.equiptype + '</p><br>');
+
                     $('#myModal #pDetails').empty().html($description);
 
                     $("#myModal").appendTo("body").modal('show');
@@ -464,7 +495,8 @@
                     element.popover({
                         title: event.title,
                         html: true,
-                        content: event.start.format("Do MMMM YYYY") + "<br />" + event.start.format("H:mma") + "-" + event.end.format("H:mma"),
+                        content: "<p style='display: inline; font-weight:bold'>For Project:</p> " + event.projectname + "<br />"
+                            + "<p style='display: inline; font-weight:bold'>User of Equipment:</p> " + event.username,
                         trigger: 'hover',
                         placement: 'top',
                         container: 'body'
@@ -485,23 +517,18 @@
             e.preventDefault();
 
             if (moment(selectedEvent.start).isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
-                $("#bookingLocationEdit").val(selectedEvent.venue + ", " + selectedEvent.building);
-                $('#bookingLocationEdit').attr('readonly', true);
-                $("#bookingStartTimeEdit").val(moment(selectedEvent.start).format('hh:mma'));
-                $('#bookingStartTimeEdit').attr('readonly', true);
-                $("#bookingEndTimeEdit").val(moment(selectedEvent.end).format('hh:mma'));
-                $("#bookingEndTimeEdit").timepicker({});
-                $("#bookingEndTimeEdit").timepicker('option', {
-                    'minTime': moment(selectedEvent.end).format('hh:mma')
-                });
-                $("#bookingPeopleEdit").val(selectedEvent.people);
-
                 $("#myModalSave").appendTo("body").modal('show');
             }
             else if (moment(selectedEvent.end).isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
-                swal("You cannot edit a Venue Booking while is is currently busy.", "warning")
+                swal("You cannot edit an Equipment Booking while is is currently busy.", "warning")
             } else {
-                swal("You cannot edit a Venue Booking after it has already happened.", "info")
+                var span = document.createElement("span");
+                span.innerHTML = "You cannot edit an Equipment Booking after it has already happened.<br/>"
+                    + "If you would like to adjust the pages printed in the booking, then please select the Adjust Pages Printed button";
+                swal({
+                        icon: "error",
+                        content: span
+                    })
             }
         });
 
@@ -509,6 +536,7 @@
             $("#createEventModal").modal('hide');
             var start = moment(eventStart).format("MM/DD/YYYY HH:mm:ss");
             var startHour = moment(start).hour();
+
             getEndHour = function () {
                 var startVal = $('#bookingStartTime').val();
                 var val = $('#bookingEndTime').val()
@@ -520,43 +548,23 @@
                     return moment(val, "HH:mma").hour();
                 }
             }
+
             var endHour = getEndHour();
             var end = moment(eventStart).add(endHour - startHour, 'hour').format("MM/DD/YYYY HH:mm:ss");
-            var people;
 
-            if ($('#bookingPeople') == "" || $('#bookingPeople') == null) {
-                people = 0;
-            }
-            else {
-                people = $('#bookingPeople').val();
-            }
             $("#calendar").fullCalendar('renderEvent',
                 {
-                    title: $('#ddlProjects option:selected').text(),
-                    people: people,
+                    title: moment(start).format("hh:mma") + "-" + moment(end).format("hh:mma"),
                     start: start,
                     end: end,
+                    manufacturer: manufacturer,
+                    model: model,
+                    equiptype: type,
+                    pagesprinted: 0,
                     username: $('#ddlUsers option:selected').text(),
-                    venue: venue,
-                    building: building,
                     projectname: $('#ddlProjects option:selected').text(),
-                    allDay: false
                 },
                 true);
-
-            $('#bookingPeople').val("0");
-        }
-
-        // Select your input element.
-        var number = document.getElementById('bookingPeople');
-
-        // Listen for input event on numInput.
-        number.onkeydown = function (e) {
-            if (!((e.keyCode > 95 && e.keyCode < 106)
-              || (e.keyCode > 47 && e.keyCode < 58)
-              || e.keyCode == 8)) {
-                return false;
-            }
         }
     })
 </script>
