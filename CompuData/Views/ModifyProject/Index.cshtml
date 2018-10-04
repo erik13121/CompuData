@@ -59,7 +59,7 @@
         </div>
         @Html.ValidationMessageFor(model => model.UserID)
         <div id="multipleButtons">
-            <div id="addButton">Save and Add Supplier</div>
+            <div id="addButton">Save and Add Project</div>
         </div>
     }
 </div>
@@ -248,11 +248,10 @@ else
         }
 </style>
 <script>
-    $('#datepicker1').datepicker();
-    $('#datepicker1').datepicker("setDate", new Date());
+    $('#datepicker1').datepicker().datepicker("setDate", '@Model.StartDate');
 
-    $('#datepicker2').datepicker();
-    $('#datepicker2').datepicker("setDate", new Date());
+    $('#datepicker2').datepicker().datepicker("setDate", '@Model.ExpectedFinishDate');
+
 
     $("#addButton").click(function (event) {
         swal({

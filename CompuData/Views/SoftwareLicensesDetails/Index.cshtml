@@ -218,14 +218,14 @@
 </style>
 <script>
     $('#modifyButton').on('click', function () {
-        var LicenceID = @Model.LicenceID;
+        var licenceID = @Model.LicenceID;
         @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);
             Session["Query"] = Request.Url.Query;}
 
         $.ajax({
             url: '@Url.Action("RedirectToModifySoftwareLicensesDetails", "ModifySoftwareLicenses")',
             type: 'POST',
-            data: { LicenceID: LicenceID },
+            data: { licenceID: licenceID },
             dataType: 'json',
             success: function (data) {
                 window.location.href = data.Url;
@@ -234,7 +234,7 @@
     });
 
     $('#removeButton').on('click', function () {
-        var LicenceID = @Model.LicenceID;
+        var licenceID = @Model.LicenceID;
 
         swal({
             title: "Are you sure you want to delete this Equipment Type?",
@@ -251,7 +251,7 @@
                     $.ajax({
                         url: '@Url.Action("Delete", "SoftwareLicenses")',
                         type: 'POST',
-                        data: { LicenceID: LicenceID },
+                        data: { licenceID: licenceID },
                         dataType: 'json',
                         success: function (data) {
                             if (data.Url != "Cascading error!") {

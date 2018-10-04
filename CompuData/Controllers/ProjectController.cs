@@ -29,13 +29,14 @@ namespace CompuData.Controllers
         {
             // Nothing important here. Just creates some mock data.
             var data = Models.Project.GetData();
-
+                
             var db = new CodeFirst.CodeFirst();
             var Users = db.Users.ToList();
             var ProjectType = db.Project_Type.ToList();
             var newData = (from d in data
                            join e in Users on d.UserID equals e.UserID
                            join a in ProjectType on d.TypeID equals a.TypeID
+                           where d.Finished == false
                            select new
                            {
                                ProjectID = d.ProjectID,

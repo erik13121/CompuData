@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace CompuData.Controllers
 {
-    public class ModifyProjectController : Controller
+    public class ProjectCompleteController : Controller
     {
-        // GET: ModifyProject
+        // GET: ProjectComplete
         public ActionResult Index(string projectID)
         {
             CodeFirst.CodeFirst db = new CodeFirst.CodeFirst();
@@ -21,19 +21,8 @@ namespace CompuData.Controllers
 
                 myModel.ProjectID = myProject.ProjectID;
                 myModel.ProjectName = myProject.ProjectName;
-                myModel.StartDate = myProject.StartDate;
                 myModel.Finished = myProject.Finished;
-                myModel.ExpectedFinishDate =myProject.ExpectedFinishDate;
-                myModel.ProjectDescription = myProject.ProjectDescription;               
-                myModel.TypeID = myProject.TypeID;
-                myModel.UserID = myProject.UserID;
 
-                myModel.ProjectTypes = db.Project_Type.ToList();
-                myModel.Users = db.Users.AsEnumerable().Select(u => new SelectListItem
-                {
-                    Value = u.UserID.ToString(),
-                    Text = u.Initials + " " + u.LastName
-                }).ToList();
                 return View(myModel);
             }
 
@@ -42,9 +31,9 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public ActionResult RedirectToModifyProjectDetails(string projectID)
+        public ActionResult RedirectToCompleteProjectDetails(string projectID)
         {
-            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "ModifyProject", new { projectID = projectID });
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "ProjectComplete", new { projectID = projectID });
             return Json(new { Url = redirectUrl });
         }
 
@@ -60,12 +49,7 @@ namespace CompuData.Controllers
                 {
                     myProject.ProjectID = model.ProjectID;
                     myProject.ProjectName = model.ProjectName;
-                    myProject.StartDate = model.StartDate;
                     myProject.Finished = model.Finished;
-                    myProject.ExpectedFinishDate = model.ExpectedFinishDate;
-                    myProject.ProjectDescription = model.ProjectDescription;
-                    myProject.TypeID = model.TypeID;
-                    myProject.UserID = model.UserID;
                     db.SaveChanges();
                 }
 
@@ -75,5 +59,6 @@ namespace CompuData.Controllers
 
             return View("Index", model);
         }
+
     }
 }

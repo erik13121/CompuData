@@ -62,7 +62,7 @@ namespace CompuData.Controllers
                 {
                     model.JavaScriptToRun = "mySuccess()";
                     TempData["model"] = model;
-                    return RedirectToAction("Index", "EquipmentType");
+                    return RedirectToAction("Index", "ProjectType");
                 }
             }
 
