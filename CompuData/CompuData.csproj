@@ -621,6 +621,7 @@
     <Compile Include="Controllers\DonorsMenuController.cs" />
     <Compile Include="Controllers\EFTRController.cs" />
     <Compile Include="Controllers\EFTRDetailsController.cs" />
+    <Compile Include="Controllers\EquipmentBookingsController.cs" />
     <Compile Include="Controllers\EquipmentDetailsController.cs" />
     <Compile Include="Controllers\EquipmentManagementMenuController.cs" />
     <Compile Include="Controllers\EquipmentRepairRequestDetailsController.cs" />
@@ -677,9 +678,13 @@
     <Compile Include="Controllers\RepairPersonDetailsController.cs" />
     <Compile Include="Controllers\RepairPersonsController.cs" />
     <Compile Include="Controllers\RepairRequestsController.cs" />
+    <Compile Include="Controllers\ReportDonationsController.cs" />
+    <Compile Include="Controllers\ReportEquipmentUsageController.cs" />
     <Compile Include="Controllers\ReportsMainController.cs" />
     <Compile Include="Controllers\ReportsProcurementController.cs" />
     <Compile Include="Controllers\ReportsVehiclesRegisterController.cs" />
+    <Compile Include="Controllers\ReportVehicleBookingsController.cs" />
+    <Compile Include="Controllers\ReportVenueBookingsController.cs" />
     <Compile Include="Controllers\SelectEquipmentController.cs" />
     <Compile Include="Controllers\SelectEquipmentForProofController.cs" />
     <Compile Include="Controllers\SelectEquipmentForRepairRequestController.cs" />
@@ -894,6 +899,24 @@
     </Compile>
     <Compile Include="Models\Venue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\DonationsReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DonationsReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Report\EquipmentBookingsReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EquipmentBookingsReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Report\EquipmentUsageReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EquipmentUsageReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Report\PCReport1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -906,10 +929,22 @@
       <DependentUpon>ProcurementReport.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Report\VehicleBookingsReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VehicleBookingsReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Report\VehicleRegister.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>VehicleRegister.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Report\VenueBookingsReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VenueBookingsReport.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
@@ -1304,6 +1339,11 @@
     <Content Include="Views\SelectVenue\Index.cshtml" />
     <Content Include="Views\AddVenueBooking\Index.cshtml" />
     <Content Include="Views\ReportsProcurement\Index.cshtml" />
+    <Content Include="Views\ReportDonations\Index.cshtml" />
+    <Content Include="Views\ReportEquipmentUsage\Index.cshtml" />
+    <Content Include="Views\EquipmentBookings\Index.cshtml" />
+    <Content Include="Views\ReportVehicleBookings\Index.cshtml" />
+    <Content Include="Views\ReportVenueBookings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1329,6 +1369,18 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Report\DonationsReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DonationsReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\EquipmentBookingsReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>EquipmentBookingsReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\EquipmentUsageReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>EquipmentUsageReport.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\PCReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>PCReport1.cs</LastGenOutput>
@@ -1337,9 +1389,17 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ProcurementReport1.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report\VehicleBookingsReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>VehicleBookingsReport.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\VehicleRegister.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>VehicleRegister.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\VenueBookingsReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>VenueBookingsReport.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

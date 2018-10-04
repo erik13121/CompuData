@@ -6,7 +6,7 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
         <li class="breadcrumb-item"><a href="../ReportsMain">Reportings</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Vehicle Register Report</li>
+        <li class="breadcrumb-item active" aria-current="page">Equipment Bookings Report</li>
     </ol>
 </nav>
 
@@ -20,9 +20,9 @@
 @Html.Partial("_ProfilePartial")
 
 <div id="table_background">
-    <form action="VehicleRegister">
-        <p>Vehicle Report</p>        
-                
+    <form action="EquipmentBookings">
+        <p>Equipment Bookings Report</p>
+
         <div class="row">
             <label class="control-label col-md-4" for="fromDate">From Date</label>
             <div class="col-md-8">
@@ -44,8 +44,8 @@
 </div>
 
 <style>
-        .gj-datepicker {
-                flex: 50%;
+    .gj-datepicker {
+        flex: 50%;
     }
 
     #table_background p {
