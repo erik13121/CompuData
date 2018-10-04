@@ -1347,12 +1347,12 @@
     <Content Include="Views\ReportEquipmentUsage\Index.cshtml" />
     <Content Include="Views\ReportVehicleBookings\Index.cshtml" />
     <Content Include="Views\ReportVenueBookings\Index.cshtml" />
+    <Content Include="Views\ReportEquipmentBookings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Views\Global\" />
-    <Folder Include="Views\ReportEquipmentBookings\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
