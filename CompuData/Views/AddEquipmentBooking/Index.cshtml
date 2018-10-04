@@ -34,13 +34,18 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col">
-                            <button id="btnEdit" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
+                            <button id="btnEdit" class="btn btn-default btn-sm pull-right">
                                 <span class="glyphicon glyphicon-pencil"></span> Edit
                             </button>
                         </div>
+                        <div class="col">
+                            <button id="btnAdjust" class="btn btn-default btn-sm pull-right">
+                                <span class="glyphicon glyphicon-pencil"></span> Adjust Pages Printed
+                            </button>
+                        </div>
                         <div class="col text-right">
-                            <button id="btnConfirm" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
-                                <span class="glyphicon glyphicon-pencil"></span> Confirm
+                            <button id="btnConfirm" class="btn btn-default btn-sm pull-right">
+                                <span class="glyphicon glyphicon-trash"></span> Remove
                             </button>
                         </div>
                     </div>
@@ -112,25 +117,26 @@
                 </div>
                 <div id="modalBody" class="modal-body">
                     <div class="form-group">
-                        <input type="text" id="bookingReason" class="form-control" />
+                        <input type="text" id="bookingReasonEdit" class="form-control" />
                     </div>
                     <div class="row">
                         <div class="form-group col">
-                            <label for="bookingStartTime">Start Time:</label>
-                            <input type="text" id="bookingStartTime" class="form-control" />
+                            <label for="bookingStartTimeEdit">Start Time:</label>
+                            <input type="text" id="bookingStartTimeEdit" class="form-control" />
                         </div>
                         <div class="form-group col pull-right">
-                            <label for="bookingEndTime">End Time:</label>
-                            <input type="text" id="bookingEndTime" class="form-control" />
+                            <label for="bookingEndTimeEdit">End Time:</label>
+                            <input type="text" id="bookingEndTimeEdit" class="form-control" />
+                            <input type="hidden" id="max" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col">
-                            <label for="bookingStartTime">Project using Equipment:</label>
+                            <label for="ddlProjectsEdit">Project using Equipment:</label>
                             @Html.DropDownList("Projects", (IEnumerable<SelectListItem>)ViewBag.Projects, new { id = "ddlProjects", @class = "form-control" })
                         </div>
                         <div class="form-group col pull-right">
-                            <label for="bookingEndTime">User of Equipment:</label>
+                            <label for="ddlUsersEdit">User of Equipment:</label>
                             @Html.DropDownList("Users", (IEnumerable<SelectListItem>)ViewBag.Users, new { id = "ddlUsers", @class = "form-control" })
                         </div>
                     </div>
@@ -400,23 +406,6 @@
                                     $('#bookingReason').val(type + ": " + manufacturer + " " + model);
                                     $('#bookingReason').attr('readonly', true);
                                     $('#bookingStartTime').attr('readonly', true);
-                                    //console.log($('#bookingStartTime').data());
-                                    //console.log(moment(start).format("hh:mma"));
-                                    //$('#bookingStartTime').timepicker('remove');
-                                    //console.log($('#bookingStartTime'));
-                                    //$('#bookingStartTime').attr('class', 'form-control');
-                                    //$('#bookingStartTime').toggleClass('ui-timepicker-input');
-                                    //console.log($('#bookingStartTime'));
-                                    //$('#bookingStartTime').timepicker({});
-                                    //$('#bookingStartTime').timepicker('setTime', moment(start).format("hh:mma"));
-                                    //$('#bookingStartTime').timepicker('option', {
-                                    //    'minTime': moment(start).format("hh:mmA"),
-                                    //    'defaultValue': moment(start).format("hh:mmA")
-                                    //});
-                                    
-                                    //$('#bookingStartTime').val($('#bookingStartTime').timepicker('setTime', moment(start).format("h:mmA")).val());
-                                    //console.log($('#bookingStartTime').data("uiTimepickerValue"));
-                                    //$('#bookingStartTime').attr('readonly', true);
 
                                     $('#bookingEndTime').timepicker({
                                         'minTime': moment(start).format("h:mmA"),
@@ -432,23 +421,50 @@
                                         step: 60
                                     });
 
+                                    maxTime = moment(b.end).format("h:mmA");
+
                                     var calendar = $('#calendar').fullCalendar('clientEvents', function (evt) {
                                         return evt.start.format("MM/DD/YYYY") == start.format("MM/DD/YYYY");
                                     });
+                                    var target = start;
+                                    var closest;
                                     $.each(calendar, function (index, c) {
-                                        if (moment(c.start).format("MM/DD/YYYY") == start.format("MM/DD/YYYY")) {
-                                            if (start.format("HH:mm") < moment(c.start).format("HH:mm")) {
-                                                $('#bookingEndTime').val("");
-                                                $('#bookingEndTime').timepicker('option', {
-                                                    'minTime': start.format("h:mmA"),
-                                                    'maxTime': moment(c.start).format("h:mmA"),
-                                                    'showDuration': true,
-                                                    step: 60
-                                                });
-                                                return false;
+                                        if (calendar.length > 1) {
+                                            if (moment(c.start).format('HH:mm') > moment(target).format('HH:mm')) {
+                                                if (closest == null) {
+                                                    closest = moment(c.start).format('H');
+                                                } else {
+                                                    if (moment(c.start).format('H') < closest) {
+                                                        closest = moment(c.start).format('H');
+                                                    }
+                                                }
                                             }
+                                        } else if (start.format("HH:mm") < moment(c.start).format("HH:mm")) {
+                                            $('#bookingEndTime').val("");
+                                            $('#bookingEndTime').timepicker('option', {
+                                                'minTime': start.format("h:mmA"),
+                                                'maxTime': moment(c.start).format("h:mmA"),
+                                                'showDuration': true,
+                                                step: 60
+                                            });
+                                            maxTime = moment(c.start).format("h:mmA");
+                                            return false;
+                                        }
+
+                                        if(calendar.length - 1 == index) {
+                                            $('#bookingEndTime').val("");
+                                            $('#bookingEndTime').timepicker('option', {
+                                                'minTime': start.format("h:mmA"),
+                                                'maxTime': moment(closest).format("h:mmA"),
+                                                'showDuration': true,
+                                                step: 60
+                                            });
+                                            maxTime = moment(c.start).format("h:mmA");
+                                            return false;
                                         }
                                     });
+
+                                    $('#max').val(maxTime);
                                     $('#bookingEndTime').attr('placeholder', moment(start).add(1, 'hour').format("h:mmA") + ', if left empty');
                                     $('#createEventModal').appendTo("body").modal('show');
                                     return false;
@@ -517,6 +533,18 @@
             e.preventDefault();
 
             if (moment(selectedEvent.start).isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
+                $("#bookingReasonEdit").val(type + ": " + manufacturer + " " + model);
+                $('#bookingReasonEdit').attr('readonly', true);
+                $("#bookingStartTimeEdit").val(moment(selectedEvent.start).format('hh:mma'));
+                $('#bookingStartTimeEdit').attr('readonly', true);
+                $("#bookingEndTimeEdit").val(moment(selectedEvent.end).format('hh:mma'));
+                $("#bookingEndTimeEdit").timepicker({});
+                $("#bookingEndTimeEdit").timepicker('option', {
+                    'minTime': moment(selectedEvent.end).format('hh:mma'),
+                    'maxTime': selectedEvent.max,
+                    step: 60
+                });
+
                 $("#myModalSave").appendTo("body").modal('show');
             }
             else if (moment(selectedEvent.end).isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
@@ -526,9 +554,9 @@
                 span.innerHTML = "You cannot edit an Equipment Booking after it has already happened.<br/>"
                     + "If you would like to adjust the pages printed in the booking, then please select the Adjust Pages Printed button";
                 swal({
-                        icon: "error",
-                        content: span
-                    })
+                    icon: "error",
+                    content: span
+                })
             }
         });
 
@@ -563,6 +591,7 @@
                     pagesprinted: 0,
                     username: $('#ddlUsers option:selected').text(),
                     projectname: $('#ddlProjects option:selected').text(),
+                    max: $('#max').val()
                 },
                 true);
         }

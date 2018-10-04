@@ -119,26 +119,26 @@
                 </div>
                 <div id="modalBody" class="modal-body">
                     <div class="form-group">
-                        <input type="text" id="bookingReason" placeholder="Booking Reason" class="form-control" />
+                        <input type="text" id="bookingReasonEdit" placeholder="Booking Reason" class="form-control" />
                         <span id="reasonError" style="color:red; visibility: hidden">Please enter a Reason</span>
                     </div>
                     <div class="row">
                         <div class="form-group col">
-                            <label for="bookingStartTime">Start Time:</label>
+                            <label for="bookingStartTimeEdit">Start Time:</label>
                             <input type="text" id="bookingStartTime" class="form-control" />
                         </div>
                         <div class="form-group col pull-right">
-                            <label for="bookingEndTime">End Time:</label>
+                            <label for="bookingEndTimeEdit">End Time:</label>
                             <input type="text" id="bookingEndTime" class="form-control" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col">
-                            <label for="bookingStartTime">Project:</label>
+                            <label for="ddlProjectsEdit">Project:</label>
                             @Html.DropDownList("Projects", (IEnumerable<SelectListItem>)ViewBag.Projects, new { id = "ddlProjects", @class = "form-control" })
                         </div>
                         <div class="form-group col pull-right">
-                            <label for="bookingEndTime">Driver:</label>
+                            <label for="ddlUsersEdit">Driver:</label>
                             @Html.DropDownList("Drivers", (IEnumerable<SelectListItem>)ViewBag.Users, new { id = "ddlUsers", @class = "form-control" })
                         </div>
                     </div>
