@@ -23,12 +23,38 @@
     <div id="multipleButtons">
         <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddProject")'">Add Project</div>
         <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "ProjectArchived")'">View Archived Project</div>
+        <div id="completeRequestButton" onclick="window.location.href = '@Url.Action("Index", "SelectProject", new { button = "Finalize"})'">Complete Project</div>
     </div>
 
     <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "ProjectManagementMenu")'">Back</div>
 </div>
 
 <style>
+    #completeRequestButton {
+        position: relative;
+        display: inline-block;
+        margin-left: auto;
+        margin-right: auto;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        border: solid white;
+            border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #completeRequestButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
     th, td {
         white-space: nowrap;
     }
@@ -185,6 +211,7 @@
             color: #5a9ad6;
         }
 </style>
+
 <script>
     var table;
     $(document).ready(function () {

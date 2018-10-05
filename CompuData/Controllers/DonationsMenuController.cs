@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace CompuData.Controllers
 {
-    public class DonationItemMenuController : Controller
+    public class DonationsMenuController : Controller
     {
-        // GET: DonationItemMenu
+        // GET: DonationsMenu
         public ActionResult Index()
         {
             return View();

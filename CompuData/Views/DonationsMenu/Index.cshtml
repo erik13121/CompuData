@@ -1,52 +1,50 @@
 ﻿
 @{
-    ViewBag.Title = "DonationItemMenu";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
 
 <link href="@Url.Content("~/Content/MenuWithSubmenu.css")" rel="stylesheet" type="text/css" />
+
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Donation Menu</li>
+        <li class="breadcrumb-item active" aria-current="page">Donations Menu</li>
     </ol>
 </nav>
+
 @Html.Partial("_ProfilePartial")
+
 <div id="menuwithSub_wrapper">
-    <ul id="menuwithSub_left">
-        <!--<li class="menu_item">@Html.ActionLink("Home", "Index", "Home")</li>
-        <li class="menu_item">@Html.ActionLink("About", "About", "Home")</li>
-        <li class="menu_item">@Html.ActionLink("Contact", "Contact", "Home")</li>-->
+    <div id="menuwithSub_left">
         <ul class="newmenu_item">
-            <p>Donation</p>
+            <p>@Html.ActionLink("Donations Menu", "Index", "DonationsMenu")</p>
             <li class="newsubMenu_item">
                 <p style="margin-left: 6vh !important">@Html.ActionLink("Donation Type", "Index", "DonationType")</p>
             </li>
             <li class="newsubMenu_item">
-                <p>Donation</p>
+                <p style="margin-left: 6vh !important">@Html.ActionLink("Donation Item", "Index", "DonationItem")</p>
             </li>
             <li class="newsubMenu_item">
-                <p>Donation Item</p>
+                <p style="margin-left: 6vh !important">@Html.ActionLink("Donation", "Index", "Donation")</p>
             </li>
         </ul>
-        <ul class="newmenu_item">
-            <p>Assign Donations</p>
-            <li class="newsubMenu_item"><p>Assign a Donation Item</p></li>
-        </ul>
-    </ul>
+    </div>
     <div id="menuwithSub_right">
         <img src="~/Content/CompuData(Transparent).png" />
-
         <h1>CompuData</h1>
     </div>
 </div>
-<h1></h1>
-    </div>
-</div>
-<div id="backButton">Back</div>
+
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "MainMenu")'">Back</div>
+
 <style>
+    /*ul {
+        list-style: none;
+    }*/
+
     #breadcrumb {
         position: absolute;
         left: 0px;
@@ -87,7 +85,7 @@
             display: table;
             font-family: 'Raleway', sans-serif;
             font-weight: 200;
-            font-size: 25px;
+            font-size: 20px;
             text-decoration: none !important;
             color: #5a9ad6;
             line-height: 61px;
@@ -108,6 +106,7 @@
             color: #5a9ad6;
         }
 </style>
+
 <script>
 
 </script>

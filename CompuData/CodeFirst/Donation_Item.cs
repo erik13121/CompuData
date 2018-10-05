@@ -15,10 +15,22 @@ namespace CompuData.CodeFirst
         [MaxLength(150)]
         public string Description { get; set; }
 
+
+        [Required]
+        public int TotalAmount { get; set; }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int TypeID { get; set; }
 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int QuantityTypeID { get; set; }
+
+
         public virtual Donation_Type Donation_Type { get; set; }
+
+        public virtual Quantity_Type Quantity_Type { get; set; }
+
     }
 }
