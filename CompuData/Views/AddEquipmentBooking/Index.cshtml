@@ -133,11 +133,11 @@
                     <div class="row">
                         <div class="form-group col">
                             <label for="ddlProjectsEdit">Project using Equipment:</label>
-                            @Html.DropDownList("Projects", (IEnumerable<SelectListItem>)ViewBag.Projects, new { id = "ddlProjects", @class = "form-control" })
+                            @Html.DropDownList("Projects", (IEnumerable<SelectListItem>)ViewBag.Projects, new { id = "ddlProjectsEdit", @class = "form-control" })
                         </div>
                         <div class="form-group col pull-right">
                             <label for="ddlUsersEdit">User of Equipment:</label>
-                            @Html.DropDownList("Users", (IEnumerable<SelectListItem>)ViewBag.Users, new { id = "ddlUsers", @class = "form-control" })
+                            @Html.DropDownList("Users", (IEnumerable<SelectListItem>)ViewBag.Users, new { id = "ddlUsersEdit", @class = "form-control" })
                         </div>
                     </div>
                 </div>
@@ -145,7 +145,7 @@
                     <button class="btn" data-dismiss="modal" aria-hidden="true">
                         Cancel
                     </button>
-                    <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
+                    <button type="submit" class="btn btn-primary" id="submitEditButton">Save</button>
                 </div>
             </div>
         </div>
@@ -153,10 +153,10 @@
 </div>
 
 <link href="~/Content/jquery.timepicker.min.css" rel="stylesheet" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
+<link href="~/Content/fullcalendar.min.css" rel="stylesheet" />
 <script src="~/Scripts/jquery.timepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+<script src="~/Scripts/fullcalendar.js"></script>
 <style>
     form {
         display: table;
@@ -361,7 +361,7 @@
         function GenerateCalender(events, businessHours) {
             $('#calendar').fullCalendar('destroy');
             $('#calendar').fullCalendar({
-                themeSystem: 'bootstrap4',
+                themeSystem: 'bootstrap3',
                 allDaySlot: false,
                 businessHours: businessHours,
                 contentHeight: 400,
@@ -450,12 +450,11 @@
                                             maxTime = moment(c.start).format("h:mmA");
                                             return false;
                                         }
-
                                         if(calendar.length - 1 == index) {
                                             $('#bookingEndTime').val("");
                                             $('#bookingEndTime').timepicker('option', {
                                                 'minTime': start.format("h:mmA"),
-                                                'maxTime': moment(closest).format("h:mmA"),
+                                                'maxTime': moment(closest, 'H').format("h:mmA"),
                                                 'showDuration': true,
                                                 step: 60
                                             });
@@ -485,7 +484,7 @@
                     //////////////////////////
                     $('#myModal #eventTitle').text(calEvent.equiptype + ": " + calEvent.manufacturer + " " + calEvent.model);
                     var $description = $('<div/>');
-                    $description.append('<p style="display: inline; font-weight:bold"><b>Date Booked for:</b></p> <p style="display: inline; font-weight:550">' + moment(calEvent.datebooked).format("Do MMMM YYYY") + '</p><br>');
+                    $description.append('<p style="display: inline; font-weight:bold"><b>Date Booked for:</b></p> <p style="display: inline; font-weight:550">' + moment(calEvent.start).format("Do MMMM YYYY") + '</p><br>');
                     $description.append('<p style="display: inline; font-weight:bold"><b>Start:</b></p> <p style="display: inline; font-weight:550">' + calEvent.start.format("hh:mma") + '</p><br>');
                     if (calEvent.end != null) {
                         $description.append('<p style="display: inline; font-weight:bold"><b>End:</b></p> <p style="display: inline; font-weight:550">' + calEvent.end.format("hh:mma") + '</p><br>');
@@ -526,6 +525,13 @@
             e.preventDefault();
 
             doSubmit();
+        });
+
+        $('#submitEditButton').on('click', function (e) {
+            // We don't want this to act as a link so cancel the link action
+            e.preventDefault();
+
+            doEditSubmit();
         });
 
         $('#btnEdit').on('click', function (e) {
@@ -594,6 +600,24 @@
                     max: $('#max').val()
                 },
                 true);
+        }
+
+        function doEditSubmit() {
+            $("#myModalSave").modal('hide');
+            
+            /*var calendar = $('#calendar').fullCalendar('clientEvents', function(evt) {
+                return evt == selectedEvent;
+            });
+
+            calendar = calendar[0];*/
+            calendar = selectedEvent;
+            calendar.end = moment(calendar.start.format("MM/DD/YYYY") + " " + moment($('#bookingEndTimeEdit').val(), "h:mma").format('HH:mm:ss'));
+            calendar.projectname = $('#ddlProjectsEdit option:selected').text();
+            calendar.username = $('#ddlUsersEdit option:selected').text();
+            calendar.allDay = false;
+            selectedEvent = calendar;
+            $("#calendar").fullCalendar('updateEvent', selectedEvent);
+            var calendar = $('#calendar').fullCalendar('clientEvents');
         }
     })
 </script>
