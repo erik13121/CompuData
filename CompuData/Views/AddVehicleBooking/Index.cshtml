@@ -33,14 +33,24 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col">
+                        <div class="col text-center">
                             <button id="btnEdit" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
-                                <span class="glyphicon glyphicon-pencil"></span> Edit
+                                <span class="glyphicon glyphicon-pencil"></span> Edit Booking
                             </button>
                         </div>
-                        <div class="col text-right">
-                            <button id="btnConfirm" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
-                                <span class="glyphicon glyphicon-pencil"></span> Confirm
+                        <div class="col text-center">
+                            <button id="btnAdjust" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
+                                <span class="glyphicon glyphicon-pencil"></span> Adjust Odometer Reading
+                            </button>
+                        </div>
+                        <div class="col text-center">
+                            <button id="btnRemoveReading" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
+                                <span class="glyphicon glyphicon-pencil"></span> Remove Odometer Reading
+                            </button>
+                        </div>
+                        <div class="col text-center">
+                            <button id="btnRemove" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
+                                <span class="glyphicon glyphicon-pencil"></span> Remove Booking
                             </button>
                         </div>
                     </div>
@@ -111,45 +121,100 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4>Edit Vehicle Booking</h4>
-                    <button type="button" class="close" data-dismiss="modal" onclick="document.getElementById('reasonError').style.visibility = 'hidden';
-                        $('#bookingReason').removeClass('is-invalid');
-                        $('#bookingReason').val('')">
+                    <button type="button" class="close" data-dismiss="modal" onclick="document.getElementById('reasonErrorEdit').style.visibility = 'hidden';
+                        $('#bookingReasonEdit').removeClass('is-invalid');
+                        $('#bookingReasonEdit').val('')">
                         <span aria-hidden="true">&times;</span> <span class="sr-only">close</span>
                     </button>
                 </div>
                 <div id="modalBody" class="modal-body">
                     <div class="form-group">
+                        <label for="bookingReasonEdit">Reason:</label>
                         <input type="text" id="bookingReasonEdit" placeholder="Booking Reason" class="form-control" />
-                        <span id="reasonError" style="color:red; visibility: hidden">Please enter a Reason</span>
+                        <span id="reasonErrorEdit" style="color:red; visibility: hidden">Please enter a Reason</span>
                     </div>
                     <div class="row">
                         <div class="form-group col">
                             <label for="bookingStartTimeEdit">Start Time:</label>
-                            <input type="text" id="bookingStartTime" class="form-control" />
+                            <input type="text" id="bookingStartTimeEdit" class="form-control" />
                         </div>
                         <div class="form-group col pull-right">
                             <label for="bookingEndTimeEdit">End Time:</label>
-                            <input type="text" id="bookingEndTime" class="form-control" />
+                            <input type="text" id="bookingEndTimeEdit" class="form-control" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col">
                             <label for="ddlProjectsEdit">Project:</label>
-                            @Html.DropDownList("Projects", (IEnumerable<SelectListItem>)ViewBag.Projects, new { id = "ddlProjects", @class = "form-control" })
+                            @Html.DropDownList("Projects", (IEnumerable<SelectListItem>)ViewBag.Projects, new { id = "ddlProjectsEdit", @class = "form-control" })
                         </div>
                         <div class="form-group col pull-right">
                             <label for="ddlUsersEdit">Driver:</label>
-                            @Html.DropDownList("Drivers", (IEnumerable<SelectListItem>)ViewBag.Users, new { id = "ddlUsers", @class = "form-control" })
+                            @Html.DropDownList("Drivers", (IEnumerable<SelectListItem>)ViewBag.Users, new { id = "ddlUsersEdit", @class = "form-control" })
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn" data-dismiss="modal" aria-hidden="true" onclick="document.getElementById('reasonError').style.visibility = 'hidden';
-                        $('#bookingReason').removeClass('is-invalid');
-                        $('#bookingReason').val('')">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true" onclick="document.getElementById('reasonErrorEdit').style.visibility = 'hidden';
+                            $('#bookingReasonEdit').removeClass('is-invalid');
+                            $('#bookingReasonEdit').val('')">
                         Cancel
                     </button>
-                    <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
+                    <button type="submit" class="btn btn-primary" id="submitEditButton">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModalAdjust" class="modal fade" role="dialog">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Adjust Odometer Reading of Vehicle after Vehicle Booking</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span> <span class="sr-only">close</span>
+                    </button>
+                </div>
+                <div id="modalBody" class="modal-body">
+                    <div class="form-group">
+                        <label for="bookingReasonAdjust">Booking Reason:</label>
+                        <input type="text" id="bookingReasonAdjust" class="form-control" />
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="bookingStartTimeAdjust">Start Time:</label>
+                            <input type="text" id="bookingStartTimeAdjust" class="form-control" />
+                        </div>
+                        <div class="form-group col pull-right">
+                            <label for="bookingEndTimeAdjust">End Time:</label>
+                            <input type="text" id="bookingEndTimeAdjust" class="form-control" />
+                            <input type="hidden" id="max" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="bookingProjectAdjust">Booking is for Project:</label>
+                            <input type="text" id="bookingProjectAdjust" class="form-control" />
+                        </div>
+                        <div class="form-group col pull-right">
+                            <label for="bookingUserAdjust">Driver:</label>
+                            <input type="text" id="bookingUserAdjust" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="bookingOdoAdjust">Odometer Reading:</label>
+                            <input type="number" id="bookingOdoAdjust" class="form-control" min="0" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="submitAdjustButton">Save</button>
                 </div>
             </div>
         </div>
@@ -390,6 +455,7 @@
                 selectConstraint: 'businessHours',
                 selectable: true,
                 timeFormat: 'h(:mm)a',
+                timezone: 'local',
                 select: function (start, end, jsEvent, view) {
                     if (start.isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
                         $.each(businessHours, function (index, b) {
@@ -510,11 +576,51 @@
             }
         });
 
-        $('#btnEdit').on('click', function (e) {
+        $('#submitEditButton').on('click', function (e) {
             // We don't want this to act as a link so cancel the link action
             e.preventDefault();
 
+            if ($('#bookingReasonEdit').val() == "" || $('#bookingReasonEdit').val() == undefined || $('#bookingReasonEdit').val() == null) {
+                document.getElementById("reasonErrorEdit").style.visibility = "visible";
+                $('#bookingReasonEdit').addClass("is-invalid");
+            }
+            else {
+                doEditSubmit();
+            }
+        });
+
+        $('#submitAdjustButton').on('click', function (e) {
+            // We don't want this to act as a link so cancel the link action
+            e.preventDefault();
+
+            doAdjustSubmit();
+        });
+
+        $('#btnEdit').on('click', function (e) {
+            // We don't want this to act as a link so cancel the link action
+            $("#myModal").modal('hide');
+            e.preventDefault();
+
             if (moment(selectedEvent.start).isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
+                $("#bookingReasonEdit").val(selectedEvent.reason);
+                $("#bookingStartTimeEdit").val(moment(selectedEvent.start).format('hh:mma'));
+                $('#bookingStartTimeEdit').attr('readonly', true);
+                $("#bookingEndTimeEdit").val(moment(selectedEvent.end).format('hh:mma'));
+                $("#bookingEndTimeEdit").timepicker({});
+                $("#bookingEndTimeEdit").timepicker('option', {
+                    'minTime': moment(selectedEvent.end).format('hh:mma'),
+                    'maxTime': selectedEvent.max,
+                    step: 60
+                });
+                $('#ddlProjectsEdit option').filter(function () {
+                    return $(this).text() == selectedEvent.projectname;
+                })
+                .prop('selected', true);
+                $('#ddlUsersEdit option').filter(function () {
+                    return $(this).text() == selectedEvent.username;
+                })
+               .prop('selected', true);
+
                 $("#myModalSave").appendTo("body").modal('show');
             }
             else if (moment(selectedEvent.end).isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
@@ -527,6 +633,59 @@
                     icon: "error",
                     content: span
                 })
+            }
+        });
+
+        $('#btnAdjust').on('click', function (e) {
+            // We don't want this to act as a link so cancel the link action
+            e.preventDefault();
+            $("#myModal").modal('hide');
+
+            if (!moment(selectedEvent.start).isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
+                $("#bookingReasonAdjust").val(selectedEvent.brand + " " + selectedEvent.model);
+                $('#bookingReasonAdjust').attr('readonly', true);
+                $("#bookingStartTimeAdjust").val(moment(selectedEvent.start).format('hh:mma'));
+                $('#bookingStartTimeAdjust').attr('readonly', true);
+                $("#bookingEndTimeAdjust").val(moment(selectedEvent.end).format('hh:mma'));
+                $('#bookingEndTimeAdjust').attr('readonly', true);
+                $('#bookingProjectAdjust').val(selectedEvent.projectname);
+                $('#bookingProjectAdjust').attr('readonly', true);
+                $('#bookingUserAdjust').val(selectedEvent.username);
+                $('#bookingUserAdjust').attr('readonly', true);
+
+                $("#myModalAdjust").appendTo("body").modal('show');
+            }
+            else {
+                swal("You cannot adjust the end Odometer reading of the Vehicle before the booking has taken place.", "warning")
+            }
+        });
+
+        $('#btnRemove').on('click', function (e) {
+            e.preventDefault();
+
+            if (moment(selectedEvent.start).isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
+                $('#calendar').fullCalendar('removeEvents', function (evt) {
+                    return evt = selectedEvent;
+                });
+            } else if (moment(selectedEvent.end).isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
+                swal("You cannot remove a Vehicle Booking while is is currently busy.", "warning");
+            } else {
+                swal("You cannot remove a Vehicle Booking after it has already happened.", "warning");
+            }
+        });
+
+        $('#btnRemoveReading').on('click', function (e) {
+            e.preventDefault();
+
+            if (selectedEvent.odoend != null || selectedEvent.odoend != 0) {
+                calendar = selectedEvent;
+                calendar.odoend = null;
+                calendar.allDay = false;
+
+                $("#calendar").fullCalendar('updateEvent', calendar);
+                swal("The Odometer reading linked to this Booking has been successfully removed", "success");
+            } else{
+                swal("You cannot remove the Odometer Reading from the current booking as it has not been set yet.", "warning");
             }
         });
 
@@ -550,8 +709,20 @@
             var endHour = getEndHour();
             var end = moment(eventStart).add(endHour - startHour, 'hour').format("MM/DD/YYYY HH:mm:ss");
 
+            var events = $("#calendar").fullCalendar('clientEvents');
+            var latestID;
+
+            $.each(events, function (index, e) {
+                if (latestID == 0 || latestID == null || latestID == undefined) {
+                    latestID = e.vehiclebookingid;
+                } else if (e.vehiclebookingid > latestID) {
+                    latestID = e.vehiclebookingid;
+                }
+            });
+
             $("#calendar").fullCalendar('renderEvent',
                 {
+                    vehiclebookingid: latestID + 1,
                     title: $('#bookingReason').val(),
                     brand: brand,
                     model: model,
@@ -568,6 +739,42 @@
 
             document.getElementById("reasonError").style.visibility = "hidden";
             $("#bookingReason").removeClass("is-invalid");
+        }
+
+        function doEditSubmit() {
+            $("#myModalSave").modal('hide');
+
+            calendar = selectedEvent;
+            calendar.end = moment(moment(calendar.start.format("MM/DD/YYYY") + " " + $('#bookingEndTimeEdit').val(), "MM/DD/YYYY h:mma").format("MM/DD/YYYY HH:mm:ss"));
+            calendar.title = $('#bookingReasonEdit').val();
+            calendar.reason = $('#bookingReasonEdit').val();
+            calendar.projectname = $('#ddlProjectsEdit option:selected').text();
+            calendar.username = $('#ddlUsersEdit option:selected').text();
+            calendar.allDay = false;
+
+            $("#calendar").fullCalendar('updateEvent', calendar);
+        }
+
+        function doAdjustSubmit() {
+            $("#myModalAdjust").modal('hide');
+
+            calendar = selectedEvent;
+            calendar.odoend = $('#bookingOdoAdjust').val();
+            calendar.allDay = false;
+
+            $("#calendar").fullCalendar('updateEvent', calendar);
+        }
+
+        // Select your input element.
+        var number = document.getElementById('bookingOdoAdjust');
+
+        // Listen for input event on numInput.
+        number.onkeydown = function (e) {
+            if (!((e.keyCode > 95 && e.keyCode < 106)
+              || (e.keyCode > 47 && e.keyCode < 58)
+              || e.keyCode == 8)) {
+                return false;
+            }
         }
     })
 </script>

@@ -44,7 +44,7 @@
                             </button>
                         </div>
                         <div class="col text-right">
-                            <button id="btnConfirm" class="btn btn-default btn-sm pull-right">
+                            <button id="btnRemove" class="btn btn-default btn-sm pull-right">
                                 <span class="glyphicon glyphicon-trash"></span> Remove
                             </button>
                         </div>
@@ -117,6 +117,7 @@
                 </div>
                 <div id="modalBody" class="modal-body">
                     <div class="form-group">
+                        <label for="bookingReasonEdit">Equipment Details:</label>
                         <input type="text" id="bookingReasonEdit" class="form-control" />
                     </div>
                     <div class="row">
@@ -152,11 +153,67 @@
     </div>
 </div>
 
+<div id="myModalAdjust" class="modal fade" role="dialog">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Adjust Pages Printed in Equipment Booking</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span> <span class="sr-only">close</span>
+                    </button>
+                </div>
+                <div id="modalBody" class="modal-body">
+                    <div class="form-group">
+                        <label for="bookingReasonAdjust">Equipment Details:</label>
+                        <input type="text" id="bookingReasonAdjust" class="form-control" />
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="bookingStartTimeAdjust">Start Time:</label>
+                            <input type="text" id="bookingStartTimeAdjust" class="form-control" />
+                        </div>
+                        <div class="form-group col pull-right">
+                            <label for="bookingEndTimeAdjust">End Time:</label>
+                            <input type="text" id="bookingEndTimeAdjust" class="form-control" />
+                            <input type="hidden" id="max" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="bookingProjectAdjust">Project using Equipment:</label>
+                            <input type="text" id="bookingProjectAdjust" class="form-control" />
+                        </div>
+                        <div class="form-group col pull-right">
+                            <label for="bookingUserAdjust">User of Equipment:</label>
+                            <input type="text" id="bookingUserAdjust" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="bookingPagesAdjust">Pages Printed:</label>
+                            <input type="number" id="bookingPagesAdjust" class="form-control" min="0" value="0" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="submitAdjustButton">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <link href="~/Content/jquery.timepicker.min.css" rel="stylesheet" />
 <link href="~/Content/fullcalendar.min.css" rel="stylesheet" />
+<script src="~/Scripts/moment.min.js"></script>
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jquery-ui.min.js"></script>
 <script src="~/Scripts/jquery.timepicker.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-<script src="~/Scripts/fullcalendar.js"></script>
+<script src="~/Scripts/fullcalendar.min.js"></script>
 <style>
     form {
         display: table;
@@ -361,7 +418,7 @@
         function GenerateCalender(events, businessHours) {
             $('#calendar').fullCalendar('destroy');
             $('#calendar').fullCalendar({
-                themeSystem: 'bootstrap3',
+                themeSystem: 'jquery-ui',
                 allDaySlot: false,
                 businessHours: businessHours,
                 contentHeight: 400,
@@ -386,6 +443,7 @@
                 selectConstraint: 'businessHours',
                 selectable: true,
                 timeFormat: 'h(:mm)a',
+                timezone: 'local',
                 select: function (start, end, jsEvent, view) {
                     if (start.isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
                         $.each(businessHours, function (index, b) {
@@ -534,9 +592,17 @@
             doEditSubmit();
         });
 
+        $('#submitAdjustButton').on('click', function (e) {
+            // We don't want this to act as a link so cancel the link action
+            e.preventDefault();
+
+            doAdjustSubmit();
+        });
+
         $('#btnEdit').on('click', function (e) {
             // We don't want this to act as a link so cancel the link action
             e.preventDefault();
+            $("#myModal").modal('hide');
 
             if (moment(selectedEvent.start).isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
                 $("#bookingReasonEdit").val(type + ": " + manufacturer + " " + model);
@@ -550,10 +616,17 @@
                     'maxTime': selectedEvent.max,
                     step: 60
                 });
+                $('#ddlProjectsEdit option').filter(function () {
+                    return $(this).text() == selectedEvent.projectname;
+                })
+                .prop('selected', true);
+                $('#ddlUsersEdit option').filter(function () {
+                    return $(this).text() == selectedEvent.username;
+                })
+               .prop('selected', true);
 
                 $("#myModalSave").appendTo("body").modal('show');
-            }
-            else if (moment(selectedEvent.end).isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
+            } else if (moment(selectedEvent.end).isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
                 swal("You cannot edit an Equipment Booking while is is currently busy.", "warning")
             } else {
                 var span = document.createElement("span");
@@ -563,6 +636,44 @@
                     icon: "error",
                     content: span
                 })
+            }
+        });
+
+        $('#btnAdjust').on('click', function (e) {
+            // We don't want this to act as a link so cancel the link action
+            e.preventDefault();
+            $("#myModal").modal('hide');
+
+            if (!moment(selectedEvent.start).isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
+                $("#bookingReasonAdjust").val(selectedEvent.equiptype + ": " + selectedEvent.manufacturer + " " + selectedEvent.model);
+                $('#bookingReasonAdjust').attr('readonly', true);
+                $("#bookingStartTimeAdjust").val(moment(selectedEvent.start).format('hh:mma'));
+                $('#bookingStartTimeAdjust').attr('readonly', true);
+                $("#bookingEndTimeAdjust").val(moment(selectedEvent.end).format('hh:mma'));
+                $('#bookingEndTimeAdjust').attr('readonly', true);
+                $('#bookingProjectAdjust').val(selectedEvent.projectname);
+                $('#bookingProjectAdjust').attr('readonly', true);
+                $('#bookingUserAdjust').val(selectedEvent.username);
+                $('#bookingUserAdjust').attr('readonly', true);
+
+                $("#myModalAdjust").appendTo("body").modal('show');
+            }
+            else {
+                swal("You cannot adjust the Pages Printed in an Equipment Booking before it has taken place.", "warning")
+            }
+        });
+
+        $('#btnRemove').on('click', function (e) {
+            e.preventDefault();
+
+            if (moment(selectedEvent.start).isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
+                $('#calendar').fullCalendar('removeEvents', function (evt) {
+                    return evt = selectedEvent;
+                });
+            } else if (moment(selectedEvent.end).isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
+                swal("You cannot remove an Equipment Booking while is is currently busy.", "warning");
+            } else {
+                swal("You cannot remove an Equipment Booking after it has already happened.", "warning");
             }
         });
 
@@ -603,21 +714,38 @@
         }
 
         function doEditSubmit() {
-            $("#myModalSave").modal('hide');
-            
-            /*var calendar = $('#calendar').fullCalendar('clientEvents', function(evt) {
-                return evt == selectedEvent;
-            });
+            $("#myModalSave").modal('hide');            
 
-            calendar = calendar[0];*/
             calendar = selectedEvent;
-            calendar.end = moment(calendar.start.format("MM/DD/YYYY") + " " + moment($('#bookingEndTimeEdit').val(), "h:mma").format('HH:mm:ss'));
+            calendar.end = moment(moment(calendar.start.format("MM/DD/YYYY") + " " + $('#bookingEndTimeEdit').val(), "MM/DD/YYYY h:mma").format("MM/DD/YYYY HH:mm:ss"));
+            calendar.title = moment(calendar.start).format("hh:mma") + "-" + moment(calendar.end).format("hh:mma");
             calendar.projectname = $('#ddlProjectsEdit option:selected').text();
             calendar.username = $('#ddlUsersEdit option:selected').text();
             calendar.allDay = false;
-            selectedEvent = calendar;
-            $("#calendar").fullCalendar('updateEvent', selectedEvent);
-            var calendar = $('#calendar').fullCalendar('clientEvents');
+
+            $("#calendar").fullCalendar('updateEvent', calendar);
+        }
+
+        function doAdjustSubmit() {
+            $("#myModalAdjust").modal('hide');
+
+            calendar = selectedEvent;
+            calendar.pagesprinted = $('#bookingPagesAdjust').val();
+            calendar.allDay = false;
+
+            $("#calendar").fullCalendar('updateEvent', calendar);
+        }
+
+        // Select your input element.
+        var number = document.getElementById('bookingPagesAdjust');
+
+        // Listen for input event on numInput.
+        number.onkeydown = function (e) {
+            if (!((e.keyCode > 95 && e.keyCode < 106)
+              || (e.keyCode > 47 && e.keyCode < 58)
+              || e.keyCode == 8)) {
+                return false;
+            }
         }
     })
 </script>

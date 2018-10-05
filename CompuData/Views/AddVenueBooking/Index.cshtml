@@ -39,7 +39,7 @@
                             </button>
                         </div>
                         <div class="col text-right">
-                            <button id="btnDelete" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
+                            <button id="btnRemove" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
                                 <span class="glyphicon glyphicon-trash"></span> Remove
                             </button>
                         </div>
@@ -110,15 +110,16 @@
                 </div>
                 <div id="modalBody" class="modal-body">
                     <div class="form-group">
+                        <label for="bookingLocationEdit">Venue Location:</label>
                         <input type="text" id="bookingLocationEdit" class="form-control" />
                     </div>
                     <div class="row">
                         <div class="form-group col">
-                            <label for="bookingStartTime">Start Time:</label>
+                            <label for="bookingStartTimeEdit">Start Time:</label>
                             <input type="text" id="bookingStartTimeEdit" class="form-control" />
                         </div>
                         <div class="form-group col pull-right">
-                            <label for="bookingEndTime">End Time:</label>
+                            <label for="bookingEndTimeEdit">End Time:</label>
                             <input type="text" id="bookingEndTimeEdit" class="form-control" />
                         </div>
                     </div>
@@ -139,7 +140,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                    <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
+                    <button type="submit" class="btn btn-primary" id="submitEditButton">Save</button>
                 </div>
             </div>
         </div>
@@ -375,6 +376,7 @@
                 selectConstraint: 'businessHours',
                 selectable: true,
                 timeFormat: 'h(:mm)a',
+                timezone: 'local',
                 select: function (start, end, jsEvent, view) {
                     if (start.isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
                         $.each(businessHours, function (index, b) {
@@ -480,6 +482,13 @@
             doSubmit();
         });
 
+        $('#submitEditButton').on('click', function (e) {
+            // We don't want this to act as a link so cancel the link action
+            e.preventDefault();
+
+            doEditSubmit();
+        });
+
         $('#btnEdit').on('click', function (e) {
             // We don't want this to act as a link so cancel the link action
             e.preventDefault();
@@ -502,6 +511,20 @@
                 swal("You cannot edit a Venue Booking while is is currently busy.", "warning")
             } else {
                 swal("You cannot edit a Venue Booking after it has already happened.", "info")
+            }
+        });
+
+        $('#btnRemove').on('click', function (e) {
+            e.preventDefault();
+
+            if (moment(selectedEvent.start).isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
+                $('#calendar').fullCalendar('removeEvents', function (evt) {
+                    return evt = selectedEvent;
+                });
+            } else if (moment(selectedEvent.end).isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
+                swal("You cannot remove a Venue Booking while is is currently busy.", "warning");
+            } else {
+                swal("You cannot remove a Venue Booking after it has already happened.", "warning");
             }
         });
 
@@ -547,11 +570,33 @@
             $('#bookingPeople').val("0");
         }
 
+        function doEditSubmit() {
+            $("#myModalSave").modal('hide');            
+
+            calendar = selectedEvent;
+            calendar.end = moment(moment(calendar.start.format("MM/DD/YYYY") + " " + $('#bookingEndTimeEdit').val(), "MM/DD/YYYY h:mma").format("MM/DD/YYYY HH:mm:ss"));
+            calendar.title = $('#ddlProjects option:selected').text();
+            calendar.projectname = $('#ddlProjectsEdit option:selected').text();
+            calendar.username = $('#ddlUsersEdit option:selected').text();
+            calendar.allDay = false;
+
+            $("#calendar").fullCalendar('updateEvent', calendar);
+        }
+
         // Select your input element.
         var number = document.getElementById('bookingPeople');
+        var numberEdit = document.getElementById('bookingPeopleEdit');
 
         // Listen for input event on numInput.
         number.onkeydown = function (e) {
+            if (!((e.keyCode > 95 && e.keyCode < 106)
+              || (e.keyCode > 47 && e.keyCode < 58)
+              || e.keyCode == 8)) {
+                return false;
+            }
+        }
+
+        numberEdit.onkeydown = function (e) {
             if (!((e.keyCode > 95 && e.keyCode < 106)
               || (e.keyCode > 47 && e.keyCode < 58)
               || e.keyCode == 8)) {

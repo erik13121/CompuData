@@ -1076,6 +1076,8 @@
     <Content Include="Scripts\jquery-3.0.0.slim.min.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.timepicker.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -1165,6 +1167,7 @@
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\pdfobject.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />

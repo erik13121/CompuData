@@ -404,6 +404,10 @@ th, td { white-space: nowrap; }
     margin: 0 auto !important;
 }
 
+.dataTables_scroll {
+    overflow: auto;
+}
+
 input[type=checkbox] {
     height: 2vh !important;
     margin-top: auto;
