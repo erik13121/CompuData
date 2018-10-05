@@ -8,6 +8,7 @@ namespace CompuData.CodeFirst
 
     public partial class Donation_Item
     {
+        [Key]
         [Required]
         public int DonationItemID { get; set; }
 
@@ -19,11 +20,9 @@ namespace CompuData.CodeFirst
         [Required]
         public int TotalAmount { get; set; }
 
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int TypeID { get; set; }
 
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int QuantityTypeID { get; set; }
 

@@ -22,16 +22,12 @@ namespace CompuData.Models
         public int TotalAmount { get; set; }
 
         [Required(ErrorMessage = "Please Add a Donation Type first")]
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int TypeID { get; set; }
 
         public string TypeName { get; set; }
 
 
         [Required(ErrorMessage = "Please Add a Quantity Type first")]
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int QuantityTypeID { get; set; }
 
         public string QuantityDescription { get; set; }
