@@ -53,7 +53,6 @@
         @Html.TextBoxFor(model => model.LastName, new { @readonly = "readonly" })
     </div>   
     <div id="multipleButtons">
-        <div id="completeRequestButton" onclick="window.location.href = '@Url.Action("Index", "Project", new { button = "Finalize"})'">Complete Project</div>
         <a id="modifyButton" class="btn btn-dafault">Maintain</a>
         <a id="removeButton" class="btn btn-default">Remove</a>
     </div>
@@ -64,30 +63,7 @@
 <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Project")'">Back</div>
 
 <style>
-    #completeRequestButton {
-        position: relative;
-        display: inline-block;
-        margin-left: auto;
-        margin-right: auto;
-        bottom: 0;
-        z-index: 10000;
-        text-decoration: none;
-        color: white;
-        cursor: pointer;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        box-sizing: border-box;
-        border: solid white;
-            border-width: 2px;
-        border-radius: 50px 50px 50px 50px;
-        margin-top: 10px;
-        padding: 10px;
-        transition: background-color linear 0.5s;
-    }
-
-        #completeRequestButton:hover {
-            background-color: rgba(0, 255, 255, 0.4);
-        }
+    
 
     #details_holder {
         position: absolute;
@@ -295,22 +271,6 @@
 
         $.ajax({
             url: '@Url.Action("RedirectToModifyProjectDetails", "ModifyProject")',
-            type: 'POST',
-            data: { projectID: projectID },
-            dataType: 'json',
-            success: function (data) {
-                window.location.href = data.Url;
-            }
-        });
-    });
-
-    $('#CompleteButton').on('click', function () {
-        var projectID = @Model.ProjectID;
-    @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);
-        Session["Query"] = Request.Url.Query;}
-
-        $.ajax({
-            url: '@Url.Action("RedirectToCompleteProjectDetails", "ProjectComplete")',
             type: 'POST',
             data: { projectID: projectID },
             dataType: 'json',

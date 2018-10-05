@@ -103,5 +103,18 @@ namespace CompuData.Controllers
         {
             TempData["js"] = "";
         }
+
+        [HttpPost]
+        public ActionResult Finalize(string projectID)
+        {
+            var db = new CodeFirst.CodeFirst();
+            var intProjectID = int.Parse(projectID);
+            var request = db.Projects.Where(r => r.ProjectID == intProjectID).FirstOrDefault();
+            request.Finished = true;
+            db.SaveChanges();
+
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "Project");
+            return Json(new { Url = redirectUrl });
+        }
     }
 }

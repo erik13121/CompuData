@@ -38,6 +38,12 @@ namespace CompuData.Controllers
             }
 
             Models.Project model = new Models.Project();
+            model.ProjectTypes = db.Project_Type.ToList();
+            model.Users = db.Users.AsEnumerable().Select(u => new SelectListItem
+            {
+                Value = u.UserID.ToString(),
+                Text = u.Initials + " " + u.LastName
+            }).ToList();
             return View(model);
         }
 
@@ -73,6 +79,12 @@ namespace CompuData.Controllers
                 return RedirectToAction("Index", "Project");
             }
 
+            model.ProjectTypes = db.Project_Type.ToList();
+            model.Users = db.Users.AsEnumerable().Select(u => new SelectListItem
+            {
+                Value = u.UserID.ToString(),
+                Text = u.Initials + " " + u.LastName
+            }).ToList();
             return View("Index", model);
         }
     }

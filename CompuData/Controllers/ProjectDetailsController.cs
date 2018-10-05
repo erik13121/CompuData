@@ -43,26 +43,5 @@ namespace CompuData.Controllers
             return Json(new { Url = redirectUrl });
         }
 
-        [HttpPost]
-        public ActionResult Finalize(string projectID)
-        { 
-            var db = new CodeFirst.CodeFirst();
-            var intProjectID = int.Parse(projectID);
-            var request = db.Projects.Where(r => r.ProjectID == intProjectID).FirstOrDefault();
-            if (request.Finished == true)
-            {
-                request.Finished = true;
-            }
-            else
-            {
-                return Json(new { ErrorMessage = "Error" });
-            }
-
-            db.SaveChanges();
-
-            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "Project");
-            return Json(new { Url = redirectUrl });
-        }
-
     }
 }

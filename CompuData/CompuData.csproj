@@ -609,9 +609,9 @@
     <Compile Include="Controllers\DonationDetailsController.cs" />
     <Compile Include="Controllers\DonationItemController.cs" />
     <Compile Include="Controllers\DonationItemDetailsController.cs" />
-    <Compile Include="Controllers\DonationItemMenuController.cs" />
     <Compile Include="Controllers\DonationItemModifyController.cs" />
     <Compile Include="Controllers\DonationModifyController.cs" />
+    <Compile Include="Controllers\DonationsMenuController.cs" />
     <Compile Include="Controllers\DonationTypeController.cs" />
     <Compile Include="Controllers\DonationTypeDetailsController.cs" />
     <Compile Include="Controllers\DonationTypeModifyController.cs" />
@@ -692,6 +692,7 @@
     <Compile Include="Controllers\SelectEquipmentController.cs" />
     <Compile Include="Controllers\SelectEquipmentForProofController.cs" />
     <Compile Include="Controllers\SelectEquipmentForRepairRequestController.cs" />
+    <Compile Include="Controllers\SelectProjectController.cs" />
     <Compile Include="Controllers\SelectRequestController.cs" />
     <Compile Include="Controllers\SelectUserController.cs" />
     <Compile Include="Controllers\SelectVehicleforVehicleServiceController.cs" />
@@ -1243,7 +1244,6 @@
     <Content Include="Views\DonationDetails\Index.cshtml" />
     <Content Include="Views\DonationItem\Index.cshtml" />
     <Content Include="Views\DonationItemDetails\Index.cshtml" />
-    <Content Include="Views\DonationItemMenu\Index.cshtml" />
     <Content Include="Views\DonationItemModify\Index.cshtml" />
     <Content Include="Views\DonationModify\Index.cshtml" />
     <Content Include="Views\DonationType\Index.cshtml" />
@@ -1356,6 +1356,8 @@
     <Content Include="Views\ReportEquipmentBookings\Index.cshtml" />
     <Content Include="Views\ProjectArchived\Index.cshtml" />
     <Content Include="Views\ProjectDetailsArchived\Index.cshtml" />
+    <Content Include="Views\SelectProject\Index.cshtml" />
+    <Content Include="Views\DonationsMenu\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

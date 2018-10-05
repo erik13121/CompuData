@@ -40,12 +40,12 @@
         @Html.ValidationMessageFor(model => model.ProjectDescription)
         <div>
             <p>Start Date:</p>
-            @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control", @id = "datepicker1", placeholder = "Please Enter Date" })
+            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", @id = "datepicker1", placeholder = "Please Enter Date" } })
         </div>
         @Html.ValidationMessageFor(model => model.StartDate)
         <div>
             <p>Expected Complete Date:</p>
-            @Html.TextBoxFor(model => model.ExpectedFinishDate, new { @class = "form-control", @id = "datepicker2", placeholder = "Please Enter Date" })
+            @Html.EditorFor(model => model.ExpectedFinishDate, new { htmlAttributes = new { @class = "form-control", @id = "datepicker2", placeholder = "Please Enter Date" } })
         </div>
         @Html.ValidationMessageFor(model => model.ExpectedFinishDate)
         <div>
@@ -248,9 +248,14 @@ else
         }
 </style>
 <script>
-    $('#datepicker1').datepicker().datepicker("setDate", '@Model.StartDate');
+    $(document).ready(function () {
+        $('#datepicker1').datepicker();
+        $('#datepicker1').datepicker("setDate", '@Model.StartDate.ToString().Substring(0,10)');
 
-    $('#datepicker2').datepicker().datepicker("setDate", '@Model.ExpectedFinishDate');
+        $('#datepicker2').datepicker();
+        $('#datepicker2').datepicker("setDate", '@Model.ExpectedFinishDate.ToString().Substring(0, 10)');
+    })
+
 
 
     $("#addButton").click(function (event) {
