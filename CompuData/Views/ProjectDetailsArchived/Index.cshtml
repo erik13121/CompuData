@@ -1,7 +1,8 @@
-﻿@{
-    ViewBag.Title = "VehicleDetails";
+﻿
+@{
+    ViewBag.Title = "ProjectDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    @model CompuData.Models.Vehicle
+    @model CompuData.Models.Project
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
@@ -9,65 +10,89 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../VehicleMenu">Vehicle Menu</a></li>
-        <li class="breadcrumb-item"><a href="../Vehicles">Vehicles</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Vehicle Details</li>
+        <li class="breadcrumb-item"><a href="../ProjectManagementMenu">Project Management Menu</a></li>
+        <li class="breadcrumb-item"><a href="../Project">Projects</a></li>
+        <li class="breadcrumb-item"><a href="../ProjectArchived">Archived Projects</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Archived Project Details</li>
     </ol>
 </nav>
 
 @Html.Partial("_ProfilePartial")
 
+<head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
+
 <div id="details_holder">
-    <p>Vehicle Details</p>
-    @Html.HiddenFor(model => model.VehicleID)
+    <p>Project Details</p>
+    @Html.HiddenFor(model => model.ProjectID)
     <div>
-        <p>Brand:</p>
-        @Html.TextBoxFor(model => model.Brand, new { @readonly = "readonly" })
+        <p>Name:</p>
+        @Html.TextBoxFor(model => model.ProjectName, new { @readonly = "readonly" })
     </div>
     <div>
-        <p>Model:</p>
-        @Html.TextBoxFor(model => model.Model, new { @readonly = "readonly" })
+        <p>Start Date:</p>
+        @Html.TextBoxFor(model => model.StartDate, new { @readonly = "readonly" })
     </div>
     <div>
-        <p>Number Plate:</p>
-        @Html.TextBoxFor(model => model.NumberPlate, new { @readonly = "readonly" })
+        <p>Expected Complete Date:</p>
+        @Html.TextBoxFor(model => model.ExpectedFinishDate, new { @readonly = "readonly" })
     </div>
     <div>
-        <p>Date of Purchase:</p>
-        @Html.EditorFor(model => model.DateofPurchase, new { htmlAttributes = new { @readonly = "readonly" } })
+        <p>Completed:</p>
+        @Html.TextBoxFor(model => model.Finished, new { @readonly = "readonly" })
     </div>
     <div>
-        <p>Date of Last Repair:</p>
-        @Html.EditorFor(model => model.DateofLastRepair, new { htmlAttributes = new { @readonly = "readonly" } })
+        <p>Project Description:</p>
+        @Html.TextBoxFor(model => model.ProjectDescription, new { @readonly = "readonly" })
     </div>
     <div>
-        <p>Date of License Purchase:</p>
-        @Html.EditorFor(model => model.DateofLicencePurchase, new { htmlAttributes = new { @readonly = "readonly" } })
-    </div>
-    <div>
-        <p>Licence Expire Date:</p>
-        @Html.EditorFor(model => model.LicenseExpireDate, new { htmlAttributes = new { @readonly = "readonly" } })
-    </div>
-    <div>
-        <p>Service Interval in Months:</p>
-        @Html.TextBoxFor(model => model.ServiceIntervalInMonths, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Service Interval in Kilometres:</p>
-        @Html.TextBoxFor(model => model.ServiceIntervalInKMs, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Vehicle Type:</p>
+        <p>Project Type:</p>
         @Html.TextBoxFor(model => model.TypeName, new { @readonly = "readonly" })
     </div>
-    <div id="multipleButtons">
-        <div id="modifyButton">Modify</div>
-        <div id="removeButton">Remove</div>
+    <div>
+        <p>User Initials:</p>
+        @Html.TextBoxFor(model => model.Initials, new { @readonly = "readonly" })
+    </div>
+    <div>
+        <p>User Last Name:</p>
+        @Html.TextBoxFor(model => model.LastName, new { @readonly = "readonly" })
     </div>
 </div>
-<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Vehicles")'">Back</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "ProjectArchived")'">Back</div>
 
 <style>
+    #completeRequestButton {
+        position: relative;
+        display: inline-block;
+        margin-left: auto;
+        margin-right: auto;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #completeRequestButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
     #details_holder {
         position: absolute;
         display: flex;
@@ -112,6 +137,29 @@
         flex-direction: row;
     }
 
+    #CompleteButton {
+        position: relative;
+        display: inline-block !important;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #CompleteButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
     #modifyButton {
         position: relative;
         display: inline-block !important;
@@ -152,6 +200,7 @@
         margin-right: auto;
         padding: 10px;
         transition: background-color linear 0.5s;
+        background-color: transparent;
     }
 
         #removeButton:hover {
@@ -241,61 +290,8 @@
             color: #5a9ad6;
         }
 </style>
+
 <script>
-    $('#modifyButton').on('click', function () {
-        var vehicleID = @Model.VehicleID;
-        @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);
-            Session["Query"] = Request.Url.Query;}
 
-        $.ajax({
-            url: '@Url.Action("RedirectToModifyVehicleDetails", "ModifyVehicleDetails")',
-            type: 'POST',
-            data: { vehicleID: vehicleID },
-            dataType: 'json',
-            success: function (data) {
-                window.location.href = data.Url;
-            }
-        });
-    });
-
-    $('#removeButton').on('click', function () {
-        var vehicleID = @Model.VehicleID;
-
-        swal({
-            title: "Are you sure you want to delete this Vehicle?",
-            icon: "warning",
-            dangerMode: true,
-            buttons: [
-                true,
-                "Yes",
-            ],
-            closeOnClickOutside: false,
-        })
-            .then((willDelete) => {
-                if (willDelete) {
-                    $.ajax({
-                        url: '@Url.Action("Delete", "Vehicles")',
-                        type: 'POST',
-                        data: { vehicleID: vehicleID },
-                        dataType: 'json',
-                        success: function (data) {
-                            if (data.Url != "Cascading error!") {
-                                swal("You have successfully deleted the Vehicle", {
-                                    icon: "success",
-                                }).then(() => {
-                                    window.location.href = data.Url;
-                                });
-                            }
-                            else {
-                                swal("Cannot delete this due to it being used somewhere else in the system!", {
-                                    icon: "warning",
-                                }).then(() => {
-                                    window.location.href = data.Url;
-                                });
-                            }
-                        }
-                    });
-                }
-            });
-    });
 </script>
+

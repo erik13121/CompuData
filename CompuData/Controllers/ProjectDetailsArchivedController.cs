@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace CompuData.Controllers
 {
-    public class ProjectDetailsController : Controller
+    public class ProjectDetailsArchivedController : Controller
     {
-        // GET: ProjectDetails
+        // GET: ProjectDetailsArchived
         public ActionResult Index(string projectID)
         {
             Models.Project myModel = new Models.Project();
@@ -22,17 +22,17 @@ namespace CompuData.Controllers
 
                 myModel.ProjectID = myProject.ProjectID;
                 myModel.ProjectName = myProject.ProjectName;
-                myModel.StartDate = myProject.StartDate;
-                myModel.ExpectedFinishDate = myProject.ExpectedFinishDate;
+                myModel.StartDate = DateTime.Parse(myProject.StartDate.ToString("yyyy-MM-dd")).Date;
+                myModel.ExpectedFinishDate = DateTime.Parse(myProject.ExpectedFinishDate.ToString("yyyy-MM-dd")).Date;
                 myModel.Finished = myProject.Finished;
-                myModel.ProjectDescription = myProject.ProjectDescription;            
+                myModel.ProjectDescription = myProject.ProjectDescription;
                 myModel.TypeID = mytypeID.TypeID;
                 myModel.UserID = myUserID.UserID;
                 myModel.TypeName = db.Project_Type.Where(i => i.TypeID == mytypeID.TypeID).FirstOrDefault().TypeName;
                 myModel.Initials = db.Users.Where(i => i.UserID == myUserID.UserID).FirstOrDefault().Initials;
                 myModel.LastName = db.Users.Where(i => i.UserID == myUserID.UserID).FirstOrDefault().LastName;
             }
-            
+
             return View(myModel);
         }
 
@@ -45,7 +45,7 @@ namespace CompuData.Controllers
 
         [HttpPost]
         public ActionResult Finalize(string projectID)
-        { 
+        {
             var db = new CodeFirst.CodeFirst();
             var intProjectID = int.Parse(projectID);
             var request = db.Projects.Where(r => r.ProjectID == intProjectID).FirstOrDefault();
@@ -63,6 +63,5 @@ namespace CompuData.Controllers
             var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "Project");
             return Json(new { Url = redirectUrl });
         }
-
     }
 }

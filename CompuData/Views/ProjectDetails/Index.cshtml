@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "ProjectDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
     @model CompuData.Models.Project
@@ -18,13 +17,6 @@
 
 @Html.Partial("_ProfilePartial")
 
-<head>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-</head>
-
 <div id="details_holder">
     <p>Project Details</p>
     @Html.HiddenFor(model => model.ProjectID)
@@ -34,11 +26,11 @@
     </div>
     <div>
         <p>Start Date:</p>
-        @Html.TextBoxFor(model => model.StartDate, new { @readonly = "readonly" })
+        @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @readonly = "readonly" } })
     </div>
     <div>
         <p>Expected Complete Date:</p>
-        @Html.TextBoxFor(model => model.ExpectedFinishDate, new { @readonly = "readonly" })
+        @Html.EditorFor(model => model.ExpectedFinishDate, new { htmlAttributes = new { @readonly = "readonly" } })
     </div>
     <div>
         <p>Completed:</p>
@@ -61,7 +53,7 @@
         @Html.TextBoxFor(model => model.LastName, new { @readonly = "readonly" })
     </div>   
     <div id="multipleButtons">
-        <a id="CompleteButton" class="btn btn-dafault">Complete a Project</a>
+        <div id="completeRequestButton" onclick="window.location.href = '@Url.Action("Index", "Project", new { button = "Finalize"})'">Complete Project</div>
         <a id="modifyButton" class="btn btn-dafault">Maintain</a>
         <a id="removeButton" class="btn btn-default">Remove</a>
     </div>
@@ -72,6 +64,31 @@
 <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Project")'">Back</div>
 
 <style>
+    #completeRequestButton {
+        position: relative;
+        display: inline-block;
+        margin-left: auto;
+        margin-right: auto;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        border: solid white;
+            border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #completeRequestButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
     #details_holder {
         position: absolute;
         display: flex;
