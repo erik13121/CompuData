@@ -757,6 +757,7 @@
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Building.cs" />
+    <Compile Include="Models\DonationItem.cs" />
     <Compile Include="Models\DonationType.cs" />
     <Compile Include="Global\Donation_Item.cs">
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
@@ -849,6 +850,7 @@
     <Compile Include="Global\Repair_Request.cs">
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\QuantityType.cs" />
     <Compile Include="Models\RepairPerson.cs" />
     <Compile Include="Models\ResetPasswordModel.cs" />
     <Compile Include="Global\Service.cs">

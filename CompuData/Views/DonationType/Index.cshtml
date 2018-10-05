@@ -18,7 +18,7 @@
     <p>Donation Types</p>
     <table id="table_id" class="display"></table>
     <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddDonationType")'">Add Donation Type</div>
-    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "DonationItemMenu")'">Back</div>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "DonationsMenu")'">Back</div>
 </div>
 <style>
     #table_background p {
@@ -261,12 +261,12 @@
                         data: { typeID: typeID },
                         dataType: 'json',
                         success: function (data) {
-                            if (data.Url != "Cascading error!")
-                            {
-                                swal("You have successfully deleted the Donation Type", {
+                            if (data.Url != "Cascading error!") {
+                                swal("You have successfully deleted the Equipment", {
                                     icon: "success",
+                                }).then(() => {
+                                    window.location.href = data.Url;
                                 });
-                                window.location.href = data.Url;
                             }
                             else
                             {
