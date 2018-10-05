@@ -1,8 +1,8 @@
 ﻿
 @{
-    ViewBag.Title = "DonationTypeDetails";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    @model CompuData.Models.DonationType
+    @model CompuData.Models.QuantityType
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
@@ -10,25 +10,26 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../DonationMenu">Donation Menu</a></li>
-        <li class="breadcrumb-item"><a href="../DonationType">Donation Types</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Donation Type Details</li>
+        <li class="breadcrumb-item"><a href="../DonationsMenu">Donation Menu</a></li>
+        <li class="breadcrumb-item"><a href="../QuantityType">Quantity Types</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Quantity Type Details</li>
     </ol>
 </nav>
 @Html.Partial("_ProfilePartial")
 <div id="details_holder">
     <p>Donation Type Details</p>
-    @Html.HiddenFor(model => model.TypeID)
+    @Html.HiddenFor(model => model.QuatityTypeID)
     <div id="donationitemDetails">
-        <p>Type Name:</p>
-        @Html.TextBoxFor(model => model.TypeName, new { @readonly = "readonly" })
+        <p>Description:</p>
+        @Html.TextBoxFor(model => model.Description, new { @readonly = "readonly" })
     </div>
     <div id="multipleButtons">
         <div id="modifyButton">Modify</div>
         <div id="removeButton">Remove</div>
     </div>
 </div>
-<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "DonationType")'">Back</div>
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "QuantityType")'">Back</div>
+
 <style>
     #details_holder {
         position: absolute;
@@ -203,16 +204,17 @@
             color: #5a9ad6;
         }
 </style>
+
 <script>
     $('#modifyButton').on('click', function () {
-        var typeID = @Model.TypeID;
+        var quatityTypeID = @Model.QuatityTypeID;
         @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);
             Session["Query"] = Request.Url.Query;}
 
         $.ajax({
-            url: '@Url.Action("RedirectToModifyDonationTypeDetails", "DonationTypeModify")',
+            url: '@Url.Action("RedirectToModifyQuantityTypeDetails", "ModifyQuantityType")',
             type: 'POST',
-            data: { typeID: typeID },
+            data: { quatityTypeID: quatityTypeID },
             dataType: 'json',
             success: function (data) {
                 window.location.href = data.Url;
@@ -221,10 +223,10 @@
     });
 
     $('#removeButton').on('click', function () {
-        var typeID = @Model.TypeID;
+        var quatityTypeID = @Model.QuatityTypeID;
 
         swal({
-            title: "Are you sure you want to delete this Donation Type?",
+            title: "Are you sure you want to delete this Quantity Type?",
             icon: "warning",
             dangerMode: true,
             buttons: [
@@ -236,13 +238,13 @@
             .then((willDelete) => {
                 if (willDelete) {
                     $.ajax({
-                        url: '@Url.Action("Delete", "DonationType")',
+                        url: '@Url.Action("Delete", "QuantityType")',
                         type: 'POST',
-                        data: { typeID: typeID },
+                        data: { quatityTypeID: quatityTypeID },
                         dataType: 'json',
                         success: function (data) {
                             if (data.Url != "Cascading error!") {
-                                swal("You have successfully deleted the Donation Type", {
+                                swal("You have successfully deleted the Equipment", {
                                     icon: "success",
                                 }).then(() => {
                                     window.location.href = data.Url;

@@ -1,8 +1,8 @@
 ﻿
 @{
-    ViewBag.Title = "AddDonationType";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    @model CompuData.Models.DonationType
+    @model CompuData.Models.QuantityType
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
@@ -11,23 +11,23 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
         <li class="breadcrumb-item"><a href="../DonationMenu">Donation Menu</a></li>
-        <li class="breadcrumb-item"><a href="../DonationType">Donation Types</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Add Donation Type</li>
+        <li class="breadcrumb-item"><a href="../QuantityType">Quantity Types</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Quantity Type</li>
     </ol>
 </nav>
 
 @Html.Partial("_ProfilePartial")
 
 <div id="details_holder">
-    @using (@Html.BeginForm("Create", "AddDonationType", FormMethod.Post, new { id = "myForm" }))
+    @using (@Html.BeginForm("Create", "AddQuantityType", FormMethod.Post, new { id = "myForm" }))
     {
-        <p>Donation Type Details</p>
-        @Html.HiddenFor(model => model.TypeID)
+        <p>Add Quantity Type</p>
+        @Html.HiddenFor(model => model.QuatityTypeID)
         <div>
-            <p>Donation Type Name:</p>
-            @Html.EditorFor(model => model.TypeName)
+            <p>Description:</p>
+            @Html.EditorFor(model => model.Description)
         </div>
-        @Html.ValidationMessageFor(model => model.TypeName)
+        @Html.ValidationMessageFor(model => model.Description)
     }
     <div id="addButton">Add</div>
 </div>
