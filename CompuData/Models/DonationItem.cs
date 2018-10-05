@@ -9,6 +9,7 @@ namespace CompuData.Models
 {
     public class DonationItem
     {
+        [Required(ErrorMessage = "The Donation Item ID is required")]
         public int DonationItemID { get; set; }
 
         [Required(ErrorMessage = "The Donation Item Description is required")]
@@ -19,7 +20,6 @@ namespace CompuData.Models
         [RegularExpression("\\d{1,6}", ErrorMessage = "The Total Amount has to consist of between 1 and 6-digit numbers")]
         [Required(ErrorMessage = "The Total Amount is Required")]
         public int TotalAmount { get; set; }
-
 
         [Required(ErrorMessage = "Please Add a Donation Type first")]
         [Key]
@@ -35,6 +35,10 @@ namespace CompuData.Models
         public int QuantityTypeID { get; set; }
 
         public string QuantityDescription { get; set; }
+
+        public List<CodeFirst.Donation_Type> DonationTypes { get; set; }
+
+        public List<CodeFirst.Quantity_Type> QuantityTypes { get; set; }
 
         public DonationItem() { }
         public DonationItem(int id, string description, int totalAmount, int typeID, int quantityid)

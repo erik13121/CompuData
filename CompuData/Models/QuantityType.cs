@@ -9,11 +9,12 @@ namespace CompuData.Models
 {
     public class QuantityType
     {
+        [Required(ErrorMessage = "The Quanity Type ID is required")]
         public int QuatityTypeID { get; set; }
 
         [Required(ErrorMessage = "The Quantity Type Description is required")]
         [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]
-        [MaxLength(250, ErrorMessage = "Max of 250 characters allowed as the Quantity Type Name")]
+        [MaxLength(250, ErrorMessage = "Max of 250 characters allowed as the Quantity Type Description")]
         public string Description { get; set; }
 
         public string JavaScriptToRun { get; set; }
