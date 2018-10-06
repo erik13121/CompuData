@@ -35,27 +35,27 @@
                         <div class="card-body">
                             <div>
                                 <p>First Name:</p>
-                                @Html.EditorFor(model => model.FirstName, new { @readonly = "readonly" })
+                                @Html.TextBoxFor(model => model.FirstName, new { @readonly = "readonly" })
                             </div>
                             <div>
                                 <p>Middle Name:</p>
-                                @Html.EditorFor(model => model.MiddleName, new { @readonly = "readonly" })
+                                @Html.TextBoxFor(model => model.MiddleName, new { @readonly = "readonly" })
                             </div>
                             <div>
                                 <p>Last Name:</p>
-                                @Html.EditorFor(model => model.SecondName, new { @readonly = "readonly" })
+                                @Html.TextBoxFor(model => model.SecondName, new { @readonly = "readonly" })
                             </div>
                             <div>
                                 <p>Initials:</p>
-                                @Html.EditorFor(model => model.Initials, new { @readonly = "readonly" })
+                                @Html.TextBoxFor(model => model.Initials, new { @readonly = "readonly" })
                             </div>
                             <div>
                                 <p>Cell Number:</p>
-                                @Html.EditorFor(model => model.CellNum, new { @readonly = "readonly" })
+                                @Html.TextBoxFor(model => model.CellNum, new { @readonly = "readonly" })
                             </div>
                             <div>
                                 <p>Personal Email:</p>
-                                @Html.EditorFor(model => model.PersonalEmail, new { @readonly = "readonly" })
+                                @Html.TextBoxFor(model => model.PersonalEmail, new { @readonly = "readonly" })
                             </div>
                         </div>
                     </div>
@@ -67,22 +67,22 @@
                         <div class="card-body" id="cardbody2">
                             <div>
                                 <p>Street Address:</p>
-                                @Html.EditorFor(model => model.StreetAddress, new { @readonly = "readonly" })
+                                @Html.TextBoxFor(model => model.StreetAddress, new { @readonly = "readonly" })
                             </div>
                             <div>
                                 <p>City:</p>
-                                @Html.EditorFor(model => model.City, new { @readonly = "readonly" })
+                                @Html.TextBoxFor(model => model.City, new { @readonly = "readonly" })
                             </div>
                             <div>
                                 <p>Area Code:</p>
-                                @Html.EditorFor(model => model.AreaCode, new { @readonly = "readonly" })
+                                @Html.TextBoxFor(model => model.AreaCode, new { @readonly = "readonly" })
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div id="multipleButtons">
-                <a id="modifyButton" class="btn btn-dafault">Maintain</a>
+                <a id="modifyButton" class="btn btn-dafault">Modify</a>
                 <a id="removeButton" class="btn btn-default">Remove</a>
             </div>
         </div>

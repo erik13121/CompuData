@@ -293,7 +293,7 @@
         var projectID = data["projectID"];
 
         $.ajax({
-            url: '@Url.Action("RedirectToProjectDetails", "ProjectDetails")',
+            url: '@Url.Action("RedirectToProjectDetailsArchived", "ProjectDetailsArchived")',
             type: 'POST',
             data: { projectID: projectID },
             dataType: 'json',
