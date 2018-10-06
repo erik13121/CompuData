@@ -1,35 +1,27 @@
-﻿@{
-    ViewBag.Title = "Project";
+﻿
+@{
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
-    @model CompuData.Models.Project
 }
-
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../ProjectManagementMenu">Project Management Menu</a></li>
-        <li class="breadcrumb-item"><a href="../Project">Projects</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Archived Projects</li>
+        <li class="breadcrumb-item"><a href="../DonationsMenu">Donation Menu</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Quantity Types</li>
     </ol>
 </nav>
-
 @Html.Partial("_ProfilePartial")
-
 <div id="table_background">
-    <p>Archived Projects</p>
-    <table id="table_id" class="display" cellspacing="0"></table>
-    @Html.HiddenFor(model => model.JavaScriptToRun)
-    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "ProjectManagementMenu")'">Back</div>
+    <p>Quantity Types</p>
+    <table id="table_id" class="display"></table>
+    <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddQuantityType")'">Add Quantity Type</div>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "DonationsMenu")'">Back</div>
 </div>
 
 <style>
-    th, td {
-        white-space: nowrap;
-    }
-
     #table_background p {
         font-size: 25px;
         text-align: center;
@@ -47,21 +39,13 @@
         border-radius: 50px 50px 50px 50px;
     }
 
-    .dataTable {
+    #table_id {
         background-color: #5a9ad6;
-        font-size: 14px;
-    }
-
-    #multipleButtons {
-        display: flex;
-        flex-direction: row;
     }
 
     #addButton {
         position: relative;
-        display: inline-block;
-        margin-left: auto;
-        margin-right: auto;
+        display: table;
         bottom: 0;
         z-index: 10000;
         text-decoration: none;
@@ -69,6 +53,7 @@
         cursor: pointer;
         letter-spacing: 0.15em;
         text-transform: uppercase;
+        margin-left: auto;
         box-sizing: border-box;
         border: solid white;
         border-width: 2px;
@@ -79,31 +64,6 @@
     }
 
         #addButton:hover {
-            background-color: rgba(0, 255, 255, 0.4);
-        }
-
-    #addBookingButton {
-        position: relative;
-        display: inline-block;
-        margin-left: auto;
-        margin-right: auto;
-        bottom: 0;
-        z-index: 10000;
-        text-decoration: none;
-        color: white;
-        cursor: pointer;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        box-sizing: border-box;
-        border: solid white;
-        border-width: 2px;
-        border-radius: 50px 50px 50px 50px;
-        margin-top: 10px;
-        padding: 10px;
-        transition: background-color linear 0.5s;
-    }
-
-        #addBookingButton:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
@@ -188,70 +148,20 @@
     $(document).ready(function () {
         table = $('#table_id').DataTable({
             serverSide: true,
-            ajax: "/ProjectArchived/PageData",
+            ajax: "/QuantityType/PageData",
             autoWidth: true,
-            scrollX: true,
             columns: [
                 {
-                    name: 'projectID',
-                    data: 'projectID',
-                    title: "ID",
+                    name: 'quantityTypeID',
+                    data: 'quantityTypeID',
+                    title: "Type ID",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'projectName',
-                    data: "projectName",
-                    title: "Project Name",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'startDate',
-                    data: "startDate",
-                    title: "Start Date",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'expectedFinishDate',
-                    data: "expectedFinishDate",
-                    title: "Expected Complete Date",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'finished',
-                    data: "finished",
-                    title: "Completed",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'projectDescription',
-                    data: "projectDescription",
-                    title: "Project Description",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'typeName',
-                    data: "typeName",
-                    title: "Type Name",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'userInitials',
-                    data: "userInitials",
-                    title: "User Initials",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'userLastName',
-                    data: "userLastName",
-                    title: "User Last Name",
+                    name: 'description',
+                    data: "description",
+                    title: "Description",
                     sortable: true,
                     searchable: true
                 },
@@ -261,28 +171,40 @@
                     "defaultContent": '<i class="glyphicon glyphicon-eye-open"></i>',
                     sortable: false,
                 },
+                {
+                    "targets": -2,
+                    "data": null,
+                    "defaultContent": '<i class="glyphicon glyphicon-pencil"></i>',
+                    sortable: false,
+                },
+                {
+                    "targets": -3,
+                    "data": null,
+                    "defaultContent": '<i class="glyphicon glyphicon-trash"></i>',
+                    sortable: false,
+                }
             ]
         });
     });
 
     @Model.JavaScriptToRun
     function mySuccess() {
-        swal("You have successfully added a Project", {
+        swal("You have successfully added a Quantity Type", {
             icon: "success",
         });
-        $("#JavaScriptToRun").val("");
+        //window.location = "/Vehicles/Index";
     }
 
     @TempData["js"];
     function myUpdateSuccess() {
-        swal("You have successfully updated the Project", {
+        swal("You have successfully updated the Quantity Type", {
             icon: "success",
         });
     }
 
     $.ajax({
         type: "POST",
-        url: '@Url.Action("SetTempData","Project")',
+        url: '@Url.Action("SetTempData","QuantityType")',
         success: function () {
 
         }
@@ -290,12 +212,12 @@
 
     $('#table_id').on('click', '.glyphicon-eye-open', function () {
         var data = table.row($(this).parents('tr')).data();
-        var projectID = data["projectID"];
+        var quantityTypeID = data["quantityTypeID"];
 
         $.ajax({
-            url: '@Url.Action("RedirectToProjectDetailsArchived", "ProjectDetailsArchived")',
+            url: '@Url.Action("RedirectToQuantityTypeDetails", "QuantityTypeDetails")',
             type: 'POST',
-            data: { projectID: projectID },
+            data: { quantityTypeID: quantityTypeID },
             dataType: 'json',
             success: function (data) {
                 window.location.href = data.Url; // your action should return an object having [redirecturl] property
@@ -303,4 +225,60 @@
         });
     });
 
+    $('#table_id').on('click', '.glyphicon-pencil', function () {
+        var data = table.row($(this).parents('tr')).data();
+        var quantityTypeID = data["quantityTypeID"];
+        @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
+
+        $.ajax({
+            url: '@Url.Action("RedirectToModifyQuantityTypeDetails", "ModifyQuantityType")',
+            type: 'POST',
+            data: { quantityTypeID: quantityTypeID },
+            dataType: 'json',
+            success: function (data) {
+                window.location.href = data.Url;
+            }
+        });
+    });
+
+    $('#table_id').on('click', '.glyphicon-trash', function () {
+        var data = table.row($(this).parents('tr')).data();
+        var quantityTypeID = data["quantityTypeID"];
+
+        swal({
+            title: "Are you sure you want to delete this Quantity Type?",
+            icon: "warning",
+            dangerMode: true,
+            buttons: [
+                true,
+                "Yes",
+            ],
+            closeOnClickOutside: false,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: '@Url.Action("Delete", "QuantityType")',
+                        type: 'POST',
+                        data: { quantityTypeID: quantityTypeID },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.Url != "Cascading error!") {
+                                swal("You have successfully deleted the Quantity Type", {
+                                    icon: "success",
+                                }).then(() => {
+                                    window.location.href = data.Url;
+                                });
+                            }
+                            else
+                            {
+                                swal("Cannot delete this due to it being used somewhere else in the system!", {
+                                    icon: "warning",
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+    });
 </script>

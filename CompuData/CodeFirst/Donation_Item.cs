@@ -26,7 +26,6 @@ namespace CompuData.CodeFirst
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int QuantityTypeID { get; set; }
 
-
         public virtual Donation_Type Donation_Type { get; set; }
 
         public virtual Quantity_Type Quantity_Type { get; set; }

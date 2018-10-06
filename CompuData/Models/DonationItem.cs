@@ -26,7 +26,6 @@ namespace CompuData.Models
 
         public string TypeName { get; set; }
 
-
         [Required(ErrorMessage = "Please Add a Quantity Type first")]
         public int QuantityTypeID { get; set; }
 
@@ -36,6 +35,7 @@ namespace CompuData.Models
 
         public List<CodeFirst.Quantity_Type> QuantityTypes { get; set; }
 
+        public string JavaScriptToRun { get; set; }
         public DonationItem() { }
         public DonationItem(int id, string description, int totalAmount, int typeID, int quantityid)
         {
@@ -53,9 +53,9 @@ namespace CompuData.Models
 
             db.Configuration.LazyLoadingEnabled = false;
 
-            var DonoItem = db.Donation_Item.ToList();
+            var DonationItems = db.Donation_Item.ToList();
 
-            Data = DonoItem;
+            Data = DonationItems;
             return Data;
         }
     }

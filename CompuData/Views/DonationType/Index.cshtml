@@ -9,7 +9,7 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../DonationItemMenu">Donation Menu</a></li>
+        <li class="breadcrumb-item"><a href="../DonationMenu">Donation Menu</a></li>
         <li class="breadcrumb-item active" aria-current="page">Donation Types</li>
     </ol>
 </nav>
@@ -262,7 +262,7 @@
                         dataType: 'json',
                         success: function (data) {
                             if (data.Url != "Cascading error!") {
-                                swal("You have successfully deleted the Equipment", {
+                                swal("You have successfully deleted the Donation Type", {
                                     icon: "success",
                                 }).then(() => {
                                     window.location.href = data.Url;

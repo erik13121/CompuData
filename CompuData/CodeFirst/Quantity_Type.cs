@@ -16,7 +16,7 @@ namespace CompuData.CodeFirst
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int QuatityTypeID { get; set; }
+        public int QuantityTypeID { get; set; }
 
         [Required]
         [MaxLength(250)]

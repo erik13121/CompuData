@@ -1,8 +1,8 @@
 ﻿
 @{
-    ViewBag.Title = "DonationTypeModify";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    @model CompuData.Models.DonationType
+    @model CompuData.Models.QuantityType
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
@@ -11,25 +11,25 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
         <li class="breadcrumb-item"><a href="../DonationsMenu">Donation Menu</a></li>
-        <li class="breadcrumb-item"><a href="../DonationType">Donation Types</a></li>
-        @if (Session["Referrer"] as string == "DonationTypeDetails")
+        <li class="breadcrumb-item"><a href="../QuantityType">Quantity Types</a></li>
+        @if (Session["Referrer"] as string == "QuantityTypeDetails")
         {
-            <li class="breadcrumb-item"><a href="../DonationTypeDetails">Donation Type Details</a></li>
+            <li class="breadcrumb-item"><a href="../QuantityTypeDetails">Quantity Type Details</a></li>
         }
-        <li class="breadcrumb-item active" aria-current="page">Modify Donation Type</li>
+        <li class="breadcrumb-item active" aria-current="page">Modify Quantity Type</li>
     </ol>
 </nav>
 @Html.Partial("_ProfilePartial")
 <div id="details_holder">
-    @using (@Html.BeginForm("Update", "DonationTypeModify", FormMethod.Post, new { id = "myForm" }))
+    @using (@Html.BeginForm("Update", "ModifyQuantityType", FormMethod.Post, new { id = "myForm" }))
     {
-        <p>Donation Type Details</p>
-        @Html.HiddenFor(model => model.TypeID)
+        <p>Modify Quantity Type</p>
+        @Html.HiddenFor(model => model.QuantityTypeID)
         <div>
             <p>Name:</p>
-            @Html.EditorFor(model => model.TypeName)
+            @Html.EditorFor(model => model.Description)
         </div>
-        @Html.ValidationMessageFor(model => model.TypeName)
+        @Html.ValidationMessageFor(model => model.Description)
         <div id="multipleButtons">
             <div id="saveButton">Save</div>
         </div>

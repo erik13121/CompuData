@@ -1,49 +1,44 @@
 ﻿
 @{
-    ViewBag.Title = "DonationTypeModify";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    @model CompuData.Models.DonationType
+    @model CompuData.Models.QuantityType
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../DonationsMenu">Donation Menu</a></li>
-        <li class="breadcrumb-item"><a href="../DonationType">Donation Types</a></li>
-        @if (Session["Referrer"] as string == "DonationTypeDetails")
-        {
-            <li class="breadcrumb-item"><a href="../DonationTypeDetails">Donation Type Details</a></li>
-        }
-        <li class="breadcrumb-item active" aria-current="page">Modify Donation Type</li>
+        <li class="breadcrumb-item"><a href="../DonationMenu">Donation Menu</a></li>
+        <li class="breadcrumb-item"><a href="../QuantityType">Quantity Types</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Quantity Type</li>
     </ol>
 </nav>
+
 @Html.Partial("_ProfilePartial")
+
 <div id="details_holder">
-    @using (@Html.BeginForm("Update", "DonationTypeModify", FormMethod.Post, new { id = "myForm" }))
+    @using (@Html.BeginForm("Create", "AddQuantityType", FormMethod.Post, new { id = "myForm" }))
     {
-        <p>Donation Type Details</p>
-        @Html.HiddenFor(model => model.TypeID)
+        <p>Add Quantity Type</p>
+        @Html.HiddenFor(model => model.QuantityTypeID)
         <div>
-            <p>Name:</p>
-            @Html.EditorFor(model => model.TypeName)
+            <p>Description:</p>
+            @Html.EditorFor(model => model.Description)
         </div>
-        @Html.ValidationMessageFor(model => model.TypeName)
-        <div id="multipleButtons">
-            <div id="saveButton">Save</div>
-        </div>
+        @Html.ValidationMessageFor(model => model.Description)
     }
+    <div id="addButton">Add</div>
 </div>
-@if (Session["Referrer"].ToString().Contains("Details"))
-{
-    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())@Session["Query"].ToString()'">Back</div>
-}
-else
-{
-    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
-}
+<div id="backButton" onclick="window.location = '@Request.UrlReferrer.ToString()'">Back</div>
+
 <style>
+    form {
+        top: 0;
+        left: 0;
+    }
+
     .field-validation-error {
         display: block;
         word-wrap: break-word;
@@ -114,7 +109,7 @@ else
         display: none;
     }
 
-    #saveButton {
+    #addButton {
         position: relative;
         display: inline-block !important;
         text-decoration: none;
@@ -133,7 +128,7 @@ else
         transition: background-color linear 0.5s;
     }
 
-        #saveButton:hover {
+        #addButton:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
@@ -167,7 +162,7 @@ else
     }
 
     .breadcrumb-item {
-        font-size: 20px;
+        font-size: 25px;
     }
 
     .breadcrumb {
@@ -191,7 +186,7 @@ else
             display: table;
             font-family: 'Raleway', sans-serif;
             font-weight: 200;
-            font-size: 20px;
+            font-size: 25px;
             text-decoration: none !important;
             color: #5a9ad6;
             line-height: 61px;
@@ -212,23 +207,24 @@ else
             color: #5a9ad6;
         }
 </style>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#saveButton').on('click', function () {
-            swal({
-                title: "Are you sure?",
-                icon: "info",
-                buttons: [
-                    true,
-                    "Yes",
-                ],
-                closeOnClickOutside: false,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    $('#myForm').submit();
-                }
-            });
+
+<script>
+    $("#addButton").click(function (event) {
+        swal({
+            title: "Are you sure?",
+            icon: "info",
+            buttons: [
+                true,
+                "Yes",
+            ],
+            closeOnClickOutside: false,
         })
+        .then((willDelete) => {
+            if (willDelete) {
+                $('#myForm').submit();
+            }
+        });
     });
+
+    $("#addButton").css({ 'flex-basis': '' });
 </script>

@@ -10,7 +10,7 @@ namespace CompuData.Models
     public class QuantityType
     {
         [Required(ErrorMessage = "The Quanity Type ID is required")]
-        public int QuatityTypeID { get; set; }
+        public int QuantityTypeID { get; set; }
 
         [Required(ErrorMessage = "The Quantity Type Description is required")]
         [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]
@@ -20,10 +20,10 @@ namespace CompuData.Models
         public string JavaScriptToRun { get; set; }
 
         public QuantityType() { }
-        public QuantityType(int id, string Descrip)
+        public QuantityType(int quatityTypeID, string Descrip)
         {
-            QuatityTypeID = id;
-            Description = Description;
+            QuantityTypeID = quatityTypeID;
+            Description = Descrip;
         }
         public static IEnumerable<CodeFirst.Quantity_Type> Data;
         public static IEnumerable<CodeFirst.Quantity_Type> GetData()
@@ -32,9 +32,9 @@ namespace CompuData.Models
 
             db.Configuration.LazyLoadingEnabled = false;
 
-            var Quantitytypes = db.Quantity_Type.ToList();
+            var quantityTypes = db.Quantity_Type.ToList();
 
-            Data = Quantitytypes;
+            Data = quantityTypes;
             return Data;
         }
     }

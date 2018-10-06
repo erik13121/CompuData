@@ -37,9 +37,9 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public ActionResult RedirectToProjectDetails(string projectID)
+        public ActionResult RedirectToProjectDetailsArchived(string projectID)
         {
-            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "ProjectDetails", new { projectID = projectID });
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "ProjectDetailsArchived", new { projectID = projectID });
             return Json(new { Url = redirectUrl });
         }
 
