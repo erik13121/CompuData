@@ -1,32 +1,32 @@
 ﻿@{
     ViewBag.Title = "Index";
-    @model CompuData.Models.Funder_Org
+    @model CompuData.Models.Donor_Person
 }
 
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../FundersMenu">Funders</a></li>
-        <li class="breadcrumb-item"><a href="../GenerateTYLetterFunders">Generate Thank You Letter Template</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Thank You Letter Funder Organization</li>
+        <li class="breadcrumb-item"><a href="../DonorsMenu">Donors Menu</a></li>
+        <li class="breadcrumb-item"><a href="../GenerateTYLetterDonors">Generate Thank You Letter Template</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Thank You Letter Donor Person</li>
     </ol>
 </nav>
 
 @*<head>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-</head>*@
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    </head>*@
 
 @Html.Partial("_ProfilePartial")
 
 <div id="table_background">
-    <form action="FunderOrgTYLetter">
+    <form action="DonorPersonTYLetter" method="post">
         <p>Generate Thank You Letter Template</p>
         <div class="row">
-            <label class="control-label col-md-4" for="FunderOrgID">Funder Organization</label>
-            @Html.DropDownListFor(model => model.FunderOrgID, new SelectList(Model.FunderOrgs, "FunderOrgID", "OrgName"), Model.FunderOrgs.Count == 0 ? "Please Add Funder Org" : null)
+            <label class="control-label col-md-4" for="DonorPID">Donor Person</label>
+            @Html.DropDownListFor(model => model.DonorPID, new SelectList(Model.DonorPersons, "DonorPID", "FirstName"), Model.DonorPersons.Count == 0 ? "Please Add Donor Person" : null)
         </div>
         <input type="submit" id="addButton" value="Export Letter" />
     </form>
