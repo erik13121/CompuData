@@ -233,7 +233,7 @@
 {
     <script>
         $(document).ready(function () {
-            $('#equipmentTable tbody').on('click', 'tr', function () {
+            $('#table_id tbody').on('click', 'tr', function () {
                 var data = table.row(this).data();
                 var projectID = data["projectID"];
 
@@ -298,14 +298,14 @@ else
                                 success: function (data) {
                                     if (data.ErrorMessage == "Error")
                                     {
-                                        swal("This Request first needs to be approved by someone with Project Manager or CEO Access Level", {
+                                        swal("This Project first needs to be approved by someone with Project Manager or CEO Access Level", {
                                             icon: "warning",
                                             dangerMode: true
                                         });
                                     }
                                     else
                                     {
-                                        swal("You have successfully completed the Equipment Repair Request", {
+                                        swal("You have successfully completed the Project", {
                                             icon: "success",
                                         }).then((done) => {
                                             if (done) {

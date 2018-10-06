@@ -20,7 +20,7 @@
 <div id="details_holder">
     @using (@Html.BeginForm("Create", "AddEquipment", FormMethod.Post, new { id = "myForm" }))
     {
-        <p>Equipment Details</p>
+        <p>Add Equipment</p>
         @Html.HiddenFor(model => model.EquipmentID)
         <div>
             <p>Manufacturer Name:</p>
@@ -59,7 +59,7 @@
         </div>
     }
 </div>
-<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "SelectUser")'">Back</div>
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Equipments")'">Back</div>
 <style>
     .datepicker {
         background-color: white;
