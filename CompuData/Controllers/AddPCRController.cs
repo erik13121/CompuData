@@ -72,18 +72,18 @@ namespace CompuData.Controllers
                 //OrderLine
                 foreach (var item in pcrdetails)
                 {
-                    CodeFirst.Petty_Cash_Requisition_Line FUckARrie = new CodeFirst.Petty_Cash_Requisition_Line();
-                    FUckARrie.RequisitionID = (int)newPCR.RequisitionID;
-                    FUckARrie.LineID = LineID;
-                    FUckARrie.Details = item.Details;
-                    FUckARrie.Quantity = (int)item.Quantity;
-                    FUckARrie.UnitPrice = (decimal)item.UnitPrice;
-                    FUckARrie.Total = decimal.Parse(item.Total.ToString().Substring(1, item.Total.ToString().Length - 1));
-                    FUckARrie.SupplierID = (int)item.SupplierID;
+                    CodeFirst.Petty_Cash_Requisition_Line tempLine = new CodeFirst.Petty_Cash_Requisition_Line();
+                    tempLine.RequisitionID = (int)newPCR.RequisitionID;
+                    tempLine.LineID = LineID;
+                    tempLine.Details = item.Details;
+                    tempLine.Quantity = (int)item.Quantity;
+                    tempLine.UnitPrice = (decimal)item.UnitPrice;
+                    tempLine.Total = decimal.Parse(item.Total.ToString().Substring(1, item.Total.ToString().Length - 1));
+                    tempLine.SupplierID = (int)item.SupplierID;
 
-                    Sum += decimal.Parse(item.Total.ToString().Substring(1, item.Total.ToString().Length));
+                    Sum += decimal.Parse(item.Total.ToString().Substring(1, item.Total.ToString().Length - 1));
                     LineID++;
-                    db.Petty_Cash_Requisition_Line.Add(FUckARrie);
+                    db.Petty_Cash_Requisition_Line.Add(tempLine);
                 }
 
                 newPCR.TotalAmount = Sum;

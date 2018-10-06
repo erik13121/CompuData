@@ -22,7 +22,7 @@ namespace CompuData.Controllers
                 var myProjectID = db.Projects.Where(i => i.ProjectID == myPCR.ProjectID).FirstOrDefault();
 
                 myModel.RequisitionID = myPCR.RequisitionID;
-                myModel.ReqDate = DateTime.Parse(myPCR.ReqDate.Value.ToString("yyyy-MM-dd"));
+                myModel.ReqDate = myPCR.ReqDate.Value;
                 myModel.ApprovalStatus = myPCR.ApprovalStatus;
                 myModel.SupplierID = mySupplierID.SupplierID;
                 myModel.ProjectID = myProjectID.ProjectID;
@@ -31,6 +31,8 @@ namespace CompuData.Controllers
                 myModel.ProjectName = db.Projects.Where(i => i.ProjectID == myProjectID.ProjectID).FirstOrDefault().ProjectName;
                 myModel.Initials = db.Users.Where(i => i.UserID == myUserID.UserID).FirstOrDefault().Initials;
                 myModel.LastName = db.Users.Where(i => i.UserID == myUserID.UserID).FirstOrDefault().LastName;
+                myModel.TotalAmount = myPCR.TotalAmount;
+                myModel.Lines = myPCR.Petty_Cash_Requisition_Line.ToList();
 
             }
 

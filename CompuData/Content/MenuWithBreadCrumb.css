@@ -504,3 +504,12 @@ input[type=checkbox] {
     /* To center horizontally */
     margin: 0 25% !important;
 }
+
+.modal-backdrop {
+    z-index: 1040 !important;
+}
+
+.modal {
+    margin: 2px auto;
+    z-index: 1100 !important;
+}

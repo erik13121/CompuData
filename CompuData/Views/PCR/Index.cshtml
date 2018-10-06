@@ -15,10 +15,11 @@
 @Html.Partial("_ProfilePartial")
 
 <div id="table_background">
-    <p>Equipments</p>
+    <p>Petty Cash Requisitions</p>
     <table id="vehiclesTable" class="display"></table>
     <div id="multipleButtons">
         <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddPCR")'">Add Petty Cash Requisition</div>
+        <div id="approveButton" onclick="window.location.href = '@Url.Action("Index", "SelectPCR")'">Approve PCR</div>
     </div>
     <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "ProcurementMenu")'">Back</div>
 </div>
@@ -51,7 +52,7 @@
         flex-direction: row;
     }
 
-    #addButton {
+    #addButton, #approveButton {
         position: relative;
         display: inline-block;
         margin-left: auto;
@@ -72,7 +73,7 @@
         transition: background-color linear 0.5s;
     }
 
-        #addButton:hover {
+        #addButton:hover, #approveButton:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
@@ -236,6 +237,13 @@
                     searchable: true
                 },
                 {
+                    name: 'totalAmount',
+                    data: "totalAmount",
+                    title: "Total Amount",
+                    sortable: true,
+                    searchable: true
+                },
+                {
                     "targets": -1,
                     "data": null,
                     "defaultContent": '<i class="glyphicon glyphicon-eye-open"></i>',
@@ -284,7 +292,7 @@
         var requisitionID = data["requisitionID"];
 
         $.ajax({
-            url: '@Url.Action("RedirectToEquipmentDetails", "EquipmentDetails")',
+            url: '@Url.Action("RedirectToPCRDetails", "PCRDetails")',
             type: 'POST',
             data: { requisitionID: requisitionID },
             dataType: 'json',
@@ -300,7 +308,7 @@
         @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
 
         $.ajax({
-            url: '@Url.Action("RedirectToModifyPCRDetails", "ModifyPCRDetails")',
+            url: '@Url.Action("RedirectToModifyPCRDetails", "ModifyPCR")',
             type: 'POST',
             data: { requisitionID: requisitionID },
             dataType: 'json',

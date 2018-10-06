@@ -15,7 +15,7 @@
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
         <li class="breadcrumb-item"><a href="../ProcurementMenu">Procurement</a></li>
         <li class="breadcrumb-item"><a href="../PCR">Petty Cash Requisition</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Petty Cash Requisition Details</li>
+        <li class="breadcrumb-item active" aria-current="page">PCR Details</li>
     </ol>
 </nav>
 
@@ -35,19 +35,19 @@
                     <div class="card-body">
                         <div>
                             <p>Supplier Name:</p>
-                            @Html.TextBoxFor(model => model.SupplierID, new { @readonly = "readonly" })
+                            @Html.TextBoxFor(model => model.SupplierID, new { @readonly = "readonly", Value = Model.Name })
                         </div>
                         <div>
                             <p>Project:</p>
-                            @Html.TextBoxFor(model => model.ProjectID, new { @readonly = "readonly" })
+                            @Html.TextBoxFor(model => model.ProjectID, new { @readonly = "readonly", Value = Model.ProjectName })
                         </div>
                         <div>
                             <p>User Responsible:</p>
-                            @Html.TextBoxFor(model => model.UserID, new { @readonly = "readonly" })
+                            @Html.TextBoxFor(model => model.UserID, new { @readonly = "readonly", Value = Model.Initials + " " + Model.LastName })
                         </div>
                         <div>
                             <p>Date:</p>
-                            @Html.TextBoxFor(model => model.ReqDate, new { @readonly = "readonly" })
+                            @Html.EditorFor(model => model.ReqDate, new { htmlAttributes = new { @readonly = "readonly" } })
                         </div>
                         <div>
                             <p>Approval Status:</p>
@@ -55,7 +55,7 @@
                         </div>
                         <div>
                             <p>Total Amount:</p>
-                            @Html.TextBoxFor(model => model.TotalAmount, new { @readonly = "readonly" })
+                            @Html.TextBoxFor(model => model.TotalAmount, new { @readonly = "readonly", Value = "R" + Model.TotalAmount })
                         </div>
                     </div>
                 </div>
@@ -76,15 +76,17 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="5" style="text-align: left;">
-                                            <input type="button" class="btn btn-lg btn-block " id="addrow" value="Add Row" />
-                                        </td>
-                                    </tr>
-                                    <tr></tr>
-                                </tfoot>
+                                <tbody>
+                                    @foreach (var item in Model.Lines)
+                                    {
+                                        <tr>
+                                            <td>@item.Details</td>
+                                            <td>@item.Quantity</td>
+                                            <td>@item.UnitPrice</td>
+                                            <td>R @item.Total</td>
+                                        </tr>
+                                    }
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -93,10 +95,9 @@
         </div>
     </div>
     <div id="multipleButtons">
-        <a id="modifyButton" class="btn btn-dafault">Maintain</a>
-        <a id="removeButton" class="btn btn-default">Remove</a>
-        <a id="assignButton" class="btn btn-default">Assign Receipt</a>
-        <a id="approveButton" class="btn btn-default">Approve</a>
+        <div id="modifyButton">Maintain</div>
+        <div id="removeButton">Remove</div>
+        <div id="assignButton">Assign Receipt</div>
     </div>
 </div>
 
@@ -282,7 +283,7 @@
         flex-direction: row;
     }
 
-    #addButton {
+    #modifyButton, #assignButton, #removeButton, #approveButton {
         position: relative;
         z-index: 8000;
         text-decoration: none;
@@ -301,7 +302,7 @@
         transition: background-color linear 0.5s;
     }
 
-        #addButton:hover {
+        #modifyButton:hover, #assignButton:hover, #removeButton:hover, #approveButton:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
@@ -496,118 +497,92 @@
         })
     })
 
-    $("#addButton").click(function (event) {
-        event.preventDefault();
+    $(document).ready(function() {
+        $('#modifyButton').on('click', function () {
+            var requisitionID = @Model.RequisitionID;
+            @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);
+                Session["Query"] = Request.Url.Query;}
 
-        var pcrdetails = [];
-        pcrdetails.length = 0;
-
-        $.each($("#table_id tbody tr"), function () {
-            pcrdetails.push({
-                //RequisitionID: $("#RequisitionID").val(),
-                SupplierID: parseInt($("#SupplierID").val()),
-                Details: $(this).find('td:eq(0)').html(),
-                Quantity: $(this).find('td:eq(1)').html(),
-                UnitPrice: $(this).find('td:eq(2)').html(),
-                Total: $(this).find('td:eq(3)').html()
+            $.ajax({
+                url: '@Url.Action("RedirectToModifyPCRDetails", "ModifyPCR")',
+                type: 'POST',
+                data: { requisitionID: requisitionID },
+                dataType: 'json',
+                success: function (data) {
+                    window.location.href = data.Url;
+                }
             });
         });
 
-        var data = JSON.stringify({
-            //RequisitionID: $("#RequisitionID").val(),
-            SupplierID: $("#SupplierID").val(),
-            UserID: $("#UserID").val(),
-            ProjectID: $("#ProjectID").val(),
-            ReqDate: $("#datepicker").val(),
-            pcrdetails: pcrdetails
+        $('#approveButton').on('click', function () {
+            var requisitionID = @Model.RequisitionID;
+
+            swal({
+                title: "Are you sure you want to approve this Petty Cash Requisition?",
+                icon: "warning",
+                dangerMode: true,
+                buttons: [
+                    true,
+                    "Yes",
+                ],
+                closeOnClickOutside: false,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            url: '@Url.Action("Approve", "PCR")',
+                            type: 'POST',
+                            data: { requisitionID: requisitionID },
+                            dataType: 'json',
+                            success: function (data) {
+                                swal("You have successfully approved the Petty Cash Requisition", {
+                                    icon: "success",
+                                }).then((done) => {
+                                    window.location.href = data.Url;
+                                });
+                            }
+                        });
+                    }
+                });
         });
 
-        $.ajax({
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            type: 'POST',
-            url: '@Url.Action("SavePCRALL","AddPCR")',
-            data: data,
-            success: function (result) {
-                if (result.includes("success")) {
-                    swal(result, "success")
-                    .then(() => {
-                        window.location.href = "/PCR/Index";
-                    });
-                }
-                else {
-                    swal(result, "error")
-                    .then(() => {
-                        location.reload();
-                    });
-                }
-            },
-            error: function () {
-                alert("Error! Something Went Wrong")
-            }
-        });
-    });
+        $('#removeButton').on('click', function () {
+            var requisitionID = @Model.RequisitionID;
 
-    $("#addButton").css({ 'flex-basis': '' });
-
-    $(document).ready(function () {
-
-        $('#addrow').click(function () {
-            $("#newOrderModal").appendTo("body").modal("show");
-        })
-
-        $('#addItemToList').click(function (e) {
-            e.preventDefault();
-
-            var isAllValid = true;
-
-            if (!($('#quantity').val().trim() != '' && (parseInt($('#quantity').val()) || 0))) {
-                isAllValid = false;
-                $('#quantity').siblings('span.error').css('visibility', 'visible');
-                $('#quantity').addClass("is-invalid");
-            }
-            else {
-                $('#quantity').siblings('span.error').css('visibility', 'hidden');
-            }
-            if (!($('#unitprice').val().trim() != '' && (parseInt($('#unitprice').val()) || 0))) {
-                isAllValid = false;
-                $('#unitprice').siblings('span.error').css('visibility', 'visible');
-                $('#unitprice').addClass("is-invalid");
-
-            }
-            else {
-                $('#unitprice').siblings('span.error').css('visibility', 'hidden');
-            }
-
-            if (isAllValid) {
-                var Details = $("#details").val(),
-                    Quantity = $("#quantity").val(),
-                    UnitPrice = $("#unitprice").val(),
-                detailsTableBody = $("#table_id tbody");
-
-                var productItem = '<tr>' +
-                    '<td>' + Details + '</td>' +
-                    '<td>' + Quantity + '</td>' +
-                    '<td>' + UnitPrice + '</td>' +
-                    '<td>R' + (parseFloat(UnitPrice) * parseInt(Quantity)) + '</td>' +
-                    '<td>' + '<input type="button" class="ibtnDel btn btn-md btn-danger" value="Delete"/>' + '</td>' +
-                    '</tr>';
-                detailsTableBody.append(productItem);
-                clearItems();
-                $('#newOrderModal').modal('hide');
-            }
-
-        });
-
-        function clearItems() {
-            $("#details").val('');
-            $("#quantity").val('');
-            $("#unitprice").val('');
-        }
-
-        $(document).on('click', '.ibtnDel', function (e) {
-            e.preventDefault();
-            $(this).parents('tr').remove();
+            swal({
+                title: "Are you sure you want to delete this Petty Cash Requisition?",
+                icon: "warning",
+                dangerMode: true,
+                buttons: [
+                    true,
+                    "Yes",
+                ],
+                closeOnClickOutside: false,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            url: '@Url.Action("Delete", "PCR")',
+                            type: 'POST',
+                            data: { requisitionID: requisitionID },
+                            dataType: 'json',
+                            success: function (data) {
+                                if (data.Url != "Cascading error!") {
+                                    swal("You have successfully deleted the Petty Cash Requisition", {
+                                        icon: "success",
+                                    }).then(() => {
+                                        window.location.href = data.Url;
+                                    });
+                                }
+                                else {
+                                    swal("Cannot delete this due to it being used somewhere else in the system!", {
+                                        icon: "warning",
+                                    });
+                                }
+                            }
+                        });
+                    }
+                });
         });
     })
 </script>
