@@ -10,7 +10,7 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../DonationMenu">Donation Menu</a></li>
+        <li class="breadcrumb-item"><a href="../DonationsMenu">Donation Menu</a></li>
         <li class="breadcrumb-item"><a href="../QuantityType">Quantity Types</a></li>
         @if (Session["Referrer"] as string == "QuantityTypeDetails")
         {
@@ -23,7 +23,7 @@
 <div id="details_holder">
     @using (@Html.BeginForm("Update", "ModifyQuantityType", FormMethod.Post, new { id = "myForm" }))
     {
-        <p>Quantity Type Details</p>
+        <p>Modify Quantity Type</p>
         @Html.HiddenFor(model => model.QuantityTypeID)
         <div>
             <p>Name:</p>
