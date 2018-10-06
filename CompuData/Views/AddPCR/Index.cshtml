@@ -612,7 +612,7 @@
                     '<td>' + Details + '</td>' +
                     '<td>' + Quantity + '</td>' +
                     '<td>' + UnitPrice + '</td>' +
-                    '<td>R' + parseFloat((parseFloat(UnitPrice) * parseInt(Quantity))).toFixed(2) + '</td>' +
+                    '<td>R' + parseFloat(parseFloat(UnitPrice) * parseInt(Quantity)).toFixed(2) + '</td>' +
                     '<td>' + '<input type="button" class="ibtnDel btn btn-md btn-danger" value="Delete"/>' + '</td>' +
                     '</tr>';
                 detailsTableBody.append(productItem);

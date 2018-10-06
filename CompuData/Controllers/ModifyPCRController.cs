@@ -56,7 +56,7 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public ActionResult Modify(string requisitionID, string SupplierID, int UserID, int ProjectID, DateTime ReqDate, Models.PCRLine[] pcrdetails)
+        public ActionResult Modify(string RequisitionID, string SupplierID, int UserID, int ProjectID, DateTime ReqDate, Models.PCRLine[] pcrdetails)
         {
             try
             {
@@ -66,11 +66,10 @@ namespace CompuData.Controllers
                 if (pcrdetails != null && SupplierID != null && UserID != 0 && ProjectID != 0)
                 {
                     var db = new CodeFirst.CodeFirst();
-                    var intReqID = Int32.Parse(requisitionID);
+                    var intReqID = Int32.Parse(RequisitionID);
                     var myPCR = db.Petty_Cash_Requisition.Where(a => a.RequisitionID == intReqID).FirstOrDefault();
 
                     myPCR.RequisitionID = intReqID;
-                    myPCR.ApprovalStatus = "Not Approved";
                     myPCR.ReqDate = DateTime.Parse(ReqDate.ToString("yyyy-MM-dd"));
                     myPCR.SupplierID = Convert.ToInt32(SupplierID);
                     myPCR.ProjectID = ProjectID;

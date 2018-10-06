@@ -91,7 +91,7 @@
             </div>
         </div>
         <div id="multipleButtons">
-            <div id="addButton">Add Petty Cash Requisition</div>
+            <div id="addButton">Add EFT Requisition</div>
         </div>
     }
 </div>
@@ -464,7 +464,6 @@
         top: 0.25em;
     }
 </style>
-
 <script type="text/javascript">
     $(document).ready(function () {
         var contentPlacement = "-200px";
@@ -472,6 +471,7 @@
     });
 
     $('#datepicker').datepicker();
+    $('#datepicker').datepicker("setDate", new Date());
     $('#datepicker').datepicker("option", "maxDate", new Date());
 
     $(document).ready(function () {
@@ -503,9 +503,9 @@
                 //RequisitionID: $("#RequisitionID").val(),
                 SupplierID: parseInt($("#SupplierID").val()),
                 Details: $(this).find('td:eq(0)').html(),
-                Quantity: $(this).find('td:eq(1)').html(),
-                UnitPrice: $(this).find('td:eq(2)').html(),
-                Total: $(this).find('td:eq(3)').html()
+                QuantityEFT: $(this).find('td:eq(1)').html(),
+                UnitPriceEFT: parseFloat($(this).find('td:eq(2)').html()).toFixed(2),
+                TotalEFT: $(this).find('td:eq(3)').html()
             });
         });
 
@@ -514,7 +514,7 @@
             SupplierID: $("#SupplierID").val(),
             UserID: $("#UserID").val(),
             ProjectID: $("#ProjectID").val(),
-            ReqDate: $("#datepicker").val(),
+            Date: $("#datepicker").val(),
             pcrdetails: pcrdetails
         });
 
@@ -525,16 +525,16 @@
             url: '@Url.Action("SavePCRALL","AddEFTR")',
             data: data,
             success: function (result) {
-                if (result.includes("success"))
+                if (result.includes("Success"))
                 {
-                    swal(result, "success")
+                    swal(result, { icon: "success" })
                     .then(() => {
                         window.location.href = "/EFTR/Index";
                     });
                 }
                 else
                 {
-                    swal(result, "error")
+                    swal(result, { icon: "error" })
                     .then(() => {
                         location.reload();
                     });
@@ -549,6 +549,29 @@
     $("#addButton").css({ 'flex-basis': '' });
 
     $(document).ready(function () {
+        // Select your input element.
+        var quanity = document.getElementById('quanity');
+        var unitprice = document.getElementById('unitprice');
+
+        // Listen for input event on numInput.
+        quantity.onkeydown = function (e) {
+            if (!((e.keyCode > 95 && e.keyCode < 106)
+              || (e.keyCode > 47 && e.keyCode < 58)
+              || e.keyCode == 8)) {
+                return false;
+            }
+        }
+
+        // Listen for input event on numInput.
+        unitprice.onkeydown = function (e) {
+            if (!((e.keyCode > 95 && e.keyCode < 106)
+              || (e.keyCode > 47 && e.keyCode < 58)
+              || e.keyCode == 8
+              || e.keyCode == 190
+              || e.keyCode == 110)) {
+                return false;
+            }
+        }
 
         $('#addrow').click(function () {
             $("#newOrderModal").appendTo("body").modal("show");
@@ -580,14 +603,14 @@
             if (isAllValid) {
                 var Details = $("#details").val(),
                     Quantity = $("#quantity").val(),
-                    UnitPrice = $("#unitprice").val(),
+                    UnitPrice = parseFloat($("#unitprice").val()).toFixed(2),
                 detailsTableBody = $("#table_id tbody");
 
                 var productItem = '<tr>' +
                     '<td>' + Details + '</td>' +
                     '<td>' + Quantity + '</td>' +
                     '<td>' + UnitPrice + '</td>' +
-                    '<td>R' + (parseFloat(UnitPrice) * parseInt(Quantity)) + '</td>' +
+                    '<td>R' + parseFloat(parseFloat(UnitPrice) * parseInt(Quantity)).toFixed(2) + '</td>' +
                     '<td>' + '<input type="button" class="ibtnDel btn btn-md btn-danger" value="Delete"/>' + '</td>' +
                     '</tr>';
                 detailsTableBody.append(productItem);

@@ -14,7 +14,7 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
         <li class="breadcrumb-item"><a href="../ProcurementMenu">Procurement</a></li>
-        <li class="breadcrumb-item"><a href="../PCR">Petty Cash Requisition</a></li>
+        <li class="breadcrumb-item"><a href="../PCR">Petty Cash Requisitions</a></li>
         @if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "PCRDetails" : false)
         {
             <li class="breadcrumb-item"><a href="@Url.Action("Index", Session["Referrer"].ToString())@Session["Query"].ToString()">PCR Details</a></li>
@@ -118,7 +118,7 @@
         <div class="modal-dialog vertical-align-center">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4>Add Line Items</h4>
+                    <h4>Add Line Item</h4>
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span> <span class="sr-only">close</span></button>
                 </div>
                 <div id="modalBody" class="modal-body">
@@ -131,14 +131,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <label class="control-label col-md-4" id="textboxes"> Quantity</label>
+                        <label class="control-label col-md-4" id="textboxes">Quantity</label>
                         <div class="col-md-8">
                             <input type="number" id="quantity" placeholder="Quantity" class="form-control" autocomplete="off" />
                             <span class="error">Quantity required</span>
                         </div>
                     </div>
                     <div class="row">
-                        <label class="control-label col-md-4" id="textboxes"> Unit Price(R)</label>
+                        <label class="control-label col-md-4" id="textboxes">Unit Price(R)</label>
                         <div class="col-md-8">
                             <input type="number" id="unitprice" placeholder="Unit Price" class="form-control" />
                             <span class="error">Unit Price is required</span>
@@ -584,8 +584,6 @@ else if (Session["Referrer"] != null)
             pcrdetails: pcrdetails
         });
 
-        console.log(data);
-
         $.ajax({
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
@@ -618,6 +616,8 @@ else if (Session["Referrer"] != null)
         // Select your input element.
         var quanity = document.getElementById('quanity');
         var unitprice = document.getElementById('unitprice');
+        var quanityEdit = document.getElementById('quanityEdit');
+        var unitpriceEdit = document.getElementById('unitpriceEdit');
 
         // Listen for input event on numInput.
         quantity.onkeydown = function (e) {
@@ -630,6 +630,25 @@ else if (Session["Referrer"] != null)
 
         // Listen for input event on numInput.
         unitprice.onkeydown = function (e) {
+            if (!((e.keyCode > 95 && e.keyCode < 106)
+              || (e.keyCode > 47 && e.keyCode < 58)
+              || e.keyCode == 8
+              || e.keyCode == 190
+              || e.keyCode == 110)) {
+                return false;
+            }
+        }
+
+        quantityEdit.onkeydown = function (e) {
+            if (!((e.keyCode > 95 && e.keyCode < 106)
+              || (e.keyCode > 47 && e.keyCode < 58)
+              || e.keyCode == 8)) {
+                return false;
+            }
+        }
+
+        // Listen for input event on numInput.
+        unitpriceEdit.onkeydown = function (e) {
             if (!((e.keyCode > 95 && e.keyCode < 106)
               || (e.keyCode > 47 && e.keyCode < 58)
               || e.keyCode == 8

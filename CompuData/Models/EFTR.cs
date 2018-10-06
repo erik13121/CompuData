@@ -22,6 +22,7 @@ namespace CompuData.Models
         public string ReceiptFile { get; set; }
 
         [Column(TypeName = "date")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
         [RegularExpression("^[1-9]\\d{1,17}(\\.\\d{2}$)", ErrorMessage = "Total Amount must have between 1 and 18 characters and 2 decimal points")]
@@ -32,15 +33,27 @@ namespace CompuData.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int SupplierID { get; set; }
 
+        [Required(ErrorMessage = "A Project is required")]
         public int ProjectID { get; set; }
 
+        [Required(ErrorMessage = "A User is required")]
         public int UserID { get; set; }
+
+        public string Name { get; set; }
+
+        public string ProjectName { get; set; }
+
+        public string Initials { get; set; }
+
+        public string LastName { get; set; }
 
         public List<CodeFirst.Supplier> Suppliers { get; set; }
 
         public List<CodeFirst.Project> Projects { get; set; }
 
         public IEnumerable<SelectListItem> Users { get; set; }
+
+        public List<CodeFirst.EFT_Requisition_Line> Lines { get; set; }
 
         public string JavaScriptToRun { get; set; }
 

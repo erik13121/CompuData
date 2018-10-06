@@ -26,7 +26,7 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public JsonResult SavePCRALL(string SupplierID, int? UserID, int? ProjectID,bool? VATInclusive , DateTime? ReqDate , PCRLine[] pcrdetails)
+        public JsonResult SavePCRALL(string SupplierID, int? UserID, int? ProjectID, DateTime? ReqDate , PCRLine[] pcrdetails)
         {
             string result = "information is incomplete.";
             int LineID = 1;

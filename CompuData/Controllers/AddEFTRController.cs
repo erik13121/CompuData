@@ -26,7 +26,7 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public JsonResult SavePCRALL(string SupplierID, int UserID, int ProjectID, bool? VATInclusive, DateTime? Date, PCRLine[] pcrdetails)
+        public JsonResult SavePCRALL(string SupplierID, int UserID, int ProjectID, DateTime? Date, EFTRLine[] pcrdetails)
         {
             string result = "Error!information is incomplete";
             int LineID = 1;
@@ -42,7 +42,7 @@ namespace CompuData.Controllers
                     newPCR.RequisitionID = waduuu.RequisitionID + 1;
                     newPCR.ApprovedCEO = false;
                     newPCR.ApprovedProjectManger = false;
-                    newPCR.Date = DateTime.Parse(Date.Value.ToString("yyyy-MM-dd"));
+                    newPCR.Date = Date.Value;
                     newPCR.SupplierID = Convert.ToInt32(SupplierID);
                     newPCR.ProjectID = ProjectID;
                     newPCR.UserID = UserID;
@@ -52,52 +52,40 @@ namespace CompuData.Controllers
                     newPCR.RequisitionID = 1;
                     newPCR.ApprovedCEO = false;
                     newPCR.ApprovedProjectManger = false;
-                    newPCR.Date = DateTime.Parse(Date.Value.ToString("yyyy-MM-dd"));
+                    newPCR.Date = Date.Value;
                     newPCR.SupplierID = Convert.ToInt32(SupplierID);
                     newPCR.ProjectID = ProjectID;
                     newPCR.UserID = UserID;
                 }
-
-                //get list of all Suppliers
-                var supplierList = db.Suppliers.ToList();
-                //get list of all Projects
-                var projectLists = db.Projects.ToList();
-                //get list of all users
-                var userList = db.Users.AsEnumerable().Select(u => new SelectListItem
-                {
-                    Value = u.UserID.ToString(),
-                    Text = u.Initials + " " + u.LastName
-                }).ToList();
-
                 db.EFT_Requisition.Add(newPCR);
 
                 //OrderLine
                 foreach (var item in pcrdetails)
                 {
-                    CodeFirst.EFT_Requisition_Line FUckARrie = new CodeFirst.EFT_Requisition_Line();
-                    FUckARrie.RequisitionID = (int)newPCR.RequisitionID;
-                    FUckARrie.LineID = LineID;
-                    FUckARrie.Details = item.Details;
-                    FUckARrie.QuantityEFT = (int)item.Quantity;
-                    FUckARrie.UnitPriceEFT = (decimal)item.UnitPrice;
-                    FUckARrie.TotalEFT = decimal.Parse(item.Total.ToString().Substring(1, item.Total.ToString().Length));
-                    FUckARrie.SupplierID = (int)item.SupplierID;
+                    CodeFirst.EFT_Requisition_Line tempLine = new CodeFirst.EFT_Requisition_Line();
+                    tempLine.RequisitionID = (int)newPCR.RequisitionID;
+                    tempLine.LineID = LineID;
+                    tempLine.Details = item.Details;
+                    tempLine.QuantityEFT = (int)item.QuantityEFT;
+                    tempLine.UnitPriceEFT = (decimal)item.UnitPriceEFT;
+                    tempLine.TotalEFT = decimal.Parse(item.TotalEFT.ToString().Substring(1, item.TotalEFT.ToString().Length - 1));
+                    tempLine.SupplierID = (int)item.SupplierID;
 
-                    Sum += decimal.Parse(item.Total.ToString().Substring(1, item.Total.ToString().Length));
+                    Sum += decimal.Parse(item.TotalEFT.ToString().Substring(1, item.TotalEFT.ToString().Length - 1));
                     LineID++;
-                    db.EFT_Requisition_Line.Add(FUckARrie);
+                    db.EFT_Requisition_Line.Add(tempLine);
                 }
 
                 newPCR.TotalAmount = Sum;
 
                 if (Sum > 2000)
                 {
-                    result = "Total Amount is over R2000. Please Use EFT Requisition for this Transaction";
+                    db.SaveChanges();
+                    result = "Success! Order is complete!";
                 }
                 else
                 {
-                    db.SaveChanges();
-                    result = "Success! Order is complete!";
+                    result = "Total Amount is less than R2000. Please Use Petty Cash Requisition for this Transaction";
                 }
 
             }

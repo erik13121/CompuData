@@ -1,29 +1,24 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "SelectEFTR";
     Layout = "~/Views/Shared/_Layout.cshtml";
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
         <li class="breadcrumb-item"><a href="../ProcurementMenu">Procurement Menu</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Petty Cash Requisition</li>
+        <li class="breadcrumb-item"><a href="../EFTR">EFT Requisitions</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Select EFT</li>
     </ol>
 </nav>
 @Html.Partial("_ProfilePartial")
-
 <div id="table_background">
-    <p>Petty Cash Requisitions</p>
-    <table id="vehiclesTable" class="display"></table>
-    <div id="multipleButtons">
-        <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddPCR")'">Add Petty Cash Requisition</div>
-        <div id="approveButton" onclick="window.location.href = '@Url.Action("Index", "SelectPCR")'">Approve PCR</div>
-    </div>
-    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "ProcurementMenu")'">Back</div>
+    <p>Select EFT Requisition you wish to approve</p>
+    <table id="equipmentTable" class="display"></table>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "EFTR")'">Back</div>
 </div>
-
 <style>
     #table_background p {
         font-size: 25px;
@@ -42,21 +37,14 @@
         border-radius: 50px 50px 50px 50px;
     }
 
-    #vehiclesTable {
+    #equipmentTable {
         background-color: #5a9ad6;
-        font-size: 14px;
     }
 
-    #multipleButtons {
-        display: flex;
-        flex-direction: row;
-    }
-
-    #addButton, #approveButton {
+    #addButton {
         position: relative;
-        display: inline-block;
+        display: table;
         margin-left: auto;
-        margin-right: auto;
         bottom: 0;
         z-index: 10000;
         text-decoration: none;
@@ -73,32 +61,7 @@
         transition: background-color linear 0.5s;
     }
 
-        #addButton:hover, #approveButton:hover {
-            background-color: rgba(0, 255, 255, 0.4);
-        }
-
-    #addBookingButton {
-        position: relative;
-        display: inline-block;
-        margin-left: auto;
-        margin-right: auto;
-        bottom: 0;
-        z-index: 10000;
-        text-decoration: none;
-        color: white;
-        cursor: pointer;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        box-sizing: border-box;
-        border: solid white;
-        border-width: 2px;
-        border-radius: 50px 50px 50px 50px;
-        margin-top: 10px;
-        padding: 10px;
-        transition: background-color linear 0.5s;
-    }
-
-        #addBookingButton:hover {
+        #addButton:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
@@ -177,15 +140,17 @@
             color: #5a9ad6;
         }
 </style>
-
 <script>
     var table;
     $(document).ready(function () {
-        table = $('#vehiclesTable').DataTable({
+        table = $('#equipmentTable').DataTable({
             serverSide: true,
-            ajax: "/PCR/PageData",
+            ajax: "/EFTR/PageData",
             autoWidth: true,
             scrollX: true,
+            select: {
+                style: 'single'
+            },
             columns: [
                 {
                     name: 'requisitionID',
@@ -195,8 +160,8 @@
                     searchable: true
                 },
                 {
-                    name: 'reqDate',
-                    data: "reqDate",
+                    name: 'date',
+                    data: "date",
                     title: "Requisition Date",
                     sortable: true,
                     searchable: true
@@ -230,9 +195,16 @@
                     searchable: true
                 },
                 {
-                    name: 'approvalStatus',
-                    data: "approvalStatus",
-                    title: "Approval Status",
+                    name: 'approvalPM',
+                    data: "approvalPM",
+                    title: "Approval Project Manager",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'approvalCEO',
+                    data: "approvalCEO",
+                    title: "Approval CEO",
                     sortable: true,
                     searchable: true
                 },
@@ -265,96 +237,46 @@
         });
     });
 
-    @Model.JavaScriptToRun
-    function mySuccess() {
-        swal("You have successfully added a Petty Cash Requisition", {
-            icon: "success",
-        });
-    }
+    $(document).ready(function () {
+        $('#equipmentTable tbody').on('click', 'tr', function () {
+            var data = table.row(this).data();
+            var requisitionID = data["requisitionID"];
 
-    @TempData["js"];
-    function myUpdateSuccess() {
-        swal("You have successfully updated a Petty Cash Requisition", {
-            icon: "success",
-        });
-    }
-
-    $.ajax({
-        type: "POST",
-        url: '@Url.Action("SetTempData", "PCR")',
-        success: function () {
-
-        }
-    });
-
-    $('#vehiclesTable').on('click', '.glyphicon-eye-open', function () {
-        var data = table.row($(this).parents('tr')).data();
-        var requisitionID = data["requisitionID"];
-
-        $.ajax({
-            url: '@Url.Action("RedirectToPCRDetails", "PCRDetails")',
-            type: 'POST',
-            data: { requisitionID: requisitionID },
-            dataType: 'json',
-            success: function (data) {
-                window.location.href = data.Url; // your action should return an object having [redirecturl] property
-            }
-        });
-    });
-
-    $('#vehiclesTable').on('click', '.glyphicon-pencil', function () {
-        var data = table.row($(this).parents('tr')).data();
-        var requisitionID = data["requisitionID"];
-        @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
-
-        $.ajax({
-            url: '@Url.Action("RedirectToModifyPCRDetails", "ModifyPCR")',
-            type: 'POST',
-            data: { requisitionID: requisitionID },
-            dataType: 'json',
-            success: function (data) {
-                window.location.href = data.Url;
-            }
-        });
-    });
-
-    $('#vehiclesTable').on('click', '.glyphicon-trash', function () {
-        var data = table.row($(this).parents('tr')).data();
-        var requisitionID = data["requisitionID"];
-
-        swal({
-            title: "Are you sure you want to delete this Petty Cash Requisition?",
-            icon: "warning",
-            dangerMode: true,
-            buttons: [
-                true,
-                "Yes",
-            ],
-            closeOnClickOutside: false,
-        })
-            .then((willDelete) => {
-                if (willDelete) {
-                    $.ajax({
-                        url: '@Url.Action("Delete", "PCR")',
-                        type: 'POST',
-                        data: { requisitionID: requisitionID },
-                        dataType: 'json',
-                        success: function (data) {
-                            if (data.Url != "Cascading error!") {
-                                swal("You have successfully deleted the Petty Cash Requisition", {
-                                    icon: "success",
-                                }).then(() => {
-                                    window.location.href = data.Url;
-                                });
-                            }
-                            else {
-                                swal("There are Petty Cash Requisition Line Items still linked to this Requisition!", {
-                                    icon: "warning",
-                                });
-                            }
+            swal({
+                title: "Are you sure you want to approve this EFT Requisition?",
+                icon: "warning",
+                dangerMode: true,
+                buttons: [
+                    true,
+                    "Yes",
+                ],
+                closeOnClickOutside: false,
+            })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $.ajax({
+                                url: '@Url.Action("Approve", "EFTR")',
+                                type: 'POST',
+                                data: { requisitionID: requisitionID },
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (data.Result == "PM") {
+                                        swal("You have successfully approved the EFTR Requisition(PM)", {
+                                            icon: "success",
+                                        }).then((done) => {
+                                            window.location.href = data.Url;
+                                        });
+                                    } else {
+                                        swal("You have successfully approved the EFTR Requisition(CEO)", {
+                                            icon: "success",
+                                        }).then((done) => {
+                                            window.location.href = data.Url;
+                                        });
+                                    }
+                                }
+                            });
                         }
                     });
-                }
-            });
-    });
+        });
+    })
 </script>

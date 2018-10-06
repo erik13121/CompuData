@@ -13,7 +13,7 @@ namespace CompuData.Models
         public int DonationItemID { get; set; }
 
         [Required(ErrorMessage = "The Donation Item Description is required")]
-        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Only Text and spaces are allowed. No numbers or special characters allowed.")]
+        [RegularExpression("^[a-zA-Z0-9- ]*$", ErrorMessage = "No special characters allowed.")]
         [MaxLength(150, ErrorMessage = "Max of 150 characters allowed as the Donation Item Name")]
         public string Description { get; set; }
 

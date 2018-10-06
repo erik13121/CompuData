@@ -14,7 +14,7 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
         <li class="breadcrumb-item"><a href="../ProcurementMenu">Procurement</a></li>
-        <li class="breadcrumb-item"><a href="../PCR">Petty Cash Requisition</a></li>
+        <li class="breadcrumb-item"><a href="../PCR">Petty Cash Requisitions</a></li>
         <li class="breadcrumb-item active" aria-current="page">PCR Details</li>
     </ol>
 </nav>
@@ -98,47 +98,6 @@
         <div id="modifyButton">Maintain</div>
         <div id="removeButton">Remove</div>
         <div id="assignButton">Assign Receipt</div>
-    </div>
-</div>
-
-<div id="newOrderModal" class="modal">
-    <div class="vertical-alignment-helper">
-        <div class="modal-dialog vertical-align-center">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4>Add Line Items</h4>
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span> <span class="sr-only">close</span></button>
-                </div>
-                <div id="modalBody" class="modal-body">
-                    <input type="hidden" id="LineID" />
-                    <div class="row">
-                        <label class="control-label col-md-4" id="textboxes">Details</label>
-                        <div class="col-md-8">
-                            <input type="text" id="details" placeholder="Details" class="form-control" />
-                            <span class="error">Details required</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <label class="control-label col-md-4" id="textboxes"> Quantity</label>
-                        <div class="col-md-8">
-                            <input type="number" id="quantity" placeholder="Quantity" class="form-control" />
-                            <span class="error">Quantity required</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <label class="control-label col-md-4" id="textboxes"> Unit Price(R)</label>
-                        <div class="col-md-8">
-                            <input type="number" id="unitprice" placeholder="Unit Price" class="form-control" />
-                            <span class="error">Unit Price is required</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                    <button type="submit" class="btn btn-primary" id="addItemToList">Add Item To List</button>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -514,38 +473,6 @@
             });
         });
 
-        $('#approveButton').on('click', function () {
-            var requisitionID = @Model.RequisitionID;
-
-            swal({
-                title: "Are you sure you want to approve this Petty Cash Requisition?",
-                icon: "warning",
-                dangerMode: true,
-                buttons: [
-                    true,
-                    "Yes",
-                ],
-                closeOnClickOutside: false,
-            })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        $.ajax({
-                            url: '@Url.Action("Approve", "PCR")',
-                            type: 'POST',
-                            data: { requisitionID: requisitionID },
-                            dataType: 'json',
-                            success: function (data) {
-                                swal("You have successfully approved the Petty Cash Requisition", {
-                                    icon: "success",
-                                }).then((done) => {
-                                    window.location.href = data.Url;
-                                });
-                            }
-                        });
-                    }
-                });
-        });
-
         $('#removeButton').on('click', function () {
             var requisitionID = @Model.RequisitionID;
 
@@ -575,7 +502,7 @@
                                     });
                                 }
                                 else {
-                                    swal("Cannot delete this due to it being used somewhere else in the system!", {
+                                    swal("There are Petty Cash Requisition Line Items still linked to this Requisition!", {
                                         icon: "warning",
                                     });
                                 }

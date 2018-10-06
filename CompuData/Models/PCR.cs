@@ -52,10 +52,10 @@ namespace CompuData.Models
         public List<CodeFirst.Project> Projects { get; set; }
 
         public IEnumerable<SelectListItem> Users { get; set; }
-    
-        public string JavaScriptToRun { get; set; }
 
         public List<CodeFirst.Petty_Cash_Requisition_Line> Lines { get; set; }
+
+        public string JavaScriptToRun { get; set; }
 
         public PCR() { }
 
