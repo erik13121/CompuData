@@ -33,19 +33,24 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col">
+                        <div class="col text-center">
                             <button id="btnEdit" class="btn btn-default btn-sm pull-right">
-                                <span class="glyphicon glyphicon-pencil"></span> Edit
+                                <span class="glyphicon glyphicon-pencil"></span> Edit Booking
                             </button>
                         </div>
-                        <div class="col">
+                        <div class="col text-center">
                             <button id="btnAdjust" class="btn btn-default btn-sm pull-right">
                                 <span class="glyphicon glyphicon-pencil"></span> Adjust Pages Printed
                             </button>
                         </div>
-                        <div class="col text-right">
+                        <div class="col text-center">
+                            <button id="btnRemovePages" class="btn btn-default btn-sm pull-right">
+                                <span class="glyphicon glyphicon-trash"></span> Remove Pages Printed
+                            </button>
+                        </div>
+                        <div class="col text-center">
                             <button id="btnRemove" class="btn btn-default btn-sm pull-right">
-                                <span class="glyphicon glyphicon-trash"></span> Remove
+                                <span class="glyphicon glyphicon-trash"></span> Remove Booking
                             </button>
                         </div>
                     </div>
@@ -378,7 +383,6 @@
                     events.push({
                         title: moment(v.StartTime).format("H:mma") + "-" + moment(v.EndTime).format("H:mma"),
                         bookingid: v.BookingID,
-                        equipmentbookingid: v.EquipmentBookingID,
                         start: moment(v.DateBooked + " " + moment(v.StartTime).format("HH:mm:ss")).format("MM/DD/YYYY HH:mm:ss"),
                         end: moment(v.DateBooked + " " + moment(v.EndTime).format("HH:mm:ss")).format("MM/DD/YYYY HH:mm:ss"),
                         pagesprinted: v.PagesPrinted,
@@ -484,42 +488,88 @@
                                     var calendar = $('#calendar').fullCalendar('clientEvents', function (evt) {
                                         return evt.start.format("MM/DD/YYYY") == start.format("MM/DD/YYYY");
                                     });
+
                                     var target = start;
                                     var closest;
+                                    var latestEvent;
                                     $.each(calendar, function (index, c) {
                                         if (calendar.length > 1) {
-                                            if (moment(c.start).format('HH:mm') > moment(target).format('HH:mm')) {
-                                                if (closest == null) {
-                                                    closest = moment(c.start).format('H');
-                                                } else {
-                                                    if (moment(c.start).format('H') < closest) {
-                                                        closest = moment(c.start).format('H');
-                                                    }
+                                            if (latestEvent == null) {
+                                                latestEvent = moment(c.start).format('HH');
+                                            } else {
+                                                if (moment(c.start).format('HH') > latestEvent) {
+                                                    latestEvent = moment(c.start).format('HH');
                                                 }
                                             }
-                                        } else if (start.format("HH:mm") < moment(c.start).format("HH:mm")) {
-                                            $('#bookingEndTime').val("");
-                                            $('#bookingEndTime').timepicker('option', {
-                                                'minTime': start.format("h:mmA"),
-                                                'maxTime': moment(c.start).format("h:mmA"),
-                                                'showDuration': true,
-                                                step: 60
-                                            });
-                                            maxTime = moment(c.start).format("h:mmA");
-                                            return false;
                                         }
-                                        if(calendar.length - 1 == index) {
-                                            $('#bookingEndTime').val("");
-                                            $('#bookingEndTime').timepicker('option', {
-                                                'minTime': start.format("h:mmA"),
-                                                'maxTime': moment(closest, 'H').format("h:mmA"),
-                                                'showDuration': true,
-                                                step: 60
-                                            });
-                                            maxTime = moment(c.start).format("h:mmA");
-                                            return false;
+                                        else {
+                                            latestEvent = moment(c.start).format('HH');
                                         }
                                     });
+
+                                    if (moment(latestEvent, 'HH').format("HH:mmA") != moment(start).format("HH:mmA")) {
+                                        $.each(calendar, function (index, c) {
+                                            if (calendar.length > 1) {
+                                                if (moment(c.start).format('HH:mm') > moment(target).format('HH:mm')) {
+                                                    if (closest == null) {
+                                                        closest = moment(c.start).format('HH');
+                                                    } else if (moment(c.start).format('HH') < closest) {
+                                                        closest = moment(c.start).format('HH');
+                                                    }
+
+                                                }
+                                            } else if (start.format("HH:mm") < moment(c.start).format("HH:mm")) {
+                                                $('#bookingEndTime').val("");
+                                                $('#bookingEndTime').timepicker('option', {
+                                                    'minTime': start.format("HH:mmA"),
+                                                    'maxTime': moment(c.start).format("HH:mmA"),
+                                                    'showDuration': true,
+                                                    step: 60
+                                                });
+                                                maxTime = moment(c.start).format("HH:mmA");
+                                                return false;
+                                            }
+                                            if (calendar.length - 1 == index) {
+                                                if (moment(closest, 'HH').format("HH:mmA") == moment(start).format("HH:mmA") || closest == undefined) {
+                                                    $('#bookingEndTime').val("");
+                                                    $('#bookingEndTime').timepicker('option', {
+                                                        'minTime': start.format("HH:mmA"),
+                                                        'maxTime': maxTime,
+                                                        'showDuration': true,
+                                                        step: 60
+                                                    });
+                                                } else {
+                                                    $('#bookingEndTime').val("");
+                                                    $('#bookingEndTime').timepicker('option', {
+                                                        'minTime': start.format("HH:mmA"),
+                                                        'maxTime': moment(closest, 'HH').format("HH:mmA"),
+                                                        'showDuration': true,
+                                                        step: 60
+                                                    });
+                                                    maxTime = moment(closest, 'HH').format("HH:mmA");
+                                                }
+
+                                                return false;
+                                            }
+                                        });
+                                    } else {
+                                        $('#bookingEndTime').val("");
+                                        $('#bookingEndTime').timepicker('option', {
+                                            'minTime': start.format("HH:mmA"),
+                                            'maxTime': maxTime,
+                                            'showDuration': true,
+                                            step: 60
+                                        });
+                                    }
+                                    if (moment(latestEvent, 'HH').format("HH:mmA") < moment(start).format("HH:mmA")) {
+                                        $('#bookingEndTime').val("");
+                                        $('#bookingEndTime').timepicker('option', {
+                                            'minTime': start.format("HH:mmA"),
+                                            'maxTime': maxTime,
+                                            'showDuration': true,
+                                            step: 60
+                                        });
+                                    }
 
                                     $('#max').val(maxTime);
                                     $('#bookingEndTime').attr('placeholder', moment(start).add(1, 'hour').format("h:mmA") + ', if left empty');
@@ -547,7 +597,7 @@
                     if (calEvent.end != null) {
                         $description.append('<p style="display: inline; font-weight:bold"><b>End:</b></p> <p style="display: inline; font-weight:550">' + calEvent.end.format("hh:mma") + '</p><br>');
                     }
-                    if (calEvent.pagesprinted) {
+                    if (calEvent.pagesprinted != 0 && calEvent.pagesprinted != undefined && calEvent.pagesprinted != null) {
                         $description.append('<p style="display: inline; font-weight:bold"><b>Pages printed:</b></p> <p style="display: inline; font-weight:550">' + calEvent.pagesprinted + '</p><br>');
                     } else {
                         $description.append('<p style="display: inline; font-weight:bold"><b>Pages printed:</b></p> <p style="display: inline; font-weight:550">Not yet recorded</p><br>');
@@ -609,13 +659,129 @@
                 $('#bookingReasonEdit').attr('readonly', true);
                 $("#bookingStartTimeEdit").val(moment(selectedEvent.start).format('hh:mma'));
                 $('#bookingStartTimeEdit').attr('readonly', true);
-                $("#bookingEndTimeEdit").val(moment(selectedEvent.end).format('hh:mma'));
-                $("#bookingEndTimeEdit").timepicker({});
-                $("#bookingEndTimeEdit").timepicker('option', {
-                    'minTime': moment(selectedEvent.end).format('hh:mma'),
-                    'maxTime': selectedEvent.max,
-                    step: 60
-                });
+               
+                if (!(selectedEvent.max != null & selectedEvent.max != undefined && selectedEvent.max != 0)) {
+                    start = selectedEvent.start;
+                    $.each(businessHours, function (index, b) {
+                        if (jQuery.inArray(start.day(), b.dow) != -1) {
+                            var startTime = moment(start).format('HH:mm:ss');
+                            var inStartTime = moment(b.start).format('HH:mm:ss');
+                            var inEndTime = moment(b.end).format('HH:mm:ss');
+                            eventStart = start;
+                            if (startTime < inEndTime && startTime >= inStartTime) {
+                                $('#bookingEndTimeEdit').timepicker({
+                                    'minTime': moment(start).format("HH:mmA"),
+                                    'maxTime': moment(b.end).format("HH:mmA"),
+                                    'showDuration': true,
+                                    step: 60
+                                });
+
+                                $('#bookingEndTimeEdit').timepicker('option', {
+                                    'minTime': moment(start).format("HH:mmA"),
+                                    'maxTime': moment(b.end).format("HH:mmA"),
+                                    'showDuration': true,
+                                    step: 60
+                                });
+
+                                maxTime = moment(b.end).format("HH:mmA");
+
+                                var calendar = $('#calendar').fullCalendar('clientEvents', function (evt) {
+                                    return evt.start.format("MM/DD/YYYY") == start.format("MM/DD/YYYY");
+                                });
+
+                                var target = start;
+                                var closest;
+                                var latestEvent;
+                                $.each(calendar, function (index, c) {
+                                    if (calendar.length > 1) {
+                                        if (latestEvent == null) {
+                                            latestEvent = moment(c.start).format('HH');
+                                        } else {
+                                            if (moment(c.start).format('HH') > latestEvent) {
+                                                latestEvent = moment(c.start).format('HH');
+                                            }
+                                        }
+                                    } else {
+                                        latestEvent = moment(c.start).format('HH');
+                                    }
+                                });
+
+                                if (moment(latestEvent, 'HH').format("HH:mmA") != moment(start).format("HH:mmA")) {
+                                    $.each(calendar, function (index, c) {
+                                        if (calendar.length > 1) {
+                                            if (moment(c.start).format('HH:mm') > moment(target).format('HH:mm')) {
+                                                if (closest == null) {
+                                                    closest = moment(c.start).format('HH');
+                                                } else {
+                                                    if (moment(c.start).format('HH') < closest) {
+                                                        closest = moment(c.start).format('HH');
+                                                    }
+                                                }
+                                            }
+                                        } else if (start.format("HH:mm") < moment(c.start).format("HH:mm")) {
+                                            $('#bookingEndTimeEdit').timepicker('option', {
+                                                'minTime': start.format("HH:mmA"),
+                                                'maxTime': moment(c.start).format("HH:mmA"),
+                                                'showDuration': true,
+                                                step: 60
+                                            });
+                                            maxTime = moment(c.start).format("HH:mmA");
+                                            return false;
+                                        }
+                                        if (calendar.length - 1 == index) {
+                                            if (moment(closest, 'HH').format("HH:mmA") == moment(start).format("HH:mmA") || closest == undefined) {
+                                                $('#bookingEndTimeEdit').timepicker('option', {
+                                                    'minTime': start.format("HH:mmA"),
+                                                    'maxTime': maxTime,
+                                                    'showDuration': true,
+                                                    step: 60
+                                                });
+                                            } else {
+                                                $('#bookingEndTimeEdit').timepicker('option', {
+                                                    'minTime': start.format("HH:mmA"),
+                                                    'maxTime': moment(closest, 'HH').format("HH:mmA"),
+                                                    'showDuration': true,
+                                                    step: 60
+                                                });
+                                                maxTime = moment(closest, 'HH').format("HH:mmA");
+                                            }
+                                            return false;
+                                        }
+                                    });
+                                } else {
+                                    $('#bookingEndTimeEdit').timepicker('option', {
+                                        'minTime': start.format("HH:mmA"),
+                                        'maxTime': maxTime,
+                                        'showDuration': true,
+                                        step: 60
+                                    });
+                                }
+                                if (moment(latestEvent, 'HH').format("HH:mmA") < moment(start).format("HH:mmA")) {
+                                    $('#bookingEndTimeEdit').timepicker('option', {
+                                        'minTime': start.format("HH:mmA"),
+                                        'maxTime': maxTime,
+                                        'showDuration': true,
+                                        step: 60
+                                    });
+                                }
+
+
+                                $('#max').val(maxTime);
+                                $("#bookingEndTimeEdit").val(moment(selectedEvent.end).format("HH:mma"));
+                                $('#bookingEndTimeEdit').attr('placeholder', moment(start).add(1, 'hour').format("HH:mmA") + ', if left empty');
+                                return false;
+                            }
+                        }
+                    })
+                } else {
+                    $("#bookingEndTimeEdit").val(moment(selectedEvent.end).format('HH:mma'));
+                    $("#bookingEndTimeEdit").timepicker('option', {
+                        'minTime': moment(selectedEvent.end).format('HH:mma'),
+                        'maxTime': selectedEvent.max,
+                        step: 60
+                    });
+                }
+
                 $('#ddlProjectsEdit option').filter(function () {
                     return $(this).text() == selectedEvent.projectname;
                 })
@@ -627,7 +793,7 @@
 
                 $("#myModalSave").appendTo("body").modal('show');
             } else if (moment(selectedEvent.end).isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
-                swal("You cannot edit an Equipment Booking while is is currently busy.", "warning")
+                swal("You cannot edit an Equipment Booking while is is currently busy.", { icon: "warning" })
             } else {
                 var span = document.createElement("span");
                 span.innerHTML = "You cannot edit an Equipment Booking after it has already happened.<br/>"
@@ -655,11 +821,16 @@
                 $('#bookingProjectAdjust').attr('readonly', true);
                 $('#bookingUserAdjust').val(selectedEvent.username);
                 $('#bookingUserAdjust').attr('readonly', true);
+                if (selectedEvent.pagesprinted != null && selectedEvent.pagesprinted != 0) {
+                    $('#bookingPagesAdjust').val(selectedEvent.pagesprinted);
+                } else {
+                    $('#bookingPagesAdjust').val(0);
+                }
 
                 $("#myModalAdjust").appendTo("body").modal('show');
             }
             else {
-                swal("You cannot adjust the Pages Printed in an Equipment Booking before it has taken place.", "warning")
+                swal("You cannot adjust the Pages Printed in an Equipment Booking before it has taken place.", { icon: "warning" })
             }
         });
 
@@ -670,10 +841,57 @@
                 $('#calendar').fullCalendar('removeEvents', function (evt) {
                     return evt = selectedEvent;
                 });
+
+                $.ajax({
+                    url: '@Url.Action("Remove", "AddEquipmentBooking")',
+                    type: 'POST',
+                    data: "{ bookingID: " + JSON.stringify(selectedEvent.bookingid) + "}",
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.ResultValue != "Error") {
+                            swal("The Equipment Booking has successfully been removed", { icon: "success" });
+                        } else {
+                            swal("Something went wrong.", { icon: "error" });
+                        }
+                    }
+                });
+
+                $("#myModal").modal('hide');
             } else if (moment(selectedEvent.end).isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
-                swal("You cannot remove an Equipment Booking while is is currently busy.", "warning");
+                swal("You cannot remove an Equipment Booking while is is currently busy.", { icon: "warning" });
             } else {
-                swal("You cannot remove an Equipment Booking after it has already happened.", "warning");
+                swal("You cannot remove an Equipment Booking after it has already happened.", { icon: "warning" });
+            }
+        });
+
+        $('#btnRemovePages').on('click', function (e) {
+            e.preventDefault();
+
+            if (selectedEvent.pagesprinted != null || selectedEvent.pagesprinted != 0) {
+                calendar = selectedEvent;
+                calendar.odoend = null;
+                calendar.allDay = false;
+
+                $.ajax({
+                    url: '@Url.Action("RemovePages", "AddEquipmentBooking")',
+                    type: 'POST',
+                    data: "{ bookingID: " + JSON.stringify(selectedEvent.bookingid) + "}",
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.ResultValue != "Error") {
+                            swal("The Amount of Pages printed linked to this Booking has been successfully removed", { icon: "success" });
+                        } else {
+                            swal("Something went wrong.", { icon: "error" });
+                        }
+                    }
+                });
+
+                $("#calendar").fullCalendar('updateEvent', calendar);
+                swal("The Odometer reading linked to this Booking has been successfully removed", { icon: "success" });
+            } else {
+                swal("You cannot remove the Odometer Reading from the current booking as it has not been set yet.", { icon: "warning" });
             }
         });
 
@@ -697,8 +915,31 @@
             var endHour = getEndHour();
             var end = moment(eventStart).add(endHour - startHour, 'hour').format("MM/DD/YYYY HH:mm:ss");
 
+            var events = $("#calendar").fullCalendar('clientEvents');
+            var latestID;
+
+            $.each(events, function (index, e) {
+                if (latestID == 0 || latestID == null || latestID == undefined) {
+                    latestID = e.bookingid;
+                } else if (e.bookingid > latestID) {
+                    latestID = e.bookingid;
+                }
+            });
+
+            var object = {
+                BookingID: latestID + 1,
+                EquipmentBookingID: latestID + 1,
+                PagesPrinted: 0,
+                DateBooked: moment(start).format('MM/DD/YYYY'),
+                TimeIn: moment(start).format('HH:mm:ss'),
+                TimeOut: moment(end).format('HH:mm:ss'),
+                UserID: $('#ddlUsers option:selected').val(),
+                ProjectID: $('#ddlProjects option:selected').val()
+            };
+
             $("#calendar").fullCalendar('renderEvent',
                 {
+                    bookingid: latestID + 1,
                     title: moment(start).format("hh:mma") + "-" + moment(end).format("hh:mma"),
                     start: start,
                     end: end,
@@ -711,10 +952,25 @@
                     max: $('#max').val()
                 },
                 true);
+
+            $.ajax({
+                url: '@Url.Action("Add", "AddEquipmentBooking")',
+                type: 'POST',
+                data: '{booking: ' + JSON.stringify(object) + '}',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.ResultValue != "Error") {
+                        swal("The Equipment Booking has successfully been added", { icon: "success" });
+                    } else {
+                        swal("Something went wrong.", { icon: "error" });
+                    }
+                }
+            });
         }
 
         function doEditSubmit() {
-            $("#myModalSave").modal('hide');            
+            $("#myModalSave").modal('hide');
 
             calendar = selectedEvent;
             calendar.end = moment(moment(calendar.start.format("MM/DD/YYYY") + " " + $('#bookingEndTimeEdit').val(), "MM/DD/YYYY h:mma").format("MM/DD/YYYY HH:mm:ss"));
@@ -722,6 +978,28 @@
             calendar.projectname = $('#ddlProjectsEdit option:selected').text();
             calendar.username = $('#ddlUsersEdit option:selected').text();
             calendar.allDay = false;
+
+            var object = {
+                BookingID: selectedEvent.bookingid,
+                TimeOut: moment($('#bookingEndTimeEdit').val(), 'h:mma').format('HH:mm:ss'),
+                UserID: $('#ddlUsersEdit option:selected').val(),
+                ProjectID: $('#ddlProjectsEdit option:selected').val()
+            };
+
+            $.ajax({
+                url: '@Url.Action("Edit", "AddEquipmentBooking")',
+                type: 'POST',
+                data: '{booking: ' + JSON.stringify(object) + '}',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.ResultValue != "Error") {
+                        swal("The Equipment Booking has successfully been updated", { icon: "success" });
+                    } else {
+                        swal("Something went wrong.", { icon: "error" });
+                    }
+                }
+            });
 
             $("#calendar").fullCalendar('updateEvent', calendar);
         }
@@ -732,6 +1010,26 @@
             calendar = selectedEvent;
             calendar.pagesprinted = $('#bookingPagesAdjust').val();
             calendar.allDay = false;
+
+            var object = {
+                BookingID: selectedEvent.bookingid,
+                PagesPrinted: $('#bookingPagesAdjust').val()
+            };
+
+            $.ajax({
+                url: '@Url.Action("Adjust", "AddEquipmentBooking")',
+                type: 'POST',
+                data: '{booking: ' + JSON.stringify(object) + '}',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.ResultValue != "Error") {
+                        swal("The amount of Pages Printed in the Booking has successfully been updated", { icon: "success" });
+                    } else {
+                        swal("Something went wrong.", { icon: "error" });
+                    }
+                }
+            });
 
             $("#calendar").fullCalendar('updateEvent', calendar);
         }

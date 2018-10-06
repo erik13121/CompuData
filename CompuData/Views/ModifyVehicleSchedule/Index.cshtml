@@ -74,7 +74,7 @@
     </div>
     <div id="addButton">Save</div>
 </div>
-@if (Session["Referrer"].ToString().Contains("Details"))
+@if (Session["Referrer"] != null ? Session["Referrer"].ToString().Contains("Details") : false)
 {
     <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())@Session["Query"].ToString()'">Back</div>
 }
@@ -327,8 +327,6 @@ else
 </style>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#vehiclesTable').DataTable();
-
         $('#startTimeSlot').on('change', function () {
             $('#endTimeSlot').html('');
             var firstValue = parseInt($('#startTimeSlot').val());
@@ -342,6 +340,11 @@ else
                 }
             }
         });
+
+        $('#dayofWeek').val('@Model.Date');
+        $('#startTimeSlot').val('@Model.StartTime.Hours');
+        $('#startTimeSlot').trigger('change');
+        $('#endTimeSlot').val('@Model.EndTime.Hours');
 
         function myUpdateSuccess() {
             swal("You have successfully updated a Schedule Time Slot", {

@@ -154,6 +154,7 @@
             serverSide: true,
             ajax: "/VehicleSchedules/PageData",
             autoWidth: true,
+            scrollX: true,
             columns: [
                 {
                     name: 'scheduleID',
@@ -260,7 +261,7 @@
         var scheduleID = data["scheduleID"];
 
         $.ajax({
-            url: '@Url.Action("RedirectToScheduleDetails", "VehicleScheduleDetails")',
+            url: '@Url.Action("RedirectToVehicleScheduleDetails", "VehicleScheduleDetails")',
             type: 'POST',
             data: { scheduleID: scheduleID },
             dataType: 'json',

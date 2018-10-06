@@ -333,17 +333,6 @@
             }
         });
 
-        @*sendThrough = function () {
-            $.ajax({
-                url: '@Url.Action("AddDate", "AddVehicleSchedule")',
-                type: 'POST',
-                data: { day: $('#dayofWeek').val(), startTime: $('#startTimeSlot').val(), endTime: $('#endTimeSlot').val(), vehicleID: vehicleID },
-                success: function (data) {
-
-                }
-            });
-        }*@
-
         function mySuccess() {
             swal("You have successfully added a Schedule Time Slot to the Vehicle", {
                 icon: "success",

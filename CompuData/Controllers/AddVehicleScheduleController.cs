@@ -119,7 +119,7 @@ namespace CompuData.Controllers
                                     {
                                         db.Vehicle_Schedule_Line.Add(new CodeFirst.Vehicle_Schedule_Line
                                         {
-                                            Veh_Schedule_ID = 0,
+                                            Veh_Schedule_ID = 1,
                                             Date = day,
                                             StartTime = TimeSpan.Parse(actualStartTime),
                                             EndTime = TimeSpan.Parse(actualEndTime),
@@ -290,7 +290,7 @@ namespace CompuData.Controllers
                     {
                         db.Vehicle_Schedule_Line.Add(new CodeFirst.Vehicle_Schedule_Line
                         {
-                            Veh_Schedule_ID = 0,
+                            Veh_Schedule_ID = 1,
                             Date = day,
                             StartTime = TimeSpan.Parse(actualStartTime),
                             EndTime = TimeSpan.Parse(actualEndTime),
@@ -341,7 +341,7 @@ namespace CompuData.Controllers
                 {
                     db.Vehicle_Schedule_Line.Add(new CodeFirst.Vehicle_Schedule_Line
                     {
-                        Veh_Schedule_ID = 0,
+                        Veh_Schedule_ID = 1,
                         Date = day,
                         StartTime = TimeSpan.Parse(actualStartTime),
                         EndTime = TimeSpan.Parse(actualEndTime),

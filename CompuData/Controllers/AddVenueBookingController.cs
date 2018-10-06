@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -56,6 +57,7 @@ namespace CompuData.Controllers
                      join u in db.Users.ToList() on e.UserID equals u.UserID
                      select new
                      {
+                         BookingID = e.BookingID,
                          People = e.NumberofPeople,
                          DateBooked = e.DateBooked.ToString("MM/dd/yyyy"),
                          StartTime = e.StartTime,
@@ -106,6 +108,102 @@ namespace CompuData.Controllers
 
                 db.Configuration.LazyLoadingEnabled = false;
                 return Json(newData, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Add(Models.VenueBooking booking)
+        {
+            try
+            {
+                var db = new CodeFirst.CodeFirst();
+
+                db.Venue_Booking.Add(new CodeFirst.Venue_Booking
+                {
+                    VenueBookingID = booking.VenueBookingID
+                });
+
+                db.Venue_Booking_Line.Add(new CodeFirst.Venue_Booking_Line
+                {
+                    BookingID = booking.BookingID,
+                    VenueBookingID = booking.BookingID,
+                    VenueID = globalVenueID,
+                    NumberofPeople = booking.NumberofPeople,
+                    DateBooked = DateTime.ParseExact(booking.DateBooked, "MM/dd/yyyy", CultureInfo.InvariantCulture),
+                    StartTime = booking.StartTime,
+                    EndTime = booking.EndTime,
+                    UserID = booking.UserID,
+                    BuildingID = db.Venues.Where(v => v.VenueID == globalVenueID).FirstOrDefault().BuildingID,
+                    ProjectID = booking.ProjectID
+                });
+                db.SaveChanges();
+
+                return Json(new
+                {
+                    ResultValue = "Success"
+                });
+            }
+            catch
+            {
+                return Json(new
+                {
+                    ResultValue = "Error"
+                });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Models.VenueBooking booking)
+        {
+            try
+            {
+                var db = new CodeFirst.CodeFirst();
+
+                var adjBooking = db.Venue_Booking_Line.Where(v => v.BookingID == booking.BookingID).FirstOrDefault();
+                adjBooking.EndTime = booking.EndTime;
+                adjBooking.UserID = booking.UserID;
+                adjBooking.ProjectID = booking.ProjectID;
+
+                db.SaveChanges();
+
+                return Json(new
+                {
+                    ResultValue = "Success"
+                });
+            }
+            catch
+            {
+                return Json(new
+                {
+                    ResultValue = "Error"
+                });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Remove(string bookingID)
+        {
+            try
+            {
+                var db = new CodeFirst.CodeFirst();
+                var intBookingID = int.Parse(bookingID);
+                var theBookingID = db.Venue_Booking.Where(t => t.VenueBookingID == intBookingID).FirstOrDefault();
+                var booking = db.Venue_Booking_Line.Where(t => t.BookingID == intBookingID).FirstOrDefault();
+                db.Venue_Booking_Line.Remove(booking);
+                db.Venue_Booking.Remove(theBookingID);
+                db.SaveChanges();
+
+                return Json(new
+                {
+                    ResultValue = "Success"
+                });
+            }
+            catch
+            {
+                return Json(new
+                {
+                    ResultValue = "Fail"
+                });
             }
         }
     }

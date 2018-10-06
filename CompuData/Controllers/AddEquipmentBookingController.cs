@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -109,6 +110,154 @@ namespace CompuData.Controllers
 
                 db.Configuration.LazyLoadingEnabled = false;
                 return Json(newData, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Add(Models.EquipmentBooking booking)
+        {
+            try
+            {
+                var db = new CodeFirst.CodeFirst();
+
+                db.Equipment_Booking.Add(new CodeFirst.Equipment_Booking
+                {
+                    EquipmentBookingID = booking.EquipmentBookingID
+                });
+
+                db.Equipment_Booking_Line.Add(new CodeFirst.Equipment_Booking_Line
+                {
+                    BookingID = booking.BookingID,
+                    EquipmentBookingID = booking.BookingID,
+                    EquipmentID = globalEquipmentID,
+                    PagesPrinted = booking.PagesPrinted,
+                    DateBooked = DateTime.ParseExact(booking.DateBooked, "MM/dd/yyyy", CultureInfo.InvariantCulture),
+                    TimeIn = booking.TimeIn,
+                    TimeOut = booking.TimeOut,
+                    ProjectID = booking.ProjectID,
+                    UserID = booking.UserID
+                });
+                db.SaveChanges();
+
+                return Json(new
+                {
+                    ResultValue = "Success"
+                });
+            }
+            catch
+            {
+                return Json(new
+                {
+                    ResultValue = "Error"
+                });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Adjusted(Models.EquipmentBooking booking)
+        {
+            try
+            {
+                var db = new CodeFirst.CodeFirst();
+
+                var adjBooking = db.Equipment_Booking_Line.Where(v => v.BookingID == booking.BookingID).FirstOrDefault();
+                adjBooking.PagesPrinted = booking.PagesPrinted;
+
+                db.SaveChanges();
+
+                return Json(new
+                {
+                    ResultValue = "Success"
+                });
+            }
+            catch
+            {
+                return Json(new
+                {
+                    ResultValue = "Error"
+                });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Models.EquipmentBooking booking)
+        {
+            try
+            {
+                var db = new CodeFirst.CodeFirst();
+
+                var adjBooking = db.Equipment_Booking_Line.Where(v => v.BookingID == booking.BookingID).FirstOrDefault();
+                adjBooking.TimeOut = booking.TimeOut;
+                adjBooking.UserID = booking.UserID;
+                adjBooking.ProjectID = booking.ProjectID;
+
+                db.SaveChanges();
+
+                return Json(new
+                {
+                    ResultValue = "Success"
+                });
+            }
+            catch
+            {
+                return Json(new
+                {
+                    ResultValue = "Error"
+                });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult RemovePages(string bookingID)
+        {
+            try
+            {
+                var db = new CodeFirst.CodeFirst();
+
+                var intBookingID = Int32.Parse(bookingID);
+                var adjBooking = db.Equipment_Booking_Line.Where(v => v.BookingID == intBookingID).FirstOrDefault();
+                adjBooking.PagesPrinted = 0;
+
+                db.SaveChanges();
+
+                return Json(new
+                {
+                    ResultValue = "Success"
+                });
+            }
+            catch
+            {
+                return Json(new
+                {
+                    ResultValue = "Error"
+                });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Remove(string bookingID)
+        {
+            try
+            {
+                var db = new CodeFirst.CodeFirst();
+                var intBookingID = int.Parse(bookingID);
+                var theBookingID = db.Equipment_Booking.Where(t => t.EquipmentBookingID == intBookingID).FirstOrDefault();
+                var booking = db.Equipment_Booking_Line.Where(t => t.BookingID == intBookingID).FirstOrDefault();
+                db.Equipment_Booking_Line.Remove(booking);
+                db.Equipment_Booking.Remove(theBookingID);
+                db.SaveChanges();
+
+                return Json(new
+                {
+                    ResultValue = "Success"
+                });
+            }
+            catch
+            {
+                return Json(new
+                {
+                    ResultValue = "Fail"
+                });
             }
         }
     }

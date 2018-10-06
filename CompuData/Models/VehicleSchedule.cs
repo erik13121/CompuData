@@ -33,6 +33,12 @@ namespace CompuData.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int VehicleID { get; set; }
 
+        public string Brand { get; set; }
+
+        public string Model { get; set; }
+
+        public string NumberPlate { get; set; }
+
         public string JavaScriptToRun { get; set; }
 
         public VehicleSchedule() { }

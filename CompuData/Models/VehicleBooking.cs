@@ -9,7 +9,6 @@ namespace CompuData.Models
 {
     public class VehicleBooking
     {
-        [Key]
         [Required(ErrorMessage = "The Vehicle ID is required")]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -28,7 +27,7 @@ namespace CompuData.Models
         public int? OdoEnd { get; set; }
 
         [Required(ErrorMessage = "The Date Booked for is required")]
-        public DateTime DateBooked { get; set; }
+        public string DateBooked { get; set; }
 
         [Required(ErrorMessage = "The Start Time of booking is required")]
         public TimeSpan StartTime { get; set; }
@@ -53,13 +52,23 @@ namespace CompuData.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int UserID { get; set; }
 
+        public string Brand { get; set; }
+
+        public string Model { get; set; }
+
+        public string NumberPlate { get; set; }
+
+        public string UserName { get; set; }
+
+        public string ProjectName { get; set; }
+
         public List<CodeFirst.Project> Projects { get; set; }
         public List<CodeFirst.Service> Services { get; set; }
         public List<CodeFirst.User> Users { get; set; }
         public List<CodeFirst.Vehicle_Booking> VehicleBookings { get; set; }
         public string JavaScriptToRun { get; set; }
         public VehicleBooking() { }
-        public VehicleBooking(int id, string reason, int projID, int? odoEnd, DateTime dateBooked, TimeSpan startTime, TimeSpan endTime, int bookingID, int intervalID, int userID)
+        public VehicleBooking(int id, string reason, int projID, int? odoEnd, string dateBooked, TimeSpan startTime, TimeSpan endTime, int bookingID, int intervalID, int userID)
         {
             VehicleID = id;
             Reason = reason;

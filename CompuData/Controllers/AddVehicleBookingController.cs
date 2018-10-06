@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -111,6 +112,156 @@ namespace CompuData.Controllers
 
                 db.Configuration.LazyLoadingEnabled = false;
                 return Json(newData, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Add(Models.VehicleBooking booking)
+        {
+            try
+            {
+                var db = new CodeFirst.CodeFirst();
+
+                db.Vehicle_Booking.Add(new CodeFirst.Vehicle_Booking
+                {
+                    VehicleBookingID = booking.VehicleBookingID
+                });
+
+                db.Vehicle_Booking_Line.Add(new CodeFirst.Vehicle_Booking_Line
+                {
+                    VehicleBookingID = booking.VehicleBookingID,
+                    Reason = booking.Reason,
+                    ProjectID = booking.ProjectID,
+                    OdoEnd = booking.OdoEnd,
+                    DateBooked = DateTime.ParseExact(booking.DateBooked, "MM/dd/yyyy", CultureInfo.InvariantCulture),
+                    StartTime = booking.StartTime,
+                    EndTime = booking.EndTime,
+                    VehicleID = globalVehicleID,
+                    IntervalID = booking.IntervalID,
+                    UserID = booking.UserID
+                });
+                db.SaveChanges();
+
+                return Json(new
+                {
+                    ResultValue = "Success"
+                });
+            }
+            catch
+            {
+                return Json(new
+                {
+                    ResultValue = "Error"
+                });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Adjusted(Models.VehicleBooking booking)
+        {
+            try
+            {
+                var db = new CodeFirst.CodeFirst();
+
+                var adjBooking = db.Vehicle_Booking_Line.Where(v => v.VehicleBookingID == booking.VehicleBookingID).FirstOrDefault();
+                adjBooking.OdoEnd = booking.OdoEnd;
+
+                db.SaveChanges();
+
+                return Json(new
+                {
+                    ResultValue = "Success"
+                });
+            }
+            catch
+            {
+                return Json(new
+                {
+                    ResultValue = "Error"
+                });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Models.VehicleBooking booking)
+        {
+            try
+            {
+                var db = new CodeFirst.CodeFirst();
+
+                var adjBooking = db.Vehicle_Booking_Line.Where(v => v.VehicleBookingID == booking.VehicleBookingID).FirstOrDefault();
+                adjBooking.EndTime = booking.EndTime;
+                adjBooking.Reason = booking.Reason;
+                adjBooking.UserID = booking.UserID;
+                adjBooking.ProjectID = booking.ProjectID;
+
+                db.SaveChanges();
+
+                return Json(new
+                {
+                    ResultValue = "Success"
+                });
+            }
+            catch
+            {
+                return Json(new
+                {
+                    ResultValue = "Error"
+                });
+            }            
+        }
+
+        [HttpPost]
+        public ActionResult RemoveReading(string bookingID)
+        {
+            try
+            {
+                var db = new CodeFirst.CodeFirst();
+
+                var intBookingID = Int32.Parse(bookingID);
+                var adjBooking = db.Vehicle_Booking_Line.Where(v => v.VehicleBookingID == intBookingID).FirstOrDefault();
+                adjBooking.OdoEnd = 0;
+
+                db.SaveChanges();
+
+                return Json(new
+                {
+                    ResultValue = "Success"
+                });
+            }
+            catch
+            {
+                return Json(new
+                {
+                    ResultValue = "Error"
+                });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Remove(string bookingID)
+        {
+            try
+            {
+                var db = new CodeFirst.CodeFirst();
+                var intBookingID = int.Parse(bookingID);
+                var theBookingID = db.Vehicle_Booking.Where(t => t.VehicleBookingID == intBookingID).FirstOrDefault();
+                var booking = db.Vehicle_Booking_Line.Where(t => t.VehicleBookingID == intBookingID).FirstOrDefault();
+                db.Vehicle_Booking_Line.Remove(booking);
+                db.Vehicle_Booking.Remove(theBookingID);
+                db.SaveChanges();
+
+                return Json(new
+                {
+                    ResultValue = "Success"
+                });
+            }
+            catch
+            {
+                return Json(new
+                {
+                    ResultValue = "Fail"
+                });
             }
         }
     }

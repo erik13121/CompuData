@@ -121,6 +121,7 @@
                         <div class="form-group col pull-right">
                             <label for="bookingEndTimeEdit">End Time:</label>
                             <input type="text" id="bookingEndTimeEdit" class="form-control" />
+                            <input type="hidden" id="max" />
                         </div>
                     </div>
                     <div class="row">
@@ -312,6 +313,7 @@
             success: function (data) {
                 $.each(data, function (i, v) {
                     events.push({
+                        bookingid: v.BookingID,
                         title: v.ProjectName,
                         people: v.People,
                         start: moment(v.DateBooked + " " + moment(v.StartTime).format("HH:mm:ss")).format("MM/DD/YYYY HH:mm:ss"),
@@ -411,23 +413,47 @@
                                         step: 60
                                     });
 
+                                    maxTime = moment(b.end).format("h:mmA");
+
                                     var calendar = $('#calendar').fullCalendar('clientEvents', function (evt) {
                                         return evt.start.format("MM/DD/YYYY") == start.format("MM/DD/YYYY");
                                     });
                                     $.each(calendar, function (index, c) {
-                                        if (moment(c.start).format("MM/DD/YYYY") == start.format("MM/DD/YYYY")) {
-                                            if (start.format("HH:mm") < moment(c.start).format("HH:mm")) {
-                                                $('#bookingEndTime').val("");
-                                                $('#bookingEndTime').timepicker('option', {
-                                                    'minTime': start.format("h:mmA"),
-                                                    'maxTime': moment(c.start).format("h:mmA"),
-                                                    'showDuration': true,
-                                                    step: 60
-                                                });
-                                                return false;
+                                        if (calendar.length > 1) {
+                                            if (moment(c.start).format('HH:mm') > moment(target).format('HH:mm')) {
+                                                if (closest == null) {
+                                                    closest = moment(c.start).format('H');
+                                                } else {
+                                                    if (moment(c.start).format('H') < closest) {
+                                                        closest = moment(c.start).format('H');
+                                                    }
+                                                }
                                             }
+                                        } else if (start.format("HH:mm") < moment(c.start).format("HH:mm")) {
+                                            $('#bookingEndTime').val("");
+                                            $('#bookingEndTime').timepicker('option', {
+                                                'minTime': start.format("h:mmA"),
+                                                'maxTime': moment(c.start).format("h:mmA"),
+                                                'showDuration': true,
+                                                step: 60
+                                            });
+                                            maxTime = moment(c.start).format("h:mmA");
+                                            return false;
+                                        }
+                                        if (calendar.length - 1 == index) {
+                                            $('#bookingEndTime').val("");
+                                            $('#bookingEndTime').timepicker('option', {
+                                                'minTime': start.format("h:mmA"),
+                                                'maxTime': moment(closest, 'H').format("h:mmA"),
+                                                'showDuration': true,
+                                                step: 60
+                                            });
+                                            maxTime = moment(c.start).format("h:mmA");
+                                            return false;
                                         }
                                     });
+
+                                    $('#max').val(maxTime);
                                     $('#bookingEndTime').attr('placeholder', moment(start).add(1, 'hour').format("h:mmA") + ', if left empty');
                                     $('#createEventModal').appendTo("body").modal('show');
                                     return false;
@@ -498,19 +524,143 @@
                 $('#bookingLocationEdit').attr('readonly', true);
                 $("#bookingStartTimeEdit").val(moment(selectedEvent.start).format('hh:mma'));
                 $('#bookingStartTimeEdit').attr('readonly', true);
-                $("#bookingEndTimeEdit").val(moment(selectedEvent.end).format('hh:mma'));
-                $("#bookingEndTimeEdit").timepicker({});
-                $("#bookingEndTimeEdit").timepicker('option', {
-                    'minTime': moment(selectedEvent.end).format('hh:mma')
-                });
+                
+                if (!(selectedEvent.max != null & selectedEvent.max != undefined && selectedEvent.max != 0)) {
+                    start = selectedEvent.start;
+                    $.each(businessHours, function (index, b) {
+                        if (jQuery.inArray(start.day(), b.dow) != -1) {
+                            var startTime = moment(start).format('HH:mm:ss');
+                            var inStartTime = moment(b.start).format('HH:mm:ss');
+                            var inEndTime = moment(b.end).format('HH:mm:ss');
+                            eventStart = start;
+                            if (startTime < inEndTime && startTime >= inStartTime) {
+                                $('#bookingEndTimeEdit').timepicker({
+                                    'minTime': moment(start).format("HH:mmA"),
+                                    'maxTime': moment(b.end).format("HH:mmA"),
+                                    'showDuration': true,
+                                    step: 60
+                                });
+
+                                $('#bookingEndTimeEdit').timepicker('option', {
+                                    'minTime': moment(start).format("HH:mmA"),
+                                    'maxTime': moment(b.end).format("HH:mmA"),
+                                    'showDuration': true,
+                                    step: 60
+                                });
+
+                                maxTime = moment(b.end).format("HH:mmA");
+
+                                var calendar = $('#calendar').fullCalendar('clientEvents', function (evt) {
+                                    return evt.start.format("MM/DD/YYYY") == start.format("MM/DD/YYYY");
+                                });
+
+                                var target = start;
+                                var closest;
+                                var latestEvent;
+                                $.each(calendar, function (index, c) {
+                                    if (calendar.length > 1) {
+                                        if (latestEvent == null) {
+                                            latestEvent = moment(c.start).format('HH');
+                                        } else {
+                                            if (moment(c.start).format('HH') > latestEvent) {
+                                                latestEvent = moment(c.start).format('HH');
+                                            }
+                                        }
+                                    }
+                                    else {
+                                        latestEvent = moment(c.start).format('HH');
+                                    }
+                                });
+
+                                if (moment(latestEvent, 'HH').format("HH:mmA") != moment(start).format("HH:mmA")) {
+                                    $.each(calendar, function (index, c) {
+                                        if (calendar.length > 1) {
+                                            if (moment(c.start).format('HH:mm') > moment(target).format('HH:mm')) {
+                                                if (closest == null) {
+                                                    closest = moment(c.start).format('HH');
+                                                } else if (moment(c.start).format('HH') < closest) {
+                                                    closest = moment(c.start).format('HH');
+                                                }
+
+                                            }
+                                        } else if (start.format("HH:mm") < moment(c.start).format("HH:mm")) {
+                                            $('#bookingEndTime').val("");
+                                            $('#bookingEndTime').timepicker('option', {
+                                                'minTime': start.format("HH:mmA"),
+                                                'maxTime': moment(c.start).format("HH:mmA"),
+                                                'showDuration': true,
+                                                step: 60
+                                            });
+                                            maxTime = moment(c.start).format("HH:mmA");
+                                            return false;
+                                        }
+                                        if (calendar.length - 1 == index) {
+                                            if (moment(closest, 'HH').format("HH:mmA") == moment(start).format("HH:mmA") || closest == undefined) {
+                                                $('#bookingEndTime').val("");
+                                                $('#bookingEndTime').timepicker('option', {
+                                                    'minTime': start.format("HH:mmA"),
+                                                    'maxTime': maxTime,
+                                                    'showDuration': true,
+                                                    step: 60
+                                                });
+                                            } else {
+                                                $('#bookingEndTime').val("");
+                                                $('#bookingEndTime').timepicker('option', {
+                                                    'minTime': start.format("HH:mmA"),
+                                                    'maxTime': moment(closest, 'HH').format("HH:mmA"),
+                                                    'showDuration': true,
+                                                    step: 60
+                                                });
+                                                maxTime = moment(closest, 'HH').format("HH:mmA");
+                                            }
+
+                                            return false;
+                                        }
+                                    });
+                                } else {
+                                    $('#bookingEndTime').val("");
+                                    $('#bookingEndTime').timepicker('option', {
+                                        'minTime': start.format("HH:mmA"),
+                                        'maxTime': maxTime,
+                                        'showDuration': true,
+                                        step: 60
+                                    });
+                                }
+                                if (moment(latestEvent, 'HH').format("HH:mmA") < moment(start).format("HH:mmA")) {
+                                    $('#bookingEndTime').val("");
+                                    $('#bookingEndTime').timepicker('option', {
+                                        'minTime': start.format("HH:mmA"),
+                                        'maxTime': maxTime,
+                                        'showDuration': true,
+                                        step: 60
+                                    });
+                                }
+
+
+                                $('#max').val(maxTime);
+                                $("#bookingEndTimeEdit").val(moment(selectedEvent.end).format("HH:mma"));
+                                $('#bookingEndTimeEdit').attr('placeholder', moment(start).add(1, 'hour').format("HH:mmA") + ', if left empty');
+                                return false;
+                            }
+                        }
+                    })
+                } else {
+                    $("#bookingEndTimeEdit").val(moment(selectedEvent.end).format('HH:mma'));
+                    $("#bookingEndTimeEdit").timepicker('option', {
+                        'minTime': moment(selectedEvent.end).format('HH:mma'),
+                        'maxTime': selectedEvent.max,
+                        step: 60
+                    });
+                }
+                
                 $("#bookingPeopleEdit").val(selectedEvent.people);
 
                 $("#myModalSave").appendTo("body").modal('show');
             }
             else if (moment(selectedEvent.end).isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
-                swal("You cannot edit a Venue Booking while is is currently busy.", "warning")
+                swal("You cannot edit a Venue Booking while is is currently busy.", { icon: "warning" })
             } else {
-                swal("You cannot edit a Venue Booking after it has already happened.", "info")
+                swal("You cannot edit a Venue Booking after it has already happened.", { icon: "info" })
             }
         });
 
@@ -521,10 +671,27 @@
                 $('#calendar').fullCalendar('removeEvents', function (evt) {
                     return evt = selectedEvent;
                 });
+
+                $.ajax({
+                    url: '@Url.Action("Remove", "AddVenueBooking")',
+                    type: 'POST',
+                    data: "{ bookingID: " + JSON.stringify(selectedEvent.bookingid) + "}",
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.ResultValue != "Error") {
+                            swal("The Venue Booking has successfully been removed", { icon: "success" });
+                        } else {
+                            swal("Something went wrong.", { icon: "error" });
+                        }
+                    }
+                });
+
+                $("#myModal").modal('hide');
             } else if (moment(selectedEvent.end).isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
-                swal("You cannot remove a Venue Booking while is is currently busy.", "warning");
+                swal("You cannot remove a Venue Booking while is is currently busy.", { icon: "warning" });
             } else {
-                swal("You cannot remove a Venue Booking after it has already happened.", "warning");
+                swal("You cannot remove a Venue Booking after it has already happened.", { icon: "warning" });
             }
         });
 
@@ -553,6 +720,29 @@
             else {
                 people = $('#bookingPeople').val();
             }
+
+            var events = $("#calendar").fullCalendar('clientEvents');
+            var latestID;
+
+            $.each(events, function (index, e) {
+                if (latestID == 0 || latestID == null || latestID == undefined) {
+                    latestID = e.bookingid;
+                } else if (e.bookingid > latestID) {
+                    latestID = e.bookingid;
+                }
+            });
+
+            var object = {
+                BookingID: latestID + 1,
+                VenueBookingID: latestID + 1,
+                NumberofPeople: people,
+                DateBooked: moment(start).format('MM/DD/YYYY'),
+                StartTime: moment(start).format('HH:mm:ss'),
+                EndTime: moment(end).format('HH:mm:ss'),
+                UserID: $('#ddlUsers option:selected').val(),
+                ProjectID: $('#ddlProjects option:selected').val()
+            };
+
             $("#calendar").fullCalendar('renderEvent',
                 {
                     title: $('#ddlProjects option:selected').text(),
@@ -563,15 +753,31 @@
                     venue: venue,
                     building: building,
                     projectname: $('#ddlProjects option:selected').text(),
+                    max: $('#max').val(),
                     allDay: false
                 },
                 true);
+
+            $.ajax({
+                url: '@Url.Action("Add", "AddVenueBooking")',
+                type: 'POST',
+                data: '{booking: ' + JSON.stringify(object) + '}',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.ResultValue != "Error") {
+                        swal("The Venue Booking has successfully been added", { icon: "success" });
+                    } else {
+                        swal("Something went wrong.", { icon: "error" });
+                    }
+                }
+            });
 
             $('#bookingPeople').val("0");
         }
 
         function doEditSubmit() {
-            $("#myModalSave").modal('hide');            
+            $("#myModalSave").modal('hide');
 
             calendar = selectedEvent;
             calendar.end = moment(moment(calendar.start.format("MM/DD/YYYY") + " " + $('#bookingEndTimeEdit').val(), "MM/DD/YYYY h:mma").format("MM/DD/YYYY HH:mm:ss"));
@@ -579,6 +785,28 @@
             calendar.projectname = $('#ddlProjectsEdit option:selected').text();
             calendar.username = $('#ddlUsersEdit option:selected').text();
             calendar.allDay = false;
+
+            var object = {
+                BookingID: selectedEvent.bookingid,
+                EndTime: moment($('#bookingEndTimeEdit').val(), 'h:mma').format('HH:mm:ss'),
+                UserID: $('#ddlUsersEdit option:selected').val(),
+                ProjectID: $('#ddlProjectsEdit option:selected').val()
+            };
+
+            $.ajax({
+                url: '@Url.Action("Edit", "AddVenueBooking")',
+                type: 'POST',
+                data: '{booking: ' + JSON.stringify(object) + '}',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.ResultValue != "Error") {
+                        swal("The Venue Booking has successfully been updated", { icon: "success" });
+                    } else {
+                        swal("Something went wrong.", { icon: "error" });
+                    }
+                }
+            });
 
             $("#calendar").fullCalendar('updateEvent', calendar);
         }
