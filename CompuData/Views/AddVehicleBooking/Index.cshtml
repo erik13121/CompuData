@@ -467,9 +467,10 @@
                                 var inEndTime = moment(b.end).format('HH:mm:ss');
                                 eventStart = start;
                                 if (startTime < inEndTime && startTime >= inStartTime) {
-                                    brand = events[0].brand;
-                                    model = events[0].model;
-                                    numberplate = events[0].numberplate;
+                                    brand = '@Session["brand"]';
+                                    model = '@Session["model"]';
+                                    numberplate = '@Session["numberplate"]';
+
                                     $('#bookingStartTime').timepicker({
                                         step: 60,
                                     });
@@ -555,7 +556,7 @@
                                                     });
                                                     maxTime = moment(closest, 'HH').format("HH:mmA");
                                                 }
-                                                
+
                                                 return false;
                                             }
                                         });

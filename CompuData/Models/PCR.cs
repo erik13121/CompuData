@@ -18,6 +18,7 @@ namespace CompuData.Models
 
         [Required(ErrorMessage = "The Requisition Date is Required")]
         [Column(TypeName = "date")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ReqDate { get; set; }
 
         [MaxLength(255)]
@@ -53,6 +54,8 @@ namespace CompuData.Models
         public IEnumerable<SelectListItem> Users { get; set; }
     
         public string JavaScriptToRun { get; set; }
+
+        public List<CodeFirst.Petty_Cash_Requisition_Line> Lines { get; set; }
 
         public PCR() { }
 

@@ -40,13 +40,12 @@ namespace CompuData.Controllers
                            {
                                RequisitionID = d.RequisitionID ,
                                ApprovalStatus = d.ApprovalStatus,
-                               ReqDate = d.ReqDate,
+                               ReqDate = d.ReqDate.Value.ToString("dd/MM/yyyy"),
                                TotalAmount = d.TotalAmount,
                                SupplierName = s.Name,
                                ProjectName = a.ProjectName,
                                UserInitials = e.Initials,
-                               UserLastName = e.LastName,
-
+                               UserLastName = e.LastName
                            }).ToList();
 
             // Global filtering.
@@ -60,7 +59,8 @@ namespace CompuData.Controllers
             _item.SupplierName.ToUpper().Contains(request.Search.Value.ToUpper()) ||
             _item.ProjectName.ToUpper().Contains(request.Search.Value.ToUpper()) ||
             (_item.UserInitials != null ? _item.UserInitials.ToUpper().Contains(request.Search.Value.ToUpper()): false) ||
-            _item.UserLastName.ToUpper().Contains(request.Search.Value.ToUpper())
+            _item.UserLastName.ToUpper().Contains(request.Search.Value.ToUpper()) ||
+            _item.TotalAmount.ToString().Contains(request.Search.Value)
             );
 
             // Paging filtered data.
@@ -77,12 +77,25 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(string ReqID)
+        public ActionResult Approve(string requisitionID)
+        {
+            var db = new CodeFirst.CodeFirst();
+            var intRequisitionID = int.Parse(requisitionID);
+            var requisition = db.Petty_Cash_Requisition.Where(r => r.RequisitionID == intRequisitionID).FirstOrDefault();
+            requisition.ApprovalStatus = "Approved";
+            db.SaveChanges();
+
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "PCR");
+            return Json(new { Url = redirectUrl });
+        }
+
+        [HttpPost]
+        public ActionResult Delete(string requisitionID)
         {
             try
             {
                 var db = new CodeFirst.CodeFirst();
-                var intReqID = int.Parse(ReqID);
+                var intReqID = int.Parse(requisitionID);
                 var PCR = db.Petty_Cash_Requisition.Where(v => v.RequisitionID == intReqID).FirstOrDefault();
                 db.Petty_Cash_Requisition.Remove(PCR);
                 db.SaveChanges();
@@ -90,7 +103,7 @@ namespace CompuData.Controllers
                 var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "PCR");
                 return Json(new { Url = redirectUrl });
             }
-            catch
+            catch (Exception error)
             {
                 return Json(new { Url = "Cascading error!" });
             }

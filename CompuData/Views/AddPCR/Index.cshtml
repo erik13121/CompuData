@@ -116,7 +116,7 @@
                     <div class="row">
                         <label class="control-label col-md-4" id="textboxes"> Quantity</label>
                         <div class="col-md-8">
-                            <input type="number" id="quantity" placeholder="Quantity" class="form-control" />
+                            <input type="number" id="quantity" placeholder="Quantity" class="form-control" autocomplete="off"/>
                             <span class="error">Quantity required</span>
                         </div>
                     </div>
@@ -147,7 +147,6 @@
         color: red;
         font-size: 90%;
     }
-
 
     #newOrderModal {
         z-index: 1100;
@@ -472,6 +471,7 @@
     });
 
     $('#datepicker').datepicker();
+    $('#datepicker').datepicker('setDate', new Date());
     $('#datepicker').datepicker("option", "maxDate", new Date());
 
     $(document).ready(function () {
@@ -505,11 +505,9 @@
                 SupplierID: parseInt($("#SupplierID").val()),
                 Details: $(this).find('td:eq(0)').html(),
                 Quantity: $(this).find('td:eq(1)').html(),
-                UnitPrice: $(this).find('td:eq(2)').html(),
+                UnitPrice: parseFloat($(this).find('td:eq(2)').html()).toFixed(2),
                 Total: $(this).find('td:eq(3)').html()
             });
-            console.log($(this).find('td:eq(2)').html());
-            console.log($(this).find('td:eq(3)').html());
         });
 
 
@@ -521,7 +519,7 @@
             ReqDate: $("#datepicker").val(),
             pcrdetails: pcrdetails
         });
-        
+
         console.log(data);
 
         $.ajax({
@@ -531,16 +529,14 @@
             url: '@Url.Action("SavePCRALL","AddPCR")',
             data: data,
             success: function (result) {
-                if (result.includes("success"))
-                {
-                    swal(result, "success")
+                if (result.includes("Success")) {
+                    swal(result, { icon: "success" })
                     .then(() => {
                         window.location.href = "/PCR/Index";
                     });
                 }
-                else
-                {
-                    swal(result, "Error!")
+                else {
+                    swal(result, { icon: "error" })
                     .then(() => {
                         location.reload();
                     });
@@ -555,6 +551,29 @@
     $("#addButton").css({ 'flex-basis': '' });
 
     $(document).ready(function () {
+        // Select your input element.
+        var quanity = document.getElementById('quanity');
+        var unitprice = document.getElementById('unitprice');
+
+        // Listen for input event on numInput.
+        quantity.onkeydown = function (e) {
+            if (!((e.keyCode > 95 && e.keyCode < 106)
+              || (e.keyCode > 47 && e.keyCode < 58)
+              || e.keyCode == 8)) {
+                return false;
+            }
+        }
+
+        // Listen for input event on numInput.
+        unitprice.onkeydown = function (e) {
+            if (!((e.keyCode > 95 && e.keyCode < 106)
+              || (e.keyCode > 47 && e.keyCode < 58)
+              || e.keyCode == 8
+              || e.keyCode == 190
+              || e.keyCode == 110)) {
+                return false;
+            }
+        }
 
         $('#addrow').click(function () {
             $("#newOrderModal").appendTo("body").modal("show");
@@ -586,14 +605,14 @@
             if (isAllValid) {
                 var Details = $("#details").val(),
                     Quantity = $("#quantity").val(),
-                    UnitPrice = $("#unitprice").val(),
+                    UnitPrice = parseFloat($("#unitprice").val()).toFixed(2),
                 detailsTableBody = $("#table_id tbody");
 
                 var productItem = '<tr>' +
                     '<td>' + Details + '</td>' +
                     '<td>' + Quantity + '</td>' +
                     '<td>' + UnitPrice + '</td>' +
-                    '<td>R' + (parseFloat(UnitPrice) * parseInt(Quantity)) + '</td>' +
+                    '<td>R' + parseFloat((parseFloat(UnitPrice) * parseInt(Quantity))).toFixed(2) + '</td>' +
                     '<td>' + '<input type="button" class="ibtnDel btn btn-md btn-danger" value="Delete"/>' + '</td>' +
                     '</tr>';
                 detailsTableBody.append(productItem);

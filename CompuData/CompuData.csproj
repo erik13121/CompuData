@@ -696,6 +696,7 @@
     <Compile Include="Controllers\SelectEquipmentController.cs" />
     <Compile Include="Controllers\SelectEquipmentForProofController.cs" />
     <Compile Include="Controllers\SelectEquipmentForRepairRequestController.cs" />
+    <Compile Include="Controllers\SelectPCRController.cs" />
     <Compile Include="Controllers\SelectProjectController.cs" />
     <Compile Include="Controllers\SelectRequestController.cs" />
     <Compile Include="Controllers\SelectUserController.cs" />
@@ -1373,6 +1374,7 @@
     <Content Include="Views\QuantityTypeDetails\Index.cshtml" />
     <Content Include="Views\ModifyQuantityType\Index.cshtml" />
     <Content Include="Views\AddQuantityType\Index.cshtml" />
+    <Content Include="Views\SelectPCR\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -16,6 +16,12 @@ namespace CompuData.Controllers
             CodeFirst.CodeFirst db = new CodeFirst.CodeFirst();
 
             globalVenueID = Int32.Parse(venueID);
+
+            var venue = db.Venues.Where(e => e.VenueID == globalVenueID).FirstOrDefault();
+
+            Session["venue"] = venue.Name;
+            Session["building"] = venue.Building.Name;
+
             ViewBag.Users = db.Users
                     .AsEnumerable()
                     .Select(u => new SelectListItem
@@ -120,7 +126,7 @@ namespace CompuData.Controllers
 
                 db.Venue_Booking.Add(new CodeFirst.Venue_Booking
                 {
-                    VenueBookingID = booking.VenueBookingID
+                    VenueBookingID = booking.BookingID
                 });
 
                 db.Venue_Booking_Line.Add(new CodeFirst.Venue_Booking_Line

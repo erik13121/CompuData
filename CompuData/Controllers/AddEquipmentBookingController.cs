@@ -16,6 +16,13 @@ namespace CompuData.Controllers
             CodeFirst.CodeFirst db = new CodeFirst.CodeFirst();
 
             globalEquipmentID = Int32.Parse(equipmentID);
+
+            var equipment = db.Equipments.Where(e => e.EquipmentID == globalEquipmentID).FirstOrDefault();
+
+            Session["type"] = equipment.Equipment_Type.TypeName;
+            Session["manufacturer"] = equipment.ManufacturerName;
+            Session["model"] = equipment.ModelNumber;
+
             ViewBag.Users = db.Users
                     .AsEnumerable()
                     .Select(u => new SelectListItem
@@ -122,7 +129,7 @@ namespace CompuData.Controllers
 
                 db.Equipment_Booking.Add(new CodeFirst.Equipment_Booking
                 {
-                    EquipmentBookingID = booking.EquipmentBookingID
+                    EquipmentBookingID = booking.BookingID
                 });
 
                 db.Equipment_Booking_Line.Add(new CodeFirst.Equipment_Booking_Line

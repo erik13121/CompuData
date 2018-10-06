@@ -16,6 +16,13 @@ namespace CompuData.Controllers
             CodeFirst.CodeFirst db = new CodeFirst.CodeFirst();
 
             globalVehicleID = Int32.Parse(vehicleID);
+
+            var vehicle = db.Vehicles.Where(e => e.VehicleID == globalVehicleID).FirstOrDefault();
+
+            Session["brand"] = vehicle.Brand;
+            Session["model"] = vehicle.Model;
+            Session["numberplate"] = vehicle.NumberPlate;
+            
             ViewBag.Users = db.Users
                     .AsEnumerable()
                     .Select(u => new SelectListItem

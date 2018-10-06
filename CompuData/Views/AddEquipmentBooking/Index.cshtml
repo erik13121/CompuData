@@ -16,7 +16,7 @@
 </nav>
 @Html.Partial("_ProfilePartial")
 @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);
-            Session["Query"] = Request.Url.Query;}
+    Session["Query"] = Request.Url.Query;}
 <div id="table_background">
     <h2>Equipment Bookings</h2>
     <div id="calendar"></div>
@@ -462,9 +462,10 @@
                                     });
                                     $('#bookingStartTime').timepicker('setTime', moment(start).format("h:mmA"));
 
-                                    manufacturer = events[0].manufacturer;
-                                    model = events[0].model;
-                                    type = events[0].equiptype;
+                                    manufacturer = '@Session["manufacturer"]';
+                                    model = '@Session["model"]';
+                                    type = '@Session["type"]';
+
                                     $('#bookingReason').val(type + ": " + manufacturer + " " + model);
                                     $('#bookingReason').attr('readonly', true);
                                     $('#bookingStartTime').attr('readonly', true);
