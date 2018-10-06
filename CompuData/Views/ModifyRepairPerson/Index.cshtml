@@ -21,10 +21,11 @@
 </nav>
 
 @Html.Partial("_ProfilePartial")
+
 <div id="details_holder">
     @using (@Html.BeginForm("Modify", "ModifyRepairPerson", FormMethod.Post, new { id = "myForm" }))
     {
-        <p>Repair Person Details</p>
+        <p>Modify Repair Person</p>
         @Html.HiddenFor(model => model.RepPersonID)
         <div>
             <p>Name:</p>

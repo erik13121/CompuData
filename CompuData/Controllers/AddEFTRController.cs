@@ -2,6 +2,7 @@
 using CompuData.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -68,10 +69,10 @@ namespace CompuData.Controllers
                     tempLine.Details = item.Details;
                     tempLine.QuantityEFT = (int)item.QuantityEFT;
                     tempLine.UnitPriceEFT = (decimal)item.UnitPriceEFT;
-                    tempLine.TotalEFT = decimal.Parse(item.TotalEFT.ToString().Substring(1, item.TotalEFT.ToString().Length - 1));
+                    tempLine.TotalEFT = decimal.Parse((item.TotalEFT.ToString().Substring(1, item.TotalEFT.ToString().Length - 1)), CultureInfo.InvariantCulture);
                     tempLine.SupplierID = (int)item.SupplierID;
 
-                    Sum += decimal.Parse(item.TotalEFT.ToString().Substring(1, item.TotalEFT.ToString().Length - 1));
+                    Sum += decimal.Parse((item.TotalEFT.ToString().Substring(1, item.TotalEFT.ToString().Length - 1)), CultureInfo.InvariantCulture);
                     LineID++;
                     db.EFT_Requisition_Line.Add(tempLine);
                 }
