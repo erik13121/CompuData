@@ -1,77 +1,54 @@
 ﻿@{
-    ViewBag.Title = "ModifyProject";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    @model CompuData.Models.Project
-    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
-    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+    ViewBag.Title = "Index";
+    @model CompuData.Models.Refreshment 
 }
-<head>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-</head>
+
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../ProjectManagementMenu">Project Management Menu</a></li>
-        <li class="breadcrumb-item"><a href="../Project">Projects</a></li>
-        @if (Session["Referrer"] as string == "ProjectDetails")
-        {
-            <li class="breadcrumb-item"><a href="../ProjectDetails">Project Details</a></li>
-        }
-        <li class="breadcrumb-item active" aria-current="page">Modify Project Details</li>
+        <li class="breadcrumb-item"><a href="../VenueMenu">Buildings and Venues</a></li>
+        <li class="breadcrumb-item"><a href="../Refreshment">Refreshments</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Refreshments</li>
     </ol>
 </nav>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
 
 @Html.Partial("_ProfilePartial")
 
 <div id="details_holder">
-    @using (@Html.BeginForm("Modify", "ModifyProject", FormMethod.Post, new { id = "myForm" }))
+
+    @using (@Html.BeginForm("Create", "AddRefreshment", FormMethod.Post, new { id = "myForm" }))
     {
-        <p>Modify Project</p>
-        @Html.HiddenFor(model => model.ProjectID)
+        <p>Add Refreshment</p>
+        @Html.HiddenFor(model => model.RefreshmentID)
         <div>
-            <p>Project Name:</p>
-            @Html.EditorFor(model => model.ProjectName)
+            <p>Name:</p>
+            @Html.EditorFor(model => model.Name)
         </div>
-        @Html.ValidationMessageFor(model => model.ProjectName)
+        @Html.ValidationMessageFor(model => model.Name)
         <div>
-            <p>Project Description:</p>
-            @Html.EditorFor(model => model.ProjectDescription)
+            <p>Description:</p>
+            @Html.EditorFor(model => model.Description)
         </div>
-        @Html.ValidationMessageFor(model => model.ProjectDescription)
+        @Html.ValidationMessageFor(model => model.Description)
         <div>
-            <p>Start Date:</p>
-            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", @id = "datepicker1", placeholder = "Please Enter Date" } })
+            <p>Unit Price:</p>
+            @Html.EditorFor(model => model.UnitPrice, new { @placeholder = "Please Enter like this: '8,50'" })
         </div>
-        @Html.ValidationMessageFor(model => model.StartDate)
-        <div>
-            <p>Expected Complete Date:</p>
-            @Html.EditorFor(model => model.ExpectedFinishDate, new { htmlAttributes = new { @class = "form-control", @id = "datepicker2", placeholder = "Please Enter Date" } })
-        </div>
-        @Html.ValidationMessageFor(model => model.ExpectedFinishDate)
-        <div>
-            <p>Project Type:</p>
-            @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.ProjectTypes, "TypeID", "TypeName"))
-        </div>
-        @Html.ValidationMessageFor(model => model.TypeID)
-        <div>
-            <p>User Responsible:</p>
-            @Html.DropDownListFor(model => model.UserID, Model.Users)
-        </div>
-        @Html.ValidationMessageFor(model => model.UserID)
+        @Html.ValidationMessageFor(model => model.UnitPrice)
         <div id="multipleButtons">
-            <div id="addButton">Save and Add Project</div>
+            <div id="addButton">Save and Add Refreshment</div>
         </div>
     }
 </div>
 
-@if (Session["Referrer"].ToString().Contains("Details"))
-{
-    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())@Session["Query"].ToString()'">Back</div>
-}
-else
-{
-    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
-}
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Refreshment")'">Back</div>
 
 <style>
     form {
@@ -249,13 +226,6 @@ else
 </style>
 
 <script>
-    $("#datepicker1").datepicker()
-    @*$("#datepicker1").datepicker('setDate', (@Model.StartDate))*@
-
-    $("#datepicker2").datepicker()
-    @*$("#datepicker2").datepicker('setDate', (@Model.ExpectedFinishDate))*@
-
-
     $("#addButton").click(function (event) {
         swal({
             title: "Are you sure?",
@@ -275,4 +245,3 @@ else
 
     $("#addButton").css({ 'flex-basis': '' });
 </script>
-

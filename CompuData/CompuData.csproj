@@ -590,6 +590,7 @@
     <Compile Include="Controllers\AddProjectController.cs" />
     <Compile Include="Controllers\AddProjectTypeController.cs" />
     <Compile Include="Controllers\AddQuantityTypeController.cs" />
+    <Compile Include="Controllers\AddRefreshmentController.cs" />
     <Compile Include="Controllers\AddRepairPersonController.cs" />
     <Compile Include="Controllers\AddRepairRequestController.cs" />
     <Compile Include="Controllers\AddSoftwareLicensesController.cs" />
@@ -660,6 +661,7 @@
     <Compile Include="Controllers\ModifyPCRController.cs" />
     <Compile Include="Controllers\ModifyProjectController.cs" />
     <Compile Include="Controllers\ModifyQuantityTypeController.cs" />
+    <Compile Include="Controllers\ModifyRefreshmentController.cs" />
     <Compile Include="Controllers\ModifyRepairPersonController.cs" />
     <Compile Include="Controllers\ModifySoftwareLicensesController.cs" />
     <Compile Include="Controllers\ModifySupplierController.cs" />
@@ -682,6 +684,8 @@
     <Compile Include="Controllers\ProjectTypeModifyController.cs" />
     <Compile Include="Controllers\QuantityTypeController.cs" />
     <Compile Include="Controllers\QuantityTypeDetailsController.cs" />
+    <Compile Include="Controllers\RefreshmentController.cs" />
+    <Compile Include="Controllers\RefreshmentDetailsController.cs" />
     <Compile Include="Controllers\RepairPersonDetailsController.cs" />
     <Compile Include="Controllers\RepairPersonsController.cs" />
     <Compile Include="Controllers\RepairRequestsController.cs" />
@@ -856,6 +860,7 @@
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\QuantityType.cs" />
+    <Compile Include="Models\Refreshment.cs" />
     <Compile Include="Models\RepairPerson.cs" />
     <Compile Include="Models\ResetPasswordModel.cs" />
     <Compile Include="Global\Service.cs">
@@ -1373,6 +1378,10 @@
     <Content Include="Views\QuantityTypeDetails\Index.cshtml" />
     <Content Include="Views\ModifyQuantityType\Index.cshtml" />
     <Content Include="Views\AddQuantityType\Index.cshtml" />
+    <Content Include="Views\Refreshment\Index.cshtml" />
+    <Content Include="Views\RefreshmentDetails\Index.cshtml" />
+    <Content Include="Views\AddRefreshment\Index.cshtml" />
+    <Content Include="Views\ModifyRefreshment\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

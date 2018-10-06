@@ -53,7 +53,7 @@ namespace CompuData.Controllers
                 db.Database.ExecuteSqlCommand(TransactionalBehavior.DoNotEnsureTransaction, cmd4);
 
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "MainMenu");
             // return View();
 
         }

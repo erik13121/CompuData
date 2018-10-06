@@ -235,10 +235,10 @@
         $(document).ready(function () {
             $('#equipmentTable tbody').on('click', 'tr', function () {
                 var data = table.row(this).data();
-                var requestID = data["requestID"];
+                var projectID = data["projectID"];
 
                 swal({
-                    title: "Are you sure you want to approve this Equipment Repair Request?",
+                    title: "Are you sure you want to approve this Project?",
                     icon: "warning",
                     dangerMode: true,
                     buttons: [
@@ -250,12 +250,12 @@
                     .then((willDelete) => {
                         if (willDelete) {
                             $.ajax({
-                                url: '@Url.Action("Approve", "EquipmentRepairRequests")',
+                                url: '@Url.Action("Approve", "Project")',
                                 type: 'POST',
-                                data: { requestID: requestID },
+                                data: { projectID: projectID },
                                 dataType: 'json',
                                 success: function (data) {
-                                    swal("You have successfully approved the Equipment Repair Request", {
+                                    swal("You have successfully approved the Project", {
                                         icon: "success",
                                     }).then((done) => {
                                         if (done) {
