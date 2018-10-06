@@ -1,6 +1,11 @@
 ﻿<div id="profile">
     <a id="userDropDown" href="#" class="dropdown-toggle " data-toggle="dropdown" aria-expanded="true"><span id="helpButton">&#63;</span>User<span class="glyphicon glyphicon-user"></span></a>
     <ul class="dropdown-menu" role="menu">
+        @{using (Html.BeginForm("Logout", "Login", FormMethod.Post, new { id = "logoutForm" }))
+            {
+
+            }
+        }
         <li class=""><a class="">Account<span class="glyphicon glyphicon-file"></span></a></li>
         @{using (Html.BeginForm("Logout", "Login", FormMethod.Post, new { id = "logoutForm" }))
             {
@@ -9,7 +14,7 @@
                 <li class=""><a href="javascript:document.getElementById('logoutForm').submit()">Logout<span class="glyphicon glyphicon-off"></span></a></li>
             }
         }
-    </ul>    
+    </ul>
 </div>
 
 <style>

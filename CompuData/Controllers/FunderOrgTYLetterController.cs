@@ -19,11 +19,11 @@ namespace CompuData.Controllers
             return View(FunderOrg);
         }
 
-        public ActionResult FunderOrgTYLetter(int FunderOrgID)
+        public ActionResult FunderOrgTYLetter([Bind(Prefix = "")]Models.Funder_Org model)
         {
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath("~/Report/FunderThankYouLetter.rpt")));
-            rd.SetParameterValue("@OrgID", FunderOrgID);
+            rd.SetParameterValue("@OrgID", model.FunderOrgID);
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();

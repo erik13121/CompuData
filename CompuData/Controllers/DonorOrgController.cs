@@ -35,9 +35,9 @@ namespace CompuData.Controllers
             _item.ContactNum.ToUpper().Contains(request.Search.Value.ToUpper()) ||
             _item.ContactEmail.ToUpper().Contains(request.Search.Value.ToUpper()) ||
             _item.Thanked.ToString().ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.StreetAddress.ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.City.ToUpper().Contains(request.Search.Value.ToUpper()) ||
-            _item.AreaCode.ToUpper().Contains(request.Search.Value.ToUpper())
+            (_item.StreetAddress != null ? _item.StreetAddress.ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
+            (_item.City != null ? _item.City.ToUpper().Contains(request.Search.Value.ToUpper()) : false) ||
+            (_item.AreaCode != null ? _item.AreaCode.ToUpper().Contains(request.Search.Value.ToUpper()) : false)
             );
 
             // Paging filtered data.

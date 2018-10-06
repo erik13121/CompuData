@@ -19,11 +19,11 @@ namespace CompuData.Controllers
             return View(DonorOrg);
         }
 
-        public ActionResult DonorOrgTYLetter(int DonorOrgID)
+        public ActionResult DonorOrgTYLetter([Bind(Prefix = "")]Models.Donor_Org model)
         {
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath("~/Report/DonorOrgThankYouLetter.rpt")));
-            rd.SetParameterValue("@OrgID", DonorOrgID);
+            rd.SetParameterValue("@OrgID", model.DonorOrgID);
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();

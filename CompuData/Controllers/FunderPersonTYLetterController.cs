@@ -19,11 +19,11 @@ namespace CompuData.Controllers
             return View(FunderPerson);
         }
 
-        public ActionResult FunderPersonTYLetter(int FunderPersonID)
+        public ActionResult FunderPersonTYLetter([Bind(Prefix = "")]Models.Funder_Person model)
         {
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath("~/Report/FunderPersonThankYouLetter.rpt")));
-            rd.SetParameterValue("@PersonID", FunderPersonID);
+            rd.SetParameterValue("@PersonID", model.FunderPersonID);
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();
