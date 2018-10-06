@@ -42,6 +42,8 @@ namespace CompuData.Models
         [MaxLength(50, ErrorMessage = "You are only allowed up to 50 characters as the Area Code")]
         public string AreaCode { get; set; }
         public string JavaScriptToRun { get; set; }
+
+        public List<CodeFirst.Donor_Org> DonorOrgs { get; set; }
         public Donor_Org() { }
         public Donor_Org(int id, string name, string Num, string Email, bool ThankedStatus, string Street, string Cityname, string Area)
         {

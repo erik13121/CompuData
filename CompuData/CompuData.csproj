@@ -635,11 +635,13 @@
     <Compile Include="Controllers\ForgotPasswordController.cs" />
     <Compile Include="Controllers\FunderOrgController.cs" />
     <Compile Include="Controllers\FunderOrgDetailsController.cs" />
+    <Compile Include="Controllers\FunderOrgTYLetterController.cs" />
     <Compile Include="Controllers\FunderPersonController.cs" />
     <Compile Include="Controllers\FunderPersonDetailsController.cs" />
     <Compile Include="Controllers\FundersMenuController.cs" />
     <Compile Include="Controllers\FunderTypeController.cs" />
     <Compile Include="Controllers\FunderTypeDetailsController.cs" />
+    <Compile Include="Controllers\GenerateTYLetterFundersController.cs" />
     <Compile Include="Controllers\HelpPageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobTitleController.cs" />
@@ -934,6 +936,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EquipmentUsageReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Report\FunderThankYouLetter.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FunderThankYouLetter.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Report\PCReport1.cs">
@@ -1384,6 +1392,8 @@
     <Content Include="Views\AddRefreshment\Index.cshtml" />
     <Content Include="Views\ModifyRefreshment\Index.cshtml" />
     <Content Include="Views\SelectPCR\Index.cshtml" />
+    <Content Include="Views\GenerateTYLetterFunders\Index.cshtml" />
+    <Content Include="Views\FunderOrgTYLetter\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1420,6 +1430,10 @@
     <EmbeddedResource Include="Report\EquipmentUsageReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>EquipmentUsageReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\FunderThankYouLetter.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FunderThankYouLetter.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\PCReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
