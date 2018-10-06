@@ -53,6 +53,8 @@ namespace CompuData.Models
 
         [Column(TypeName = "bit")]
         public bool Thanked { get; set; }
+
+        public List<CodeFirst.Donor_Person> DonorPersons { get; set; }
         public string JavaScriptToRun { get; set; }
         public Donor_Person() { }
         public Donor_Person(int ID, string Fname, string Sname, string Init, string Mname,  string Num, string Email, bool ThankedStatus, string Street, string Cityname, string Area)

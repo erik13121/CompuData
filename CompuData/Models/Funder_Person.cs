@@ -74,6 +74,7 @@ namespace CompuData.Models
         public string Name { get; set; }
 
         public string JavaScriptToRun { get; set; }
+        public List<CodeFirst.Funder_Person> FunderPersons { get; set; }
         public List<CodeFirst.Funder_Type> FunderTypes { get; set; }
         public List<CodeFirst.Project> Project { get; set; }
         public Funder_Person() { }

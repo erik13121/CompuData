@@ -618,8 +618,10 @@
     <Compile Include="Controllers\DonationTypeModifyController.cs" />
     <Compile Include="Controllers\DonorOrgController.cs" />
     <Compile Include="Controllers\DonorOrgDetailsController.cs" />
+    <Compile Include="Controllers\DonorOrgTYLetterController.cs" />
     <Compile Include="Controllers\DonorPersonController.cs" />
     <Compile Include="Controllers\DonorPersonDetailsController.cs" />
+    <Compile Include="Controllers\DonorPersonTYLetterController.cs" />
     <Compile Include="Controllers\DonorsMenuController.cs" />
     <Compile Include="Controllers\EFTRController.cs" />
     <Compile Include="Controllers\EFTRDetailsController.cs" />
@@ -634,11 +636,15 @@
     <Compile Include="Controllers\ForgotPasswordController.cs" />
     <Compile Include="Controllers\FunderOrgController.cs" />
     <Compile Include="Controllers\FunderOrgDetailsController.cs" />
+    <Compile Include="Controllers\FunderOrgTYLetterController.cs" />
     <Compile Include="Controllers\FunderPersonController.cs" />
     <Compile Include="Controllers\FunderPersonDetailsController.cs" />
+    <Compile Include="Controllers\FunderPersonTYLetterController.cs" />
     <Compile Include="Controllers\FundersMenuController.cs" />
     <Compile Include="Controllers\FunderTypeController.cs" />
     <Compile Include="Controllers\FunderTypeDetailsController.cs" />
+    <Compile Include="Controllers\GenerateTYLetterDonorsController.cs" />
+    <Compile Include="Controllers\GenerateTYLetterFundersController.cs" />
     <Compile Include="Controllers\HelpPageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobTitleController.cs" />
@@ -921,6 +927,18 @@
       <DependentUpon>DonationsReport.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Report\DonorOrgThankYouLetter.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DonorOrgThankYouLetter.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Report\DonorPersonThankYouLetter.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DonorPersonThankYouLetter.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Report\EquipmentBookingsReport.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -931,6 +949,18 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EquipmentUsageReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Report\FunderPersonThankYouLetter.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FunderPersonThankYouLetter.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Report\FunderThankYouLetter.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FunderThankYouLetter.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Report\PCReport1.cs">
@@ -1378,6 +1408,12 @@
     <Content Include="Views\AddQuantityType\Index.cshtml" />
     <Content Include="Views\SelectPCR\Index.cshtml" />
     <Content Include="Views\SelectEFTR\Index.cshtml" />
+    <Content Include="Views\GenerateTYLetterFunders\Index.cshtml" />
+    <Content Include="Views\FunderOrgTYLetter\Index.cshtml" />
+    <Content Include="Views\FunderPersonTYLetter\Index.cshtml" />
+    <Content Include="Views\GenerateTYLetterDonors\Index.cshtml" />
+    <Content Include="Views\DonorOrgTYLetter\Index.cshtml" />
+    <Content Include="Views\DonorPersonTYLetter\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1407,6 +1443,14 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>DonationsReport.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report\DonorOrgThankYouLetter.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DonorOrgThankYouLetter.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\DonorPersonThankYouLetter.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DonorPersonThankYouLetter.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\EquipmentBookingsReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>EquipmentBookingsReport.cs</LastGenOutput>
@@ -1414,6 +1458,14 @@
     <EmbeddedResource Include="Report\EquipmentUsageReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>EquipmentUsageReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\FunderPersonThankYouLetter.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FunderPersonThankYouLetter.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\FunderThankYouLetter.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FunderThankYouLetter.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\PCReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

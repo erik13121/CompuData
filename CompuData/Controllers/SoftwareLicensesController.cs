@@ -51,12 +51,12 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(string licenseID)
+        public ActionResult Delete(string licenceID)
         {
             try
             {
                 var db = new CodeFirst.CodeFirst();
-                var intLicID = int.Parse(licenseID);
+                var intLicID = int.Parse(licenceID);
                 var SoftLicence = db.Software_Licenses.Where(v => v.LicenceID == intLicID).FirstOrDefault();
                 db.Software_Licenses.Remove(SoftLicence);
                 db.SaveChanges();

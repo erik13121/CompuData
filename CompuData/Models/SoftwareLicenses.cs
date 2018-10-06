@@ -14,6 +14,8 @@ namespace CompuData.Models
         [MaxLength(50, ErrorMessage = "Max allowed characters for the Software name is 50")]
         public string SoftwareName { get; set; }
 
+        [Required(ErrorMessage = "The Activation Period is required")]
+        [RegularExpression("\\d{1,2}", ErrorMessage = "The Activation Period In Months has to consist of between 1 and 2-digit numbers")]
         public int? ActivationPeriodInMonths { get; set; }
 
         public string JavaScriptToRun { get; set; }
