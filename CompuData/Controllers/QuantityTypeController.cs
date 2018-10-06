@@ -32,7 +32,7 @@ namespace CompuData.Controllers
             // Filter is being manually applied due to in-memmory (IEnumerable) data.
             // If you want something rather easier, check IEnumerableExtensions Sample.
             var filteredData = data.Where(_item =>
-            _item.QuatityTypeID.ToString().Contains(request.Search.Value) ||
+            _item.QuantityTypeID.ToString().Contains(request.Search.Value) ||
             _item.Description.ToUpper().Contains(request.Search.Value.ToUpper())
             );
 
@@ -56,13 +56,13 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(string quatityTypeID)
+        public ActionResult Delete(string quantityTypeID)
         {
             try
             {
                 var db = new CodeFirst.CodeFirst();
-                var intTypeID = int.Parse(quatityTypeID);
-                var type = db.Quantity_Type.Where(t => t.QuatityTypeID == intTypeID).FirstOrDefault();
+                var intTypeID = int.Parse(quantityTypeID);
+                var type = db.Quantity_Type.Where(t => t.QuantityTypeID == intTypeID).FirstOrDefault();
                 db.Quantity_Type.Remove(type);
                 db.SaveChanges();
 

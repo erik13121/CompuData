@@ -9,16 +9,16 @@ namespace CompuData.Controllers
     public class QuantityTypeDetailsController : Controller
     {
         // GET: QuantityTypeDetails
-        public ActionResult Index(string quatityTypeID)
+        public ActionResult Index(string quantityTypeID)
         {
             Models.QuantityType myModel = new Models.QuantityType();
             CodeFirst.CodeFirst db = new CodeFirst.CodeFirst();
-            if (quatityTypeID != null)
+            if (quantityTypeID != null)
             {
-                var intTypeID = Int32.Parse(quatityTypeID);
-                var myType = db.Quantity_Type.Where(i => i.QuatityTypeID == intTypeID).FirstOrDefault();
+                var intTypeID = Int32.Parse(quantityTypeID);
+                var myType = db.Quantity_Type.Where(i => i.QuantityTypeID == intTypeID).FirstOrDefault();
 
-                myModel.QuatityTypeID = myType.QuatityTypeID;
+                myModel.QuantityTypeID = myType.QuantityTypeID;
                 myModel.Description = myType.Description;
             }
 
@@ -26,9 +26,9 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public ActionResult RedirectToQuantityTypeDetails(string quatityTypeID)
+        public ActionResult RedirectToQuantityTypeDetails(string quantityTypeID)
         {
-            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "QuantityTypeDetails", new { quatityTypeID = quatityTypeID });
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "QuantityTypeDetails", new { quantityTypeID = quantityTypeID });
             return Json(new { Url = redirectUrl });
         }
     }

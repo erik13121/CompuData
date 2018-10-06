@@ -9,16 +9,16 @@ namespace CompuData.Controllers
     public class ModifyQuantityTypeController : Controller
     {
         // GET: ModifyQuantityType
-        public ActionResult Index(string quatityTypeID)
+        public ActionResult Index(string quantityTypeID)
         {
             Models.QuantityType myModel = new Models.QuantityType();
             CodeFirst.CodeFirst db = new CodeFirst.CodeFirst();
-            if (quatityTypeID != null)
+            if (quantityTypeID != null)
             {
-                var intTypeID = Int32.Parse(quatityTypeID);
-                var myType = db.Quantity_Type.Where(i => i.QuatityTypeID == intTypeID).FirstOrDefault();
+                var intTypeID = Int32.Parse(quantityTypeID);
+                var myType = db.Quantity_Type.Where(i => i.QuantityTypeID == intTypeID).FirstOrDefault();
 
-                myModel.QuatityTypeID = myType.QuatityTypeID;
+                myModel.QuantityTypeID = myType.QuantityTypeID;
                 myModel.Description = myType.Description;
 
                 db.SaveChanges();
@@ -33,9 +33,9 @@ namespace CompuData.Controllers
             CodeFirst.CodeFirst db = new CodeFirst.CodeFirst();
             if (ModelState.IsValid)
             {
-                var myType = db.Quantity_Type.Where(i => i.QuatityTypeID == model.QuatityTypeID).FirstOrDefault();
+                var myType = db.Quantity_Type.Where(i => i.QuantityTypeID == model.QuantityTypeID).FirstOrDefault();
 
-                model.QuatityTypeID = myType.QuatityTypeID;
+                model.QuantityTypeID = myType.QuantityTypeID;
                 model.Description = myType.Description;
             }
 
@@ -48,11 +48,11 @@ namespace CompuData.Controllers
             if (ModelState.IsValid)
             {
                 var db = new CodeFirst.CodeFirst();
-                var type = db.Quantity_Type.Where(v => v.QuatityTypeID == model.QuatityTypeID).SingleOrDefault();
+                var type = db.Quantity_Type.Where(v => v.QuantityTypeID == model.QuantityTypeID).SingleOrDefault();
 
                 if (type != null)
                 {
-                    type.QuatityTypeID = model.QuatityTypeID;
+                    type.QuantityTypeID = model.QuantityTypeID;
                     type.Description = model.Description;
                     db.SaveChanges();
                 }
@@ -65,9 +65,9 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public ActionResult RedirectToModifyQuantityTypeDetails(string quatityTypeID)
+        public ActionResult RedirectToModifyQuantityTypeDetails(string quantityTypeID)
         {
-            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "ModifyQuantityType", new { quatityTypeID = quatityTypeID });
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "ModifyQuantityType", new { quantityTypeID = quantityTypeID });
             return Json(new { Url = redirectUrl });
         }
     }

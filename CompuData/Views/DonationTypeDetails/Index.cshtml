@@ -10,16 +10,18 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../DonationMenu">Donation Menu</a></li>
+        <li class="breadcrumb-item"><a href="../DonationsMenu">Donation Menu</a></li>
         <li class="breadcrumb-item"><a href="../DonationType">Donation Types</a></li>
         <li class="breadcrumb-item active" aria-current="page">Donation Type Details</li>
     </ol>
 </nav>
+
 @Html.Partial("_ProfilePartial")
+
 <div id="details_holder">
     <p>Donation Type Details</p>
     @Html.HiddenFor(model => model.TypeID)
-    <div id="donationitemDetails">
+    <div>
         <p>Type Name:</p>
         @Html.TextBoxFor(model => model.TypeName, new { @readonly = "readonly" })
     </div>
@@ -29,6 +31,7 @@
     </div>
 </div>
 <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "DonationType")'">Back</div>
+
 <style>
     #details_holder {
         position: absolute;
@@ -74,6 +77,29 @@
         flex-direction: row;
     }
 
+    #CompleteButton {
+        position: relative;
+        display: inline-block !important;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #CompleteButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
     #modifyButton {
         position: relative;
         display: inline-block !important;
@@ -114,6 +140,7 @@
         margin-right: auto;
         padding: 10px;
         transition: background-color linear 0.5s;
+        background-color: transparent;
     }
 
         #removeButton:hover {
@@ -203,6 +230,9 @@
             color: #5a9ad6;
         }
 </style>
+
+
+
 <script>
     $('#modifyButton').on('click', function () {
         var typeID = @Model.TypeID;

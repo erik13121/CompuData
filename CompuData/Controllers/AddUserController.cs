@@ -18,7 +18,7 @@ namespace CompuData.Controllers
             users.EmployeeTitles = db.Employee_Title.ToList();
             return View(users);
         }
-
+        
         public ActionResult FromAddProjectScreen()
         {
             //equipmentModelToPassBack = equipmentModel;

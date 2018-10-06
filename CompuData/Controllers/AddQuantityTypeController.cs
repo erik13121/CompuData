@@ -23,11 +23,11 @@ namespace CompuData.Controllers
                 var db = new CodeFirst.CodeFirst();
                 if (db.Quantity_Type.Count() > 0)
                 {
-                    var item = db.Quantity_Type.OrderByDescending(a => a.QuatityTypeID).FirstOrDefault();
+                    var item = db.Quantity_Type.OrderByDescending(a => a.QuantityTypeID).FirstOrDefault();
 
                     db.Quantity_Type.Add(new CodeFirst.Quantity_Type
                     {
-                        QuatityTypeID = item.QuatityTypeID + 1,
+                        QuantityTypeID = item.QuantityTypeID + 1,
                         Description = model.Description
                     });
                 }
@@ -35,7 +35,7 @@ namespace CompuData.Controllers
                 {
                     db.Quantity_Type.Add(new CodeFirst.Quantity_Type
                     {
-                        QuatityTypeID = 1,
+                        QuantityTypeID = 1,
                         Description = model.Description
                     });
                 }

@@ -22,7 +22,7 @@
     @using (@Html.BeginForm("Create", "AddQuantityType", FormMethod.Post, new { id = "myForm" }))
     {
         <p>Add Quantity Type</p>
-        @Html.HiddenFor(model => model.QuatityTypeID)
+        @Html.HiddenFor(model => model.QuantityTypeID)
         <div>
             <p>Description:</p>
             @Html.EditorFor(model => model.Description)

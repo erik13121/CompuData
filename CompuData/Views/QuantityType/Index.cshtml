@@ -152,8 +152,8 @@
             autoWidth: true,
             columns: [
                 {
-                    name: 'quatityTypeID',
-                    data: 'quatityTypeID',
+                    name: 'quantityTypeID',
+                    data: 'quantityTypeID',
                     title: "Type ID",
                     sortable: true,
                     searchable: true
@@ -212,12 +212,12 @@
 
     $('#table_id').on('click', '.glyphicon-eye-open', function () {
         var data = table.row($(this).parents('tr')).data();
-        var quatityTypeID = data["quatityTypeID"];
+        var quantityTypeID = data["quantityTypeID"];
 
         $.ajax({
             url: '@Url.Action("RedirectToQuantityTypeDetails", "QuantityTypeDetails")',
             type: 'POST',
-            data: { quatityTypeID: quatityTypeID },
+            data: { quantityTypeID: quantityTypeID },
             dataType: 'json',
             success: function (data) {
                 window.location.href = data.Url; // your action should return an object having [redirecturl] property
@@ -227,13 +227,13 @@
 
     $('#table_id').on('click', '.glyphicon-pencil', function () {
         var data = table.row($(this).parents('tr')).data();
-        var quatityTypeID = data["quatityTypeID"];
+        var quantityTypeID = data["quantityTypeID"];
         @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
 
         $.ajax({
             url: '@Url.Action("RedirectToModifyQuantityTypeDetails", "ModifyQuantityType")',
             type: 'POST',
-            data: { quatityTypeID: quatityTypeID },
+            data: { quantityTypeID: quantityTypeID },
             dataType: 'json',
             success: function (data) {
                 window.location.href = data.Url;
@@ -243,7 +243,7 @@
 
     $('#table_id').on('click', '.glyphicon-trash', function () {
         var data = table.row($(this).parents('tr')).data();
-        var quatityTypeID = data["quatityTypeID"];
+        var quantityTypeID = data["quantityTypeID"];
 
         swal({
             title: "Are you sure you want to delete this Quantity Type?",
@@ -260,7 +260,7 @@
                     $.ajax({
                         url: '@Url.Action("Delete", "QuantityType")',
                         type: 'POST',
-                        data: { quatityTypeID: quatityTypeID },
+                        data: { quantityTypeID: quantityTypeID },
                         dataType: 'json',
                         success: function (data) {
                             if (data.Url != "Cascading error!") {

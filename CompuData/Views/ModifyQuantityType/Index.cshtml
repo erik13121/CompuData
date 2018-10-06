@@ -24,7 +24,7 @@
     @using (@Html.BeginForm("Update", "ModifyQuantityType", FormMethod.Post, new { id = "myForm" }))
     {
         <p>Quantity Type Details</p>
-        @Html.HiddenFor(model => model.QuatityTypeID)
+        @Html.HiddenFor(model => model.QuantityTypeID)
         <div>
             <p>Name:</p>
             @Html.EditorFor(model => model.Description)
