@@ -94,6 +94,15 @@ namespace CompuData.Controllers
                 return RedirectToAction("Index", "Equipments");
             }
 
+            var users = db.Users
+                .AsEnumerable()
+                .Select(u => new SelectListItem
+                {
+                    Value = u.UserID.ToString(),
+                    Text = u.FirstName + " " + u.LastName
+                }).ToList();
+
+            model.Users = users;
             model.EquipmentTypes = db.Equipment_Type.ToList();
             return View("Index", model);
         }
