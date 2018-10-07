@@ -126,10 +126,6 @@ namespace CompuData.CodeFirst
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Donation>()
-                .Property(e => e.QuantityAmount)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Donation>()
                 .HasMany(e => e.Donation_Line)
                 .WithRequired(e => e.Donation)
                 .WillCascadeOnDelete(false);
@@ -420,7 +416,7 @@ namespace CompuData.CodeFirst
                 .IsUnicode(false);
 
             modelBuilder.Entity<Quantity_Type>()
-                .HasMany(e => e.Donations)
+                .HasMany(e => e.DonationItems)
                 .WithRequired(e => e.Quantity_Type)
                 .WillCascadeOnDelete(false);
 

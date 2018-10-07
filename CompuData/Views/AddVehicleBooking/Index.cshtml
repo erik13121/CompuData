@@ -862,7 +862,7 @@
 
             if (moment(selectedEvent.start).isAfter(moment().format("MM/DD/YYYY HH:mm:ss"))) {
                 $('#calendar').fullCalendar('removeEvents', function (evt) {
-                    return evt = selectedEvent;
+                    return evt == selectedEvent;
                 });
 
                 $.ajax({

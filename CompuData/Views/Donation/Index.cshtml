@@ -1,42 +1,29 @@
-﻿
-@{
-    ViewBag.Title = "Donation";
+﻿@{
+    ViewBag.Title = "Donations";
     Layout = "~/Views/Shared/_Layout.cshtml";
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="#">Donation Menu</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Donation</li>
+        <li class="breadcrumb-item"><a href="../DonationsMenu">Donation Menu</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Donations</li>
     </ol>
 </nav>
 @Html.Partial("_ProfilePartial")
+
 <div id="table_background">
     <p>Donations</p>
-    <table id="table_id" class="display">
-        <thead>
-            <tr>
-                <th>Date Donated</th>
-                <th>Donation Type</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>2018/02/03</td>
-                <td>Books</td>
-            </tr>
-            <tr>
-                <td>2018/02/04</td>
-                <td>Clothing</td>
-            </tr>
-        </tbody>
-    </table>
-    <div id="addButton">Add Donation</div>
-    <div id="backButton">Back</div>
+    <table id="vehiclesTable" class="display"></table>
+    <div id="multipleButtons">
+        <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddDonation")'">Add Donation</div>
+        <div id="approveButton" onclick="window.location.href = '@Url.Action("Index", "SelectPCR")'">Assign Donation to Project</div>
+    </div>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "DonationsMenu")'">Back</div>
 </div>
+
 <style>
     #table_background p {
         font-size: 25px;
@@ -55,13 +42,21 @@
         border-radius: 50px 50px 50px 50px;
     }
 
-    #table_id {
+    #vehiclesTable {
         background-color: #5a9ad6;
+        font-size: 14px;
     }
 
-    #addButton {
+    #multipleButtons {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #addButton, #approveButton {
         position: relative;
-        display: table;
+        display: inline-block;
+        margin-left: auto;
+        margin-right: auto;
         bottom: 0;
         z-index: 10000;
         text-decoration: none;
@@ -69,7 +64,6 @@
         cursor: pointer;
         letter-spacing: 0.15em;
         text-transform: uppercase;
-        margin-left: auto;
         box-sizing: border-box;
         border: solid white;
         border-width: 2px;
@@ -79,7 +73,32 @@
         transition: background-color linear 0.5s;
     }
 
-        #addButton:hover {
+        #addButton:hover, #approveButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #addBookingButton {
+        position: relative;
+        display: inline-block;
+        margin-left: auto;
+        margin-right: auto;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #addBookingButton:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
@@ -158,8 +177,156 @@
             color: #5a9ad6;
         }
 </style>
+
 <script>
+    var table;
     $(document).ready(function () {
-        $('#table_id').DataTable();
+        table = $('#vehiclesTable').DataTable({
+            serverSide: true,
+            ajax: "/Donation/PageData",
+            autoWidth: true,
+            scrollX: true,
+            columns: [
+                {
+                    name: 'donationID',
+                    data: 'donationID',
+                    title: "ID",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'date',
+                    data: "date",
+                    title: "Date Donated",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'donorPName',
+                    data: "donorPName",
+                    title: "Donor Person Details",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'donorOrgName',
+                    data: "donorOrgName",
+                    title: "Donor Org Details",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": '<i class="glyphicon glyphicon-eye-open"></i>',
+                    sortable: false,
+                },
+                {
+                    "targets": -2,
+                    "data": null,
+                    "defaultContent": '<i class="glyphicon glyphicon-pencil"></i>',
+                    sortable: false,
+                },
+                {
+                    "targets": -3,
+                    "data": null,
+                    "defaultContent": '<i class="glyphicon glyphicon-trash"></i>',
+                    sortable: false,
+                }
+            ]
+        });
+    });
+
+    @Model.JavaScriptToRun
+    function mySuccess() {
+        swal("You have successfully added a Donation", {
+            icon: "success",
+        });
+    }
+
+    @TempData["js"];
+    function myUpdateSuccess() {
+        swal("You have successfully updated a Donation", {
+            icon: "success",
+        });
+    }
+
+    $.ajax({
+        type: "POST",
+        url: '@Url.Action("SetTempData", "Donation")',
+        success: function () {
+
+        }
+    });
+
+    $('#vehiclesTable').on('click', '.glyphicon-eye-open', function () {
+        var data = table.row($(this).parents('tr')).data();
+        var donationID = data["donationID"];
+
+        $.ajax({
+            url: '@Url.Action("RedirectToDonationDetails", "DonationDetails")',
+            type: 'POST',
+            data: { donationID: donationID },
+            dataType: 'json',
+            success: function (data) {
+                window.location.href = data.Url; // your action should return an object having [redirecturl] property
+            }
+        });
+    });
+
+    $('#vehiclesTable').on('click', '.glyphicon-pencil', function () {
+        var data = table.row($(this).parents('tr')).data();
+        var donationID = data["donationID"];
+        @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
+
+        $.ajax({
+            url: '@Url.Action("RedirectToModifyDonationDetails", "ModifyDonation")',
+            type: 'POST',
+            data: { donationID: donationID },
+            dataType: 'json',
+            success: function (data) {
+                window.location.href = data.Url;
+            }
+        });
+    });
+
+    $('#vehiclesTable').on('click', '.glyphicon-trash', function () {
+        var data = table.row($(this).parents('tr')).data();
+        var donationID = data["donationID"];
+
+        swal({
+            title: "Are you sure you want to dispose of this Donation?",
+            icon: "warning",
+            dangerMode: true,
+            buttons: [
+                true,
+                "Yes",
+            ],
+            closeOnClickOutside: false,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: '@Url.Action("Delete", "Donation")',
+                        type: 'POST',
+                        data: { donationID: donationID },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.Url != "Cascading error!") {
+                                swal("You have successfully disposed of the Donation", {
+                                    icon: "success",
+                                }).then(() => {
+                                    window.location.href = data.Url;
+                                });
+                            }
+                            else {
+                                swal("There are Donation Line Items still linked to this Donation!", {
+                                    icon: "warning",
+                                });
+                            }
+                        }
+                    });
+                }
+            });
     });
 </script>
