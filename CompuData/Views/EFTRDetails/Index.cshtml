@@ -15,7 +15,7 @@
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
         <li class="breadcrumb-item"><a href="../ProcurementMenu">Procurement</a></li>
         <li class="breadcrumb-item"><a href="../EFTR">EFT Requisitions</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Requisition Details</li>
+        <li class="breadcrumb-item active" aria-current="page">EFT Requisition Details</li>
     </ol>
 </nav>
 
@@ -61,6 +61,16 @@
                             <p>Total Amount:</p>
                             @Html.TextBoxFor(model => model.TotalAmount, new { @readonly = "readonly", Value = "R" + Model.TotalAmount })
                         </div>
+                        <div>
+                            <p>Download Receipt</p>
+                            <div id="multipleButtons">
+                                @using (@Html.BeginForm("Download", "PCRDetails", FormMethod.Post, new { id = "myform" }))
+                                {
+                                    @Html.HiddenFor(model => model.ReceiptFile)
+                                    <input type="button" id="downButton" value="Download Receipt" />
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -101,6 +111,7 @@
     <div id="multipleButtons">
         <div id="modifyButton">Maintain</div>
         <div id="removeButton">Remove</div>
+        <div id="assignButton">Assign/Add Receipt</div>
     </div>
 </div>
 
@@ -476,6 +487,34 @@
             });
         });
 
+        $('#downButton').on('click', function () {
+            var File = '@Model.ReceiptFile';
+
+            if (File != null && File != "")
+            {
+                $("#myform").submit()
+            }
+            else
+            {
+                swal("There is no Receipt File for this Requisition!", {icon:"error"})
+            }
+        });
+
+        $('#assignButton').on('click', function () {
+            var requisitionID = @Model.RequisitionID;
+            @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);
+            Session["Query"] = Request.Url.Query;}
+            $.ajax({
+                url: '@Url.Action("RedirectToUploadFile", "EFTRDetails")',
+                type: 'POST',
+                data: { requisitionID: requisitionID },
+                dataType: 'json',
+                success: function (data) {
+                    window.location.href = data.Url;
+                }
+            });
+        });
+
         $('#removeButton').on('click', function () {
             var requisitionID = @Model.RequisitionID;
 
@@ -516,4 +555,3 @@
         });
     })
 </script>
-

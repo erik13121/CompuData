@@ -586,6 +586,7 @@
     <Compile Include="Controllers\AddEquipmentController.cs" />
     <Compile Include="Controllers\AddEquipmentSoftwareLicenseController.cs" />
     <Compile Include="Controllers\AddEquipmentTypeController.cs" />
+    <Compile Include="Controllers\AddFiletoEFTRController.cs" />
     <Compile Include="Controllers\AddFileToPCRController.cs" />
     <Compile Include="Controllers\AddFunderOrgController.cs" />
     <Compile Include="Controllers\AddFunderPersonController.cs" />
@@ -1001,6 +1002,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>VenueBookingsReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Report\ViewPurchaseHistory.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewPurchaseHistory.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
@@ -1431,6 +1438,7 @@
     <Content Include="Views\AddEquipmentSoftwareLicense\Index.cshtml" />
     <Content Include="Views\EquipmentSoftwareLicenseDetails\Index.cshtml" />
     <Content Include="Views\ModifyEquipmentSoftwareLicense\Index.cshtml" />
+    <Content Include="Views\AddFiletoEFTR\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1503,6 +1511,10 @@
     <EmbeddedResource Include="Report\VenueBookingsReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>VenueBookingsReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\ViewPurchaseHistory.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ViewPurchaseHistory.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

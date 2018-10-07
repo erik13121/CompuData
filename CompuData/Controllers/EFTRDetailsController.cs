@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CompuData.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -25,6 +26,7 @@ namespace CompuData.Controllers
                 myModel.Date = myEFTR.Date;
                 myModel.ApprovedCEO = myEFTR.ApprovedCEO;
                 myModel.ApprovedProjectManger = myEFTR.ApprovedProjectManger;
+                myModel.ReceiptFile = myEFTR.ReceiptFile;
                 myModel.SupplierID = mySupplierID.SupplierID;
                 myModel.ProjectID = myProjectID.ProjectID;
                 myModel.UserID = myUserID.UserID;
@@ -45,6 +47,27 @@ namespace CompuData.Controllers
         {
             var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "EFTRDetails", new { requisitionID = requisitionID });
             return Json(new { Url = redirectUrl });
+        }
+
+        [HttpPost]
+        public ActionResult RedirectToUploadFile(string requisitionID)
+        {
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "AddFiletoEFTR", new { requisitionID = requisitionID });
+            return Json(new { Url = redirectUrl });
+        }
+
+        [HttpPost]
+        public ActionResult Download(EFTR File)
+        {
+            string inFile = File.ReceiptFile;
+            string myFile = inFile.Remove(0, 1);
+
+            string path = AppDomain.CurrentDomain.BaseDirectory;
+
+            byte[] fileBytes = System.IO.File.ReadAllBytes(path + myFile);
+            var response = new FileContentResult(fileBytes, "application/octet-stream");
+            response.FileDownloadName = "Receipt.pdf";
+            return response;
         }
     }
 }
