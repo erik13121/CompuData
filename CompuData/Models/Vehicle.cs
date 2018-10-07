@@ -32,6 +32,7 @@ namespace CompuData.Models
         [MaxLength(8, ErrorMessage = "You are only allowed up to 8 characters on a License Plate")]
         public string NumberPlate { get; set; }
 
+        [Required(ErrorMessage = "The Date of Purchase is required")]
         [Column(TypeName = "date")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DateofPurchase { get; set; }
@@ -40,10 +41,12 @@ namespace CompuData.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DateofLastRepair { get; set; }
 
+        [Required(ErrorMessage = "The Date of Licence Purchase is required")]
         [Column(TypeName = "date")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DateofLicencePurchase { get; set; }
 
+        [Required(ErrorMessage = "The License Expire Date is required")]
         [Column(TypeName = "date")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? LicenseExpireDate { get; set; }
