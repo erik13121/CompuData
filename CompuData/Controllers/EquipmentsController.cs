@@ -74,6 +74,27 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
+        public ActionResult RedirectToEquipments(string userID, string equipmentID)
+        {
+            try
+            {
+                var db = new CodeFirst.CodeFirst();
+
+                var inID = Int32.Parse(equipmentID);
+                var equipment = db.Equipments.Where(e => e.EquipmentID == inID).FirstOrDefault();
+                equipment.UserID = Int32.Parse(userID);
+                db.SaveChanges();
+
+                var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "Equipments", new { equipmentID = equipmentID });
+                return Json(new { Url = redirectUrl });
+            }
+            catch
+            {
+                return Json(new { Error = "Error" });
+            }
+        }
+
+        [HttpPost]
         public ActionResult Delete(string equipmentID)
         {
             try
@@ -81,7 +102,7 @@ namespace CompuData.Controllers
                 var db = new CodeFirst.CodeFirst();
                 var intEquipmentID = int.Parse(equipmentID);
                 var equipment = db.Equipments.Where(v => v.EquipmentID == intEquipmentID).FirstOrDefault();
-                db.Equipments.Remove(equipment);
+                equipment.Status = "Written-off";
                 db.SaveChanges();
 
                 var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "Equipments");
@@ -89,7 +110,7 @@ namespace CompuData.Controllers
             }
             catch
             {
-                return Json(new { Url = "Cascading error!" });
+                return Json(new { Url = "Error" });
             }
         }
 

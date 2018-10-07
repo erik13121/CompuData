@@ -56,5 +56,44 @@ namespace CompuData.Controllers
             var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "UserDetails", new { userID = userID });
             return Json(new { Url = redirectUrl });
         }
+
+        [HttpPost]
+        public ActionResult Account()
+        {
+            var myModel = new Models.User();
+            var login = (CodeFirst.Active_Login)Session["CurrentLogin"];
+            var db = new CodeFirst.CodeFirst();
+
+            var myUser = db.Users.Find(login.UserID);
+
+            myModel.UserID = myUser.UserID;
+            myModel.FirstName = myUser.FirstName;
+            myModel.MiddleName = myUser.MiddleName;
+            myModel.LastName = myUser.LastName;
+            myModel.Initials = myUser.Initials;
+            myModel.Password = myUser.Password;
+            myModel.NationalID = myUser.NationalID;
+            myModel.CellNum = myUser.CellNum;
+            myModel.TelNum = myUser.TelNum;
+            myModel.WorkNum = myUser.WorkNum;
+            myModel.PersonalEmail = myUser.PersonalEmail;
+            myModel.WorkEmail = myUser.WorkEmail;
+            myModel.StreetAddress = myUser.StreetAddress;
+            myModel.City = myUser.City;
+            myModel.AreaCode = myUser.AreaCode;
+            myModel.POAddress = myUser.POAddress;
+            myModel.POCity = myUser.POCity;
+            myModel.POAreaCode = myUser.POAreaCode;
+            myModel.ValidLicense = myUser.ValidLicense;
+            myModel.JobTitleID = myUser.JobTitleID;
+            myModel.AccessLevelID = myUser.AccessLevelID;
+            myModel.JobTitleName = db.Employee_Title.Where(i => i.JobTitleID == myUser.JobTitleID).FirstOrDefault().TitleName;
+            myModel.AccessLevelName = db.Access_Level.Where(i => i.AccessLevelID == myUser.AccessLevelID).FirstOrDefault().LevelName;
+
+            myModel.EmployeeTitles = db.Employee_Title.ToList();
+            myModel.AccessLevels = db.Access_Level.ToList();
+
+            return View("Index", myModel);
+        }
     }
 }

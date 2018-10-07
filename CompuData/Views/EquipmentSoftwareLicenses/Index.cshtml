@@ -1,27 +1,36 @@
-﻿@{
-    ViewBag.Title = "Equipments";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
-    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+﻿
+@{
+    ViewBag.Title = "EquipmentSoftwareLicenses";
+    @model CompuData.Models.SoftwareLicensesLine
 }
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment Menu</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Equipments</li>
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment Management</a></li>
+        <li class="breadcrumb-item"><a href="../SoftwareLicenses">Software Licenses</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Equipment Software Licenses</li>
     </ol>
 </nav>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
+
 @Html.Partial("_ProfilePartial")
+
 <div id="table_background">
-    <p>Equipments</p>
-    <table id="vehiclesTable" class="display"></table>
+    <p>Software Licences</p>
+    <table id="SoftwareLicenceTable" class="display"></table>
     <div id="multipleButtons">
-        <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddEquipment")'">Add Equipment</div>
-        <div id="addButton" onclick="@{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);} window.location.href = '@Url.Action("Index", "SelectEquipment", new { button = "Assign"})'">Assign Equipment</div>
+        <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "SelectSoftware")'">Add Software Licence to Equipment</div>
     </div>
-    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "EquipmentManagementMenu")'">Back</div>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "SoftwareLicenses")'">Back</div>
 </div>
+
 <style>
     #table_background p {
         font-size: 25px;
@@ -40,7 +49,7 @@
         border-radius: 50px 50px 50px 50px;
     }
 
-    #vehiclesTable {
+    #SupplierTable {
         background-color: #5a9ad6;
         font-size: 14px;
     }
@@ -50,7 +59,7 @@
         flex-direction: row;
     }
 
-    #addButton {
+    #addButton, #viewButton {
         position: relative;
         display: inline-block;
         margin-left: auto;
@@ -71,7 +80,7 @@
         transition: background-color linear 0.5s;
     }
 
-        #addButton:hover {
+        #addButton:hover, #viewButton:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
@@ -178,22 +187,22 @@
 <script>
     var table;
     $(document).ready(function () {
-        table = $('#vehiclesTable').DataTable({
+        table = $('#SoftwareLicenceTable').DataTable({
             serverSide: true,
-            ajax: "/Equipments/PageData",
+            ajax: "/EquipmentSoftwareLicenses/PageData",
             autoWidth: true,
             scrollX: true,
             columns: [
                 {
-                    name: 'equipmentID',
-                    data: 'equipmentID',
+                    name: 'lineID',
+                    data: 'lineID',
                     title: "ID",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'manufacturerName',
-                    data: "manufacturerName",
+                    name: 'manufacturer',
+                    data: "manufacturer",
                     title: "Manufacturer Name",
                     sortable: true,
                     searchable: true
@@ -206,37 +215,24 @@
                     searchable: true
                 },
                 {
-                    name: 'datePurchased',
-                    data: "datePurchased",
-                    title: "Date Purchased",
+                    name: 'softwareName',
+                    data: "softwareName",
+                    title: "Software Name",
                     sortable: true,
                     searchable: true
                 },
                 {
-                    name: 'serviceIntervalMonths',
-                    data: "serviceIntervalMonths",
-                    title: "Service Interval in Months",
+                    name: 'lastActivatedDate',
+                    data: "lastActivatedDate",
+                    title: "Last Activated Date",
                     sortable: true,
                     searchable: true
                 },
+
                 {
-                    name: 'status',
-                    data: "status",
-                    title: "Status",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'userName',
-                    data: "userName",
-                    title: "User Full Name",
-                    sortable: true,
-                    searchable: true
-                },
-                {
-                    name: 'typeName',
-                    data: "typeName",
-                    title: "Type Name",
+                    name: 'activated',
+                    data: "activated",
+                    title: "Activated",
                     sortable: true,
                     searchable: true
                 },
@@ -264,7 +260,7 @@
 
     @Model.JavaScriptToRun
     function mySuccess() {
-        swal("You have successfully added an Equipment", {
+        swal("You have successfully added the Software Licence to the Equipment", {
             icon: "success",
         });
         //window.location = "/Vehicles/Index";
@@ -272,43 +268,26 @@
 
     @TempData["js"];
     function myUpdateSuccess() {
-        swal("You have successfully updated the Equipment", {
+        swal("You have successfully updated the Software Licence linked to the Equipment", {
             icon: "success",
         });
     }
 
     $.ajax({
         type: "POST",
-        url: '@Url.Action("SetTempData", "Equipments")',
+        url: '@Url.Action("SetTempData","SoftwareLicenses")',
         success: function () {
-
         }
     });
 
-    $('#vehiclesTable').on('click', '.glyphicon-eye-open', function () {
+    $('#SoftwareLicenceTable').on('click', '.glyphicon-eye-open', function () {
         var data = table.row($(this).parents('tr')).data();
-        var equipmentID = data["equipmentID"];
+        var lineID = data["lineID"];
 
         $.ajax({
-            url: '@Url.Action("RedirectToEquipmentDetails", "EquipmentDetails")',
+            url: '@Url.Action("RedirectToEquipmentSoftwareLicenseDetails", "EquipmentSoftwareLicenseDetails")',
             type: 'POST',
-            data: { equipmentID: equipmentID },
-            dataType: 'json',
-            success: function (data) {
-                window.location.href = data.Url; // your action should return an object having [redirecturl] property
-            }
-        });
-    });
-
-    $('#vehiclesTable').on('click', '.glyphicon-pencil', function () {
-        var data = table.row($(this).parents('tr')).data();
-        var equipmentID = data["equipmentID"];
-        @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
-
-        $.ajax({
-            url: '@Url.Action("RedirectToModifyEquipmentDetails", "ModifyEquipmentDetails")',
-            type: 'POST',
-            data: { equipmentID: equipmentID },
+            data: { lineID: lineID },
             dataType: 'json',
             success: function (data) {
                 window.location.href = data.Url;
@@ -316,12 +295,28 @@
         });
     });
 
-    $('#vehiclesTable').on('click', '.glyphicon-trash', function () {
+    $('#SoftwareLicenceTable').on('click', '.glyphicon-pencil', function () {
         var data = table.row($(this).parents('tr')).data();
-        var equipmentID = data["equipmentID"];
+        var lineID = data["lineID"];
+        @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
+
+        $.ajax({
+            url: '@Url.Action("RedirectToModifyEquipmentSoftwareLicensesDetails", "ModifyEquipmentSoftwareLicense")',
+            type: 'POST',
+            data: { lineID: lineID },
+            dataType: 'json',
+            success: function (data) {
+                window.location.href = data.Url;
+            }
+        });
+    });
+
+    $('#SoftwareLicenceTable').on('click', '.glyphicon-trash', function () {
+        var data = table.row($(this).parents('tr')).data();
+        var lineID = data["lineID"];
 
         swal({
-            title: "Are you sure you want to write-off this Equipment?",
+            title: "Are you sure you want to delete this Software Licence linked to this Equipment?",
             icon: "warning",
             dangerMode: true,
             buttons: [
@@ -333,21 +328,21 @@
             .then((willDelete) => {
                 if (willDelete) {
                     $.ajax({
-                        url: '@Url.Action("Delete", "Equipments")',
+                        url: '@Url.Action("Delete", "EquipmentSoftwareLicenses")',
                         type: 'POST',
-                        data: { equipmentID: equipmentID },
+                        data: { lineID: lineID },
                         dataType: 'json',
                         success: function (data) {
-                            if (data.Url != "Error") {
-                                swal("You have successfully written off the Equipment", {
+                            if (data.Url != "Cascading error!") {
+                                swal("You have successfully deleted the Software Licence linked to the Equipment", {
                                     icon: "success",
                                 }).then(() => {
                                     window.location.href = data.Url;
                                 });
                             }
                             else {
-                                swal("Error has occurred", {
-                                    icon: "error",
+                                swal("Cannot delete this due to it being used somewhere else in the system!", {
+                                    icon: "warning",
                                 });
                             }
                         }
@@ -356,3 +351,7 @@
             });
     });
 </script>
+
+
+
+

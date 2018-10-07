@@ -1,7 +1,7 @@
 ﻿@{
-    ViewBag.Title = "VehicleDetails";
+    ViewBag.Title = "EquipmentSoftwareLicenseDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    @model CompuData.Models.Vehicle
+    @model CompuData.Models.SoftwareLicensesLine
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
@@ -9,63 +9,44 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../VehicleMenu">Vehicle Menu</a></li>
-        <li class="breadcrumb-item"><a href="../Vehicles">Vehicles</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Vehicle Details</li>
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment Menu</a></li>
+        <li class="breadcrumb-item"><a href="../SoftwareLicenses">Software Licenses</a></li>
+        <li class="breadcrumb-item"><a href="../EquipmentSoftwareLicenses">Equipment Software Licenses</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Details</li>
     </ol>
 </nav>
 
 @Html.Partial("_ProfilePartial")
 
 <div id="details_holder">
-    <p>Vehicle Details</p>
-    @Html.HiddenFor(model => model.VehicleID)
+    <p>Equipment Software License Details</p>
+    @Html.HiddenFor(model => model.LineID)
     <div>
-        <p>Brand:</p>
-        @Html.TextBoxFor(model => model.Brand, new { @readonly = "readonly" })
+        <p>Manufacturer Name:</p>
+        @Html.TextBoxFor(model => model.Manufacturer, new { @readonly = "readonly" })
     </div>
     <div>
         <p>Model:</p>
-        @Html.TextBoxFor(model => model.Model, new { @readonly = "readonly" })
+        @Html.TextBoxFor(model => model.ModelNumber, new { @readonly = "readonly" })
     </div>
     <div>
-        <p>Number Plate:</p>
-        @Html.TextBoxFor(model => model.NumberPlate, new { @readonly = "readonly" })
+        <p>Software Name:</p>
+        @Html.TextBoxFor(model => model.SoftwareName, new { @readonly = "readonly" })
     </div>
     <div>
-        <p>Date of Purchase:</p>
-        @Html.EditorFor(model => model.DateofPurchase, new { htmlAttributes = new { @readonly = "readonly" } })
+        <p>Last Date Activated:</p>
+        @Html.EditorFor(model => model.LastActivatedDate, new { htmlAttributes = new { @readonly = "readonly" } })
     </div>
     <div>
-        <p>Date of Last Repair:</p>
-        @Html.EditorFor(model => model.DateofLastRepair, new { htmlAttributes = new { @readonly = "readonly" } })
-    </div>
-    <div>
-        <p>Date of License Purchase:</p>
-        @Html.EditorFor(model => model.DateofLicencePurchase, new { htmlAttributes = new { @readonly = "readonly" } })
-    </div>
-    <div>
-        <p>Licence Expire Date:</p>
-        @Html.EditorFor(model => model.LicenseExpireDate, new { htmlAttributes = new { @readonly = "readonly" } })
-    </div>
-    <div>
-        <p>Service Interval in Months:</p>
-        @Html.TextBoxFor(model => model.ServiceIntervalInMonths, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Service Interval in Kilometres:</p>
-        @Html.TextBoxFor(model => model.ServiceIntervalInKMs, new { @readonly = "readonly" })
-    </div>
-    <div>
-        <p>Vehicle Type:</p>
-        @Html.TextBoxFor(model => model.TypeName, new { @readonly = "readonly" })
+        <p>Activated:</p>
+        @Html.TextBoxFor(model => model.Activated, new { htmlAttributes = new { @readonly = "readonly" } })
     </div>
     <div id="multipleButtons">
         <div id="modifyButton">Modify</div>
         <div id="removeButton">Remove</div>
     </div>
 </div>
-<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Vehicles")'">Back</div>
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "EquipmentSoftwareLicenses")'">Back</div>
 
 <style>
     #details_holder {
@@ -243,14 +224,14 @@
 </style>
 <script>
     $('#modifyButton').on('click', function () {
-        var vehicleID = @Model.VehicleID;
+        var lineID = @Model.LineID;
         @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);
             Session["Query"] = Request.Url.Query;}
 
         $.ajax({
-            url: '@Url.Action("RedirectToModifyVehicleDetails", "ModifyVehicleDetails")',
+            url: '@Url.Action("RedirectToModifyEquipmentSoftwareLicensesDetails", "ModifyEquipmentSoftwareLicense")',
             type: 'POST',
-            data: { vehicleID: vehicleID },
+            data: { lineID: lineID },
             dataType: 'json',
             success: function (data) {
                 window.location.href = data.Url;
@@ -259,10 +240,10 @@
     });
 
     $('#removeButton').on('click', function () {
-        var vehicleID = @Model.VehicleID;
+        var lineID = @Model.LineID;
 
         swal({
-            title: "Are you sure you want to delete this Vehicle?",
+            title: "Are you sure you want to delete this Software linked to this Equipment?",
             icon: "warning",
             dangerMode: true,
             buttons: [
@@ -274,13 +255,13 @@
             .then((willDelete) => {
                 if (willDelete) {
                     $.ajax({
-                        url: '@Url.Action("Delete", "Vehicles")',
+                        url: '@Url.Action("Delete", "EquipmentSoftwareLicenses")',
                         type: 'POST',
-                        data: { vehicleID: vehicleID },
+                        data: { lineID: lineID },
                         dataType: 'json',
                         success: function (data) {
                             if (data.Url != "Cascading error!") {
-                                swal("You have successfully deleted the Vehicle", {
+                                swal("You have successfully deleted the Software linked to the Equipment", {
                                     icon: "success",
                                 }).then(() => {
                                     window.location.href = data.Url;

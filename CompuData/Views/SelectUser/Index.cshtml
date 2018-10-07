@@ -10,17 +10,37 @@
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
         <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment Menu</a></li>
         <li class="breadcrumb-item"><a href="../Equipments">Equipments</a></li>
+        @if (Session["btnClicked"] != null ? Session["btnClicked"] == "Assign" : false)
+        {
+            <li class="breadcrumb-item"><a href="../SelectEquipment">Select Equipment</a></li>
+        }
         <li class="breadcrumb-item active" aria-current="page">Select User</li>
     </ol>
 </nav>
 @Html.Partial("_ProfilePartial")
 <div id="table_background">
     <p>Select the User that the Equipment will be linked too</p>
-    <table id="table_id" class="display" cellspacing="0" width="100%"></table>
-    <div id="multipleButtons">
-        <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddEquipment")'">No User linked to Equipment</div>
-    </div>
-    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Equipments")'">Back</div>
+    <table id="table_id" class="display" cellspacing="0"></table>
+    @if (Session["btnClicked"] != null ? Session["btnClicked"] == "Assign" : false)
+    {
+
+    }
+    else
+    {
+        <div id="multipleButtons">
+            <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "AddEquipment")'">No User linked to Equipment</div>
+        </div>
+    }
+
+    @if (Session["btnClicked"] != null ? Session["btnClicked"] == "Assign" : false)
+    {
+        <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "SelectEquipment")'">Back</div>
+    }
+    else
+    {
+        <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Equipments")'">Back</div>
+    }
+
 </div>
 <style>
     th, td {
@@ -365,12 +385,27 @@
             var userID = data["userID"];
 
             $.ajax({
-                url: '@Url.Action("RedirectToAddEquipmentDetails", "AddEquipment")',
+                url: '@Url.Action("RedirectToEquipments", "Equipments")',
                 type: 'POST',
-                data: { userID: userID },
+                data: { userID: userID, equipmentID: @TempData["equipmentID"] },
                 dataType: 'json',
                 success: function (data) {
-                    window.location.href = data.Url; // your action should return an object having [redirecturl] property
+                    if (data.Url) {
+                        swal("You have successfully assigned this Equipment to the User.",
+                        {
+                            icon: 'success'
+                        }).then(() => {
+                            window.location.href = data.Url;
+                        })
+                    }
+                    if (data.Error) {
+                        swal("An Error has occurred!",
+                        {
+                            icon: 'error'
+                        }).then(() => {
+                            window.location.href = '/Equipments/Index';
+                        })
+                    }
                 }
             });
         });

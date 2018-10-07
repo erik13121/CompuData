@@ -9,8 +9,13 @@ namespace CompuData.Controllers
     public class SelectEquipmentController : Controller
     {
         // GET: SelectEquipmentForProof
-        public ActionResult Index()
+        public ActionResult Index(string button)
         {
+            if (button == "Assign")
+            {
+                Session["btnClicked"] = "Assign";
+            }
+
             return View();
         }
     }

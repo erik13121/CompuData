@@ -13,5 +13,13 @@ namespace CompuData.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult RedirectToSelectUser (string equipmentID)
+        {
+            TempData["equipmentID"] = equipmentID;
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "SelectUser", new { equipmentID = equipmentID });
+            return Json(new { Url = redirectUrl });
+        }
     }
 }

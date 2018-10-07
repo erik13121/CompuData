@@ -8,6 +8,11 @@ namespace CompuData.CodeFirst
 
     public partial class Software_Licenses_Line
     {
+        [Key]
+        [Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int LineID { get; set; }
+
         [Column(TypeName = "date")]
         public DateTime? LastActivatedDate { get; set; }
 
@@ -15,12 +20,12 @@ namespace CompuData.CodeFirst
         public bool Activated { get; set; }
 
         [Key]
-        [Column(Order = 0)]
+        [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int EquipmentID { get; set; }
 
         [Key]
-        [Column(Order = 1)]
+        [Column(Order = 2)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int LicenceID { get; set; }
 
