@@ -11,7 +11,7 @@ namespace CompuData.CodeFirst
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Donation_Type()
         {
-            Donation_Line = new HashSet<Donation_Line>();
+            Donation_Item = new HashSet<Donation_Item>();
         }
 
         [Key]
@@ -22,9 +22,7 @@ namespace CompuData.CodeFirst
         [MaxLength(250)]
         public string TypeName { get; set; }
 
-        public virtual Donation_Item Donation_Item { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Donation_Line> Donation_Line { get; set; }
+        public virtual ICollection<Donation_Item> Donation_Item { get; set; }
     }
 }

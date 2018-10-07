@@ -27,7 +27,7 @@ namespace CompuData.Controllers
         }
 
         [HttpPost]
-        public JsonResult SavePCRALL(string SupplierID, int UserID, int ProjectID, DateTime? Date, EFTRLine[] pcrdetails)
+        public JsonResult SavePCRALL(string SupplierID, int UserID, int ProjectID, DateTime Date, EFTRLine[] pcrdetails)
         {
             string result = "Error!information is incomplete";
             int LineID = 1;
@@ -43,7 +43,7 @@ namespace CompuData.Controllers
                     newPCR.RequisitionID = waduuu.RequisitionID + 1;
                     newPCR.ApprovedCEO = false;
                     newPCR.ApprovedProjectManger = false;
-                    newPCR.Date = Date.Value;
+                    newPCR.Date = Date;
                     newPCR.SupplierID = Convert.ToInt32(SupplierID);
                     newPCR.ProjectID = ProjectID;
                     newPCR.UserID = UserID;
@@ -53,7 +53,7 @@ namespace CompuData.Controllers
                     newPCR.RequisitionID = 1;
                     newPCR.ApprovedCEO = false;
                     newPCR.ApprovedProjectManger = false;
-                    newPCR.Date = Date.Value;
+                    newPCR.Date = Date;
                     newPCR.SupplierID = Convert.ToInt32(SupplierID);
                     newPCR.ProjectID = ProjectID;
                     newPCR.UserID = UserID;

@@ -134,6 +134,11 @@ namespace CompuData.CodeFirst
                 .Property(e => e.Description)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<Donation_Item>()
+               .HasMany(e => e.Donation_Line)
+               .WithRequired(e => e.Donation_Item)
+               .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Donation_Line>()
                 .Property(e => e.Description)
                 .IsUnicode(false);
@@ -143,13 +148,10 @@ namespace CompuData.CodeFirst
                 .IsUnicode(false);
 
             modelBuilder.Entity<Donation_Type>()
-                .HasOptional(e => e.Donation_Item)
-                .WithRequired(e => e.Donation_Type);
-
-            modelBuilder.Entity<Donation_Type>()
-                .HasMany(e => e.Donation_Line)
-                .WithRequired(e => e.Donation_Type)
-                .WillCascadeOnDelete(false);
+               .HasMany(e => e.Donation_Item)
+               .WithRequired(e => e.Donation_Type)
+               .HasForeignKey(e => e.TypeID)
+               .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Donor_Org>()
                 .Property(e => e.OrgName)
@@ -416,8 +418,9 @@ namespace CompuData.CodeFirst
                 .IsUnicode(false);
 
             modelBuilder.Entity<Quantity_Type>()
-                .HasMany(e => e.DonationItems)
+                .HasMany(e => e.Donation_Item)
                 .WithRequired(e => e.Quantity_Type)
+                .HasForeignKey(e => e.QuantityTypeID)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Refreshment>()

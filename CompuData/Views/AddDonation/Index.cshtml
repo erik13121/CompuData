@@ -175,6 +175,14 @@
 <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "PCR")'">Back</div>
 
 <style>
+    #types_ddl, #items_ddl {
+        height: calc(3.25rem + 2px) !important;
+    }
+
+    .modal-content {
+        margin: 0 35% !important;
+    }
+
     span.error {
         display: block;
         visibility: hidden;
@@ -524,6 +532,14 @@
         $('.nav-tabs>li>a').on('click', function (e) {
             $(this).siblings().removeClass('active');
         })
+
+        $('#DonorPID').on('change', function () {
+            $('#DonorOrgID').val($("#DonorOrgID option:first").val());
+        })
+
+        $('#DonorOrgID').on('change', function () {
+            $('#DonorPID').val($("#DonorPID option:first").val());
+        })
     })
 
     $("#addButton").click(function (event) {
@@ -533,53 +549,92 @@
         pcrdetails.length = 0;
 
         $.each($("#table_id tbody tr"), function () {
-            pcrdetails.push({
-
-                //RequisitionID: $("#RequisitionID").val(),
-                SupplierID: parseInt($("#SupplierID").val()),
-                Details: $(this).find('td:eq(0)').html(),
-                Quantity: $(this).find('td:eq(1)').html(),
-                UnitPrice: parseFloat($(this).find('td:eq(2)').html()).toFixed(2),
-                Total: $(this).find('td:eq(3)').html()
+            pcrdetails.push({                
+                Description: $(this).find('td:eq(0)').html(),
+                ItemType: $(this).find('td:eq(1)').html(),
+                ItemName: $(this).find('td:eq(2)').html(),
+                DonationAmount: $(this).find('td:eq(3)').html()
             });
         });
 
 
         var data = JSON.stringify({
             //RequisitionID: $("#RequisitionID").val(),
-            SupplierID: $("#SupplierID").val(),
-            UserID: $("#UserID").val(),
-            ProjectID: $("#ProjectID").val(),
-            ReqDate: $("#datepicker").val(),
+            Date: $("#datepicker").val(),
+            DonorPID: $("#DonorPID option:selected").val(),
+            DonorOrgID: $("#DonorOrgID option:selected").val(),
             pcrdetails: pcrdetails
         });
 
-        console.log(data);
+        var rows = $('#table_id tbody tr').length;
 
-        $.ajax({
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            type: 'POST',
-            url: '@Url.Action("SavePCRALL","AddPCR")',
-            data: data,
-            success: function (result) {
-                if (result.includes("Success")) {
-                    swal(result, { icon: "success" })
-                    .then(() => {
-                        window.location.href = "/PCR/Index";
-                    });
-                }
-                else {
-                    swal(result, { icon: "error" })
-                    .then(() => {
-                        location.reload();
-                    });
-                }
-            },
-            error: function () {
-                alert("Error! Something Went Wrong")
+        if (rows != 0)
+        {
+            if ($('#DonorPID').val() == "" && $('#DonorOrgID').val() == "") {
+                swal({
+                    text: "You have not selected a Donor Person or Donor Org! If you accept this as correct then please click on Confirm.",
+                    icon: "warning",
+                    buttons: [
+                        'Cancel',
+                        'Confirm Add'
+                    ]
+                }).then((confirmed) => {
+                    if (confirmed) {
+                        $.ajax({
+                            contentType: 'application/json; charset=utf-8',
+                            dataType: 'json',
+                            type: 'POST',
+                            url: '@Url.Action("SavePCRALL","AddDonation")',
+                            data: data,
+                            success: function (result) {
+                                if (result.includes("Success")) {
+                                    swal(result, { icon: "success" })
+                                    .then(() => {
+                                        window.location.href = "/Donation/Index";
+                                    });
+                                }
+                                else {
+                                    swal(result, { icon: "error" })
+                                    .then(() => {
+                                        location.reload();
+                                    });
+                                }
+                            },
+                            error: function () {
+                                alert("Error! Something Went Wrong")
+                            }
+                        });
+                    }
+                })
+            } else {
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'POST',
+                    url: '@Url.Action("SavePCRALL","AddDonation")',
+                    data: data,
+                    success: function (result) {
+                        if (result.includes("Success")) {
+                            swal(result, { icon: "success" })
+                            .then(() => {
+                                window.location.href = "/Donation/Index";
+                            });
+                        }
+                        else {
+                            swal(result, { icon: "error" })
+                            .then(() => {
+                                location.reload();
+                            });
+                        }
+                    },
+                    error: function () {
+                        alert("Error! Something Went Wrong")
+                    }
+                });
             }
-        });
+        } else {
+            swal("Please first add line items to the Donation", {icon: "warning"})
+        }
     });
 
     $("#addButton").css({ 'flex-basis': '' });
@@ -606,35 +661,27 @@
 
             var isAllValid = true;
 
-            if (!($('#quantity').val().trim() != '' && (parseInt($('#quantity').val()) || 0))) {
+            if ($('#details').val().trim() == '') {
                 isAllValid = false;
-                $('#quantity').siblings('span.error').css('visibility', 'visible');
-                $('#quantity').addClass("is-invalid");
+                $('#details').siblings('span.error').css('visibility', 'visible');
+                $('#details').addClass("is-invalid");
             }
             else {
-                $('#quantity').siblings('span.error').css('visibility', 'hidden');
-            }
-            if (!($('#unitprice').val().trim() != '' && (parseInt($('#unitprice').val()) || 0))) {
-                isAllValid = false;
-                $('#unitprice').siblings('span.error').css('visibility', 'visible');
-                $('#unitprice').addClass("is-invalid");
-
-            }
-            else {
-                $('#unitprice').siblings('span.error').css('visibility', 'hidden');
+                $('#details').siblings('span.error').css('visibility', 'hidden');
             }
 
             if (isAllValid) {
-                var Details = $("#details").val(),
-                    Quantity = $("#quantity").val(),
-                    UnitPrice = parseFloat($("#unitprice").val()).toFixed(2),
+                var Description = $("#details").val(),
+                    ItemType = $("#types_ddl option:selected").text(),
+                    ItemName = $("#items_ddl option:selected").text(),
+                    Amount = $("#quantity").val(),
                 detailsTableBody = $("#table_id tbody");
 
                 var productItem = '<tr>' +
-                    '<td>' + Details + '</td>' +
-                    '<td>' + Quantity + '</td>' +
-                    '<td>' + UnitPrice + '</td>' +
-                    '<td>R' + parseFloat(parseFloat(UnitPrice) * parseInt(Quantity)).toFixed(2) + '</td>' +
+                    '<td>' + Description + '</td>' +
+                    '<td>' + ItemType + '</td>' +
+                    '<td>' + ItemName + '</td>' +
+                    '<td>' + Amount + '</td>' +
                     '<td>' + '<input type="button" class="ibtnDel btn btn-md btn-danger" value="Delete"/>' + '</td>' +
                     '</tr>';
                 detailsTableBody.append(productItem);
@@ -646,8 +693,9 @@
 
         function clearItems() {
             $("#details").val('');
+            $('#details').siblings('span.error').css('visibility', 'hidden');
+            $('#details').attr("class", "form-control");
             $("#quantity").val('');
-            $("#unitprice").val('');
         }
 
         $(document).on('click', '.ibtnDel', function (e) {

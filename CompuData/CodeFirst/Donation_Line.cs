@@ -8,17 +8,14 @@ namespace CompuData.CodeFirst
 
     public partial class Donation_Line
     {
-        [Required]
+        [Key]
+        [Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int LineID { get; set; }
 
         [Required]
         [MaxLength(50)]
         public string Description { get; set; }
-
-        [Key]
-        [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int TypeID { get; set; }
 
         [Key]
         [Column(Order = 1)]
@@ -33,8 +30,8 @@ namespace CompuData.CodeFirst
 
         public virtual Donation Donation { get; set; }
 
-        public virtual Project Project { get; set; }
+        public virtual Donation_Item Donation_Item { get; set; }
 
-        public virtual Donation_Type Donation_Type { get; set; }
+        public virtual Project Project { get; set; }
     }
 }
