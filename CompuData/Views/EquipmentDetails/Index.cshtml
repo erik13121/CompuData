@@ -28,7 +28,7 @@
     </div>
     <div>
         <p>Date Purchased:</p>
-        @Html.TextBoxFor(model => model.DatePurchased, new { @readonly = "readonly" })
+        @Html.TextBoxFor(model => model.DatePurchased, new { htmlAttributes = new { @readonly = "readonly" } })
     </div>
     <div>
         <p>Service Interval In Months:</p>
