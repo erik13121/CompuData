@@ -18,14 +18,8 @@ namespace CompuData.CodeFirst
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int DonationID { get; set; }
 
-        [Required]
-        [MaxLength(25)]
-        public string QuantityAmount { get; set; }
-
         [Column(TypeName = "date")]
         public DateTime DateDate { get; set; }
-
-        public int QuatityTypeID { get; set; }
 
         public int? DonorPID { get; set; }
 
@@ -37,7 +31,5 @@ namespace CompuData.CodeFirst
         public virtual Donor_Org Donor_Org { get; set; }
 
         public virtual Donor_Person Donor_Person { get; set; }
-
-        public virtual Quantity_Type Quantity_Type { get; set; }
     }
 }

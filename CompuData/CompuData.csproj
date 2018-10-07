@@ -780,6 +780,7 @@
       <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Building.cs" />
+    <Compile Include="Models\Donation.cs" />
     <Compile Include="Models\DonationItem.cs" />
     <Compile Include="Models\DonationType.cs" />
     <Compile Include="Global\Donation_Item.cs">

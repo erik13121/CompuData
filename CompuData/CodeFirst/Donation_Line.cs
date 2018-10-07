@@ -9,6 +9,9 @@ namespace CompuData.CodeFirst
     public partial class Donation_Line
     {
         [Required]
+        public int LineID { get; set; }
+
+        [Required]
         [MaxLength(50)]
         public string Description { get; set; }
 
@@ -22,7 +25,11 @@ namespace CompuData.CodeFirst
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int DonationID { get; set; }
 
+        public int DonationItemID { get; set; }
+
         public int? ProjectID { get; set; }
+
+        public int DonationAmount { get; set; }
 
         public virtual Donation Donation { get; set; }
 
