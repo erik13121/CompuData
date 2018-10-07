@@ -16,7 +16,7 @@ namespace CompuData.Models
         [Required(ErrorMessage = "The Service Date is required")]
         [Column(TypeName = "date")]
         [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ServiceDate { get; set; }
 
         [Required(ErrorMessage = "Whether the Service Date has been completed is required")]

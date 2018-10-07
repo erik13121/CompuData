@@ -21,7 +21,7 @@
     @Html.HiddenFor(model => model.IntervalID)
     <div>
         <p>Service Date:</p>
-        @Html.TextBoxFor(model => model.ServiceDate, new { @readonly = "readonly" })
+        @Html.EditorFor(model => model.ServiceDate, new { htmlAttributes = new { @readonly = "readonly", @disabled = true } })
     </div>
     <div>
         <p>Completed:</p>
@@ -32,7 +32,7 @@
         <div id="removeButton">Remove</div>
     </div>
 </div>
-<div id="backButton">Back</div>
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "VehicleServices")'">Back</div>
 <style>
     #details_holder {
         position: absolute;
@@ -229,5 +229,45 @@
                 }
             });
         });
+
+        $('#removeButton').on('click', function() {
+            var intervalID = @Model.IntervalID;
+
+            swal({
+                title: "Are you sure you want to delete this Interval?",
+                icon: "warning",
+                dangerMode: true,
+                buttons: [
+                    true,
+                    "Yes",
+                ],
+                closeOnClickOutside: false,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            url: '@Url.Action("Delete", "VehicleServices")',
+                            type: 'POST',
+                            data: { intervalID: intervalID },
+                            dataType: 'json',
+                            success: function (data) {
+                                if (data.Url != "Cascading error!") {
+                                    swal("You have successfully deleted the Vehicle Service", {
+                                        icon: "success",
+                                    }).then(() => {
+                                        window.location.href = data.Url;
+                                    });
+                                }
+                                else {
+                                    swal("Cannot delete this due to it being used somewhere else in the system!", {
+                                        icon: "warning",
+                                    });
+                                }
+                            }
+                        });
+                    }
+                });
+
+        })
     });
 </script>

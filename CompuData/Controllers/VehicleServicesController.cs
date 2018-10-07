@@ -14,10 +14,10 @@ namespace CompuData.Controllers
         // GET: VehicleServices
         public ActionResult Index()
         {
-            VehicleSchedule myModel = new VehicleSchedule();
+            VehicleService myModel = new VehicleService();
             if (TempData["model"] != null)
             {
-                myModel = (VehicleSchedule)TempData["model"];
+                myModel = (VehicleService)TempData["model"];
                 TempData.Remove("model");
             }
             return View(myModel);

@@ -37,7 +37,7 @@
         </div>
         @Html.ValidationMessageFor(model => model.Completed)
         <div id="multipleButtons">
-            <div id="addButton">Add Vehicle</div>
+            <div id="addButton">Add Service</div>
         </div>
     }
 </div>
@@ -224,6 +224,7 @@
 <script type="text/javascript">
     $('#datepicker1').datepicker();
     $('#datepicker1').datepicker("setDate", new Date());
+    $('#datepicker1').datepicker("option", "maxDate", new Date());
 
     $("#addButton").click(function (event) {
         swal({

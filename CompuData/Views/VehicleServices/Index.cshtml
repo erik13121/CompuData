@@ -18,7 +18,10 @@
 <div id="table_background">
     <p>Vehicle Services</p>
     <table id="vehicleServicesTable" class="display" width="100%"></table>
-    <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "SelectVehicleforVehicleService")'">Add Vehicle Service</div>
+    <div id="multipleButtons">
+        <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "SelectVehicleforVehicleService")'">Add Vehicle Service</div>
+    </div>
+    
     <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "VehicleMenu")'">Back</div>
 </div>
 <style>
@@ -43,10 +46,16 @@
         background-color: #5a9ad6;
     }
 
+    #multipleButtons {
+        display: flex;
+        flex-direction: row;
+    }
+
     #addButton {
         position: relative;
-        display: table;
+        display: inline-block;
         margin-left: auto;
+        margin-right: auto;
         bottom: 0;
         z-index: 10000;
         text-decoration: none;
@@ -296,8 +305,9 @@
                             if (data.Url != "Cascading error!") {
                                 swal("You have successfully deleted the Vehicle Service", {
                                     icon: "success",
+                                }).then(() => {
+                                    window.location.href = data.Url;
                                 });
-                                window.location.href = data.Url;
                             }
                             else {
                                 swal("Cannot delete this due to it being used somewhere else in the system!", {
