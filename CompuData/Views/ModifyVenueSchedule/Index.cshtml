@@ -1,0 +1,389 @@
+﻿
+@{
+    ViewBag.Title = "ModifyVehicleSchedule";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @model CompuData.Models.VenueSchedule
+    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
+    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+}
+
+<nav id="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../VenueMenu">Venue Menu</a></li>
+        <li class="breadcrumb-item"><a href="../VenueSchedules">Venue Schedules</a></li>
+        @if (Session["Referrer"] as string == "VenueScheduleDetails")
+        {
+            <li class="breadcrumb-item"><a href="../VenueScheduleDetails">Schedule Details</a></li>
+        }
+        <li class="breadcrumb-item active" aria-current="page">Modify Schedule</li>
+    </ol>
+</nav>
+@Html.Partial("_ProfilePartial")
+<div id="details_holder">
+    <p>Venue Schedule Details</p>
+    @Html.HiddenFor(model => model.VenueID)
+    <div id="group">
+        <p>Day of Week:</p>
+        <select id="dayofWeek">
+            <option value="">--Please choose an option--</option>
+            <option value="Sunday">Sunday</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+        </select>
+    </div>
+    <div id="group">
+        <p>Start of Time Slot:</p>
+        <select id="startTimeSlot">
+            <option value="">--Please choose an option--</option>
+            <option value="0">00:00</option>
+            <option value="1">01:00</option>
+            <option value="2">02:00</option>
+            <option value="3">03:00</option>
+            <option value="4">04:00</option>
+            <option value="5">05:00</option>
+            <option value="6">06:00</option>
+            <option value="7">07:00</option>
+            <option value="8">08:00</option>
+            <option value="9">09:00</option>
+            <option value="10">10:00</option>
+            <option value="11">11:00</option>
+            <option value="12">12:00</option>
+            <option value="13">13:00</option>
+            <option value="14">14:00</option>
+            <option value="15">15:00</option>
+            <option value="16">16:00</option>
+            <option value="17">17:00</option>
+            <option value="18">18:00</option>
+            <option value="19">19:00</option>
+            <option value="20">20:00</option>
+            <option value="21">21:00</option>
+            <option value="22">22:00</option>
+            <option value="23">23:00</option>
+        </select>
+    </div>
+    <div id="group">
+        <p>End of Time Slot:</p>
+        <select id="endTimeSlot">
+            <option value="">--Select Start Time First--</option>
+        </select>
+    </div>
+    <div id="addButton">Save</div>
+</div>
+@if (Session["Referrer"] != null ? Session["Referrer"].ToString().Contains("Details") : false)
+{
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())@Session["Query"].ToString()'">Back</div>
+}
+else
+{
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
+}
+<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
+<link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<style>
+    #details_holder {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+        #details_holder p {
+            font-size: 25px;
+            text-align: center;
+            flex: 1;
+        }
+
+        #details_holder div p {
+            font-size: 20px;
+            flex: 50%;
+            text-align: left;
+            vertical-align: middle;
+            padding: 0;
+            margin: 0;
+        }
+
+        #details_holder div input {
+            flex: 50%;
+        }
+
+        #details_holder div select {
+            flex: 50%;
+        }
+
+        #details_holder div button {
+            background-color: white;
+            flex: 50%;
+        }
+
+    .input-group-prepend {
+        flex: 50%;
+        margin-bottom: 1px;
+    }
+
+        .input-group-prepend button {
+            color: black;
+        }
+
+    #rangeHolder {
+        flex: 25% !important;
+    }
+
+    output {
+        flex: 25%;
+        text-align: center;
+    }
+
+    #group {
+        display: flex;
+        flex-direction: row;
+        line-height: 32px;
+        height: 38px;
+    }
+
+    #myBtn {
+        border-radius: 25px;
+    }
+
+    #addButton {
+        position: relative;
+        display: inline-block;
+        align-self: flex-end;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #addButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #backButton {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: 2vh;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #backButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #breadcrumb {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+    }
+
+    .breadcrumb-item {
+        font-size: 25px;
+    }
+
+    .breadcrumb {
+        top: 0;
+        background-color: #33363b !important;
+        padding-left: 60px !important;
+    }
+
+    #profile {
+        position: relative;
+        z-index: 7979;
+        margin-left: auto;
+        margin-bottom: auto;
+        height: 61px;
+        width: 20%;
+        background-color: #33363b;
+        transform: translateX(-3px);
+    }
+
+        #profile a {
+            display: table;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 200;
+            font-size: 25px;
+            text-decoration: none !important;
+            color: #5a9ad6;
+            line-height: 61px;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    .glyphicon {
+        margin-left: 6px;
+    }
+
+    .dropdown-menu {
+        background-color: #33363b;
+    }
+
+        .dropdown-menu li a {
+            color: #5a9ad6;
+        }
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 99999; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+    }
+
+    #table_background {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+        #table_background p {
+            font-size: 25px;
+            text-align: center;
+        }
+
+    #vehiclesTable {
+        background-color: #5a9ad6;
+    }
+
+    #tableP {
+        font-size: 25px !important;
+        text-align: center !important;
+        flex: 1 !important;
+    }
+
+    #pAndTable {
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#startTimeSlot').on('change', function () {
+            $('#endTimeSlot').html('');
+            var firstValue = parseInt($('#startTimeSlot').val());
+
+            for (i = firstValue + 1; i <= 24; i++) {
+                if (i < 10) {
+                    $('#endTimeSlot').append('<option value="' + i + '">0' + i + ':00</option>');
+                }
+                else {
+                    $('#endTimeSlot').append('<option value="' + i + '">' + i + ':00</option>');
+                }
+            }
+        });
+
+        $('#dayofWeek').val('@Model.Date');
+        $('#startTimeSlot').val('@Model.StartTime.Hours');
+        $('#startTimeSlot').trigger('change');
+        $('#endTimeSlot').val('@Model.EndTime.Hours');
+
+        function myUpdateSuccess() {
+            swal("You have successfully updated a Schedule Time Slot", {
+                icon: "success",
+            })
+            .then((value) => {
+                window.location.href = '../VenueSchedules/Index';
+            });
+        }
+
+        $('#addButton').on('click', function () {
+            if ($('#dayofWeek').val() == "") {
+                swal("You first have to choose a day of the week!", {
+                    icon: "warning",
+                });
+            }
+            else if ($('#startTimeSlot').val() == "") {
+                swal("You first have to choose the starting time!", {
+                    icon: "warning",
+                });
+            }
+            else if ($('#endTimeSlot').val() == "") {
+                swal("You first have to choose the ending time!", {
+                    icon: "warning",
+                });
+            }
+            else {
+                $.ajax({
+                url: '@Url.Action("Modify", "ModifyVenueSchedule")',
+                type: 'POST',
+                data: { day: $('#dayofWeek').val(), startTime: $('#startTimeSlot').val(), endTime: $('#endTimeSlot').val(), scheduleID: @Model.ScheduleID, venueID: @Model.VenueID },
+                    success: function (data) {
+                        if (data.toString() == "myUpdateSuccess()")
+                        {
+                            myUpdateSuccess();
+                        }
+                    }
+                });
+            }
+        })
+    })
+</script>

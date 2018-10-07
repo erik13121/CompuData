@@ -1,6 +1,5 @@
-﻿
-@{
-    ViewBag.Title = "VehicleSchedules";
+﻿@{
+    ViewBag.Title = "EquipmentSchedule";
     Layout = "~/Views/Shared/_Layout.cshtml";
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
@@ -10,17 +9,17 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../VehicleMenu">Vehicle Menu</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Vehicle Schedules</li>
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment Management Menu</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Equipment Schedules</li>
     </ol>
 </nav>
 
 @Html.Partial("_ProfilePartial")
 
 <div id="table_background">
-    <p>Vehicle Schedules</p>
+    <p>Equipment Schedule</p>
     <table id="vehiclesTable" class="display" width="100%"></table>
-    <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "SelectVehicleforVehicleService")'">Add Vehicle Schedule</div>
+    <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "SelectEquipment")'">Add Equipment Schedule</div>
     <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "VehicleMenu")'">Back</div>
 </div>
 
@@ -156,7 +155,7 @@
     $(document).ready(function () {
         table = $('#vehiclesTable').DataTable({
             serverSide: true,
-            ajax: "/VehicleSchedules/PageData",
+            ajax: "/EquipmentSchedule/PageData",
             autoWidth: true,
             scrollX: true,
             columns: [
@@ -196,9 +195,9 @@
                     searchable: true
                 },
                 {
-                    name: 'brand',
-                    data: "brand",
-                    title: "Brand",
+                    name: 'manufacturerName',
+                    data: "ManufacturerName",
+                    title: "Manufacturer Name",
                     sortable: true,
                     searchable: true
                 },
@@ -208,14 +207,7 @@
                     title: "Model",
                     sortable: true,
                     searchable: true
-                },
-                {
-                    name: 'numberPlate',
-                    data: "numberPlate",
-                    title: "Number Plate",
-                    sortable: true,
-                    searchable: true
-                },
+                },               
                 {
                     "targets": -1,
                     "data": null,
@@ -240,21 +232,21 @@
 
     @Model.JavaScriptToRun
     function mySuccess() {
-        swal("You have successfully added a Vehicle Schedule", {
+        swal("You have successfully added a Equipment Schedule", {
             icon: "success",
         });
     }
 
     @TempData["js"];
     function myUpdateSuccess() {
-        swal("You have successfully updated the Vehicle Schedule", {
+        swal("You have successfully updated the Equipment Schedule", {
             icon: "success",
         });
     }
 
     $.ajax({
         type: "POST",
-        url: '@Url.Action("SetTempData", "VehicleSchedules")',
+        url: '@Url.Action("SetTempData", "EquipmentSchedule")',
         success: function () {
 
         }
@@ -265,7 +257,7 @@
         var scheduleID = data["scheduleID"];
 
         $.ajax({
-            url: '@Url.Action("RedirectToVehicleScheduleDetails", "VehicleScheduleDetails")',
+            url: '@Url.Action("RedirectToEquipmentScheduleDetails", "EquiipmentScheduleDetails")',
             type: 'POST',
             data: { scheduleID: scheduleID },
             dataType: 'json',
@@ -281,7 +273,7 @@
         @{Session["Referrer"] = System.IO.Path.GetFileName(Request.Url.AbsolutePath);}
 
         $.ajax({
-            url: '@Url.Action("RedirectToModifyVehicleScheduleDetails", "ModifyVehicleSchedule")',
+            url: '@Url.Action("RedirectToModifyEquipmentScheduleDetails", "ModifyEquipmentSchedule")',
             type: 'POST',
             data: { scheduleID: scheduleID },
             dataType: 'json',
@@ -308,13 +300,13 @@
             .then((willDelete) => {
                 if (willDelete) {
                     $.ajax({
-                        url: '@Url.Action("Delete", "VehicleSchedules")',
+                        url: '@Url.Action("Delete", "EquipmentSchedule")',
                         type: 'POST',
                         data: { scheduleID: scheduleID },
                         dataType: 'json',
                         success: function (data) {
                             if (data.Url != "Cascading error!") {
-                                swal("You have successfully deleted the Vehicle Schedule", {
+                                swal("You have successfully deleted the Equipment Schedule", {
                                     icon: "success",
                                 });
                                 window.location.href = data.Url;

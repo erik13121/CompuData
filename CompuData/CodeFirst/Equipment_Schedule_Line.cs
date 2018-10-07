@@ -24,6 +24,10 @@ namespace CompuData.CodeFirst
 
         public TimeSpan TimeEnd { get; set; }
 
+        [Required]
+        [MaxLength(25)]
+        public string Status { get; set; }
+
         public virtual Equipment Equipment { get; set; }
     }
 }
