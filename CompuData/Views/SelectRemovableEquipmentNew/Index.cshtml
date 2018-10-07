@@ -1,7 +1,241 @@
-﻿
-@{
-    ViewBag.Title = "Index";
+﻿@{
+    ViewBag.Title = "SelectEquipment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
+    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
 
-<h2>Index</h2>
+<nav id="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Select Removable Equipment</li>
+    </ol>
+</nav>
 
+@Html.Partial("_ProfilePartial")
+
+<div id="table_background">
+    <p>Select Equipment you wish to Generate Proof of Removable Allocated Equipment for</p>
+    <table id="equipmentTable" class="display"></table>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "EquipmentManagementMenu")'">Back</div>
+</div>
+
+<style>
+    #table_background p {
+        font-size: 25px;
+        text-align: center;
+    }
+
+    #table_background {
+        position: absolute;
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    #equipmentTable {
+        background-color: #5a9ad6;
+    }
+
+    #addButton {
+        position: relative;
+        display: table;
+        margin-left: auto;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #addButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #backButton {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 10000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: 2vh;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #backButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #breadcrumb {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+    }
+
+    .breadcrumb-item {
+        font-size: 25px;
+    }
+
+    .breadcrumb {
+        top: 0;
+        background-color: #33363b !important;
+        padding-left: 60px !important;
+    }
+
+    #profile {
+        position: relative;
+        z-index: 7979;
+        margin-left: auto;
+        margin-bottom: auto;
+        height: 61px;
+        width: 20%;
+        background-color: #33363b;
+        transform: translateX(-3px);
+    }
+
+        #profile a {
+            display: table;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 200;
+            font-size: 25px;
+            text-decoration: none !important;
+            color: #5a9ad6;
+            line-height: 61px;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    .glyphicon {
+        margin-left: 6px;
+    }
+
+    .dropdown-menu {
+        background-color: #33363b;
+    }
+
+        .dropdown-menu li a {
+            color: #5a9ad6;
+        }
+</style>
+
+<script>
+    var table;
+    $(document).ready(function () {
+        table = $('#equipmentTable').DataTable({
+            serverSide: true,
+            ajax: "/SelectRemovableEquipmentNew/PageData",
+            autoWidth: true,
+            scrollX: true,
+            select: {
+                style: 'single'
+            },
+            columns: [
+                {
+                    name: 'equipmentID',
+                    data: 'equipmentID',
+                    title: "ID",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'manufacturerName',
+                    data: "manufacturerName",
+                    title: "Manufacturer Name",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'modelNumber',
+                    data: "modelNumber",
+                    title: "Model Number",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'datePurchased',
+                    data: "datePurchased",
+                    title: "Date Purchased",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'serviceIntervalMonths',
+                    data: "serviceIntervalMonths",
+                    title: "Service Interval in Months",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'status',
+                    data: "status",
+                    title: "Status",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'userName',
+                    data: "userName",
+                    title: "User Full Name",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'typeName',
+                    data: "typeName",
+                    title: "Type Name",
+                    sortable: true,
+                    searchable: true
+                },
+                {
+                    name: 'removable',
+                    data: "removable",
+                    title: "Removable",
+                    sortable: true,
+                    searchable: true
+                }
+            ]
+        });
+    });
+
+    $(document).ready(function () {
+        $('#equipmentTable tbody').on('click', 'tr', function () {
+            var data = table.row(this).data();
+            var equipmentID = data["equipmentID"];
+
+            $.ajax({
+                url: '@Url.Action("RedirectToEquipmentsRemove", "EquipmentRemoveButtons")',
+                type: 'POST',
+                data: { equipmentID: equipmentID },
+                dataType: 'json',
+                success: function (data) {
+                    window.location.href = data.Url; // your action should return an object having [redirecturl] property
+                }
+            });
+        });
+    })
+</script>

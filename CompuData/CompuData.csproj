@@ -634,6 +634,7 @@
     <Compile Include="Controllers\EquipmentBookingsController.cs" />
     <Compile Include="Controllers\EquipmentDetailsController.cs" />
     <Compile Include="Controllers\EquipmentManagementMenuController.cs" />
+    <Compile Include="Controllers\EquipmentRemoveButtonsController.cs" />
     <Compile Include="Controllers\EquipmentRepairRequestDetailsController.cs" />
     <Compile Include="Controllers\EquipmentRepairRequestsController.cs" />
     <Compile Include="Controllers\EquipmentsController.cs" />
@@ -1454,6 +1455,7 @@
     <Content Include="Views\ModifyEquipmentSoftwareLicense\Index.cshtml" />
     <Content Include="Views\AddFiletoEFTR\Index.cshtml" />
     <Content Include="Views\SelectRemovableEquipmentNew\Index.cshtml" />
+    <Content Include="Views\EquipmentRemoveButtons\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

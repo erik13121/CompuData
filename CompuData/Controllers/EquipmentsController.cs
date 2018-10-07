@@ -43,7 +43,8 @@ namespace CompuData.Controllers
                                ServiceIntervalMonths = e.ServiceIntervalMonths,
                                Status = e.Status,
                                UserName = mU != null ? mU.FirstName + " " + mU.LastName : "Not linked",
-                               TypeName = t.TypeName
+                               TypeName = t.TypeName,
+                               Removable = t.Removable
                            }).ToList(); 
             
             // Global filtering.
