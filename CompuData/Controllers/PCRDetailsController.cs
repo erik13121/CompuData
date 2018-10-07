@@ -1,5 +1,7 @@
-﻿using System;
+﻿using CompuData.Models;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,6 +10,7 @@ namespace CompuData.Controllers
 {
     public class PCRDetailsController : Controller
     {
+        Models.PCR GlobalModel = new Models.PCR();
         // GET: PCRDetails
         public ActionResult Index(string requisitionID)
         {
@@ -24,6 +27,7 @@ namespace CompuData.Controllers
                 myModel.RequisitionID = myPCR.RequisitionID;
                 myModel.ReqDate = myPCR.ReqDate.Value;
                 myModel.ApprovalStatus = myPCR.ApprovalStatus;
+                myModel.ReceiptFile = myPCR.ReceiptFile;
                 myModel.SupplierID = mySupplierID.SupplierID;
                 myModel.ProjectID = myProjectID.ProjectID;
                 myModel.UserID = myUserID.UserID;
@@ -35,15 +39,36 @@ namespace CompuData.Controllers
                 myModel.Lines = myPCR.Petty_Cash_Requisition_Line.ToList();
 
             }
-
+            GlobalModel = myModel;
             return View(myModel);
-        }
+        }      
 
         [HttpPost]
         public ActionResult RedirectToPCRDetails(string requisitionID)
         {
             var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "PCRDetails", new { requisitionID = requisitionID });
             return Json(new { Url = redirectUrl });
+        }
+
+        [HttpPost]
+        public ActionResult RedirectToUploadFile(string requisitionID)
+        {
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "AddFiletoPCR", new { requisitionID = requisitionID });
+            return Json(new { Url = redirectUrl });
+        }
+
+        [HttpPost]
+        public ActionResult Download(PCR File)
+        {
+                string inFile = File.ReceiptFile;
+                string myFile = inFile.Remove(0, 1);
+
+                string path = AppDomain.CurrentDomain.BaseDirectory;
+
+                byte[] fileBytes = System.IO.File.ReadAllBytes(path + myFile);
+                var response = new FileContentResult(fileBytes, "application/octet-stream");
+                response.FileDownloadName = "Receipt.pdf";
+                return response;
         }
     }
 }

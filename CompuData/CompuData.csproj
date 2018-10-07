@@ -585,6 +585,7 @@
     <Compile Include="Controllers\AddEFTRController.cs" />
     <Compile Include="Controllers\AddEquipmentController.cs" />
     <Compile Include="Controllers\AddEquipmentTypeController.cs" />
+    <Compile Include="Controllers\AddFileToPCRController.cs" />
     <Compile Include="Controllers\AddFunderOrgController.cs" />
     <Compile Include="Controllers\AddFunderPersonController.cs" />
     <Compile Include="Controllers\AddFunderTypeController.cs" />
@@ -1417,6 +1418,7 @@
     <Content Include="Views\GenerateTYLetterDonors\Index.cshtml" />
     <Content Include="Views\DonorOrgTYLetter\Index.cshtml" />
     <Content Include="Views\DonorPersonTYLetter\Index.cshtml" />
+    <Content Include="Views\AddFileToPCR\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

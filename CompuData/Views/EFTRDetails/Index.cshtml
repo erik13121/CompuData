@@ -73,14 +73,14 @@
                             <table id="table_id" class="display">
                                 <thead>
                                     <tr>
-                                        <th>Details</th>
-                                        <th>Quantity</th>
-                                        <th>Amount</th>
-                                        <th>Total</th>
+                                        <th style="text-align:center; font-size: 1.5em;"><b>Details</b></th>
+                                        <th style="text-align:center; font-size: 1.5em;"><b>Quantity</b></th>
+                                        <th style="text-align:center; font-size: 1.5em;"><b>Amount</b></th>
+                                        <th style="text-align:center; font-size: 1.5em;"><b>Total</b></th>
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody style="text-align:center; background-color: #F2F2F2;">
                                     @foreach (var item in Model.Lines)
                                     {
                                         <tr>
@@ -101,7 +101,6 @@
     <div id="multipleButtons">
         <div id="modifyButton">Maintain</div>
         <div id="removeButton">Remove</div>
-        <div id="assignButton">Assign Receipt</div>
     </div>
 </div>
 
