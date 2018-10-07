@@ -13,7 +13,9 @@
         <li class="breadcrumb-item active" aria-current="page">Set up New Password</li>
     </ol>
 </nav>
+
 @Html.Partial("_ProfilePartial")
+
 <div id="details_holder">
 @using (Html.BeginForm("ResetPassword", "NewPassword", FormMethod.Post, new { id = "myForm" }))
 {

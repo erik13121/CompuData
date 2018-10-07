@@ -24,6 +24,7 @@ namespace CompuData.Controllers
                 myModel.RequisitionID = myPCR.RequisitionID;
                 myModel.ReqDate = myPCR.ReqDate.Value;
                 myModel.ApprovalStatus = myPCR.ApprovalStatus;
+                myModel.ReceiptFile = myPCR.ReceiptFile;
                 myModel.SupplierID = mySupplierID.SupplierID;
                 myModel.ProjectID = myProjectID.ProjectID;
                 myModel.UserID = myUserID.UserID;

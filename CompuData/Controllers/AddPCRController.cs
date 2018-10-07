@@ -2,6 +2,7 @@
 using CompuData.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -78,10 +79,10 @@ namespace CompuData.Controllers
                     tempLine.Details = item.Details;
                     tempLine.Quantity = (int)item.Quantity;
                     tempLine.UnitPrice = (decimal)item.UnitPrice;
-                    tempLine.Total = decimal.Parse(item.Total.ToString().Substring(1, item.Total.ToString().Length - 1));
+                    tempLine.Total = decimal.Parse((item.Total.ToString().Substring(1, item.Total.ToString().Length - 1)), CultureInfo.InvariantCulture);
                     tempLine.SupplierID = (int)item.SupplierID;
 
-                    Sum += decimal.Parse(item.Total.ToString().Substring(1, item.Total.ToString().Length - 1));
+                    Sum += decimal.Parse((item.Total.ToString().Substring(1, item.Total.ToString().Length - 1)), CultureInfo.InvariantCulture);
                     LineID++;
                     db.Petty_Cash_Requisition_Line.Add(tempLine);
                 }

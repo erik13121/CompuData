@@ -1,8 +1,7 @@
-﻿
-@{
-    ViewBag.Title = "ModifyRepairPerson";
+﻿@{
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    @model CompuData.Models.RepairPerson
+    @model CompuData.Models.PCR
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
     HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 }
@@ -10,63 +9,47 @@
 <nav id="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
-        <li class="breadcrumb-item"><a href="../EquipmentManagementMenu">Equipment Menu</a></li>
-        <li class="breadcrumb-item"><a href="../RepairPersons">Repair People</a></li>
-        @if (Session["Referrer"] as string == "RepairPersonDetails")
-        {
-            <li class="breadcrumb-item"><a href="../RepairPersonDetails">Repair Person Details</a></li>
-        }
-        <li class="breadcrumb-item active" aria-current="page">Modify Details</li>
+        <li class="breadcrumb-item"><a href="../ProcurementMenu">Procurement Menu</a></li>
+        <li class="breadcrumb-item"><a href="../PCR">Petty Cash Requisition</a></li>
+        <li class="breadcrumb-item"><a href="../PCRDetails">Petty Cash Requisition Details</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add/Assign Receipt</li>
     </ol>
 </nav>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
 
 @Html.Partial("_ProfilePartial")
 
 <div id="details_holder">
-    @using (@Html.BeginForm("Modify", "ModifyRepairPerson", FormMethod.Post, new { id = "myForm" }))
+    @using (@Html.BeginForm("Upload", "AddFileToPCR", FormMethod.Post, new { enctype = "multipart/form-data", id = "myForm" }))
     {
-        <p>Modify Repair Person</p>
-        @Html.HiddenFor(model => model.RepPersonID)
+        <p>Add Receipt</p>
+        @Html.HiddenFor(model => model.RequisitionID)
         <div>
-            <p>Name:</p>
-            @Html.EditorFor(model => model.Name)
+            <p>Upload Receipt:</p>
+            <input type="file" name="file" accept="file/pdf" id="myImg">
         </div>
-        @Html.ValidationMessageFor(model => model.Name)
-        <div>
-            <p>Email Address:</p>
-            @Html.EditorFor(model => model.EmailAddress)
-        </div>
-        @Html.ValidationMessageFor(model => model.EmailAddress)
-        <div>
-            <p>Bank:</p>
-            @Html.EditorFor(model => model.Bank)
-        </div>
-        @Html.ValidationMessageFor(model => model.Bank)
-        <div>
-            <p>Account Number:</p>
-            @Html.TextBoxFor(model => model.AccountNumber, new { htmlAttributes = new { @type = "number", @min = "0" } })
-        </div>
-        @Html.ValidationMessageFor(model => model.AccountNumber)
-        <div>
-            <p>Branch Code:</p>
-            @Html.TextBoxFor(model => model.BranchCode, new { htmlAttributes = new { @type = "number", @min = "0" } })
-        </div>
-        @Html.ValidationMessageFor(model => model.BranchCode)
+        @Html.ValidationMessageFor(model => model.ReceiptFile)
         <div id="multipleButtons">
-            <div id="saveButton">Save</div>
+            <div id="addButton">Add Receipt</div>
+            <a href="@Url.Action("Upload", "AddFileToPCR",  new { id="requisitionID" })"></a>
         </div>
     }
 </div>
-@if (Session["Referrer"].ToString().Contains("Details"))
-{
-    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())@Session["Query"].ToString()'">Back</div>
-}
-else
-{
-    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())'">Back</div>
-}
+
+<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "PCR")'">Back</div>
 
 <style>
+    form {
+        top: 0;
+        left: 0;
+    }
+
     .field-validation-error {
         display: block;
         word-wrap: break-word;
@@ -137,7 +120,7 @@ else
         display: none;
     }
 
-    #saveButton {
+    #addButton {
         position: relative;
         display: inline-block !important;
         text-decoration: none;
@@ -156,7 +139,7 @@ else
         transition: background-color linear 0.5s;
     }
 
-        #saveButton:hover {
+        #addButton:hover {
             background-color: rgba(0, 255, 255, 0.4);
         }
 
@@ -190,7 +173,7 @@ else
     }
 
     .breadcrumb-item {
-        font-size: 20px;
+        font-size: 25px;
     }
 
     .breadcrumb {
@@ -214,7 +197,7 @@ else
             display: table;
             font-family: 'Raleway', sans-serif;
             font-weight: 200;
-            font-size: 20px;
+            font-size: 25px;
             text-decoration: none !important;
             color: #5a9ad6;
             line-height: 61px;
@@ -235,24 +218,24 @@ else
             color: #5a9ad6;
         }
 </style>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#saveButton').on('click', function () {
-            swal({
-                title: "Are you sure?",
-                icon: "info",
-                buttons: [
-                    true,
-                    "Yes",
-                ],
-                closeOnClickOutside: false,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    $('#myForm').submit();
-                }
-            });
-        })
-    });
-</script>
 
+<script>
+    $("#addButton").click(function (event) {
+        swal({
+            title: "Are you sure?",
+            icon: "info",
+            buttons: [
+                true,
+                "Yes",
+            ],
+            closeOnClickOutside: false,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                $('#myForm').submit();
+            }
+        });
+    });
+
+    $("#addButton").css({ 'flex-basis': '' });
+</script>
