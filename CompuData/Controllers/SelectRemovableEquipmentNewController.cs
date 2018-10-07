@@ -8,18 +8,12 @@ using System.Web.Mvc;
 
 namespace CompuData.Controllers
 {
-    public class EquipmentsController : Controller
+    public class SelectRemovableEquipmentNewController : Controller
     {
-        // GET: Equipments
+        // GET: SelectRemovableEquipmentNew
         public ActionResult Index()
         {
-            Models.Equipment myModel = new Models.Equipment();
-            if (TempData["model"] != null)
-            {
-                myModel = (Models.Equipment)TempData["model"];
-                TempData.Remove("model");
-            }
-            return View(myModel);
+            return View();
         }
 
         public ActionResult PageData(IDataTablesRequest request)
@@ -27,13 +21,14 @@ namespace CompuData.Controllers
             // Nothing important here. Just creates some mock data.
             var data = Models.Equipment.GetData();
 
-            
+
             var db = new CodeFirst.CodeFirst();
             var newData = (from e in data
                            join u in db.Users.ToList() on e.UserID equals u.UserID
                            into users
                            from mU in users.DefaultIfEmpty()
                            join t in db.Equipment_Type.ToList() on e.TypeID equals t.TypeID
+                           where t.Removable == true
                            select new
                            {
                                EquipmentID = e.EquipmentID,
@@ -45,8 +40,8 @@ namespace CompuData.Controllers
                                UserName = mU != null ? mU.FirstName + " " + mU.LastName : "Not linked",
                                TypeName = t.TypeName,
                                Removable = t.Removable
-                           }).ToList(); 
-            
+                           }).ToList();
+
             // Global filtering.
             // Filter is being manually applied due to in-memmory (IEnumerable) data.
             // If you want something rather easier, check IEnumerableExtensions Sample.
@@ -72,53 +67,6 @@ namespace CompuData.Controllers
             // Easier way is to return a new 'DataTablesJsonResult', which will automatically convert your
             // response to a json-compatible content, so DataTables can read it when received.
             return new DataTablesJsonResult(response, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public ActionResult RedirectToEquipments(string userID, string equipmentID)
-        {
-            try
-            {
-                var db = new CodeFirst.CodeFirst();
-
-                var inID = Int32.Parse(equipmentID);
-                var equipment = db.Equipments.Where(e => e.EquipmentID == inID).FirstOrDefault();
-                equipment.UserID = Int32.Parse(userID);
-                db.SaveChanges();
-
-                var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "Equipments", new { equipmentID = equipmentID });
-                return Json(new { Url = redirectUrl });
-            }
-            catch
-            {
-                return Json(new { Error = "Error" });
-            }
-        }
-
-        [HttpPost]
-        public ActionResult Delete(string equipmentID)
-        {
-            try
-            {
-                var db = new CodeFirst.CodeFirst();
-                var intEquipmentID = int.Parse(equipmentID);
-                var equipment = db.Equipments.Where(v => v.EquipmentID == intEquipmentID).FirstOrDefault();
-                equipment.Status = "Written-off";
-                db.SaveChanges();
-
-                var redirectUrl = new UrlHelper(Request.RequestContext).Action("Index", "Equipments");
-                return Json(new { Url = redirectUrl });
-            }
-            catch
-            {
-                return Json(new { Url = "Error" });
-            }
-        }
-
-        [HttpPost]
-        public void SetTempData()
-        {
-            TempData["js"] = "";
         }
     }
 }
