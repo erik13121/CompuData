@@ -11,7 +11,7 @@ namespace CompuData.CodeFirst
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Quantity_Type()
         {
-            DonationItems = new HashSet<Donation_Item>();
+            Donation_Item = new HashSet<Donation_Item>();
         }
 
         [Key]
@@ -23,6 +23,6 @@ namespace CompuData.CodeFirst
         public string Description { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Donation_Item> DonationItems { get; set; }
+        public virtual ICollection<Donation_Item> Donation_Item { get; set; }
     }
 }

@@ -35,19 +35,19 @@ namespace CompuData.CodeFirst
         public string NumberPlate { get; set; }
 
         [Column(TypeName = "date")]
-        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime? DateOfPurchase { get; set; }
 
         [Column(TypeName = "date")]
-        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime? DateofLastRepair { get; set; }
 
         [Column(TypeName = "date")]
-        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime? DateofLicencePurchase { get; set; }
 
         [Column(TypeName = "date")]
-        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime? LicenseExpireDate { get; set; }
 
         public int? ServiceIntervalInMonths { get; set; }

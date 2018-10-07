@@ -8,6 +8,12 @@ namespace CompuData.CodeFirst
 
     public partial class Donation_Item
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Donation_Item()
+        {
+            Donation_Line = new HashSet<Donation_Line>();
+        }
+
         [Key]
         [Required]
         public int DonationItemID { get; set; }
@@ -16,15 +22,15 @@ namespace CompuData.CodeFirst
         [MaxLength(150)]
         public string Description { get; set; }
 
-
         [Required]
         public int TotalAmount { get; set; }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        
         public int TypeID { get; set; }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        
         public int QuantityTypeID { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Donation_Line> Donation_Line { get; set; }
 
         public virtual Donation_Type Donation_Type { get; set; }
 

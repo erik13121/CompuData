@@ -31,14 +31,16 @@ namespace CompuData.Controllers
             var DonorP = db.Donor_Person.ToList();
             var DonorO = db.Donor_Org.ToList();
             var newData = (from d in data
-                           join dP in DonorP on d.DonorPID equals dP.DonorPID
-                           join dO in DonorO on d.DonorOrgID equals dO.DonorOrgID
+                           join dP in DonorP on d.DonorPID equals dP.DonorPID into dPer
+                           from dPe in dPer.DefaultIfEmpty()
+                           join dO in DonorO on d.DonorOrgID equals dO.DonorOrgID into dOrg
+                           from dOr in dOrg.DefaultIfEmpty()
                            select new
                            {
                                DonationID = d.DonationID,
-                               Date = d.DateDate,
-                               DonorPName = dP.FirstName + " " + dP.SecondName,
-                               DonorOrgName = dO.OrgName
+                               Date = d.DateDate.ToString("dd-MM-yyyy"),
+                               DonorPName = dPe != null ? dPe.FirstName + " " + dPe.SecondName : "",
+                               DonorOrgName = dOr != null ? dOr.OrgName : ""
                            }).ToList();
 
             // Global filtering.
