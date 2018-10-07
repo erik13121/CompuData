@@ -715,6 +715,7 @@
     <Compile Include="Controllers\SelectEquipmentForSoftwareLicenseController.cs" />
     <Compile Include="Controllers\SelectPCRController.cs" />
     <Compile Include="Controllers\SelectProjectController.cs" />
+    <Compile Include="Controllers\SelectRemovableEquipmentNewController.cs" />
     <Compile Include="Controllers\SelectRequestController.cs" />
     <Compile Include="Controllers\SelectSoftwareController.cs" />
     <Compile Include="Controllers\SelectUserController.cs" />
@@ -987,6 +988,12 @@
       <DependentUpon>ProcurementReport.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Report\ProofofRemovalEquipment.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProofofRemovalEquipment.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Report\VehicleBookingsReport.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1003,6 +1010,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>VenueBookingsReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Report\ViewESI.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewESI.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Report\ViewPurchaseHistory.cs">
@@ -1440,6 +1453,7 @@
     <Content Include="Views\EquipmentSoftwareLicenseDetails\Index.cshtml" />
     <Content Include="Views\ModifyEquipmentSoftwareLicense\Index.cshtml" />
     <Content Include="Views\AddFiletoEFTR\Index.cshtml" />
+    <Content Include="Views\SelectRemovableEquipmentNew\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1501,6 +1515,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ProcurementReport1.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report\ProofofRemovalEquipment.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ProofofRemovalEquipment.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\VehicleBookingsReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>VehicleBookingsReport.cs</LastGenOutput>
@@ -1512,6 +1530,10 @@
     <EmbeddedResource Include="Report\VenueBookingsReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>VenueBookingsReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\ViewESI.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>ViewESI.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\ViewPurchaseHistory.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
