@@ -11,6 +11,7 @@
 /// <reference path="jquery.timepicker.min.js" />
 /// <reference path="jquery.validate.min.js" />
 /// <reference path="jquery.validate.unobtrusive.min.js" />
+/// <reference path="jquery.webcam.js" />
 /// <reference path="jquery-3.0.0.min.js" />
 /// <reference path="jquery-3.0.0.slim.min.js" />
 /// <reference path="jquery-ui.min.js" />

@@ -732,6 +732,7 @@
     <Compile Include="Controllers\SoftwareLicensesDetailsController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Controllers\SuppliersDetailsController.cs" />
+    <Compile Include="Controllers\UploadPictureController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserDetailsController.cs" />
     <Compile Include="Controllers\UserModifyController.cs" />
@@ -949,7 +950,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DonationsReport.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Report\DonorOrgThankYouLetter.cs">
       <AutoGen>True</AutoGen>
@@ -1168,6 +1168,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jquery.webcam.js" />
+    <Content Include="Scripts\jscam.swf" />
+    <Content Include="Scripts\jscam_canvas_only.swf" />
     <Content Include="Scripts\locales\bootstrap-datepicker-en-CA.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ar-tn.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ar.min.js" />
@@ -1474,6 +1477,7 @@
     <Content Include="Views\AddVenueSchedule\Index.cshtml" />
     <Content Include="Views\VenueScheduleDetails\Index.cshtml" />
     <Content Include="Views\ModifyVenueSchedule\Index.cshtml" />
+    <Content Include="Views\UploadPicture\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

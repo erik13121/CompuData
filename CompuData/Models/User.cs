@@ -95,6 +95,8 @@ namespace CompuData.Models
         [Phone(ErrorMessage = "Invalid Work Phone Number format")]
         public string WorkNum { get; set; }
 
+        public string UserPicture { get; set; }
+
         public string JobTitleName { get; set; }
 
         public string AccessLevelName { get; set; }
