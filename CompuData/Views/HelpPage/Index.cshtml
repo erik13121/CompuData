@@ -2,9 +2,6 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var path = Server.MapPath("~");
-    var docPath = Path.GetFullPath(Path.Combine(path, "../Files/Help.pdf"));
-    TempData["path"] = docPath;
 }
 <link href="@Url.Content("~/Content/MenuWithSubmenu.css")" rel="stylesheet" type="text/css" />
 <nav id="breadcrumb">
