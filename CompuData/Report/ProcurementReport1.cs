@@ -98,7 +98,7 @@ namespace CompuData.Report {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_projectid {
+        public CrystalDecisions.Shared.IParameterField Parameter_startdate {
             get {
                 return this.DataDefinition.ParameterFields[0];
             }
@@ -106,7 +106,7 @@ namespace CompuData.Report {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_startdate {
+        public CrystalDecisions.Shared.IParameterField Parameter_enddate {
             get {
                 return this.DataDefinition.ParameterFields[1];
             }
@@ -114,7 +114,7 @@ namespace CompuData.Report {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_enddate {
+        public CrystalDecisions.Shared.IParameterField Parameter_PCReportrpt_startdate {
             get {
                 return this.DataDefinition.ParameterFields[2];
             }
@@ -122,25 +122,9 @@ namespace CompuData.Report {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_PCReportrpt_projectid {
-            get {
-                return this.DataDefinition.ParameterFields[3];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_PCReportrpt_startdate {
-            get {
-                return this.DataDefinition.ParameterFields[4];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public CrystalDecisions.Shared.IParameterField Parameter_PCReportrpt_enddate {
             get {
-                return this.DataDefinition.ParameterFields[5];
+                return this.DataDefinition.ParameterFields[3];
             }
         }
     }

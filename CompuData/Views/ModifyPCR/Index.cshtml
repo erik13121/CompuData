@@ -56,7 +56,7 @@
                             @Html.ValidationMessageFor(model => model.UserID)
                             <div>
                                 <p>Date:</p>
-                                @Html.TextBoxFor(model => model.ReqDate, new { @class = "form-control date-picker", @id = "datepicker", placeholder = "Please Enter Date" })
+                                @Html.EditorFor(model => model.ReqDate, new { @class = "form-control date-picker", @id = "datepicker", placeholder = "Please Enter Date" })
                             </div>
                             @Html.ValidationMessageFor(model => model.ReqDate)
                         </div>
@@ -536,8 +536,8 @@ else if (Session["Referrer"] != null)
     });
 
     $('#datepicker').datepicker();
-    $('#datepicker').datepicker('setDate', new Date());
-    $('#datepicker').datepicker("option", "maxDate", new Date());
+    //$('#datepicker').datepicker('setDate', new Date());
+    //$('#datepicker').datepicker("option", "maxDate", new Date());
 
     $(document).ready(function () {
         $('tabitem1').on('click', function () {

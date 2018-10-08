@@ -30,6 +30,7 @@ namespace CompuData.Controllers
                 myModel.CellNum = myUser.CellNum;
                 myModel.TelNum = myUser.TelNum;
                 myModel.WorkNum = myUser.WorkNum;
+                myModel.UserPicture = myUser.UserPicture;
                 myModel.PersonalEmail = myUser.PersonalEmail;
                 myModel.WorkEmail = myUser.WorkEmail;
                 myModel.StreetAddress = myUser.StreetAddress;
@@ -76,6 +77,7 @@ namespace CompuData.Controllers
             myModel.CellNum = myUser.CellNum;
             myModel.TelNum = myUser.TelNum;
             myModel.WorkNum = myUser.WorkNum;
+            myModel.UserPicture = myUser.UserPicture;
             myModel.PersonalEmail = myUser.PersonalEmail;
             myModel.WorkEmail = myUser.WorkEmail;
             myModel.StreetAddress = myUser.StreetAddress;

@@ -22,161 +22,228 @@
 
 @Html.Partial("_ProfilePartial")
 
-<div id="details_holder">
+<div class="col-md-6" id="mytwoColumns">
+    <p id="myheading2">Add Supplier</p>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#PCRDetails" id="tabitem">Supplier Details</a></li>
+        <li><a data-toggle="tab" href="#LineItems" id="tabitem">Banking Details</a></li>
+        <li><a data-toggle="tab" href="#LineItems2" id="tabitem">Address Details</a></li>
+    </ul>
 
-@using (@Html.BeginForm("Create", "AddSupplier", FormMethod.Post, new { id = "myForm" }))
-{ 
-    <p>Add Supplier</p>
-    @Html.HiddenFor(model => model.SupplierID)
-    <div>
-        <p>Name:</p>
-        @Html.EditorFor(model => model.Name)
-    </div>
-    @Html.ValidationMessageFor(model => model.Name)
-    <div>
-        <p>Contact Number:</p>
-        @Html.EditorFor(model => model.ContactNumber)
-    </div>
-    @Html.ValidationMessageFor(model => model.ContactNumber)
-    <div>
-        <p>Email Address:</p>
-        @Html.EditorFor(model => model.EmailAddress)
-    </div>
-    @Html.ValidationMessageFor(model => model.EmailAddress)
-    <div>
-        <p>Bank:</p>
-        @Html.EditorFor(model => model.Bank)
-    </div>
-    @Html.ValidationMessageFor(model => model.Bank)
-    <div>
-        <p>Account Number:</p>
-        @Html.EditorFor(model => model.AccountNumber, new { htmlAttributes = new { @type = "number", @min = "0" } })
-    </div>
-    @Html.ValidationMessageFor(model => model.AccountNumber)
-    <div>
-        <p>Branch Code:</p>
-        @Html.EditorFor(model => model.BranchCode, new { htmlAttributes = new { @type = "number", @min = "0" } })
-    </div>
-    @Html.ValidationMessageFor(model => model.BranchCode)
-    <div>
-        <p>VAT Number:</p>
-        @Html.EditorFor(model => model.VATNumber, new { htmlAttributes = new { @type = "number", @min = "0" } })
-    </div>
-    @Html.ValidationMessageFor(model => model.VATNumber)
-    <div>
-        <p>Postal Address:</p>  
-        @Html.EditorFor(model => model.POAddress)    
-    </div>
-    @Html.ValidationMessageFor(model => model.POAddress)
-    <div>
-        <p>Postal City:</p>
-        @Html.EditorFor(model => model.POCity)
-    </div>
-    @Html.ValidationMessageFor(model => model.POCity)
-    <div>
-        <p>Postal Code:</p>
-        @Html.EditorFor(model => model.POAreaCode)
-    </div>
-    @Html.ValidationMessageFor(model => model.POAreaCode)
-    <div id="multipleButtons">
-        <div id="addButton">Save and Add Supplier</div>
-    </div>
-}
-    </div>
+    @using (@Html.BeginForm("Create", "AddSupplier", FormMethod.Post, new { id = "myForm" }))
+    {
+        @Html.HiddenFor(model => model.SupplierID)
+        <div class="tab-content">
+            <div id="PCRDetails" class="tab-pane fade in active">
+                <div class="row-md-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body">
+                            <div>
+                                <p>Name:</p>
+                                @Html.EditorFor(model => model.Name)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Name)
+                            <div>
+                                <p>Contact Number:</p>
+                                @Html.EditorFor(model => model.ContactNumber)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.ContactNumber)
+                            <div>
+                                <p>Email Address:</p>
+                                @Html.EditorFor(model => model.EmailAddress)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.EmailAddress)
+                            <div>
+                                <p>VAT Number:</p>
+                                @Html.EditorFor(model => model.VATNumber, new { htmlAttributes = new { @type = "number", @min = "0" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.VATNumber)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="LineItems" class="tab-pane fade">
+                <div class="row-md-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body" id="cardbody2">
+                            <div>
+                                <p>Bank:</p>
+                                @Html.EditorFor(model => model.Bank)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Bank)
+                            <div>
+                                <p>Account Number:</p>
+                                @Html.EditorFor(model => model.AccountNumber, new { htmlAttributes = new { @type = "number", @min = "0" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.AccountNumber)
+                            <div>
+                                <p>Branch Code:</p>
+                                @Html.EditorFor(model => model.BranchCode, new { htmlAttributes = new { @type = "number", @min = "0" } })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.BranchCode)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="LineItems2" class="tab-pane fade">
+                <div class="row-md-6">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-body" id="cardbody2">
+                            <div>
+                                <p>Postal Address:</p>
+                                @Html.EditorFor(model => model.POAddress)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.POAddress)
+                            <div>
+                                <p>Postal City:</p>
+                                @Html.EditorFor(model => model.POCity)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.POCity)
+                            <div>
+                                <p>Postal Code:</p>
+                                @Html.EditorFor(model => model.POAreaCode)
+                            </div>
+                            @Html.ValidationMessageFor(model => model.POAreaCode)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="multipleButtons">
+            <div id="addButton">Save and Add Supplier</div>
+        </div>
+    }
+</div>
 
-<div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Supplier")'">Back</div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Supplier")'">Back</div>
+
 
 <style>
-    form {
-        top: 0;
-        left: 0;
+    .tab-content {
+        overflow-y: auto;
     }
 
-    .field-validation-error {
-        display: block;
-        word-wrap: break-word;
-        margin-left: 50%;
+    #Dropdown1 {
+        width: auto;
+        border-left: 50px;
     }
 
-    #details_holder {
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-        padding: 15px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        background-color: rgba(128, 128, 128, 0.95);
+    #tabitem {
+        color: black;
+    }
+
+    #myheading1 {
+        font-size: 30px;
+    }
+
+    #myheading2 {
+        transform: translateX(0px) !important;
+        font-size: 25px;
+        text-align: center;
+    }
+
+    #table_background p {
+        font-size: 25px;
+        text-align: center;
+    }
+
+    #table_background {
         height: auto;
         min-width: 600px;
         border-width: 2px;
         border-radius: 50px 50px 50px 50px;
     }
 
-        #details_holder p {
-            font-size: 25px;
-            text-align: center;
-            flex: 1;
-        }
+    #table_id {
+        background-color: #5a9ad6;
+    }
 
-        #details_holder div {
+    #Flexyman {
+        display: flex;
+        flex-direction: row;
+        line-height: 30px;
+    }
+
+    #mytwoColumns {
+        position: absolute;
+        height: auto;
+        width: auto;
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    .card-body p {
+        font-size: 25px;
+        text-align: left;
+        flex: 1;
+        text-align: center;
+        flex-basis: 100%;
+    }
+
+    #cardbody2 {
+        overflow: auto;
+        max-height: 350px;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        float: left;
+        position: relative;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+    }
+
+        .card-body div {
             display: flex;
             flex-direction: row;
-            line-height: 30px;
+            margin-top: 1px;
+            margin-bottom: 1px;
         }
 
-            #details_holder div p {
-                font-size: 20px;
-                flex: 50%;
-                text-align: left;
-                vertical-align: middle;
-                padding: 0;
-                margin: 0;
-            }
+        .card-body p {
+            text-align: left;
+            vertical-align: middle;
+            padding: 0;
+            margin: 0;
+            flex: 50%;
+        }
 
-            #details_holder div input {
-                flex: 50%;
-            }
+        .card-body div input {
+            flex: 50%;
+        }
 
-            #details_holder div select {
-                flex: 50%;
-            }
+        .card-body div select {
+            flex: 50%;
+        }
 
-            #details_holder div button {
-                background-color: white;
-                flex: 50%;
-            }
-
-    .gj-datepicker {
-        flex: 50%;
-    }
-
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button {
-        opacity: 1;
-    }
-
-    #typeDropDown {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        display: none;
+    #multipleButtons {
+        display: flex;
+        flex-direction: row;
     }
 
     #addButton {
         position: relative;
-        display: inline-block !important;
+        z-index: 8000;
         text-decoration: none;
         color: white;
         cursor: pointer;
         letter-spacing: 0.15em;
         text-transform: uppercase;
+        margin-left: auto;
+        margin-right: auto;
         box-sizing: border-box;
         border: solid white;
         border-width: 2px;
         border-radius: 50px 50px 50px 50px;
         margin-top: 10px;
-        margin-left: auto;
-        margin-right: auto;
         padding: 10px;
         transition: background-color linear 0.5s;
     }
@@ -185,11 +252,22 @@
             background-color: rgba(0, 255, 255, 0.4);
         }
 
+    .btn-group {
+        display: flex !important;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+    }
+
+    #addVenueButton:hover {
+        background-color: rgba(0, 255, 255, 0.4);
+    }
+
     #backButton {
         position: fixed;
         left: 0;
         bottom: 0;
-        z-index: 10000;
+        z-index: 1000;
         text-decoration: none;
         color: white;
         cursor: pointer;
@@ -226,7 +304,7 @@
 
     #profile {
         position: relative;
-        z-index: 7979;
+        z-index: 8000;
         margin-left: auto;
         margin-bottom: auto;
         height: 61px;
@@ -253,31 +331,119 @@
     }
 
     .dropdown-menu {
-        background-color: #33363b;
+        background-color: white;
     }
 
         .dropdown-menu li a {
             color: #5a9ad6;
         }
+
+    .vsc-initialized {
+        overflow: hidden;
+        height: 100%;
+    }
+
+    /* Customize the label (the container) */
+    .container {
+        display: block;
+        width: 25px;
+        position: relative;
+        margin-left: auto;
+        margin-top: 3px;
+        cursor: pointer;
+        font-size: 22px;
+        user-select: none;
+    }
+
+        /* Hide the browser's default checkbox */
+        .container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .container:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .container input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .container input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .container .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
 </style>
 
-<script>
-    $("#addButton").click(function (event) {
-        swal({
-            title: "Are you sure?",
-            icon: "info",
-            buttons: [
-                true,
-                "Yes",
-            ],
-            closeOnClickOutside: false,
-        })
-        .then((willDelete) => {
-            if (willDelete) {
-                $('#myForm').submit();
-            }
-        });
-    });
+    <script>
 
-    $("#addButton").css({ 'flex-basis': '' });
-</script>
+        $(document).ready(function () {
+            $('tabitem1').on('click', function () {
+                var x = document.getElementById("tabitem1").getAttribute("aria-expanded");
+
+                if (x == "true") {
+                    x = "false"
+                } else {
+                    x = "true"
+                }
+                document.getElementById("tabitem1").setAttribute("aria-expanded", x);
+                document.getElementById("tabitem1").innerHTML = "aria-expanded = " + x;
+            })
+
+            $('.nav-tabs>li>a').on('click', function (e) {
+                $(this).siblings().removeClass('active');
+            })
+        })
+
+        $("#addButton").click(function (event) {
+            swal({
+                title: "Are you sure?",
+                icon: "info",
+                buttons: [
+                    true,
+                    "Yes",
+                ],
+                closeOnClickOutside: false,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $('#myForm').submit();
+                }
+            });
+        });
+
+        $("#addButton").css({ 'flex-basis': '' });
+    </script>

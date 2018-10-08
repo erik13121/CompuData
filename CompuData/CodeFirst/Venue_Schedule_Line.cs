@@ -27,6 +27,10 @@ namespace CompuData.CodeFirst
 
         public string DateAvailable { get; set; }
 
+        [Required]
+        [MaxLength(25)]
+        public string Status { get; set; }
+
         public virtual Venue Venue { get; set; }
     }
 }

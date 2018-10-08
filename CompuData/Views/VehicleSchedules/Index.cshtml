@@ -14,13 +14,16 @@
         <li class="breadcrumb-item active" aria-current="page">Vehicle Schedules</li>
     </ol>
 </nav>
+
 @Html.Partial("_ProfilePartial")
+
 <div id="table_background">
     <p>Vehicle Schedules</p>
     <table id="vehiclesTable" class="display" width="100%"></table>
     <div id="addButton" onclick="window.location.href = '@Url.Action("Index", "SelectVehicleforVehicleService")'">Add Vehicle Schedule</div>
     <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "VehicleMenu")'">Back</div>
 </div>
+
 <style>
     #table_background p {
         font-size: 25px;
@@ -147,6 +150,7 @@
         font-size: 15px;
     }
 </style>
+
 <script>
     var table;
     $(document).ready(function () {
