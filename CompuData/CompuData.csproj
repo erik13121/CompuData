@@ -716,6 +716,7 @@
     <Compile Include="Controllers\ReportsVehiclesRegisterController.cs" />
     <Compile Include="Controllers\ReportVehicleBookingsController.cs" />
     <Compile Include="Controllers\ReportVenueBookingsController.cs" />
+    <Compile Include="Controllers\SelectDonationController.cs" />
     <Compile Include="Controllers\SelectEFTRController.cs" />
     <Compile Include="Controllers\SelectEquipmentController.cs" />
     <Compile Include="Controllers\SelectEquipmentForProofController.cs" />
@@ -723,6 +724,7 @@
     <Compile Include="Controllers\SelectEquipmentForSoftwareLicenseController.cs" />
     <Compile Include="Controllers\SelectPCRController.cs" />
     <Compile Include="Controllers\SelectProjectController.cs" />
+    <Compile Include="Controllers\SelectProjectForDonationController.cs" />
     <Compile Include="Controllers\SelectRemovableEquipmentNewController.cs" />
     <Compile Include="Controllers\SelectRequestController.cs" />
     <Compile Include="Controllers\SelectSoftwareController.cs" />
@@ -1479,6 +1481,8 @@
     <Content Include="Views\ModifyVenueSchedule\Index.cshtml" />
     <Content Include="Views\UploadPicture\Index.cshtml" />
     <Content Include="Views\ModifyDonation\Index.cshtml" />
+    <Content Include="Views\SelectProjectForDonation\Index.cshtml" />
+    <Content Include="Views\SelectDonation\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
