@@ -19,7 +19,7 @@ namespace CompuData.Controllers
         public ActionResult EquipmentUsage(DateTime fromDate, DateTime toDate)
         {
             ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath("~/Report/EquipmentUsage.rpt")));
+            rd.Load(Path.Combine(Server.MapPath("~/Report/EquipmentUsageReport.rpt")));
             rd.SetParameterValue("@startdate", fromDate);
             rd.SetParameterValue("@enddate", toDate);
             Response.Buffer = false;
