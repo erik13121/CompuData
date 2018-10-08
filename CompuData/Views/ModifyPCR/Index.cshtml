@@ -584,30 +584,36 @@ else if (Session["Referrer"] != null)
             pcrdetails: pcrdetails
         });
 
-        $.ajax({
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            type: 'POST',
-            url: '@Url.Action("Modify","ModifyPCR")',
-            data: data,
-            success: function (result) {
-                if (result.includes("Success")) {
-                    swal(result, { icon: "success" })
-                    .then(() => {
-                        window.location.href = "/PCR/Index";
-                    });
+        var rows = $('#table_id tbody tr').length;
+
+        if (rows != 0) {
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: '@Url.Action("Modify","ModifyPCR")',
+                data: data,
+                success: function (result) {
+                    if (result.includes("Success")) {
+                        swal(result, { icon: "success" })
+                        .then(() => {
+                            window.location.href = "/PCR/Index";
+                        });
+                    }
+                    else {
+                        swal(result, { icon: "error" })
+                        .then(() => {
+                            location.reload();
+                        });
+                    }
+                },
+                error: function () {
+                    alert("Error! Something Went Wrong")
                 }
-                else {
-                    swal(result, { icon: "error" })
-                    .then(() => {
-                        location.reload();
-                    });
-                }
-            },
-            error: function () {
-                alert("Error! Something Went Wrong")
-            }
-        });
+            });
+        } else {
+            swal("Please first add line items to the Petty Cash Requisition", { icon: "warning" })
+        }
     });
 
     $("#addButton").css({ 'flex-basis': '' });
@@ -696,6 +702,7 @@ else if (Session["Referrer"] != null)
                     '<td>' + Quantity + '</td>' +
                     '<td>' + UnitPrice + '</td>' +
                     '<td>R' + parseFloat((parseFloat(UnitPrice) * parseInt(Quantity))).toFixed(2) + '</td>' +
+                    '<td>' + '<input type="button" class="ibtnModify btn btn-md btn-danger" value="Modify" />' + '</td>' +
                     '<td>' + '<input type="button" class="ibtnDel btn btn-md btn-danger" value="Delete"/>' + '</td>' +
                     '</tr>';
                 detailsTableBody.append(productItem);

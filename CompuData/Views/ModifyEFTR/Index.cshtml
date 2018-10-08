@@ -41,17 +41,17 @@
                         <div class="card-body">
                             <div>
                                 <p>Supplier Name:</p>
-                                @Html.DropDownListFor(model => model.SupplierID, new SelectList(Model.Suppliers, "SupplierID", "Name"), Model.Suppliers.Count == 0 ? "Please add a Supplier Name" : null)
+                                @Html.DropDownListFor(model => model.SupplierID, new SelectList(Model.Suppliers, "SupplierID", "Name"), Model.Suppliers.Count == 0 ? "Please add a Supplier first" : null)
                             </div>
                             @Html.ValidationMessageFor(model => model.SupplierID)
                             <div>
                                 <p>Project:</p>
-                                @Html.DropDownListFor(model => model.ProjectID, new SelectList(Model.Projects, "ProjectID", "ProjectName"), Model.Projects.Count == 0 ? "Please add a Project Name" : null)
+                                @Html.DropDownListFor(model => model.ProjectID, new SelectList(Model.Projects, "ProjectID", "ProjectName"), Model.Projects.Count == 0 ? "Please add a Project first" : null)
                             </div>
                             @Html.ValidationMessageFor(model => model.ProjectID)
                             <div>
                                 <p>User Responsible:</p>
-                                @Html.DropDownListFor(model => model.UserID, Model.Users)
+                                @Html.DropDownListFor(model => model.UserID, Model.Users, "")
                             </div>
                             @Html.ValidationMessageFor(model => model.UserID)
                             <div>
@@ -583,30 +583,36 @@ else if (Session["Referrer"] != null)
             pcrdetails: pcrdetails
         });
 
-        $.ajax({
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            type: 'POST',
-            url: '@Url.Action("Modify","ModifyEFTR")',
-            data: data,
-            success: function (result) {
-                if (result.includes("Success")) {
-                    swal(result, { icon: "success" })
-                    .then(() => {
-                        window.location.href = "/EFTR/Index";
-                    });
+        var rows = $('#table_id tbody tr').length;
+
+        if (rows != 0) {
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: '@Url.Action("Modify","ModifyEFTR")',
+                data: data,
+                success: function (result) {
+                    if (result.includes("Success")) {
+                        swal(result, { icon: "success" })
+                        .then(() => {
+                            window.location.href = "/EFTR/Index";
+                        });
+                    }
+                    else {
+                        swal(result, { icon: "error" })
+                        .then(() => {
+                            location.reload();
+                        });
+                    }
+                },
+                error: function () {
+                    alert("Error! Something Went Wrong")
                 }
-                else {
-                    swal(result, { icon: "error" })
-                    .then(() => {
-                        location.reload();
-                    });
-                }
-            },
-            error: function () {
-                alert("Error! Something Went Wrong")
-            }
-        });
+            });
+        } else {
+            swal("Please first add line items to the EFT Requisition", { icon: "warning" })
+        }
     });
 
     $("#addButton").css({ 'flex-basis': '' });
@@ -695,6 +701,7 @@ else if (Session["Referrer"] != null)
                     '<td>' + Quantity + '</td>' +
                     '<td>' + UnitPrice + '</td>' +
                     '<td>R' + parseFloat((parseFloat(UnitPrice) * parseInt(Quantity))).toFixed(2) + '</td>' +
+                    '<td>' + '<input type="button" class="ibtnModify btn btn-md btn-danger" value="Modify" />' + '</td>' +
                     '<td>' + '<input type="button" class="ibtnDel btn btn-md btn-danger" value="Delete"/>' + '</td>' +
                     '</tr>';
                 detailsTableBody.append(productItem);
@@ -742,8 +749,15 @@ else if (Session["Referrer"] != null)
 
         function clearItems() {
             $("#details").val('');
-            $("#quantity").val('');
-            $("#unitprice").val('');
+            $('#details').siblings('span.error').css('visibility', 'hidden');
+            $('#details').attr("class", "form-control");
+            $("#quantity").val(0);
+            $("#unitprice").val(0);
+            $("#detailsEdit").val('');
+            $('#detailsEdit').siblings('span.error').css('visibility', 'hidden');
+            $('#detailsEdit').attr("class", "form-control");
+            $("#quantityEdit").val(0);
+            $("#quantityEdit").val(0);
         }
 
         $(document).on('click', '.ibtnDel', function (e) {

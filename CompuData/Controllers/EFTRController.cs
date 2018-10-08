@@ -110,6 +110,7 @@ namespace CompuData.Controllers
                 var db = new CodeFirst.CodeFirst();
                 var intReqID = int.Parse(requisitionID);
                 var EFTR = db.EFT_Requisition.Where(v => v.RequisitionID == intReqID).FirstOrDefault();
+                db.EFT_Requisition_Line.RemoveRange(EFTR.EFT_Requisition_Line);
                 db.EFT_Requisition.Remove(EFTR);
                 db.SaveChanges();
 

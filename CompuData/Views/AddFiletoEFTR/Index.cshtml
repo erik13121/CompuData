@@ -35,6 +35,13 @@
             <input type="file" name="file" accept="file/pdf" id="myImg">
         </div>
         @Html.ValidationMessageFor(model => model.ReceiptFile)
+        <div>
+            <p></p>
+            @if (ViewBag.Error != null)
+            {
+                <p>@ViewBag.Error</p>
+            }
+        </div>
         <div id="multipleButtons">
             <div id="addButton">Add Receipt</div>
             <a href="@Url.Action("Upload", "AddFileToEFTR",  new { id="requisitionID" })"></a>
