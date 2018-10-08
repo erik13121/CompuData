@@ -33,6 +33,14 @@ namespace CompuData.Models
 
         public List<CodeFirst.Donation_Type> DonationTypes { get; set; }
 
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string OrgName { get; set; }
+
+        public List<CodeFirst.Donation_Line> Lines { get; set; }
+
         public string JavaScriptToRun { get; set; }
         public Donation() { }
         public Donation(int id, DateTime date, int donorPID, int donorOID, int quantityid)

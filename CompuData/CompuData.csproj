@@ -617,7 +617,6 @@
     <Compile Include="Controllers\DonationItemController.cs" />
     <Compile Include="Controllers\DonationItemDetailsController.cs" />
     <Compile Include="Controllers\DonationItemModifyController.cs" />
-    <Compile Include="Controllers\DonationModifyController.cs" />
     <Compile Include="Controllers\DonationsMenuController.cs" />
     <Compile Include="Controllers\DonationTypeController.cs" />
     <Compile Include="Controllers\DonationTypeDetailsController.cs" />
@@ -642,6 +641,7 @@
     <Compile Include="Controllers\EquipmentSoftwareLicensesController.cs" />
     <Compile Include="Controllers\EquipmentTypeController.cs" />
     <Compile Include="Controllers\EquipmentTypeDetailsController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\ForgotPasswordController.cs" />
     <Compile Include="Controllers\FunderOrgController.cs" />
     <Compile Include="Controllers\FunderOrgDetailsController.cs" />
@@ -662,6 +662,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MainMenuController.cs" />
     <Compile Include="Controllers\ModifyBuildingDetailsController.cs" />
+    <Compile Include="Controllers\ModifyDonationController.cs" />
     <Compile Include="Controllers\ModifyDonorOrgController.cs" />
     <Compile Include="Controllers\ModifyDonorPersonController.cs" />
     <Compile Include="Controllers\ModifyEFTRController.cs" />
@@ -1321,7 +1322,6 @@
     <Content Include="Views\DonationItem\Index.cshtml" />
     <Content Include="Views\DonationItemDetails\Index.cshtml" />
     <Content Include="Views\DonationItemModify\Index.cshtml" />
-    <Content Include="Views\DonationModify\Index.cshtml" />
     <Content Include="Views\DonationType\Index.cshtml" />
     <Content Include="Views\DonationTypeDetails\Index.cshtml" />
     <Content Include="Views\DonationTypeModify\Index.cshtml" />
@@ -1456,6 +1456,7 @@
     <Content Include="Views\AddFiletoEFTR\Index.cshtml" />
     <Content Include="Views\SelectRemovableEquipmentNew\Index.cshtml" />
     <Content Include="Views\EquipmentRemoveButtons\Index.cshtml" />
+    <Content Include="Views\ModifyDonation\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

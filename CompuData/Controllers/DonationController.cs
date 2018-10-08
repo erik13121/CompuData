@@ -98,6 +98,14 @@ namespace CompuData.Controllers
                 var db = new CodeFirst.CodeFirst();
                 var intDonationID = int.Parse(donationID);
                 var Donation = db.Donations.Where(v => v.DonationID == intDonationID).FirstOrDefault();
+
+                foreach (var item in Donation.Donation_Line.ToList())
+                {
+                    var forTotal = db.Donation_Item.Where(d => d.DonationItemID == item.DonationItemID).FirstOrDefault();
+                    forTotal.TotalAmount -= item.DonationAmount;
+                }
+
+                db.Donation_Line.RemoveRange(Donation.Donation_Line);
                 db.Donations.Remove(Donation);
                 db.SaveChanges();
 

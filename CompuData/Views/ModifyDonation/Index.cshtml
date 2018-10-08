@@ -1,0 +1,846 @@
+﻿@{
+    ViewBag.Title = "ModifyDonation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @model CompuData.Models.Donation
+    HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
+    HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+}
+
+<script>
+    function AppendUrlParamTokens(url, params) {
+
+        for (var param in params) {
+            if (params[param] == null) {
+                delete params[param];
+            }
+        }
+
+        return url + "?" + jQuery.param(params);
+    }
+
+    function OnTypeChange(ddl) {
+        jQuery.getJSON(AppendUrlParamTokens('@Url.Action("GetItems", "AddDonation")', { typeID: ddl.options[ddl.selectedIndex].value }), function (result) {
+            var target = jQuery('#items_ddl');
+            target.empty();
+            jQuery(result).each(function () {
+                jQuery(document.createElement('option'))
+                    .attr('value', this.Value)
+                    .text(this.Text)
+                    .appendTo(target);
+            });
+        });
+    };
+
+    function OnTypeEditChange(ddl) {
+        jQuery.getJSON(AppendUrlParamTokens('@Url.Action("GetItems", "AddDonation")', { typeID: ddl.options[ddl.selectedIndex].value }), function (result) {
+            var target = jQuery('#itemsEdit_ddl');
+            target.empty();
+            jQuery(result).each(function () {
+                jQuery(document.createElement('option'))
+                    .attr('value', this.Value)
+                    .text(this.Text)
+                    .appendTo(target);
+            });
+        });
+    };
+</script>
+
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+</head>
+
+<nav id="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../MainMenu">Home</a></li>
+        <li class="breadcrumb-item"><a href="../DonationsMenu">Donation Menu</a></li>
+        <li class="breadcrumb-item"><a href="../Donation">Donations</a></li>
+        @if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "DonationDetails" : false)
+        {
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", Session["Referrer"].ToString())@Session["Query"].ToString()">Donation Details</a></li>
+        }
+        <li class="breadcrumb-item active" aria-current="page">Modify Details</li>
+    </ol>
+</nav>
+
+@Html.Partial("_ProfilePartial")
+<div class="col-md-6" id="mytwoColumns">
+    <p id="myheading2">Donation Details</p>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#PCRDetails" id="tabitem">Donation Details</a></li>
+        <li><a data-toggle="tab" href="#LineItems" id="tabitem">Line Details</a></li>
+    </ul>
+    @using (@Html.BeginForm("Modify", "ModifyDonation", FormMethod.Post, new { id = "myForm" }))
+    {
+    @Html.HiddenFor(model => model.DonationID)
+    <div class="tab-content">
+        <div id="PCRDetails" class="tab-pane fade in active">
+            <div class="row-md-6">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-body">
+                        <div>
+                            <p>Date Received:</p>
+                            @Html.TextBoxFor(model => model.DateDate, new { @class = "form-control date-picker", @id = "datepicker", placeholder = "Please Enter Date" })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.DateDate)
+                        <div>
+                            <p>Donor Person:</p>
+                            @Html.DropDownListFor(model => model.DonorPID, Model.DonorPeople, "")
+                        </div>
+                        @Html.ValidationMessageFor(model => model.DonorPID)
+                        <div>
+                            <p>Or:</p>
+                        </div>
+                        <div>
+                            <p>DonorOrg:</p>
+                            @Html.DropDownListFor(model => model.DonorOrgID, Model.DonorOrgs, "")
+                        </div>
+                        @Html.ValidationMessageFor(model => model.DonorOrgID)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="LineItems" class="tab-pane fade">
+            <div class="row-md-6">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-body" id="cardbody2">
+                        <div id="table_background">
+                            <table id="table_id" class="display">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center; font-size: 1.5em;"><b>Description</b></th>
+                                        <th style="text-align:center; font-size: 1.5em;"><b>Item Type</b></th>
+                                        <th style="text-align:center; font-size: 1.5em;"><b>Item Name</b></th>
+                                        <th style="text-align:center; font-size: 1.5em;"><b>Amount</b></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody style="text-align:center; background-color: #F2F2F2;">
+                                    @foreach (var item in Model.Lines)
+                                        {
+                                        <tr>
+                                            <td>@item.Description</td>
+                                            <td>@item.Donation_Item.Donation_Type.TypeName</td>
+                                            <td>@item.Donation_Item.Description</td>
+                                            <td>@item.DonationAmount</td>
+                                            <td><input type="button" class="ibtnModify btn btn-md btn-danger" value="Modify" /></td>
+                                            <td><input type="button" class="ibtnDel btn btn-md btn-danger" value="Delete" /></td>
+                                        </tr>
+                                        }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5" style="text-align: left;">
+                                            <input type="button" class="btn btn-lg btn-block " id="addrow" value="Add Row" />
+                                        </td>
+                                    </tr>
+                                    <tr></tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="multipleButtons">
+        <div id="addButton">Update Donation</div>
+    </div>
+    }
+</div>
+
+<div id="newOrderModal" class="modal">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Add Donation Item to Donation</h4>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span> <span class="sr-only">close</span></button>
+                </div>
+                <div id="modalBody" class="modal-body">
+                    <input type="hidden" id="LineID" />
+                    <div class="row">
+                        <label class="control-label col-md-4" id="textboxes">Description</label>
+                        <div class="col-md-8">
+                            <input type="text" id="details" placeholder="Details" class="form-control" />
+                            <span class="error">Description required</span>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="control-label col-md-4" id="textboxes">Item Type</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.DonationTypes, "TypeID", "TypeName"), "(Select One)", new { id = "types_ddl", onchange = "OnTypeChange(this)", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="control-label col-md-4" id="textboxes">Item Details</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(model => model.ItemID,
+                            Model.Items != null
+                            ? new SelectList(Model.Items, "DonationItemID", "Description")
+                            : new SelectList(new List<SelectListItem>
+                                (), "Value", "Text"),
+                                new { id = "items_ddl", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="control-label col-md-4" id="textboxes">Amount</label>
+                        <div class="col-md-8">
+                            <input id="quantity" type="number" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="addItemToList">Add Item To List</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modifyModal" class="modal" role="dialog">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Update Line Item</h4>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span> <span class="sr-only">close</span></button>
+                </div>
+                <div id="modalBody" class="modal-body">
+                    <input type="hidden" id="lineEdit" />
+                    <div class="row">
+                        <label class="control-label col-md-4" id="textboxes">Description</label>
+                        <div class="col-md-8">
+                            <input type="text" id="detailsEdit" placeholder="Description" class="form-control" />
+                            <span class="error">Description required</span>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="control-label col-md-4" id="textboxes">Item Type</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(model => model.TypeID, new SelectList(Model.DonationTypes, "TypeID", "TypeName"), "(Select One)", new { id = "typesEdit_ddl", onchange = "OnTypeEditChange(this)", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="control-label col-md-4" id="textboxes">Item Details</label>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(model => model.ItemID,
+                            Model.Items != null
+                            ? new SelectList(Model.Items, "DonationItemID", "Description")
+                            : new SelectList(new List<SelectListItem>
+                                (), "Value", "Text"),
+                                new { id = "itemsEdit_ddl", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="control-label col-md-4" id="textboxes">Amount</label>
+                        <div class="col-md-8">
+                            <input id="quantityEdit" type="number" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="updateItem">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+@if (Session["Referrer"] != null ? Session["Referrer"].ToString() == "DonationDetails" : false)
+{
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", Session["Referrer"].ToString())@Session["Query"].ToString()'">Back</div>
+}
+else if (Session["Referrer"] != null)
+{
+    <div id="backButton" onclick="window.location.href = '@Url.Action("Index", "Donation")'">Back</div>
+}
+
+<style>
+    #types_ddl, #items_ddl, #typesEdit_ddl, #itemsEdit_ddl {
+        height: calc(3.25rem + 2px) !important;
+    }
+
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+
+    #newOrderModal {
+        z-index: 1100;
+    }
+
+    .gj-datepicker {
+        flex: 50%;
+    }
+
+    input[type=checkbox] {
+        height: 25px;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .datepicker {
+        background-color: white;
+    }
+
+
+    .tab-content {
+        overflow-y: auto;
+    }
+
+    #Dropdown1 {
+        width: auto;
+        border-left: 50px;
+    }
+
+    #tabitem {
+        color: black;
+    }
+
+    #myheading1 {
+        font-size: 30px;
+    }
+
+    #myheading2 {
+        transform: translateX(0px) !important;
+        font-size: 25px;
+        text-align: center;
+    }
+
+    #table_background p {
+        font-size: 25px;
+        text-align: center;
+    }
+
+    #table_background {
+        height: auto;
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    #table_id {
+        background-color: #5a9ad6;
+        width: 100%;
+        border-right: 250px;
+    }
+
+    #Flexyman {
+        display: flex;
+        flex-direction: row;
+        line-height: 30px;
+    }
+
+    #mytwoColumns {
+        position: absolute;
+        height: auto;
+        width: auto;
+        padding: 15px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: rgba(128, 128, 128, 0.95);
+        min-width: 600px;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+    }
+
+    .card-body p {
+        font-size: 25px;
+        text-align: left;
+        flex: 1;
+        text-align: center;
+        flex-basis: 100%;
+    }
+
+    #cardbody2 {
+        overflow: auto;
+        max-height: 350px;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        float: left;
+        position: relative;
+        background-color: rgba(128, 128, 128, 0.95);
+        height: auto;
+    }
+
+        .card-body div {
+            display: flex;
+            flex-direction: row;
+            margin-top: 1px;
+            margin-bottom: 1px;
+        }
+
+        .card-body p {
+            text-align: left;
+            vertical-align: middle;
+            padding: 0;
+            margin: 0;
+            flex: 50%;
+        }
+
+        .card-body div input {
+            flex: 50%;
+        }
+
+        .card-body div select {
+            flex: 50%;
+        }
+
+    #multipleButtons {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #addButton {
+        position: relative;
+        z-index: 8000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        margin-top: 10px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #addButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    .btn-group {
+        display: flex !important;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+    }
+
+    #addVenueButton:hover {
+        background-color: rgba(0, 255, 255, 0.4);
+    }
+
+    #backButton {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 1000;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-left: 2vh;
+        box-sizing: border-box;
+        border: solid white;
+        border-width: 2px;
+        border-radius: 50px 50px 50px 50px;
+        padding: 10px;
+        transition: background-color linear 0.5s;
+    }
+
+        #backButton:hover {
+            background-color: rgba(0, 255, 255, 0.4);
+        }
+
+    #breadcrumb {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+    }
+
+    .breadcrumb-item {
+        font-size: 25px;
+    }
+
+    .breadcrumb {
+        top: 0;
+        background-color: #33363b !important;
+        padding-left: 60px !important;
+    }
+
+    #profile {
+        position: relative;
+        z-index: 8000;
+        margin-left: auto;
+        margin-bottom: auto;
+        height: 61px;
+        width: 20%;
+        background-color: #33363b;
+        transform: translateX(-3px);
+    }
+
+        #profile a {
+            display: table;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 200;
+            font-size: 25px;
+            text-decoration: none !important;
+            color: #5a9ad6;
+            line-height: 61px;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    .glyphicon {
+        margin-left: 6px;
+    }
+
+    .dropdown-menu {
+        background-color: white;
+    }
+
+        .dropdown-menu li a {
+            color: #5a9ad6;
+        }
+
+    .vsc-initialized {
+        overflow: hidden;
+        height: 100%;
+    }
+
+    /* Customize the label (the container) */
+    .container {
+        display: block;
+        width: 25px;
+        position: relative;
+        margin-left: auto;
+        margin-top: 3px;
+        cursor: pointer;
+        font-size: 22px;
+        user-select: none;
+    }
+
+        /* Hide the browser's default checkbox */
+        .container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .container:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .container input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .container input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .container .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+    gj-datepicker {
+        flex: 50%;
+    }
+
+    .gj-datepicker-md [role=right-icon] {
+        top: 0.25em;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var contentPlacement = "-200px";
+        $('#myheading2').css('transform', "translateX(" + contentPlacement + ")");
+    });
+
+    $('#datepicker').datepicker();
+    $('#datepicker').datepicker('setDate', '@Model.DateDate');
+    $('#datepicker').datepicker("option", "maxDate", new Date());
+
+    $(document).ready(function () {
+        $('tabitem1').on('click', function () {
+            var x = document.getElementById("tabitem1").getAttribute("aria-expanded");
+
+            if (x == "true") {
+                x = "false"
+            } else {
+                x = "true"
+            }
+            document.getElementById("tabitem1").setAttribute("aria-expanded", x);
+            document.getElementById("tabitem1").innerHTML = "aria-expanded = " + x;
+        })
+
+        $('.nav-tabs>li>a').on('click', function (e) {
+            $(this).siblings().removeClass('active');
+        })
+
+        $('#DonorPID').on('change', function () {
+            $('#DonorOrgID').val($("#DonorOrgID option:first").val());
+        })
+
+        $('#DonorOrgID').on('change', function () {
+            $('#DonorPID').val($("#DonorPID option:first").val());
+        })
+    })
+
+    $("#addButton").click(function (event) {
+        event.preventDefault();
+
+        var pcrdetails = [];
+        pcrdetails.length = 0;
+
+        $.each($("#table_id tbody tr"), function () {
+            pcrdetails.push({
+                Description: $(this).find('td:eq(0)').html(),
+                ItemType: $(this).find('td:eq(1)').html(),
+                ItemName: $(this).find('td:eq(2)').html(),
+                DonationAmount: $(this).find('td:eq(3)').html()
+            });
+        });
+
+        var data = JSON.stringify({
+            DonationID: $("#DonationID").val(),
+            DonorPID: $("#DonorPID option:selected").val(),
+            DonorOrgID: $("#DonorOrgID option:selected").val(),
+            Date: $("#datepicker").val(),
+            pcrdetails: pcrdetails
+        });
+
+        var rows = $('#table_id tbody tr').length;
+
+        if (rows != 0) {
+            if ($('#DonorPID').val() == "" && $('#DonorOrgID').val() == "") {
+                swal({
+                    text: "You have not selected a Donor Person or Donor Org! If you accept this as correct then please click on Confirm.",
+                    icon: "warning",
+                    buttons: [
+                        'Cancel',
+                        'Confirm Add'
+                    ]
+                }).then((confirmed) => {
+                    if (confirmed) {
+                        $.ajax({
+                            contentType: 'application/json; charset=utf-8',
+                            dataType: 'json',
+                            type: 'POST',
+                            url: '@Url.Action("Modify","ModifyDonation")',
+                            data: data,
+                            success: function (result) {
+                                if (result.includes("Success")) {
+                                    swal(result, { icon: "success" })
+                                    .then(() => {
+                                        window.location.href = "/Donation/Index";
+                                    });
+                                }
+                                else {
+                                    swal(result, { icon: "error" })
+                                    .then(() => {
+                                        location.reload();
+                                    });
+                                }
+                            },
+                            error: function () {
+                                alert("Error! Something Went Wrong")
+                            }
+                        });
+                    }
+                })
+            } else {
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'POST',
+                    url: '@Url.Action("Modify", "ModifyDonation")',
+                    data: data,
+                    success: function (result) {
+                        if (result.includes("Success")) {
+                            swal(result, { icon: "success" })
+                            .then(() => {
+                                window.location.href = "/Donation/Index";
+                            });
+                        }
+                        else {
+                            swal(result, { icon: "error" })
+                            .then(() => {
+                                location.reload();
+                            });
+                        }
+                    },
+                    error: function () {
+                        alert("Error! Something Went Wrong")
+                    }
+                });
+            }
+        } else {
+            swal("Please first add line items to the Donation", { icon: "warning" })
+        }    
+    });
+
+    $("#addButton").css({ 'flex-basis': '' });
+
+    $(document).ready(function () {
+        // Select your input element.
+        var quanity = document.getElementById('quanity');
+        var quantityEdit = document.getElementById('quantityEdit');
+
+        // Listen for input event on numInput.
+        quantity.onkeydown = function (e) {
+            if (!((e.keyCode > 95 && e.keyCode < 106)
+              || (e.keyCode > 47 && e.keyCode < 58)
+              || e.keyCode == 8)) {
+                return false;
+            }
+        }
+
+        quantityEdit.onkeydown = function (e) {
+            if (!((e.keyCode > 95 && e.keyCode < 106)
+              || (e.keyCode > 47 && e.keyCode < 58)
+              || e.keyCode == 8)) {
+                return false;
+            }
+        }
+
+        $('#addrow').click(function () {
+            $("#newOrderModal").appendTo("body").modal("show");
+        })
+
+        $('#addItemToList').click(function (e) {
+            e.preventDefault();
+
+            var isAllValid = true;
+
+            if ($('#details').val().trim() == '') {
+                isAllValid = false;
+                $('#details').siblings('span.error').css('visibility', 'visible');
+                $('#details').addClass("is-invalid");
+            }
+            else {
+                $('#details').siblings('span.error').css('visibility', 'hidden');
+            }
+
+            if (isAllValid) {
+                var Description = $("#details").val(),
+                    ItemType = $("#types_ddl option:selected").text(),
+                    ItemName = $("#items_ddl option:selected").text(),
+                    Amount = $("#quantity").val(),
+                detailsTableBody = $("#table_id tbody");
+
+                var productItem = '<tr>' +
+                    '<td>' + Description + '</td>' +
+                    '<td>' + ItemType + '</td>' +
+                    '<td>' + ItemName + '</td>' +
+                    '<td>R' + Amount + '</td>' +
+                    '<td>' + '<input type="button" class="ibtnModify btn btn-md btn-danger" value="Modify" />' + '</td>' +
+                    '<td>' + '<input type="button" class="ibtnDel btn btn-md btn-danger" value="Delete"/>' + '</td>' +
+                    '</tr>';
+                detailsTableBody.append(productItem);
+                clearItems();
+                $('#newOrderModal').modal('hide');
+            }
+
+        });
+        $('#updateItem').click(function (e) {
+            e.preventDefault();
+
+            var isAllValid = true;
+
+            if ($('#detailsEdit').val().trim() == '') {
+                isAllValid = false;
+                $('#detailsEdit').siblings('span.error').css('visibility', 'visible');
+                $('#detailsEdit').addClass("is-invalid");
+            }
+            else {
+                $('#detailsEdit').siblings('span.error').css('visibility', 'hidden');
+            }
+
+            if (isAllValid) {
+                $('#modifyModal').modal('hide');
+                var Description = $("#detailsEdit").val(),
+                    ItemType = $("#typesEdit_ddl option:selected").text(),
+                    ItemName = $("#itemsEdit_ddl option:selected").text(),
+                    Amount = $("#quantityEdit").val(),
+                rows = $('tr', '#table_id');
+
+                rows.eq($('#lineEdit').val()).find('td:eq(0)').html(Description);
+                rows.eq($('#lineEdit').val()).find('td:eq(1)').html(ItemType);
+                rows.eq($('#lineEdit').val()).find('td:eq(2)').html(ItemName);
+                rows.eq($('#lineEdit').val()).find('td:eq(3)').html(Amount);
+            }
+        })
+
+        function clearItems() {
+            $("#details").val('');
+            $('#details').siblings('span.error').css('visibility', 'hidden');
+            $('#details').attr("class", "form-control");
+            $("#quantity").val('');
+            $("#detailsEdit").val('');
+            $('#detailsEdit').siblings('span.error').css('visibility', 'hidden');
+            $('#detailsEdit').attr("class", "form-control");
+            $("#quantityEdit").val(0);
+        }
+
+        $(document).on('click', '.ibtnDel', function (e) {
+            e.preventDefault();
+
+            $(this).parents('tr').remove();
+        });
+
+        $(document).on('click', '.ibtnModify', function (e) {
+            e.preventDefault();
+            var button = $(this);
+            $('#lineEdit').val($(this).parents('tr')[0].rowIndex);
+            $('#detailsEdit').val($(this).parents('tr').find('td:eq(0)').html());
+
+            $("#typesEdit_ddl option").filter(function () {
+                return $(this).text() == button.parents('tr').find('td:eq(1)').html();
+            }).prop('selected', true).change();
+
+            $("#itemsEdit_ddl option").filter(function () {
+                return $(this).text() == button.parents('tr').find('td:eq(2)').html();
+            }).prop('selected', true);
+
+            $('#quantityEdit').val($(this).parents('tr').find('td:eq(3)').html());
+
+            $('#modifyModal').appendTo('body').modal('show');
+        });
+    })
+</script>

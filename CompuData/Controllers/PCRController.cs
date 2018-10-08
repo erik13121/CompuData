@@ -97,6 +97,7 @@ namespace CompuData.Controllers
                 var db = new CodeFirst.CodeFirst();
                 var intReqID = int.Parse(requisitionID);
                 var PCR = db.Petty_Cash_Requisition.Where(v => v.RequisitionID == intReqID).FirstOrDefault();
+                db.Petty_Cash_Requisition_Line.RemoveRange(PCR.Petty_Cash_Requisition_Line);
                 db.Petty_Cash_Requisition.Remove(PCR);
                 db.SaveChanges();
 

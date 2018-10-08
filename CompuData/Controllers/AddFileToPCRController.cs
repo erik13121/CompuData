@@ -28,7 +28,7 @@ namespace CompuData.Controllers
                 myModel.ReceiptFile = myPCR.ReceiptFile;
                 myModel.SupplierID = mySupplierID.SupplierID;
                 myModel.ProjectID = myProjectID.ProjectID;
-                myModel.UserID = myUserID.UserID; 
+                myModel.UserID = myUserID.UserID;
                 myModel.Name = db.Suppliers.Where(i => i.SupplierID == mySupplierID.SupplierID).FirstOrDefault().Name;
                 myModel.ProjectName = db.Projects.Where(i => i.ProjectID == myProjectID.ProjectID).FirstOrDefault().ProjectName;
                 myModel.Initials = db.Users.Where(i => i.UserID == myUserID.UserID).FirstOrDefault().Initials;
@@ -53,36 +53,36 @@ namespace CompuData.Controllers
         public ActionResult Upload([Bind(Prefix = "")]Models.PCR model, HttpPostedFileBase file)
         {
             var db = new CodeFirst.CodeFirst();
-            
+
             //array of allowed extensions
             var allowedExtensions = new[] { ".pdf" };
             //checking extension of file uploaded
             var checkExtension = Path.GetExtension(file.FileName).ToLower();
             //check if does not contain the extension (not png/jpg/jpeg)
-                var myReq = db.Petty_Cash_Requisition.Where(v => v.RequisitionID == model.RequisitionID).SingleOrDefault();
+            var myReq = db.Petty_Cash_Requisition.Where(v => v.RequisitionID == model.RequisitionID).SingleOrDefault();
 
-                if (!allowedExtensions.Contains(checkExtension))
+            if (!allowedExtensions.Contains(checkExtension))
+            {
+                ViewBag.Error = "Only PDF Files are allowed.";
+                return View("Index", model);
+            }
+            if (file.ContentLength > 8 * 1024 * 1024)
+            {
+                ViewBag.Error = "File too big!";
+            }
+            if (ViewBag.Error == null)
+            {
+                if (myReq != null)
                 {
-                    ViewBag.Error = "Only PDF Files are allowed.";
-                    return View("Index", model);
+                    string path = Path.Combine(Server.MapPath("~/Files"), Path.GetFileName(file.FileName));
+                    file.SaveAs(path);
+                    myReq.ReceiptFile = "~/Files/" + file.FileName;
+                    db.SaveChanges();
                 }
-                if (file.ContentLength > 8 * 1024 * 1024)
-                {
-                    ViewBag.Error = "File too big!";
-                }
-                if (ViewBag.Error == null)
-                {
-                    if (myReq != null)
-                    {
-                        string path = Path.Combine(Server.MapPath("~/Files"), Path.GetFileName(file.FileName));
-                        file.SaveAs(path);
-                        myReq.ReceiptFile = "~/Files/" + file.FileName;
-                        db.SaveChanges();
-                    }
 
-                    TempData["js"] = "myUpdateSuccess()";
-                    return RedirectToAction("Index", "PCR");
-                }
+                TempData["js"] = "myUpdateSuccess()";
+                return RedirectToAction("Index", "PCR");
+            }
             return View("Index", model);
         }
     }
