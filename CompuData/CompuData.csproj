@@ -692,6 +692,7 @@
     <Compile Include="Controllers\ModifyVenueController.cs" />
     <Compile Include="Controllers\ModifyVenueScheduleController.cs" />
     <Compile Include="Controllers\NewPasswordController.cs" />
+    <Compile Include="Controllers\NotifyController.cs" />
     <Compile Include="Controllers\PCRController.cs" />
     <Compile Include="Controllers\PCRDetailsController.cs" />
     <Compile Include="Controllers\ProcurementMenuController.cs" />
@@ -1488,6 +1489,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Files\" />
     <Folder Include="Views\Global\" />
+    <Folder Include="Views\Notify\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

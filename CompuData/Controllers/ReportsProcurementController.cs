@@ -18,7 +18,6 @@ namespace CompuData.Controllers
 
         public ActionResult ProcurementReport(DateTime fromDate, DateTime toDate)
         {
-
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath("~/Report/ProcurementReport.rpt")));
             rd.SetParameterValue("@startdate", fromDate);

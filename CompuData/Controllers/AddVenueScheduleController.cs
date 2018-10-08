@@ -14,13 +14,18 @@ namespace CompuData.Controllers
 {
     public class AddVenueScheduleController : Controller
     {
+        public static int GlobalBuildingID;
         // GET: AddVenueSchedule
         public ActionResult Index(string venueID)
         {
+            var db = new CodeFirst.CodeFirst();
             if (venueID != null)
             {
                 VenueSchedule mySchedule = new VenueSchedule();
+                var intVenueID = Int32.Parse(venueID);
                 mySchedule.VenueID = int.Parse(venueID);
+                GlobalBuildingID =  db.Venues.Where(d => d.VenueID == intVenueID).FirstOrDefault().BuildingID;
+                mySchedule.BuildingID = GlobalBuildingID;
 
                 return View(mySchedule);
             }
@@ -112,6 +117,7 @@ namespace CompuData.Controllers
                                             EndTime = TimeSpan.Parse(actualEndTime),
                                             Status = "Active",
                                             VenueID = venueID,
+                                            BuildingID = GlobalBuildingID
                                         });
                                         db.SaveChanges();
                                     }
@@ -125,6 +131,7 @@ namespace CompuData.Controllers
                                             EndTime = TimeSpan.Parse(actualEndTime),
                                             Status = "Active",
                                             VenueID = venueID,
+                                            BuildingID = GlobalBuildingID
                                         });
                                         db.SaveChanges();
                                     }
@@ -164,6 +171,7 @@ namespace CompuData.Controllers
                                             EndTime = TimeSpan.Parse(actualEndTime),
                                             Status = "Active",
                                             VenueID = venueID,
+                                            BuildingID = GlobalBuildingID
                                         });
                                         db.SaveChanges();
                                     }
@@ -177,6 +185,7 @@ namespace CompuData.Controllers
                                             EndTime = TimeSpan.Parse(actualEndTime),
                                             Status = "Active",
                                             VenueID = venueID,
+                                            BuildingID = GlobalBuildingID
                                         });
                                         db.SaveChanges();
                                     }
@@ -283,6 +292,7 @@ namespace CompuData.Controllers
                             EndTime = TimeSpan.Parse(actualEndTime),
                             Status = "Active",
                             VenueID = venueID,
+                            BuildingID = GlobalBuildingID
                         });
                         db.SaveChanges();
                     }
@@ -296,6 +306,7 @@ namespace CompuData.Controllers
                             EndTime = TimeSpan.Parse(actualEndTime),
                             Status = "Active",
                             VenueID = venueID,
+                            BuildingID = GlobalBuildingID
                         });
                         db.SaveChanges();
                     }
@@ -334,6 +345,7 @@ namespace CompuData.Controllers
                         EndTime = TimeSpan.Parse(actualEndTime),
                         Status = "Active",
                         VenueID = venueID,
+                        BuildingID = GlobalBuildingID
                     });
                     db.SaveChanges();
                 }
@@ -347,6 +359,7 @@ namespace CompuData.Controllers
                         EndTime = TimeSpan.Parse(actualEndTime),
                         Status = "Active",
                         VenueID = venueID,
+                        BuildingID = GlobalBuildingID
                     });
                     db.SaveChanges();
                 }

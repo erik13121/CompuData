@@ -90,7 +90,7 @@ namespace CompuData.Report {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_startdate {
+        public CrystalDecisions.Shared.IParameterField Parameter_startdatePCR {
             get {
                 return this.DataDefinition.ParameterFields[0];
             }
@@ -98,7 +98,7 @@ namespace CompuData.Report {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_enddate {
+        public CrystalDecisions.Shared.IParameterField Parameter_enddatePCR {
             get {
                 return this.DataDefinition.ParameterFields[1];
             }

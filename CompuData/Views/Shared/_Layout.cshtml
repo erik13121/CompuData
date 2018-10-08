@@ -1,7 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="" crossorigin="anonymous"></script>
@@ -16,7 +15,7 @@
     <script src="~/Scripts/ElementQueries.js"></script>
     @RenderSection("Styles", false)
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-    
+
 </head>
 
 <body>
@@ -69,7 +68,7 @@
 </footer>
 <style>
     .ui-datepicker {
-        background-color: white;        
+        background-color: white;
     }
 </style>
 <script>
@@ -109,7 +108,45 @@
         var contentSize = $("#breadcrumb").height();
         $("#profile").css("height", contentSize);
         $("#profile>a").css("cssText", "line-height: " + contentSize + "px !important;");
-    });    
+    });
+
+    if (localStorage.getItem("Sent") == undefined || localStorage.getItem("Sent") == null) {
+        localStorage.setItem("Sent", new Date());
+
+        $.ajax({
+            url: '@Url.Action("NotifyDonorTY", "Notify")',
+            success: function () {
+
+            }
+        });
+        $.ajax({
+            url: '@Url.Action("NotifyFunderTY", "Notify")',
+            success: function () {
+
+            }
+        });
+    } else {
+        var date2 = new Date();
+        var date1 = localStorage.getItem("Sent");
+        var diff = Math.round((date2 - date1) / (1000 * 60 * 60 * 24));
+
+        if (diff >= 2) {
+            localStorage.setItem("Sent", new Date());
+
+            $.ajax({
+                url: '@Url.Action("NotifyDonorTY", "Notify")',
+                success: function () {
+
+                }
+            });
+            $.ajax({
+                url: '@Url.Action("NotifyFunderTY", "Notify")',
+                success: function () {
+
+                }
+            });
+        }
+    }
 </script>
 <!--<head>
     <meta charset="utf-8" />
@@ -147,6 +184,5 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    
-</body>-->
 
+</body>-->
