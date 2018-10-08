@@ -40,6 +40,7 @@ namespace CompuData.CodeFirst
         
         public string UserPicture { get; set; }
 
+        [Required]
         [MaxLength(50)]
         public string Initials { get; set; }
 

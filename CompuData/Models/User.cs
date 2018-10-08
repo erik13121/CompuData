@@ -30,6 +30,7 @@ namespace CompuData.Models
         [MaxLength(50, ErrorMessage = "Max allowed characters for First Name is 50")]
         public string FirstName { get; set; }
 
+        [Required(ErrorMessage = "The Initials is required")]
         [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "No numbers or special characters are allowed.")]
         [MaxLength(10, ErrorMessage = "Max allowed characters for Initials is 10")]
         public string Initials { get; set; }
