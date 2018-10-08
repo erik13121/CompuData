@@ -19,7 +19,7 @@ namespace CompuData.Controllers
         public ActionResult VehicleBookings(DateTime fromDate, DateTime toDate)
         {
             ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath("~/Report/VehicleBookings.rpt")));
+            rd.Load(Path.Combine(Server.MapPath("~/Report/VehicleBookingsReport.rpt")));
             rd.SetParameterValue("@startdate", fromDate);
             rd.SetParameterValue("@enddate", toDate);
             Response.Buffer = false;

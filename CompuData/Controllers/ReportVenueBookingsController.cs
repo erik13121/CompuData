@@ -18,7 +18,7 @@ namespace CompuData.Controllers
         public ActionResult VenueBookings(DateTime fromDate, DateTime toDate)
         {
             ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath("~/Report/VenueBookings.rpt")));
+            rd.Load(Path.Combine(Server.MapPath("~/Report/VenueBookingsReport.rpt")));
             rd.SetParameterValue("@startdate", fromDate);
             rd.SetParameterValue("@enddate", toDate);
             Response.Buffer = false;
