@@ -39,7 +39,7 @@
         @Html.ValidationMessageFor(model => model.Description)
         <div>
             <p>Unit Price:</p>
-            @Html.EditorFor(model => model.UnitPrice, new { @placeholder = "Please Enter like this: '8,50'" })
+            @Html.EditorFor(model => model.UnitPrice, new { htmlAttributes = new { @type = "number", @min = '0', @max = decimal.MaxValue, @placeholder = "Please Enter like this: '8.50'" } })
         </div>
         @Html.ValidationMessageFor(model => model.UnitPrice)
         <div id="multipleButtons">
@@ -226,6 +226,21 @@
 </style>
 
 <script>
+    $(document).ready(function() {
+        var unitprice = document.getElementById('UnitPrice');
+
+        // Listen for input event on numInput.
+        unitprice.onkeydown = function (e) {
+            if (!((e.keyCode > 95 && e.keyCode < 106)
+              || (e.keyCode > 47 && e.keyCode < 58)
+              || e.keyCode == 8
+              || e.keyCode == 190
+              || e.keyCode == 110)) {
+                return false;
+            }
+        }
+    })
+
     $("#addButton").click(function (event) {
         swal({
             title: "Are you sure?",
