@@ -28,6 +28,7 @@ namespace CompuData.Controllers
                 myModel.EndTime = mySchedule.EndTime;
                 myModel.VenueID = mySchedule.VenueID;
                 myModel.BuildingID = mySchedule.BuildingID;
+                return View(mySchedule);
             }
 
             return View(myModel);

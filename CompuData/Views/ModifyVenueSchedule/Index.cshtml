@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "ModifyVehicleSchedule";
+    ViewBag.Title = "ModifyVenueSchedule";
     Layout = "~/Views/Shared/_Layout.cshtml";
     @model CompuData.Models.VenueSchedule
     HttpContext.Current.Response.Cache.SetAllowResponseInBrowserHistory(false);
@@ -341,7 +341,7 @@ else
             }
         });
 
-        $('#dayofWeek').val('@Model.Date');
+        $('#dayofWeek').val('@Model.DateAvailable');
         $('#startTimeSlot').val('@Model.StartTime.Hours');
         $('#startTimeSlot').trigger('change');
         $('#endTimeSlot').val('@Model.EndTime.Hours');

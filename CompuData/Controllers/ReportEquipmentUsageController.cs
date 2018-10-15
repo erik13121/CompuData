@@ -33,7 +33,7 @@ namespace CompuData.Controllers
             }
             catch
             {
-                throw;
+                return HttpNotFound();
             }
         }
     }

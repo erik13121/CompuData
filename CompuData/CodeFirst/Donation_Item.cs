@@ -15,6 +15,7 @@ namespace CompuData.CodeFirst
         }
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Required]
         public int DonationItemID { get; set; }
 

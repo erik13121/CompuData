@@ -766,82 +766,10 @@
     </Compile>
     <Compile Include="Global\Globals.cs" />
     <Compile Include="Models\AccessLevel.cs" />
-    <Compile Include="Global\Access_Level.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Active_Login.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Audit_Log.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Booking_Refreshment_Line.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Building.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\CompuDataSQLEntities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CompuDataSQLEntities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\CompuDataSQLEntities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\CompuDataSQLEntities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CompuDataSQLEntities.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Donation.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Building.cs" />
     <Compile Include="Models\Donation.cs" />
     <Compile Include="Models\DonationItem.cs" />
     <Compile Include="Models\DonationType.cs" />
-    <Compile Include="Global\Donation_Item.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Donation_Line.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Donation_Type.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Donor_Org.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Donor_Person.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\EFT_Requisition.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\EFT_Requisition_Line.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Employee_Title.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Equipment.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Equipment_Booking.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Equipment_Booking_Line.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Equipment_Schedule_Line.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Equipment_Type.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Donor_Org.cs" />
     <Compile Include="Models\Donor_Person.cs" />
     <Compile Include="Models\EFTR.cs" />
@@ -852,73 +780,19 @@
     <Compile Include="Models\EquipmentSchedule.cs" />
     <Compile Include="Models\EquipmentType.cs" />
     <Compile Include="Models\ForgotPasswordModel.cs" />
-    <Compile Include="Global\Funder_Org.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Funder_Person.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Funder_Type.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\FunderType.cs" />
     <Compile Include="Models\Funder_Org.cs" />
     <Compile Include="Models\Funder_Person.cs" />
     <Compile Include="Models\JobTitle.cs" />
     <Compile Include="Models\Login.cs" />
-    <Compile Include="Global\Petty_Cash_Requisition.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Petty_Cash_Requisition_Line.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Project.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\PCR.cs" />
     <Compile Include="Models\PCRLine.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\ProjectType.cs" />
-    <Compile Include="Global\Project_Type.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Quantity_Type.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Refreshment.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Refreshment_Booking.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\RepairPerson.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Repair_Request.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\QuantityType.cs" />
     <Compile Include="Models\Refreshment.cs" />
     <Compile Include="Models\RepairPerson.cs" />
     <Compile Include="Models\ResetPasswordModel.cs" />
-    <Compile Include="Global\Service.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Software_Licenses.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Software_Licenses_Line.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Supplier.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\User.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Vehicle.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\SoftwareLicenses.cs" />
     <Compile Include="Models\SoftwareLicensesLine.cs" />
     <Compile Include="Models\Supplier.cs" />
@@ -928,30 +802,6 @@
     <Compile Include="Models\VehicleSchedule.cs" />
     <Compile Include="Models\VehicleService.cs" />
     <Compile Include="Models\VehicleType.cs" />
-    <Compile Include="Global\Vehicle_Booking.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Vehicle_Booking_Line.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Vehicle_Schedule_Line.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Vehicle_Type.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Venue.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Venue_Booking.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Venue_Booking_Line.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Global\Venue_Schedule_Line.cs">
-      <DependentUpon>CompuDataSQLEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Venue.cs" />
     <Compile Include="Models\VenueBooking.cs" />
     <Compile Include="Models\VenueSchedule.cs" />
@@ -1113,16 +963,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Global\CompuDataSQLEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CompuDataSQLEntities.edmx</DependentUpon>
-      <LastGenOutput>CompuDataSQLEntities.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Global\CompuDataSQLEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CompuDataSQLEntities.edmx</DependentUpon>
-      <LastGenOutput>CompuDataSQLEntities.cs</LastGenOutput>
-    </Content>
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1135,13 +975,6 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\ElementQueries.js" />
-    <EntityDeploy Include="Global\CompuDataSQLEntities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CompuDataSQLEntities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Global\CompuDataSQLEntities.edmx.diagram">
-      <DependentUpon>CompuDataSQLEntities.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\jquery.timepicker.min.css" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
@@ -1592,6 +1425,24 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
