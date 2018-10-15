@@ -16,25 +16,32 @@ namespace CompuData.Controllers
             return View();
         }
 
-        public ActionResult DonationsReport(DateTime fromDate, DateTime toDate)
+        public ActionResult DonationsReport()
         {
-            ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath("~/Report/DonationsReport1.rpt")));
-            //rd.SetParameterValue("@startdate", fromDate);
-            //rd.SetParameterValue("@enddate", toDate);
-            Response.Buffer = false;
-            Response.ClearContent();
-            Response.ClearHeaders();
-            try
-            {
-                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-                stream.Seek(0, SeekOrigin.Begin);
-                return File(stream, "application/pdf", "DonationsReport.pdf");
-            }
-            catch
-            {
-                throw;
-            }
+            //try
+            //{
+                ReportDocument rd = new ReportDocument();
+                rd.Load(Path.Combine(Server.MapPath("~/Report/DonationsReport.rpt")));
+                //rd.SetParameterValue("@startdate", fromDate);
+                //rd.SetParameterValue("@enddate", toDate);
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+                try
+                {
+                    Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                    stream.Seek(0, SeekOrigin.Begin);
+                    return File(stream, "application/pdf", "DonationsReport.pdf");
+                }
+                catch
+                {
+                    throw;
+                }
+            //}
+            //catch (Exception e)
+            //{
+            //    return Redirect("Error");
+            //}
         }
     }
 }

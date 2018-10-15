@@ -109,6 +109,8 @@
         <AssociationConnector Association="CompuDataSQLModel.FK__Venue_Booking_Li__1AD3FDA4" ManuallyRouted="false" />
         <AssociationConnector Association="CompuDataSQLModel.FK__Venue_Schedule_L__1BC821DD" ManuallyRouted="false" />
         <AssociationConnector Association="CompuDataSQLModel.FK__Venue_Boo__Venue__19DFD96B" ManuallyRouted="false" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Donation___Donat__308E3499" />
+        <AssociationConnector Association="CompuDataSQLModel.FK__Donation___Quant__7849DB76" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
