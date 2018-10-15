@@ -19,7 +19,7 @@ namespace CompuData.Controllers
         public ActionResult DonationsReport(DateTime fromDate, DateTime toDate)
         {
             ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath("~/Report/DonationsReport.rpt")));
+            rd.Load(Path.Combine(Server.MapPath("~/Report/DonationsReport1.rpt")));
             //rd.SetParameterValue("@startdate", fromDate);
             //rd.SetParameterValue("@enddate", toDate);
             Response.Buffer = false;
