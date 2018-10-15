@@ -806,10 +806,11 @@
     <Compile Include="Models\VenueBooking.cs" />
     <Compile Include="Models\VenueSchedule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Report\DonationsReport.cs">
+    <Compile Include="Report\DonationsReport1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DonationsReport.rpt</DependentUpon>
+      <DependentUpon>DonationsReport1.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Report\DonorOrgThankYouLetter.cs">
       <AutoGen>True</AutoGen>
@@ -1354,9 +1355,9 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Report\DonationsReport.rpt">
+    <EmbeddedResource Include="Report\DonationsReport1.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>DonationsReport.cs</LastGenOutput>
+      <LastGenOutput>DonationsReport1.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\DonorOrgThankYouLetter.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
